@@ -88,7 +88,7 @@ CSS: `css/styles.css` (582 строк — база+токены+auth), `cabinet.
   `user_courses`, `course_trials`, `bank_questions`, `page_views`, `reviews`
   (грep по `from("…")` в `js/*.js`); RPC: `register_device`, `start_trial`.
   Прочие таблицы из SQL-файлов: `support_tickets`, `social_stats`
-  (подробности схемы — в `04_DATABASE.md`, ещё не создан).
+  (подробности схемы — в `04_DATABASE.md`).
 
 ## Режим экзамена (`js/app-course.js`)
 

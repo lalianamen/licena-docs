@@ -73,6 +73,10 @@ LICENA (licena.us) — трёхъязычный (EN/ES/RU) тренажёр ли
   `docs/smm/queue-fb/` (Facebook) и запушить в `main` — workflow постит сам.
 - Контент-аудит банков: очередь `docs/content-audit/queue.json`
   (статусы pending/done, политика «UNVERIFIED флагуется, не правится»).
+- Детальные разборы в базе знаний: функции — `06_FUNCTIONS.md`; модель
+  доступа — `07_AUTH_ACCESS.md`; безопасность (в т.ч. статусы
+  security-todo) — `08_SECURITY.md`; платежи — `09_PAYMENTS.md`;
+  контент-модель и SOP банков — `10_CONTENT_MODEL.md`.
 
 ## Незапущенное / в работе (на 2026-08-05)
 
@@ -152,7 +156,8 @@ LICENA (licena.us) — трёхъязычный (EN/ES/RU) тренажёр ли
 
 - Проверено чтением названных файлов: все инварианты, списки, константы, пути
   и расхождения.
-- Взято из описаний без перепроверки по реализации: назначение
-  `bank-playbook.md` (сам файл не читался — роль по `CLAUDE.md` основного
-  репо); роль cron `expire-subscriptions` (комментарий `trial-3day.sql`).
+- Обновление 2026-08-05 (этап 2): `bank-playbook.md`, `check-banks.js`, все 8
+  Edge Functions, `docs/access-control.md`, `docs/security-todo.md` прочитаны
+  полностью — соответствующие утверждения подтверждены исходниками
+  (`06_FUNCTIONS.md`–`10_CONTENT_MODEL.md`).
 - Позиции `UNKNOWN` перечислены в разделе «Ограничения этой сверки».

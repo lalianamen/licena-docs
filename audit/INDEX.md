@@ -23,11 +23,11 @@
 | `03_REPO_STRUCTURE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `04_DATABASE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `05_API.md` | заполнен | 2026-08-05 | Partially Verified |
-| `06_FUNCTIONS.md` | не создан | — | — |
-| `07_AUTH_ACCESS.md` | не создан | — | — |
-| `08_SECURITY.md` | не создан | — | — |
-| `09_PAYMENTS.md` | не создан | — | — |
-| `10_CONTENT_MODEL.md` | не создан | — | — |
+| `06_FUNCTIONS.md` | заполнен | 2026-08-05 | Verified |
+| `07_AUTH_ACCESS.md` | заполнен | 2026-08-05 | Partially Verified |
+| `08_SECURITY.md` | заполнен | 2026-08-05 | Partially Verified |
+| `09_PAYMENTS.md` | заполнен | 2026-08-05 | Partially Verified |
+| `10_CONTENT_MODEL.md` | заполнен | 2026-08-05 | Partially Verified |
 | `11_I18N.md` | не создан | — | — |
 | `12_SEO.md` | не создан | — | — |
 | `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-05 | Partially Verified |

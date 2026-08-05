@@ -40,7 +40,8 @@ RU/ES) на ветке `content-banks-src`; армянский язык C-20 в 
 | 2026-08-05 | `CLAUDE.md` заполнен постоянной инструкцией (роль, правдивость, структура 01–30, синхронизация, публичность) | `ee269c0` (merge в main: `e2936eb`, PR #1) |
 | 2026-08-05 | Этап 1: созданы `README.md`, `01_PROJECT_OVERVIEW.md`, `02_ARCHITECTURE.md`, `03_REPO_STRUCTURE.md`, `28_AI_CONTEXT.md` | `b63275d` (merge в main: `f974ada`) |
 | 2026-08-05 | Аудит-стандарт (`CLAUDE.md` §9): разделы Source References + Verification Status во всех документах; созданы `audit/INDEX.md`, `audit/COVERAGE.md` | `36fea4c` (merge в main: `9a78dd0`) |
-| 2026-08-05 | Итерация «архитектура»: созданы `04_DATABASE.md`, `05_API.md`, `13_UX.md` (Features), `26_CHANGELOG.md`; обновлены `01`–`03`, `README.md`, `audit/*` (верификация повышена: все SQL-файлы и три Stripe-функции прочитаны полностью) | см. текущий коммит в git-истории |
+| 2026-08-05 | Итерация «архитектура»: созданы `04_DATABASE.md`, `05_API.md`, `13_UX.md` (Features), `26_CHANGELOG.md`; обновлены `01`–`03`, `README.md`, `audit/*` (верификация повышена: все SQL-файлы и три Stripe-функции прочитаны полностью) | `49d59a4` (merge в main: `7393f27`) |
+| 2026-08-05 | Этап 2: созданы `06_FUNCTIONS.md` (все 8 Edge Functions прочитаны полностью), `07_AUTH_ACCESS.md`, `08_SECURITY.md` (статусы security-todo от 2026-06-24 на текущую дату), `09_PAYMENTS.md`, `10_CONTENT_MODEL.md` (bank-playbook и check-banks прочитаны полностью); исправлена устаревшая фраза в `02_ARCHITECTURE.md`; обновлены `README.md`, `28_AI_CONTEXT.md`, `audit/*` | см. текущий коммит в git-истории |
 
 ## Source References
 
