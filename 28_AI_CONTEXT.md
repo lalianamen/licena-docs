@@ -79,7 +79,10 @@ LICENA (licena.us) — трёхъязычный (EN/ES/RU) тренажёр ли
   контент-модель и SOP банков — `10_CONTENT_MODEL.md`; локализация —
   `11_I18N.md`; SEO — `12_SEO.md`; аналитика — `14_ANALYTICS.md`; реальные
   числа (включая первый GSC-экспорт 2026-07-17→08-02: 156 показов,
-  4 клика) — `15_METRICS.md`; производительность — `16_PERFORMANCE.md`.
+  4 клика) — `15_METRICS.md`; производительность — `16_PERFORMANCE.md`;
+  техдолг — `17_TECH_DEBT.md`; зависимости — `18_DEPENDENCIES.md`;
+  инфраструктура — `19_INFRASTRUCTURE.md`; проверки — `20_VERIFICATION.md`;
+  агентный процесс — `21_AGENT_PROCESS.md`.
 
 ## Незапущенное / в работе (на 2026-08-05)
 
