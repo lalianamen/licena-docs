@@ -18,6 +18,10 @@
 | [`01_PROJECT_OVERVIEW.md`](01_PROJECT_OVERVIEW.md) | Что такое LICENA: продукт, статус, курсы, языки, объём контента | создан |
 | [`02_ARCHITECTURE.md`](02_ARCHITECTURE.md) | Архитектура: статический фронтенд + Supabase + Stripe, модули и потоки | создан |
 | [`03_REPO_STRUCTURE.md`](03_REPO_STRUCTURE.md) | Структура основного репозитория с назначением каталогов и файлов | создан |
+| [`04_DATABASE.md`](04_DATABASE.md) | Postgres: таблицы, RLS, функции, триггеры, cron, storage | создан |
+| [`05_API.md`](05_API.md) | Вся API-поверхность: PostgREST, RPC, Edge Functions, внешние API | создан |
+| [`13_UX.md`](13_UX.md) | Полный перечень функциональности (Features) по поверхностям | создан |
+| [`26_CHANGELOG.md`](26_CHANGELOG.md) | История продукта (задокументированная) + журнал базы знаний | создан |
 | [`28_AI_CONTEXT.md`](28_AI_CONTEXT.md) | Сводный контекст для AI-сессий: инварианты, процессы, где что лежит | создан |
 
 ## Аудит
