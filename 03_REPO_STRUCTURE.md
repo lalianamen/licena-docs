@@ -124,3 +124,29 @@
   незапущенный `la-business-law`.
 - Прочие ветки на origin: UNKNOWN (в shallow-клоне видны только эти две и
   рабочая ветка сессии).
+
+## Source References
+
+- Полный листинг файлов: `find . -type f` по рабочей копии
+  `lalianamen/llicena@main` (357 файлов, 2026-08-05)
+- Роли файлов: header-комментарии самих файлов (`js/*.js`, `sw.js`,
+  `scripts/*.js`, `supabase/functions/*/index.ts`, SQL-файлы) и `CLAUDE.md`
+  основного репо (лейны, инварианты банков, ветка `content-banks-src`)
+- Объёмы банков: пересчёт скриптом (Node `vm`) по `js/questions/*` на ветках
+  `main` и `content-banks-src` (через `git archive origin/content-banks-src`)
+- Счётчики: `wc -l css/*.css`, `grep -c "<loc>" sitemap.xml`
+- Списки директорий: `ls` по `js/`, `js/samples/`, `docs/`, `es/`, `ru/`,
+  `supabase/`, `.claude/agents/`, `.github/workflows/`
+- `.gitignore`, `robots.txt`, `docs/content-audit/queue.json` (поле `_about`),
+  `js/resources.js`, `js/reviews.js`, `js/sample-quiz.js` — прочитаны шапки
+- Ветки: `git branch -r`, `git ls-tree origin/content-banks-src js/questions/`
+
+## Verification Status
+
+**Partially Verified.**
+
+- Проверено: состав дерева (полный листинг), объёмы банков (пересчёт),
+  счётчики строк/URL, назначения файлов, чьи шапки прочитаны.
+- Взято из header-комментариев без построчной сверки: назначения модулей и
+  Edge Functions; назначение SQL-файлов — по их именам и шапкам.
+- `UNKNOWN`: прочие ветки origin (shallow-клон).
