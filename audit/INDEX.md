@@ -34,11 +34,11 @@
 | `14_ANALYTICS.md` | заполнен | 2026-08-05 | Verified (по коду; живые данные UNKNOWN) |
 | `15_METRICS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
-| `17_TECH_DEBT.md` | не создан | — | — |
-| `18_DEPENDENCIES.md` | не создан | — | — |
-| `19_INFRASTRUCTURE.md` | не создан | — | — |
-| `20_VERIFICATION.md` | не создан | — | — |
-| `21_AGENT_PROCESS.md` | не создан | — | — |
+| `17_TECH_DEBT.md` | заполнен | 2026-08-05 | Partially Verified |
+| `18_DEPENDENCIES.md` | заполнен | 2026-08-05 | Verified |
+| `19_INFRASTRUCTURE.md` | заполнен | 2026-08-05 | Partially Verified |
+| `20_VERIFICATION.md` | заполнен | 2026-08-05 | Verified |
+| `21_AGENT_PROCESS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `22_MARKETING_STATE.md` | не создан | — | — |
 | `23_SMM_STATE.md` | не создан | — | — |
 | `24_RISKS.md` | не создан | — | — |
