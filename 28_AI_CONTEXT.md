@@ -111,4 +111,48 @@ LICENA (licena.us) — трёхъязычный (EN/ES/RU) тренажёр ли
 
 См. `CLAUDE.md` этого репозитория: только реальные данные, `UNKNOWN` для
 отсутствующих, обновление документации в том же цикле, что и код; append-only
-журналы; `30_CTO_REPORT.md` ведёт ChatGPT — не редактировать.
+журналы; `30_CTO_REPORT.md` ведёт ChatGPT — не редактировать; каждый документ
+несёт разделы «Source References» и «Verification Status» (стандарт аудита,
+`CLAUDE.md` §9).
+
+## Source References
+
+Все пути — в репозитории `lalianamen/llicena`:
+
+- Инварианты и процессы: `CLAUDE.md` основного репо (лейны, формы банков,
+  правила переводов, verify-чек-лист, ветка `content-banks-src`),
+  `.claude/agents/` (листинг)
+- Синхронные списки платных курсов: `supabase/functions/stripe-checkout/index.ts`
+  (карта `PAID` + комментарий о `PAID_SUBS`/`PAID_COURSES`),
+  `scripts/generate-bank-csv.js` (список `PAID`, строки 10–14)
+- Цена/триал/бета: `supabase/functions/stripe-checkout/index.ts`
+  (`PRICE_CENTS`), `supabase/sql/trial-3day.sql`,
+  `supabase/sql/restore-beta-policies-until-aug1.sql`,
+  `supabase/sql/extend-tester-trials-oct31.sql`
+- Анти-шеринг: `supabase/devices_anti_sharing.sql` (по ссылке из
+  `docs/access-control.md`), `js/devices.js`, `js/i18n-app.js`
+  (`MAX_DEVICES`, комментарий о синхронизации с сервером)
+- Витрина/каталог: `js/app-cabinet.js:72` (`LAUNCH_CATEGORIES`),
+  `js/catalog.js`, `js/catalog/ca.js` (`testLangs:["hy"]`), `js/catalog/az.js`
+- Контент: `js/bank-updates.js`, `docs/content/bank-playbook.md` (существование
+  и роль — по `CLAUDE.md`), `docs/content-audit/queue.json` (`_about`, `policy`)
+- Саппорт: `supabase/functions/assistant/index.ts` (`MODEL`, продуктовые факты
+  в промпте)
+- Автопостинг: `.github/workflows/facebook-post.yml`, `telegram-post.yml`
+  (триггеры по путям `docs/smm/queue*/`)
+- Расхождения: `README.md` основного репо, `scripts/generate-bank-csv.js:1`
+  («nine»), `CLAUDE.md` основного репо («12 paid banks»)
+- Незапущенное: `git log origin/content-banks-src` (la-business-law),
+  `git ls-tree origin/content-banks-src js/questions/` (`c20-exam.hy.js`)
+- История: git log `main` (50 коммитов shallow-клона)
+
+## Verification Status
+
+**Partially Verified.**
+
+- Проверено чтением названных файлов: все инварианты, списки, константы, пути
+  и расхождения.
+- Взято из описаний без перепроверки по реализации: назначение
+  `bank-playbook.md` (сам файл не читался — роль по `CLAUDE.md` основного
+  репо); роль cron `expire-subscriptions` (комментарий `trial-3day.sql`).
+- Позиции `UNKNOWN` перечислены в разделе «Ограничения этой сверки».

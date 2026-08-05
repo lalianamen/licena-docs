@@ -150,3 +150,49 @@ fail-open: сбой бэкенда никого не блокирует.
 `check-paid-sync.js` + `check-course-ref.js` + `node --check` всех
 не-vendor JS. Остальная проверка — рендер страниц (Playwright-скриншоты,
 desktop + 360px, EN + RU) по чек-листу из `CLAUDE.md` основного репо.
+
+## Source References
+
+Все пути — в репозитории `lalianamen/llicena@main`:
+
+- Хостинг/PWA/SEO: `CNAME`, `.nojekyll`, `manifest.json`, `sw.js`,
+  `robots.txt`, `sitemap.xml`, `googlec4665304f2eceeb0.html`, `js/seo.js`,
+  `js/pwa.js`
+- Страницы: `index.html`, `app.html`, `course.html` (включая полные списки
+  `<script src>`), `about/index.html`, `privacy.html`, `terms.html`,
+  `practice/c-10-electrical/index.html` (образец practice-страницы),
+  листинг директорий `practice/`, `guides/`, `es/`, `ru/`
+- Клиентские модули: header-комментарии и ключевые константы всех файлов
+  `js/*.js` (24 модуля, перечислены в таблице), `js/vendor/supabase-js-2.110.0.js`,
+  `js/guides/*.js`, `js/samples/*.js`, `data/questions.example.json`
+- Ключевые константы, проверенные чтением кода: `js/supabase-client.js`
+  (URL, flowType), `js/app-cabinet.js:72` (`LAUNCH_CATEGORIES`),
+  `js/app-course.js:856–897` (`EXAM_*`, `EXAM_FORMATS`),
+  `js/app-course.js:32–170` (загрузка банков из `bank_questions`)
+- Таблицы/RPC: grep `from("…")`, `rpc("…")`, `functions.invoke("…")` по
+  `js/*.js`; `docs/schema.sql`; `supabase/sql/*.sql`;
+  `supabase/devices_anti_sharing.sql`; `docs/access-control.md`
+- Платежи: `supabase/functions/stripe-checkout/index.ts` (прочитан),
+  `js/app-cabinet.js:688–730` (checkout/portal/return)
+- Саппорт/автоматизация: `supabase/functions/assistant/index.ts` (`MODEL`),
+  `js/support.js`, `supabase/functions/*/` (листинг), `supabase/*.sql`,
+  `.github/workflows/*.yml` (name + триггеры)
+- Верификация: `scripts/verify.js` (прочитан), `CLAUDE.md` основного репо
+- CSS: `wc -l css/*.css`; отсутствие стороннего аналитикса: grep
+  gtag/googletagmanager по `index.html`, `app.html`, `course.html`, `js/*.js`
+
+## Verification Status
+
+**Partially Verified.**
+
+- Проверено чтением кода: константы экзамена, цена и карта платных курсов,
+  порядок загрузки скриптов, список таблиц/RPC, конфигурация клиента Supabase,
+  robots/sitemap/manifest/sw, каталог, счётчики строк.
+- Взято из header-комментариев файлов без построчной сверки с реализацией:
+  роли модулей в таблице «Модули JS», стратегия анти-шеринга (комментарии
+  `js/devices.js`, `docs/access-control.md`), роль `stripe-webhook`
+  (комментарий в `stripe-checkout/index.ts`; сам файл
+  `supabase/functions/stripe-webhook/index.ts` в этой сверке не читался),
+  функции `ticket-*` и `daily-stats` (по именам файлов и триггерам SQL).
+- `UNKNOWN` в документе не используется: все включённые утверждения имеют
+  источник в репозитории.

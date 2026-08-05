@@ -124,3 +124,37 @@ UNKNOWN (категории не запущены, в `PAID` их нет).
   `15_METRICS.md` при его создании).
 - Юридическое лицо / владелец бизнеса — UNKNOWN (в репо не указано; владелец
   GitHub-аккаунта — `lalianamen`).
+
+## Source References
+
+Все пути — в репозитории `lalianamen/llicena`:
+
+- `CNAME`, `index.html` (title), `README.md`, `CLAUDE.md`
+- `js/i18n.js`, `js/i18n-app.js` (языковые блоки, hero-строки)
+- `js/catalog.js`, `js/catalog/ca.js`, `js/catalog/az.js` (штаты, категории,
+  курсы, `testLangs`)
+- `js/app-cabinet.js` (`LAUNCH_CATEGORIES`, строка 72)
+- `js/questions/*.js` — обе ветки `main` и `content-banks-src`; количества
+  вопросов и блоков пересчитаны скриптом (Node `vm`) 2026-08-05
+- `js/bank-updates.js` (вехи 2026-07-21…2026-08-04)
+- `supabase/functions/stripe-checkout/index.ts` (`PRICE_CENTS`, карта `PAID`)
+- `supabase/sql/restore-beta-policies-until-aug1.sql` (граница беты),
+  `supabase/sql/trial-3day.sql` (3-дневный триал)
+- `docs/migration-2026-06-22-course-status.sql` (самое раннее датированное
+  свидетельство), `docs/marketing/gsc-readout-2026-08.md` (существование
+  GSC-данных)
+- git-история `main` (последние 50 коммитов shallow-клона, 2026-07-28…2026-08-04)
+- Коммиты ветки `content-banks-src` (`git log`, верхние: la-business-law)
+
+## Verification Status
+
+**Partially Verified.**
+
+- Проверено чтением источников/пересчётом: объёмы банков (скрипт по файлам обеих
+  веток), состав каталога, списки платных/бесплатных курсов, цена и триал,
+  языковые блоки, цитаты лендинга, границы беты.
+- Взято из самоописаний без независимой перепроверки: содержание записей
+  `js/bank-updates.js` (отчёты контент-агента о проверке банков по официальным
+  источникам) — сами первоисточники (CSLB, A.R.S. и т.д.) в этой сверке не
+  открывались.
+- Позиции `UNKNOWN` перечислены в разделе «Чего в этом обзоре нет».
