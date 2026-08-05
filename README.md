@@ -25,6 +25,11 @@
 | [`08_SECURITY.md`](08_SECURITY.md) | Механизмы защиты, задокументированные слабые места, статус security-todo | создан |
 | [`09_PAYMENTS.md`](09_PAYMENTS.md) | Stripe: модель, поток покупки, жизненный цикл подписки, триал | создан |
 | [`10_CONTENT_MODEL.md`](10_CONTENT_MODEL.md) | Форматы банков, SOP генерации, чекер, процесс платного контента | создан |
+| [`11_I18N.md`](11_I18N.md) | Все слои локализации EN/ES/RU, выбор языка, staged `hy` | создан |
+| [`12_SEO.md`](12_SEO.md) | seo.js, JSON-LD, language-in-PATH, sitemap/robots, GSC-механика | создан |
+| [`14_ANALYTICS.md`](14_ANALYTICS.md) | First-party аналитика: биконы, каналы, ежедневный отчёт | создан |
+| [`15_METRICS.md`](15_METRICS.md) | Только реальные числа: контент, размеры, GSC-экспорт | создан |
+| [`16_PERFORMANCE.md`](16_PERFORMANCE.md) | Механизмы производительности и измеренные размеры; тестов нет | создан |
 | [`13_UX.md`](13_UX.md) | Полный перечень функциональности (Features) по поверхностям | создан |
 | [`26_CHANGELOG.md`](26_CHANGELOG.md) | История продукта (задокументированная) + журнал базы знаний | создан |
 | [`28_AI_CONTEXT.md`](28_AI_CONTEXT.md) | Сводный контекст для AI-сессий: инварианты, процессы, где что лежит | создан |
@@ -36,10 +41,11 @@
 | [`audit/INDEX.md`](audit/INDEX.md) | Реестр всех документов: статус заполнения, дата последней проверки, уровень достоверности |
 | [`audit/COVERAGE.md`](audit/COVERAGE.md) | Карта покрытия: какие части основного проекта задокументированы, какие нет |
 
-Остальные файлы аудита (`11_I18N.md`, `12_SEO.md`, `14`–`25`, `27_ROADMAP.md`,
-`29_BUSINESS_FRAMEWORK.md`, `30_CTO_REPORT.md`, `RELEASE_SUMMARY.md`, `rfc/`)
-перечислены в [`CLAUDE.md`](CLAUDE.md) и [`audit/INDEX.md`](audit/INDEX.md);
-они ещё не созданы — пустые шаблоны не создаются намеренно.
+Остальные файлы аудита (`17_TECH_DEBT.md` … `25_DECISIONS.md`,
+`27_ROADMAP.md`, `29_BUSINESS_FRAMEWORK.md`, `30_CTO_REPORT.md`,
+`RELEASE_SUMMARY.md`, `rfc/`) перечислены в [`CLAUDE.md`](CLAUDE.md) и
+[`audit/INDEX.md`](audit/INDEX.md); они ещё не созданы — пустые шаблоны не
+создаются намеренно.
 
 ## Source References
 
