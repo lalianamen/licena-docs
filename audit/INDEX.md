@@ -21,8 +21,8 @@
 | `01_PROJECT_OVERVIEW.md` | заполнен | 2026-08-05 | Partially Verified |
 | `02_ARCHITECTURE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `03_REPO_STRUCTURE.md` | заполнен | 2026-08-05 | Partially Verified |
-| `04_DATABASE.md` | не создан | — | — |
-| `05_API.md` | не создан | — | — |
+| `04_DATABASE.md` | заполнен | 2026-08-05 | Partially Verified |
+| `05_API.md` | заполнен | 2026-08-05 | Partially Verified |
 | `06_FUNCTIONS.md` | не создан | — | — |
 | `07_AUTH_ACCESS.md` | не создан | — | — |
 | `08_SECURITY.md` | не создан | — | — |
@@ -30,7 +30,7 @@
 | `10_CONTENT_MODEL.md` | не создан | — | — |
 | `11_I18N.md` | не создан | — | — |
 | `12_SEO.md` | не создан | — | — |
-| `13_UX.md` | не создан | — | — |
+| `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-05 | Partially Verified |
 | `14_ANALYTICS.md` | не создан | — | — |
 | `15_METRICS.md` | не создан | — | — |
 | `16_PERFORMANCE.md` | не создан | — | — |
@@ -43,7 +43,7 @@
 | `23_SMM_STATE.md` | не создан | — | — |
 | `24_RISKS.md` | не создан | — | — |
 | `25_DECISIONS.md` | не создан | — | — |
-| `26_CHANGELOG.md` | не создан | — | — |
+| `26_CHANGELOG.md` | заполнен | 2026-08-05 | Partially Verified |
 | `27_ROADMAP.md` | не создан | — | — |
 | `28_AI_CONTEXT.md` | заполнен | 2026-08-05 | Partially Verified |
 | `29_BUSINESS_FRAMEWORK.md` | не создан | — | — |
