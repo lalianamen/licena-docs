@@ -11,31 +11,32 @@
 | Область основного репо | Источник (пути) | Где документировано | Статус | Что осталось |
 |---|---|---|---|---|
 | Страницы приложения (лендинг, кабинет, плеер) | `index.html`, `app.html`, `course.html` | 02 (роли, порядок скриптов), 03, 13 (потоки и функциональность) | документировано | поведение описано по коду, UI не прогонялся |
-| Публичные SEO-страницы | `practice/*`, `guides/*`, `es/*`, `ru/*`, `about/` | 02, 03 (состав, механика sample-квизов) | частично | контент и SEO-структура → `12_SEO.md` |
+| Публичные SEO-страницы | `practice/*`, `guides/*`, `es/*`, `ru/*`, `about/` | 02, 03, 12 (language-in-PATH, статические головы, JSON-LD, sitemap-структура) | документировано | полнотекстовый контент страниц не документировался |
 | Клиентские JS-модули (24 шт.) | `js/*.js` | 02 (таблица ролей), 03, 05 (вызовы API), 13 (функциональность) | частично | построчная логика ключевых модулей не документирована |
 | Каталог курсов и штаты | `js/catalog.js`, `js/catalog/*` | 01 (полный состав), 02, 28 | документировано | — |
 | Банки вопросов: объёмы и форматы | `js/questions/*` (main + `content-banks-src`) | 01 (пересчёт), 03, 10 (форматы, оверлеи, процесс), 28 | документировано | содержательное качество вопросов — предмет контент-аудита, не документации |
 | SOP генерации контента | `docs/content/bank-playbook.md`, `*-blueprint.md`, `*-ledger.md` | 10 (playbook и чекер полностью; blueprints — шапки) | документировано | полные тексты blueprints/ledger не читались |
 | Контент-аудит банков | `docs/content-audit/queue.json` | 02, 03, 10 (политика, текущие статусы), 28 | документировано | — |
-| Локализация | `js/i18n.js`, `js/i18n-app.js`, зеркала `es/`/`ru/`, `hy`-стейджинг | 01, 02 | частично | полная модель i18n → `11_I18N.md` |
-| CSS / дизайн-система | `css/*.css` | 02, 03 (роли, объёмы) | частично | токены и компоненты не документированы |
+| Локализация | `js/i18n.js`, `js/i18n-app.js`, зеркала `es/`/`ru/`, `hy`-стейджинг | 11 (все слои, выбор языка, пересчёт ключей), 01, 02 | документировано | качество переводов и язык email-шаблонов Auth — не проверялись |
+| CSS / дизайн-система | `css/*.css` | 02, 03 (роли, объёмы), 16 (вес) | частично | токены и компоненты не документированы |
 | PWA | `manifest.json`, `sw.js`, `js/pwa.js` | 02 | документировано | — |
-| SEO-инфраструктура | `js/seo.js`, `sitemap.xml`, `robots.txt`, `googlec…html` | 02 | частично | per-page правила seo.js → `12_SEO.md` |
+| SEO-инфраструктура | `js/seo.js`, `sitemap.xml`, `robots.txt`, `googlec…html` | 12 (инжектор, JSON-LD, allow-листы, sitemap 126), 02 | документировано | seo.js строки 305–479 — по grep, не построчно |
 | Схема БД и миграции | `docs/schema.sql`, `supabase/sql/*.sql`, `docs/migration-*.sql` | 04 (все файлы прочитаны полностью: таблицы, RLS, функции, триггеры, cron) | документировано | живое состояние БД — UNKNOWN |
 | Edge Functions | `supabase/functions/*` | 05 (контракты), 06 (все 8 прочитаны полностью) | документировано | дашборд-настройки (Verify JWT, секреты) — UNKNOWN |
 | Платежи Stripe | `stripe-checkout/-portal/-webhook`, `supabase/sql/stripe-payments.sql`, `subscriptions-schema.sql`, `trial-3day.sql` | 09 (сквозная модель), 04, 05, 06, 13 | документировано | живые подписки/выручка и Stripe Dashboard — UNKNOWN |
 | Auth и анти-шеринг | `js/app.js`, `js/devices.js`, `docs/access-control.md`, `supabase/devices_anti_sharing.sql` | 07 (сводная модель), 02, 04, 05, 13, 28 | документировано | серверные настройки Supabase Auth — UNKNOWN |
 | Безопасность | `docs/security-todo.md`, RLS, CSP, `.gitignore` | 08 (механизмы, задокументированные слабые места, статусы security-todo 2026-06-24 → 2026-08-05) | документировано | живые настройки Supabase/Stripe — UNKNOWN |
-| Аналитика first-party | `js/stats.js`, `js/pageview.js`, `supabase/sql/page-views.sql`, `report-kpi.sql`, `cron-daily-stats.sql`, `functions/daily-stats` | 04 (page_views, social_stats, RPC), 05 (каналы daily-stats), 13 | документировано | формат отчёта целиком → `14_ANALYTICS.md` |
-| Метрики (реальные числа) | `docs/marketing/gsc-readout-2026-08.md`, `page_views`, `social_stats` | — (существование отмечено в 01, 28) | не документировано | → `15_METRICS.md` |
+| Аналитика first-party | `js/stats.js`, `js/pageview.js`, `supabase/sql/page-views.sql`, `report-kpi.sql`, `cron-daily-stats.sql`, `functions/daily-stats` | 14 (событие, биконы, каналы, отчёт целиком), 04, 05 | документировано | живые объёмы — UNKNOWN |
+| Метрики (реальные числа) | `docs/marketing/gsc-readout-2026-08.md`, `page_views`, `social_stats` | 15 (репо-замеры + GSC-экспорт 2026-07-17→08-02) | документировано | живые БД/Stripe/соцсети — UNKNOWN |
 | Саппорт (AI + тикеты) | `js/support.js`, `functions/assistant`, `ticket-*`, `supabase/support_*.sql`, `ticket_*_trigger.sql` | 04, 05, 06 (все функции полностью: промпт, tools, письма, greenlight), 13 | документировано | — |
 | CI / автоматизация | `.github/workflows/*.yml` | 02, 03 (имена, триггеры) | частично | шаги и секреты (имена) → `19_INFRASTRUCTURE.md` |
 | Скрипты проверок/генерации | `scripts/*.js` | 02, 03 (роли; читались `verify.js`, `generate-bank-csv.js`) | частично | инварианты `check-banks.js` → `20_VERIFICATION.md` |
 | Агентные лейны | `.claude/agents/*.md`, `CLAUDE.md` осн. репо | 03, 28 (правила из `CLAUDE.md`) | частично | сами файлы агентов не читались → `21_AGENT_PROCESS.md` |
-| Маркетинг | `docs/marketing/*` | 03 (перечень файлов) | не документировано | → `22_MARKETING_STATE.md` |
+| Маркетинг | `docs/marketing/*` | 03 (перечень), 12 (SEO-часть: gsc-readout полностью, остальные — назначение) | частично | plan-2026-H2, seo-audit, backlog, spec, decisions-log → `22_MARKETING_STATE.md` |
 | SMM | `docs/smm/*` | 03 (перечень), 28 (механика очередей) | не документировано | → `23_SMM_STATE.md` |
 | Email-шаблоны | `docs/email/`, `supabase/email-templates/` | 03 (перечень) | не документировано | — |
 | Медиа-ассеты | `img/*`, иконки, `og-image.png`, флаеры `docs/marketing/flyer/` | 03 (перечень) | документировано (как состав) | — |
+| Производительность | `sw.js`, `js/pwa.js`, размеры статики | 16 (механизмы + измеренные размеры; perf-тестов в репо нет) | документировано | runtime-замеры (Lighthouse и т.п.) не существуют — UNKNOWN |
 | Git-история | shallow-клон: 50 коммитов (2026-07-28…2026-08-04) | 01, 26 (хронология событий), 28 | частично | история глубже — UNKNOWN до полного клона |
 | Ветка `content-banks-src` | банки, генераторы | 01, 03, 28 (состав, объёмы, la-business-law) | частично | различия скриптов между ветками не сверялись |
 | Живые системы (Supabase prod, Stripe-аккаунт, GSC, соцсети) | вне репозитория | 28 («Ограничения сверки») | не документировано | данные фиксируются только при явной выгрузке владельцем; иначе UNKNOWN |

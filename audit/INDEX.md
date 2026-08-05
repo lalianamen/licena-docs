@@ -28,12 +28,12 @@
 | `08_SECURITY.md` | заполнен | 2026-08-05 | Partially Verified |
 | `09_PAYMENTS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `10_CONTENT_MODEL.md` | заполнен | 2026-08-05 | Partially Verified |
-| `11_I18N.md` | не создан | — | — |
-| `12_SEO.md` | не создан | — | — |
+| `11_I18N.md` | заполнен | 2026-08-05 | Partially Verified |
+| `12_SEO.md` | заполнен | 2026-08-05 | Partially Verified |
 | `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-05 | Partially Verified |
-| `14_ANALYTICS.md` | не создан | — | — |
-| `15_METRICS.md` | не создан | — | — |
-| `16_PERFORMANCE.md` | не создан | — | — |
+| `14_ANALYTICS.md` | заполнен | 2026-08-05 | Verified (по коду; живые данные UNKNOWN) |
+| `15_METRICS.md` | заполнен | 2026-08-05 | Partially Verified |
+| `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `17_TECH_DEBT.md` | не создан | — | — |
 | `18_DEPENDENCIES.md` | не создан | — | — |
 | `19_INFRASTRUCTURE.md` | не создан | — | — |
