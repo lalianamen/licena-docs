@@ -28,10 +28,14 @@ Append-only: записи не удаляются и не переписываю
 | 2026-08-01 | Тестерские аккаунты: без лимита устройств; механизм staged-курсов `test:true` | `supabase/devices_anti_sharing.sql`, `supabase/sql/tester-account.sql` (owner decisions) |
 | 2026-08-03 | Новый платный банк C-33 Painting: 500×3 | `js/bank-updates.js` |
 | 2026-08-04 | Запуск Arizona: банк AZ SRE (500×3, первый не-калифорнийский курс), AZ-гайды + CA↔AZ reciprocity, honest-chances для SRE; первый SEO-проход по данным GSC; «free sample»-фрейминг practice-страниц | `js/bank-updates.js`; git `main` (#182–#187) |
+| 2026-08-10 | HVAC-калькулятор (типоразмер оборудования + материалы монтажа): публичные страницы `/tools/hvac-sizing-calculator/` EN/ES/RU (учебный, не Manual J; источники ENERGY STAR, IRC M1401.3, IMC 307.2.2 названы на странице); карточка-инструмент в плеере курса `c20` — lazy iframe компакт-режима `?embed=1` (запрос владельца: калькулятор внутри банка C-20 для удержания); sitemap +3 URL; чипы «Also useful» на гайдах C-20 и EPA 608 ×3 языка. Подготовлено на ветке `claude/hvac-materials-calculator-gfzkwl` (коммит `632d190`), в `main` НЕ влито | git ветка `claude/hvac-materials-calculator-gfzkwl` осн. репо: `tools/`, `es|ru/tools/`, `js/hvac-calc.js`, `css/tools.css`, `js/app-course.js` (`COURSE_TOOLS`), `course.html`, `css/course.css`, `sitemap.xml` |
 
 Подготовлено, не выпущено (на 2026-08-05): банк `la-business-law` (500 EN +
 RU/ES) на ветке `content-banks-src`; армянский язык C-20 в staged-режиме
 (`c20-exam.hy.js`, `testLangs`).
+Дополнение 2026-08-10: HVAC-калькулятор на ветке
+`claude/hvac-materials-calculator-gfzkwl` (строка 2026-08-10 выше) — ждёт
+мержа владельцем.
 
 ## Часть 2 — журнал базы знаний licena-docs
 
@@ -45,6 +49,7 @@ RU/ES) на ветке `content-banks-src`; армянский язык C-20 в 
 | 2026-08-05 | Этап 3: созданы `11_I18N.md` (пересчёт ключей словарей), `12_SEO.md` (seo.js, sitemap-структура, gsc-readout прочитан полностью), `14_ANALYTICS.md` (оба бикона и daily-stats полностью), `15_METRICS.md` (первые реальные GSC-числа проекта: 156 показов / 4 клика за 2026-07-17→08-02), `16_PERFORMANCE.md` (perf-тестов в репо нет — зафиксировано; механизмы и размеры измерены); обновлены `README.md`, `28_AI_CONTEXT.md`, `audit/*` | `8f597cc` (merge в main: `1754bf5`) |
 | 2026-08-05 | Этап 4: созданы `17_TECH_DEBT.md` (подтверждённый долг отделён от гипотез; grep TODO/FIXME = 0), `18_DEPENDENCIES.md` (все версии с источниками; lock-файлов в проекте нет), `19_INFRASTRUCTURE.md` (4 workflow прочитаны полностью), `20_VERIFICATION.md` (все чекеры; зафиксировано отсутствие CI-прогона проверок), `21_AGENT_PROCESS.md` (5 лейнов по их файлам, 3 конвейера); в `README.md` исправлен порядок таблицы (13 после 12), в `15_METRICS.md` значение ≈31 050 помечено как вычисленное 10 350 × 3 | `40f0df4` (merge в main: `f912338`) |
 | 2026-08-05 | Создан `decisions/ADR-001-UNIFIED-COURSE-REGISTRY.md` (статус Proposed): единый реестр курсов вместо дублирования платных course_id в 7+ местах — текущее состояние, инцидент 2026-08-04, модель `courses`, 3 варианта, рекомендация (таблица в Postgres + флаг в каталоге), миграция без остановки прода, риски, rollback, приёмка. Код НЕ менялся; реализация — только после утверждения владельцем. Путь `decisions/` задан владельцем | см. текущий коммит в git-истории |
+| 2026-08-10 | Точечная сверка после HVAC-калькулятора (ветка осн. репо `claude/hvac-materials-calculator-gfzkwl`, `632d190`): обновлены `03_REPO_STRUCTURE.md`, `12_SEO.md`, `13_UX.md`, `26_CHANGELOG.md`, `28_AI_CONTEXT.md`, `audit/INDEX.md`, `audit/COVERAGE.md` | см. текущий коммит в git-истории |
 
 ## Source References
 

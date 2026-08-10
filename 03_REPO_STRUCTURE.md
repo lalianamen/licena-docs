@@ -1,6 +1,6 @@
 # 03 — Структура основного репозитория (`lalianamen/llicena`)
 
-Последняя сверка: 2026-08-05
+Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор)
 Состояние: ветка `main`, 357 файлов (без `.git`). Ниже — полная структура с
 назначением; роли взяты из header-комментариев самих файлов и `CLAUDE.md`
 основного репо.
@@ -51,6 +51,10 @@
 `styles.css` (база + токены + auth, 582 строки), `cabinet.css` (664),
 `course.css` (514), `exam.css` (282).
 
+Дополнение 2026-08-10 (ветка `claude/hvac-materials-calculator-gfzkwl`,
+`632d190`, в `main` не влито): + `tools.css` (61 строка — страницы `/tools/`,
+включая embed-режим); `course.css` дополнен стилями `.tool-card`.
+
 ## SEO-страницы (статические, EN + зеркала `es/`, `ru/`)
 
 | Путь | Что это |
@@ -58,6 +62,7 @@
 | `practice/<exam>/index.html` — 20 шт. | Per-exam страницы с sample-квизом (c-10, c-20, c-36, cslb-law-and-business, epa-608, az-sre-practice, …) |
 | `guides/<topic>/index.html` — 19 шт. | Гайды: лицензии CA (B, B-2, C-7…C-46), Arizona (license, exams, reciprocity), EPA 608, NICET ×2, OSHA 10/30, backflow |
 | `es/…`, `ru/…` | Полные испанское и русское зеркала `about` + `practice` + `guides` |
+| `tools/hvac-sizing-calculator/index.html` — 1 шт. (+ зеркала `es/`, `ru/`) | Учебный HVAC-калькулятор (типоразмер + материалы монтажа); логика `js/hvac-calc.js` (132 строки); ветка `claude/hvac-materials-calculator-gfzkwl` (2026-08-10), в `main` не влито |
 
 ## `data/`
 

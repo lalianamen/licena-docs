@@ -1,6 +1,6 @@
 # 12 — SEO-механика
 
-Последняя сверка: 2026-08-05
+Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор)
 Источник: `lalianamen/llicena@main`. Владелец области — лейн marketing
 (`js/seo.js`, `sitemap.xml`, `robots.txt`, `docs/marketing/**` — `CLAUDE.md`
 осн. репо). Реальные поисковые ЧИСЛА — в `15_METRICS.md`.
@@ -54,6 +54,14 @@
 | `guides` 19 × EN/ES/RU | 57 |
 | `privacy.html`, `terms.html` | 2 |
 | `app.html`/`course.html` (noindex) | не включены |
+
+Дополнение 2026-08-10 (ветка осн. репо `claude/hvac-materials-calculator-gfzkwl`,
+`632d190`, в `main` не влито): +3 URL `/tools/hvac-sizing-calculator/`
+(EN + `/es/`, `/ru/`) с полным hreflang-кластером; `grep -c "<url>"` на ветке
+= 128. Страницы `/tools/` несут полностью статический `<head>` и НЕ подключают
+`js/seo.js`: его `detectPage()` знает только index/app/course плюс аллоу-листы
+practice/guides — на любом другом пути инжектор перезаписал бы head данными
+лендинга (`js/seo.js:231–236`, main-ветка `apply()`).
 
 ## robots.txt
 
