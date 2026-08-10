@@ -96,11 +96,13 @@ LICENA (licena.us) — трёхъязычный (EN/ES/RU) тренажёр ли
   (`supabase/sql/extend-tester-trials-oct31.sql`).
 - (дополнение 2026-08-10) HVAC-калькулятор: публичные страницы
   `/tools/hvac-sizing-calculator/` EN/ES/RU (`js/hvac-calc.js`,
-  `css/tools.css`) + карточка-инструмент в плеере курса `c20`
-  (`COURSE_TOOLS`/`buildCourseTools` в `js/app-course.js`, iframe
-  `?embed=1`; запрос владельца — калькулятор внутри банка C-20 для
-  удержания) + sitemap +3 URL. Ветка `claude/hvac-materials-calculator-gfzkwl`
-  (`632d190`) — ждёт мержа владельцем. ВАЖНО: страницы `/tools/` не
+  `css/tools.css`) + инструмент в плеере курса `c20`: ссылка в левом
+  сайдбаре (секция «Инструменты», `#sideTools`) открывает карточку с iframe
+  `?embed=1` в основной колонке (`COURSE_TOOLS`/`buildCourseTools` в
+  `js/app-course.js`; запросы владельца — калькулятор внутри банка C-20 для
+  удержания, вход отдельной ссылкой слева) + sitemap +3 URL. Ветка
+  `claude/hvac-materials-calculator-gfzkwl` (`632d190`, `32f7201`) — ждёт
+  мержа владельцем. ВАЖНО: страницы `/tools/` не
   подключают `js/seo.js` (он не знает этот путь и перезаписал бы head
   данными лендинга); новые публичные пути либо добавлять в его
   детекторы, либо нести статический head без него.
