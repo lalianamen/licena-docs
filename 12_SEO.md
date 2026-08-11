@@ -55,11 +55,14 @@
 | `privacy.html`, `terms.html` | 2 |
 | `app.html`/`course.html` (noindex) | не включены |
 
-Дополнение 2026-08-10 (влито в `main` 2026-08-10 (fast-forward `ed30701`→`32f7201`)): +3 URL `/tools/hvac-sizing-calculator/`
-(EN + `/es/`, `/ru/`) с полным hreflang-кластером; `grep -c "<url>"` = 128. Страницы `/tools/` несут полностью статический `<head>` и НЕ подключают
-`js/seo.js`: его `detectPage()` знает только index/app/course плюс аллоу-листы
-practice/guides — на любом другом пути инжектор перезаписал бы head данными
-лендинга (`js/seo.js:231–236`, main-ветка `apply()`).
+Дополнение 2026-08-10 (итог, git `main` `abd8804`): страницы
+`/tools/hvac-sizing-calculator/` переведены в course-gated режим — `noindex,
+follow`, из `sitemap.xml` УДАЛЕНЫ (снова 125 `<url>`), ссылки с лендинга и из
+гайдов сняты; страница открывается только из плеера курса (штамп
+`lp:tool_gate`, см. `13_UX.md`). Головы страниц остаются статическими,
+`js/seo.js` там по-прежнему не подключается — его `detectPage()` знает только
+index/app/course плюс аллоу-листы practice/guides, на любом другом пути
+инжектор перезаписал бы head данными лендинга (`js/seo.js:231–236`).
 
 ## robots.txt
 

@@ -50,8 +50,9 @@
 `js/hvac-calc.js`, `css/tools.css`, блок `COURSE_TOOLS` в `js/app-course.js`.
 Задокументирована в `03_REPO_STRUCTURE.md`, `12_SEO.md`, `13_UX.md`,
 `26_CHANGELOG.md`, `28_AI_CONTEXT.md`; строки таблицы выше описывают `main` на 2026-08-05; счётчики после мержа
-(2026-08-10): sitemap 128 `<url>`, клиентских JS-модулей 25
-(+`js/hvac-calc.js`), css-файлов 5 (+`tools.css`).
+(2026-08-10): клиентских JS-модулей 25 (+`js/hvac-calc.js`), css-файлов 5
+(+`tools.css`); sitemap после `abd8804` снова 125 `<url>` — страницы `/tools/`
+стали course-gated/noindex и из sitemap удалены.
 
 ## Source References
 
