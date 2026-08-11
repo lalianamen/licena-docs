@@ -96,7 +96,7 @@ LICENA (licena.us) — трёхъязычный (EN/ES/RU) тренажёр ли
   (`supabase/sql/extend-tester-trials-oct31.sql`).
 - (дополнение 2026-08-10) HVAC-калькулятор: публичные страницы
   `/tools/hvac-sizing-calculator/` EN/ES/RU (`js/hvac-calc.js`,
-  `css/tools.css`) + инструмент в плеере курса `c20`: ссылка в левом
+  `css/tools.css`) + инструмент в плеере курса `c20-exam`: ссылка в левом
   сайдбаре (секция «Инструменты», `#sideTools`) открывает карточку с iframe
   `?embed=1` в основной колонке (`COURSE_TOOLS`/`buildCourseTools` в
   `js/app-course.js`; запросы владельца — калькулятор внутри банка C-20 для
