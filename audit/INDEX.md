@@ -31,7 +31,7 @@
 | `11_I18N.md` | заполнен | 2026-08-05 | Partially Verified |
 | `12_SEO.md` | заполнен | 2026-08-10 | Partially Verified |
 | `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-10 | Partially Verified |
-| `14_ANALYTICS.md` | заполнен | 2026-08-05 | Verified (по коду; живые данные UNKNOWN) |
+| `14_ANALYTICS.md` | заполнен | 2026-08-11 | Verified (по коду; живые данные UNKNOWN) |
 | `15_METRICS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `17_TECH_DEBT.md` | заполнен | 2026-08-05 | Partially Verified |
