@@ -61,7 +61,7 @@
 | `practice/<exam>/index.html` — 20 шт. | Per-exam страницы с sample-квизом (c-10, c-20, c-36, cslb-law-and-business, epa-608, az-sre-practice, …) |
 | `guides/<topic>/index.html` — 19 шт. | Гайды: лицензии CA (B, B-2, C-7…C-46), Arizona (license, exams, reciprocity), EPA 608, NICET ×2, OSHA 10/30, backflow |
 | `es/…`, `ru/…` | Полные испанское и русское зеркала `about` + `practice` + `guides` |
-| `tools/hvac-sizing-calculator/index.html` — 1 шт. (+ зеркала `es/`, `ru/`) | Учебный HVAC-калькулятор (типоразмер + материалы монтажа); логика `js/hvac-calc.js` (132 строки); добавлен 2026-08-10, влито в `main` 2026-08-10 (fast-forward `ed30701`→`32f7201`) |
+| `tools/<slug>/index.html` — 9 шт. (+ зеркала `es/`, `ru/`) | Учебные калькуляторы (course-gated, noindex, вне sitemap): hvac-sizing (логика `js/hvac-calc.js`), electrical, plumbing, roofing, concrete, painting, solar, fire, pricing (общая логика `js/trade-calcs.js`); добавлены 2026-08-10 (`32f7201`, `4234bff`) |
 
 ## `data/`
 

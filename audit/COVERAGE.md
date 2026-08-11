@@ -46,11 +46,12 @@
 
 Примечание 2026-08-10: на ветке осн. репо
 `claude/hvac-materials-calculator-gfzkwl` (`632d190`, `32f7201`; влито в `main` 2026-08-10 (fast-forward `ed30701`→`32f7201`))
-добавлена область «HVAC-калькулятор»: `tools/*`, `es|ru/tools/*`,
-`js/hvac-calc.js`, `css/tools.css`, блок `COURSE_TOOLS` в `js/app-course.js`.
+добавлена область «калькуляторы»: `tools/*` (9 инструментов ×3 языка после
+`4234bff`), `js/hvac-calc.js`, `js/trade-calcs.js`, `css/tools.css`, блоки
+`TOOL_DEFS`/`COURSE_TOOLS` в `js/app-course.js`.
 Задокументирована в `03_REPO_STRUCTURE.md`, `12_SEO.md`, `13_UX.md`,
 `26_CHANGELOG.md`, `28_AI_CONTEXT.md`; строки таблицы выше описывают `main` на 2026-08-05; счётчики после мержа
-(2026-08-10): клиентских JS-модулей 25 (+`js/hvac-calc.js`), css-файлов 5
+(2026-08-10): клиентских JS-модулей 26 (+`js/hvac-calc.js`, `js/trade-calcs.js`), css-файлов 5
 (+`tools.css`); sitemap после `abd8804` снова 125 `<url>` — страницы `/tools/`
 стали course-gated/noindex и из sitemap удалены.
 
