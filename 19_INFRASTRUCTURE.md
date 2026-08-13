@@ -13,6 +13,13 @@ email-оповещения владельцу. Keyword-тип выбран по�
 Только данные, доступные из репозитория `lalianamen/llicena`; все настройки
 дашбордов и DNS-записи вне репо — UNKNOWN.
 
+Дополнение 2026-08-13: (1) Bing Webmaster Tools — сайт добавлен вручную и
+верифицирован метатегом `msvalidate.01` в `index.html` (`c064543` осн. репо);
+`sitemap.xml` подан 2026-08-13, статус Processing (скриншоты владельца,
+bing.com/webmasters; аккаунт владельца). Импорт из GSC не сработал («we
+didn't find any sites from GSC» при совпадающих аккаунтах — причина
+UNKNOWN). (2) Пятый workflow `indexnow.yml` — см. таблицу GitHub Actions.
+
 ## Хостинг фронтенда — GitHub Pages
 
 - Отдача ветки `main` из корня как есть; деплой = push в `main`
@@ -66,7 +73,7 @@ SPF/DKIM-записи — UNKNOWN. Шаблоны писем Supabase Auth —
 `supabase/email-templates/confirm-signup.html`, `reset-password.html`
 (+ копия в `docs/email/`).
 
-## GitHub Actions (4 workflow, прочитаны полностью)
+## GitHub Actions (5 workflow, прочитаны полностью)
 
 | Workflow | Триггер | Что делает | Секреты (имена) |
 |---|---|---|---|
@@ -74,6 +81,7 @@ SPF/DKIM-записи — UNKNOWN. Шаблоны писем Supabase Auth —
 | `claude-ticket-resolved.yml` | pull_request closed; гейт: merged == true и ветка `claude/ticket-*` | достаёт номер issue из PR-body (`#N`), UUID тикета из issue-body, POST в `ticket-status` (`done`) → триггер шлёт пользователю письмо; без секрета — безопасный no-op | `TICKET_WEBHOOK_SECRET` (+ `github.token`) |
 | `telegram-post.yml` | push в main файлов `docs/smm/queue/*.txt` (только добавленных, `--diff-filter=A`); + workflow_dispatch с именем файла | `sendMessage` в канал `@licena_us` текстом файла; concurrency group без отмены | `TELEGRAM_BOT_TOKEN` |
 | `facebook-post.yml` | push в main `docs/smm/queue-fb/*.txt`; + dispatch | Graph API v23.0 `POST /me/feed`; последняя https-ссылка файла прикладывается как `link` | `FB_PAGE_TOKEN` |
+| `indexnow.yml` | push в main файлов `**.html`; + workflow_dispatch со списком URL | изменённые страницы → URL (`index.html` → адрес каталога; `app.html`/`course.html` пропускаются — noindex), один POST на `api.indexnow.org`; ключ-файл `54435241f92a34641164ae1e98d2923c.txt` в корне (по протоколу IndexNow публичен); фоллбэк diff к `HEAD~1` | — (без секретов) |
 
 CI-проверок кода (запуск `verify.js`/тестов на push/PR) среди workflow НЕТ
 (`20_VERIFICATION.md`).
@@ -107,7 +115,7 @@ live/test Stripe и настройка вебхука/портала; вериф
 ## Source References
 
 - `CNAME`, `.nojekyll`, `README.md` и `CLAUDE.md` осн. репо
-- `.github/workflows/*.yml` — все 4 полностью
+- `.github/workflows/*.yml` — все 5 полностью
 - `js/supabase-client.js`, `supabase/functions/*/index.ts` (деплой-комментарии,
   секреты), `supabase/sql/cron-daily-stats.sql`, `subscriptions-schema.sql`,
   `stripe-payments.sql` (go/no-go), `stripe-portal/index.ts`,

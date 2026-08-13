@@ -1,6 +1,6 @@
 # 12 — SEO-механика
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор) · 2026-08-13 (точечная: Bing WMT + IndexNow)
 
 Дополнение 2026-08-12 (`e8211d3` осн. репо): датный переключатель платной
 копии 1 августа в `js/seo.js` УДАЛЁН — платные описания (index ×3 языка,
@@ -83,6 +83,13 @@ deterrent only»); app/course НЕ disallow'ятся сознательно — 
 
 - Google Search Console: верификация `googlec4665304f2eceeb0.html`; property
   подтверждена 2026-07-14 (`docs/marketing/gsc-readout-2026-08.md`).
+- Bing Webmaster Tools: сайт добавлен вручную 2026-08-13 (импорт из GSC не
+  сработал), верификация метатегом `msvalidate.01` в `index.html`
+  (`c064543`); `sitemap.xml` подан, статус Processing (скриншоты владельца).
+- IndexNow: ключ-файл `54435241f92a34641164ae1e98d2923c.txt` в корне +
+  workflow `.github/workflows/indexnow.yml` (`05f0ab5`) — POST изменённых
+  `*.html`-страниц на `api.indexnow.org` при каждом push в `main`;
+  `app.html`/`course.html` (noindex) пропускаются.
 - OG-image: `og-image.png` 1200×630, ~43 КБ (факт: 43 570 байт), flat brand
   colors, карточка `summary_large_image` (`js/seo.js:21–27`).
 - `?v=`-версии на всех `<script src>` (сейчас `seo.js?v=14`) — инвалидация
@@ -127,6 +134,8 @@ deterrent only»); app/course НЕ disallow'ятся сознательно — 
 - `docs/marketing/gsc-readout-2026-08.md` — полностью; остальные
   marketing-доки — только `wc -l` и назначение
 - `CLAUDE.md` осн. репо (границы лейна marketing)
+- `.github/workflows/indexnow.yml`, `54435241f92a34641164ae1e98d2923c.txt`,
+  `index.html` (метатег `msvalidate.01`) — дополнение 2026-08-13
 
 ## Verification Status
 
