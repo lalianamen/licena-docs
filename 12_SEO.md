@@ -90,6 +90,11 @@ deterrent only»); app/course НЕ disallow'ятся сознательно — 
   workflow `.github/workflows/indexnow.yml` (`05f0ab5`) — POST изменённых
   `*.html`-страниц на `api.indexnow.org` при каждом push в `main`;
   `app.html`/`course.html` (noindex) пропускаются.
+- `llms.txt` в корне (`d181464`, конвенция llmstxt.org, экспериментально —
+  чтение файла крупными AI-движками не подтверждено): фактическая сводка
+  продукта (цены, бесплатные курсы, оригинальность вопросов) + 20
+  practice- и 19 guide-ссылок (EN; зеркала /es/ /ru/ описаны прозой),
+  все ссылки сверены со `sitemap.xml` скриптом при создании.
 - OG-image: `og-image.png` 1200×630, ~43 КБ (факт: 43 570 байт), flat brand
   colors, карточка `summary_large_image` (`js/seo.js:21–27`).
 - `?v=`-версии на всех `<script src>` (сейчас `seo.js?v=14`) — инвалидация
@@ -135,7 +140,7 @@ deterrent only»); app/course НЕ disallow'ятся сознательно — 
   marketing-доки — только `wc -l` и назначение
 - `CLAUDE.md` осн. репо (границы лейна marketing)
 - `.github/workflows/indexnow.yml`, `54435241f92a34641164ae1e98d2923c.txt`,
-  `index.html` (метатег `msvalidate.01`) — дополнение 2026-08-13
+  `index.html` (метатег `msvalidate.01`), `llms.txt` — дополнение 2026-08-13
 
 ## Verification Status
 
