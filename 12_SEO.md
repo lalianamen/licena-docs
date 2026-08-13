@@ -90,6 +90,11 @@ deterrent only»); app/course НЕ disallow'ятся сознательно — 
   workflow `.github/workflows/indexnow.yml` (`05f0ab5`) — POST изменённых
   `*.html`-страниц на `api.indexnow.org` при каждом push в `main`;
   `app.html`/`course.html` (noindex) пропускаются.
+- Пилот «золотой шаблон C-10» (`bf78c5a`+`8074a3e`, влит в `main`
+  2026-08-13): EN `<title>`/OG/Twitter C-10 начинаются с «Free…»; ES/RU
+  головы C-10 сознательно не тронуты (page-1 предупреждение gsc-readout);
+  JSON-LD (Course+FAQPage+Breadcrumb) после перестановки блоков цел —
+  проверено рендером; auth-CTA страницы несут `?src=c10smp`.
 - `llms.txt` в корне (`d181464`, конвенция llmstxt.org, экспериментально —
   чтение файла крупными AI-движками не подтверждено): фактическая сводка
   продукта (цены, бесплатные курсы, оригинальность вопросов) + 20
