@@ -95,6 +95,11 @@ deterrent only»); app/course НЕ disallow'ятся сознательно — 
   головы C-10 сознательно не тронуты (page-1 предупреждение gsc-readout);
   JSON-LD (Course+FAQPage+Breadcrumb) после перестановки блоков цел —
   проверено рендером; auth-CTA страницы несут `?src=c10smp`.
+- Раскатка шаблона на все 20 трейдов (`21a6693`, 2026-08-13): EN-тайтлы
+  всех practice-страниц ведут с «Free» (без дубля там, где Free уже был:
+  asbestos, b-general, c-36, c-46, cslb-law); ES/RU головы не тронуты;
+  `sitemap.xml` lastmod 60 practice-URL → 2026-08-13; auth-CTA несут
+  per-trade `?src={trade}smp` (lawsmp, c20smp, epasmp, …).
 - `llms.txt` в корне (`d181464`, конвенция llmstxt.org, экспериментально —
   чтение файла крупными AI-движками не подтверждено): фактическая сводка
   продукта (цены, бесплатные курсы, оригинальность вопросов) + 20
