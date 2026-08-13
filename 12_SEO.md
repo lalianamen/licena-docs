@@ -1,6 +1,13 @@
 # 12 — SEO-механика
 
 Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор)
+
+Дополнение 2026-08-12 (`e8211d3` осн. репо): датный переключатель платной
+копии 1 августа в `js/seo.js` УДАЛЁН — платные описания (index ×3 языка,
+`COURSE_DESC` без «Free during beta on LICENA») запечены в базовые строки;
+`seo.js?v=15` на всех страницах (index/app/course + 117 practice/guides).
+Мета-описания и JSON-LD страниц `/about/` ×3 больше не содержат
+«Free until July 31, 2026» — заменены на текущий оффер.
 Источник: `lalianamen/llicena@main`. Владелец области — лейн marketing
 (`js/seo.js`, `sitemap.xml`, `robots.txt`, `docs/marketing/**` — `CLAUDE.md`
 осн. репо). Реальные поисковые ЧИСЛА — в `15_METRICS.md`.
