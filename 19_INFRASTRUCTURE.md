@@ -1,6 +1,15 @@
 # 19 — Инфраструктура
 
 Последняя сверка: 2026-08-05
+
+Дополнение 2026-08-12: внешний мониторинг доступности — UptimeRobot
+(бесплатный тариф, аккаунт владельца): «LICENA site» (HTTP/S,
+https://licena.us, 5 мин) и «LICENA Supabase» (Keyword-монитор: GET
+`<project>.supabase.co/auth/v1/health?apikey=<публичный sb_publishable-ключ
+из js/supabase-client.js>`, keyword `GoTrue`, инцидент при отсутствии);
+email-оповещения владельцу. Keyword-тип выбран потому, что HTTP/S-монитор
+бесплатного тарифа шлёт только HEAD, а health-эндпоинт принимает лишь GET
+(405) и требует apikey (иначе 401).
 Только данные, доступные из репозитория `lalianamen/llicena`; все настройки
 дашбордов и DNS-записи вне репо — UNKNOWN.
 
