@@ -1,6 +1,15 @@
 # 14 — Аналитика и сбор событий
 
 Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи»)
+
+Дополнение 2026-08-12 (`72fc7a5` осн. репо): подключён Microsoft Clarity
+(проект «LICENA», Project ID `y1ic13wlta`, аккаунт владельца) — тепловые
+карты и записи сессий; загрузчик `js/clarity.js` (внешний файл из-за CSP без
+'unsafe-inline', no-op при недоступности clarity.ms), тег на 123 страницах
+(index/app/course, practice/guides, /about/; tools/privacy/terms — без
+записи). Clarity ставит first-party cookie `_clck`/`_clsk` — раскрыто в
+`privacy.html` §1/§3/§4 ×3 языка. First-party бикон `js/stats.js` →
+`page_views` не менялся и работает параллельно.
 Источник: `lalianamen/llicena@main`. Только first-party; сторонних трекеров
 нет (grep gtag/googletagmanager/analytics.js по HTML и `js/*.js` — пусто).
 Числа — в `15_METRICS.md`.
