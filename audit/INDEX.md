@@ -1,6 +1,6 @@
 # INDEX — реестр документов базы знаний LICENA
 
-Последняя сверка: 2026-08-10 (точечная: HVAC-калькулятор; полная — 2026-08-05)
+Последняя сверка: 2026-08-15 (точечная: воронка KPI в daily-stats; полная — 2026-08-05)
 Обновляется при каждом создании или изменении документа (`CLAUDE.md` §9).
 
 ## Уровни достоверности
@@ -23,7 +23,7 @@
 | `03_REPO_STRUCTURE.md` | заполнен | 2026-08-13 | Partially Verified |
 | `04_DATABASE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `05_API.md` | заполнен | 2026-08-05 | Partially Verified |
-| `06_FUNCTIONS.md` | заполнен | 2026-08-05 | Verified |
+| `06_FUNCTIONS.md` | заполнен | 2026-08-15 | Verified |
 | `07_AUTH_ACCESS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `08_SECURITY.md` | заполнен | 2026-08-05 | Partially Verified |
 | `09_PAYMENTS.md` | заполнен | 2026-08-05 | Partially Verified |
@@ -31,7 +31,7 @@
 | `11_I18N.md` | заполнен | 2026-08-05 | Partially Verified |
 | `12_SEO.md` | заполнен | 2026-08-13 | Partially Verified |
 | `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-11 | Partially Verified |
-| `14_ANALYTICS.md` | заполнен | 2026-08-11 | Verified (по коду; живые данные UNKNOWN) |
+| `14_ANALYTICS.md` | заполнен | 2026-08-15 | Verified (по коду; живые данные UNKNOWN) |
 | `15_METRICS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `17_TECH_DEBT.md` | заполнен | 2026-08-05 | Partially Verified |
@@ -43,7 +43,7 @@
 | `23_SMM_STATE.md` | не создан | — | — |
 | `24_RISKS.md` | не создан | — | — |
 | `25_DECISIONS.md` | не создан | — | — |
-| `26_CHANGELOG.md` | заполнен | 2026-08-13 | Partially Verified |
+| `26_CHANGELOG.md` | заполнен | 2026-08-15 | Partially Verified |
 | `27_ROADMAP.md` | не создан | — | — |
 | `28_AI_CONTEXT.md` | заполнен | 2026-08-11 | Partially Verified |
 | `29_BUSINESS_FRAMEWORK.md` | не создан | — | — |

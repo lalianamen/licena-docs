@@ -129,7 +129,7 @@
   письмо пользователю. Вызывается workflow'ом `claude-ticket-resolved` при
   merge PR.
 
-## daily-stats (`.../daily-stats/index.ts`, 265 строк)
+## daily-stats (`.../daily-stats/index.ts`, 461 строка на 2026-08-15)
 
 - Ежедневный отчёт о визитах на email (owner request 2026-07-17); Verify JWT
   ON — cron шлёт service-role JWT (`supabase/sql/cron-daily-stats.sql`).
@@ -143,6 +143,13 @@
   топ страниц; 1-го числа месяца — дополнительно месячный rollup (границу
   месяца определяет сама ежедневная джоба). KPI-функции БД `daily_signups`/
   `recent_signups` — атрибуция регистраций к каналам.
+- Блок «Воронка (KPI)» (2026-08-15, ветка
+  `claude/registration-payment-report-metrics-h99xso`, коммит `efbb582`):
+  визит→регистрация за вчера и за те же 7 дней, что в таблице письма
+  (устройство считается один раз за окно), и регистрация→оплата за всё время
+  (различные не-тестовые `user_id` с `stripe_subscription_id` в
+  `user_courses`, включая неактивные строки, к числу не-тестовых аккаунтов).
+  Цифры приходят из `usersSection`; подробности — `14_ANALYTICS.md`.
 - Отправка Resend; получатели из `STATS_EMAIL` (comma-separated; дефолт в
   коде — личный адрес получателя отчёта, в базу знаний не переносится).
 
