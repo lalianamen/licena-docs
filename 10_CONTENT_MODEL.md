@@ -130,7 +130,7 @@ or any real exam)» (шапка `js/samples/c10-exam.js`); `correct` тольк�
   (их полные тексты в этой сверке не читались, только шапки).
   С 2026-08-15 — `docs/content/az-b-blueprint.md` + парный
   `az-b-ledger.md` для курса `az-b` (AZ ROC «B — General Residential
-  Contractor», статус на 2026-08-15 — блок 1 (Sitework) готов, 100/100 EN, блоки 2–5 и переводы не начаты): ветка
+  Contractor», статус на 2026-08-15 — блоки 1–2 готовы, 200/500 EN + RU/ES-оверлеи блока 1; блоки 3–5 не начаты): ветка
   `claude/az-b-general-contractor-9zj4e9`, коммит `8ee0eb8`, в `main` не
   влито. Blueprint построен на официальном content outline PSI для
   классификаций B / B-3 / CR-61 (документ помечен «Effective 5/9/2024»:
