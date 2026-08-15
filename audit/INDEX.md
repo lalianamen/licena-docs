@@ -1,6 +1,6 @@
 # INDEX — реестр документов базы знаний LICENA
 
-Последняя сверка: 2026-08-10 (точечная: HVAC-калькулятор; полная — 2026-08-05)
+Последняя сверка: 2026-08-15 (точечная: blueprint `az-b`; полная — 2026-08-05)
 Обновляется при каждом создании или изменении документа (`CLAUDE.md` §9).
 
 ## Уровни достоверности
@@ -27,7 +27,7 @@
 | `07_AUTH_ACCESS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `08_SECURITY.md` | заполнен | 2026-08-05 | Partially Verified |
 | `09_PAYMENTS.md` | заполнен | 2026-08-05 | Partially Verified |
-| `10_CONTENT_MODEL.md` | заполнен | 2026-08-05 | Partially Verified |
+| `10_CONTENT_MODEL.md` | заполнен | 2026-08-15 | Partially Verified |
 | `11_I18N.md` | заполнен | 2026-08-05 | Partially Verified |
 | `12_SEO.md` | заполнен | 2026-08-13 | Partially Verified |
 | `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-11 | Partially Verified |
@@ -43,7 +43,7 @@
 | `23_SMM_STATE.md` | не создан | — | — |
 | `24_RISKS.md` | не создан | — | — |
 | `25_DECISIONS.md` | не создан | — | — |
-| `26_CHANGELOG.md` | заполнен | 2026-08-13 | Partially Verified |
+| `26_CHANGELOG.md` | заполнен | 2026-08-15 | Partially Verified |
 | `27_ROADMAP.md` | не создан | — | — |
 | `28_AI_CONTEXT.md` | заполнен | 2026-08-11 | Partially Verified |
 | `29_BUSINESS_FRAMEWORK.md` | не создан | — | — |

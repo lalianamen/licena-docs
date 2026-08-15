@@ -1,6 +1,6 @@
 # 10 — Контент-модель (банки вопросов, гайды, сэмплы)
 
-Последняя сверка: 2026-08-05
+Последняя сверка: 2026-08-15 (точечная: blueprint `az-b`; полная — 2026-08-05)
 Источник: `lalianamen/llicena` — ветки `main` и `content-banks-src`;
 `docs/content/bank-playbook.md` прочитан полностью.
 
@@ -128,6 +128,21 @@ or any real exam)» (шапка `js/samples/c10-exam.js`); `correct` тольк�
   день). Банки обоих курсов с тех пор выпущены (записи `js/bank-updates.js`
   2026-07-21/28); обновлялись ли blueprint-файлы после выпуска — UNKNOWN
   (их полные тексты в этой сверке не читались, только шапки).
+  С 2026-08-15 — `docs/content/az-b-blueprint.md` + парный
+  `az-b-ledger.md` для курса `az-b` (AZ ROC «B — General Residential
+  Contractor», статус «STEP 1 ONLY», вопросов нет): ветка
+  `claude/az-b-general-contractor-9zj4e9`, коммит `8ee0eb8`, в `main` не
+  влито. Blueprint построен на официальном content outline PSI для
+  классификаций B / B-3 / CR-61 (документ помечен «Effective 5/9/2024»:
+  100 вопросов, проходной 70%, 240 минут; девять предметных областей —
+  Sitework 17, Concrete 17, Masonry 9, Metal Framing 6, Carpentry 17,
+  Thermal and Moisture Protection 12, Doors and Windows 7, Finishes 9,
+  Safety 6). Экзаменационные справочники по этому документу — 2018 IRC и
+  29 CFR 1926; зафиксировано правило источников: код-факты берутся только
+  из редакции 2018 IRC без местных поправок (просмотрщик юрисдикции Texas,
+  сверка по Kansas), юрисдикция Phoenix запрещена как источник (её текст
+  изменён поправками города — R401.3 отсылает к гл. 32A Phoenix City Code
+  вместо модельных «6 дюймов на первых 10 футах»).
 - **Журнал обновлений** `js/bank-updates.js`: максимум 6 честных записей
   (дата, банк, что сделано, источники, год данных, штат); текущие 6 записей
   дословно зафиксированы датами 2026-07-21…2026-08-04 (пересказ — в
@@ -155,7 +170,8 @@ or any real exam)» (шапка `js/samples/c10-exam.js`); `correct` тольк�
 
 - `docs/content/bank-playbook.md` — полностью;
   `b-general-building-blueprint.md`, `b-general-building-ledger.md`,
-  `c27-blueprint.md` — шапки
+  `c27-blueprint.md` — шапки; `az-b-blueprint.md`, `az-b-ledger.md` —
+  полностью (созданы в этой же сессии)
 - `scripts/check-banks.js` — полностью; `scripts/verify.js`,
   `generate-bank-csv.js` — полностью; `generate-bank-seeds.js` — назначение
   по имени и `.gitignore`
