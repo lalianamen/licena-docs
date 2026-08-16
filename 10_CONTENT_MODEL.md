@@ -1,6 +1,6 @@
 # 10 — Контент-модель (банки вопросов, гайды, сэмплы)
 
-Последняя сверка: 2026-08-15 (точечная: blueprint `az-b`; полная — 2026-08-05)
+Последняя сверка: 2026-08-16 (точечная: банк `az-b` завершён; полная — 2026-08-05)
 Источник: `lalianamen/llicena` — ветки `main` и `content-banks-src`;
 `docs/content/bank-playbook.md` прочитан полностью.
 
@@ -130,9 +130,16 @@ or any real exam)» (шапка `js/samples/c10-exam.js`); `correct` тольк�
   (их полные тексты в этой сверке не читались, только шапки).
   С 2026-08-15 — `docs/content/az-b-blueprint.md` + парный
   `az-b-ledger.md` для курса `az-b` (AZ ROC «B — General Residential
-  Contractor», статус на 2026-08-15 — блоки 1–3 готовы, 300/500 EN + RU/ES-оверлеи блока 1 (оверлеи блока 2 в работе); блоки 4–5 не начаты): ветка
-  `claude/az-b-general-contractor-9zj4e9`, коммит `8ee0eb8`, в `main` не
-  влито. Blueprint построен на официальном content outline PSI для
+  Contractor», статус на 2026-08-16 — **банк завершён**: 500/500 EN +
+  RU/ES-оверлеи 500/500 (итого 1 500 позиций); курс подключён — каталог
+  `js/catalog/az.js` (подгруппа az-roc), `EXAM_FORMATS["az-b"]`
+  {count:100, passPct:70} + `EXAM_MINUTES["az-b"]`=240, панель
+  `COURSE_REF["az-b"]`, `az-b` во всех шести платных списках; запись
+  релиза в `js/bank-updates.js`): ветка
+  `claude/az-b-general-contractor-9zj4e9`, коммиты `8ee0eb8`…`f162f4e`,
+  в `main` не влито; финальный дом статики — `content-banks-src`, сайт
+  отдаёт платные банки из Supabase `bank_questions` после импорта CSV
+  владельцем. Blueprint построен на официальном content outline PSI для
   классификаций B / B-3 / CR-61 (документ помечен «Effective 5/9/2024»:
   100 вопросов, проходной 70%, 240 минут; девять предметных областей —
   Sitework 17, Concrete 17, Masonry 9, Metal Framing 6, Carpentry 17,
@@ -145,8 +152,9 @@ or any real exam)» (шапка `js/samples/c10-exam.js`); `correct` тольк�
   вместо модельных «6 дюймов на первых 10 футах»).
 - **Журнал обновлений** `js/bank-updates.js`: максимум 6 честных записей
   (дата, банк, что сделано, источники, год данных, штат); текущие 6 записей
-  дословно зафиксированы датами 2026-07-21…2026-08-04 (пересказ — в
-  `26_CHANGELOG.md`).
+  зафиксированы датами 2026-07-28…2026-08-16 (на ветке az-b; новейшая —
+  релиз `az-b`, старейшая запись C-27 от 2026-07-21 удалена по правилу
+  «максимум 6»; пересказ — в `26_CHANGELOG.md`).
 - **Очередь контент-аудита** `docs/content-audit/queue.json`: элементы
   {id, source, status pending/done, checkedOn, result}; политика
   «deploy-everything (autonomous): агент не выдумывает; UNVERIFIED

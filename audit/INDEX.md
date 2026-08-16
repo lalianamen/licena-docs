@@ -27,12 +27,12 @@
 | `07_AUTH_ACCESS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `08_SECURITY.md` | заполнен | 2026-08-05 | Partially Verified |
 | `09_PAYMENTS.md` | заполнен | 2026-08-05 | Partially Verified |
-| `10_CONTENT_MODEL.md` | заполнен | 2026-08-15 | Partially Verified |
+| `10_CONTENT_MODEL.md` | заполнен | 2026-08-16 | Partially Verified |
 | `11_I18N.md` | заполнен | 2026-08-05 | Partially Verified |
 | `12_SEO.md` | заполнен | 2026-08-13 | Partially Verified |
 | `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-11 | Partially Verified |
 | `14_ANALYTICS.md` | заполнен | 2026-08-11 | Verified (по коду; живые данные UNKNOWN) |
-| `15_METRICS.md` | заполнен | 2026-08-05 | Partially Verified |
+| `15_METRICS.md` | заполнен | 2026-08-16 | Partially Verified |
 | `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `17_TECH_DEBT.md` | заполнен | 2026-08-05 | Partially Verified |
 | `18_DEPENDENCIES.md` | заполнен | 2026-08-13 | Verified |
@@ -43,9 +43,9 @@
 | `23_SMM_STATE.md` | не создан | — | — |
 | `24_RISKS.md` | не создан | — | — |
 | `25_DECISIONS.md` | не создан | — | — |
-| `26_CHANGELOG.md` | заполнен | 2026-08-15 | Partially Verified |
+| `26_CHANGELOG.md` | заполнен | 2026-08-16 | Partially Verified |
 | `27_ROADMAP.md` | не создан | — | — |
-| `28_AI_CONTEXT.md` | заполнен | 2026-08-11 | Partially Verified |
+| `28_AI_CONTEXT.md` | заполнен | 2026-08-16 | Partially Verified |
 | `29_BUSINESS_FRAMEWORK.md` | не создан | — | — |
 | `30_CTO_REPORT.md` | не создан (будет создан пустым; заполняет ChatGPT) | — | — |
 | `RELEASE_SUMMARY.md` | не создан | — | — |
