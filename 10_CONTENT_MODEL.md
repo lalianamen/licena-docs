@@ -1,6 +1,6 @@
 # 10 — Контент-модель (банки вопросов, гайды, сэмплы)
 
-Последняя сверка: 2026-08-18 (точечная: банк `az-r11` — 500×3 готов, CSV передан, ожидание импорта; полная — 2026-08-05)
+Последняя сверка: 2026-08-18 (точечная: банк `az-r11` выпущен в продакшен; полная — 2026-08-05)
 Источник: `lalianamen/llicena` — ветки `main` и `content-banks-src`;
 `docs/content/bank-playbook.md` прочитан полностью.
 
@@ -154,10 +154,12 @@ or any real exam)» (шапка `js/samples/c10-exam.js`); `correct` тольк�
   `az-r11-ledger.md` для курса `az-r11` (AZ ROC «R-11 — Electrical,
   Residential»; PSI-аутлайн rev 6/8/23: 110 вопросов, 70%, 240 минут,
   open-book, справочники NEC 2017 / NFPA 72-2016 / 29 CFR 1926). Статус на
-  2026-08-18 — **банк завершён: 500 EN + 500 RU + 500 ES (5×100)**;
-  статика на `content-banks-src` (c272c2e), az-r11 в PAID-списке
-  CSV-генератора (18 банков); CSV-вырезка (1500 строк) передана
-  владельцу; wiring в main — после подтверждения импорта; ветка `claude/az-b-general-contractor-9zj4e9`, коммиты
+  2026-08-18 — **банк ВЫПУЩЕН в продакшен**: 500 EN + 500 RU + 500 ES
+  (5×100); статика на `content-banks-src` (c272c2e), CSV импортирован
+  владельцем в Supabase `bank_questions`; курс подключён в main
+  (61c07ba): каталог/пути/COURSE_REF/EXAM_FORMATS 110-70-240/6 платных
+  списков (check-paid-sync: 17)/bank-updates; у владельца — перезапуск
+  trial-3day.sql + stripe-payments.sql и редеплой stripe-checkout; ветка `claude/az-b-general-contractor-9zj4e9`, коммиты
   `92bbd86`…`e4593ea`, в `main` не влито; файл помечен paid — финальный дом
   `content-banks-src`. Правило источников: код-факты только из 2018 IRC
   Part VIII (текст NEC 2017 для жилья со скобочными NEC-номерами), читается
