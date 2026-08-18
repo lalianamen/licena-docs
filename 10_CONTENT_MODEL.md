@@ -154,10 +154,11 @@ or any real exam)» (шапка `js/samples/c10-exam.js`); `correct` тольк�
   `az-r11-ledger.md` для курса `az-r11` (AZ ROC «R-11 — Electrical,
   Residential»; PSI-аутлайн rev 6/8/23: 110 вопросов, 70%, 240 минут,
   open-book, справочники NEC 2017 / NFPA 72-2016 / 29 CFR 1926). Статус на
-  2026-08-18 — **в производстве, блок 1 из 5 готов**: 100/500 EN
-  (Services/Feeders/Load Calculations) + RU/ES-оверлеи блока 1 (100/100 в
+  2026-08-18 — **в производстве, блоки 1–2 из 5 готовы**: 200/500 EN
+  (блок 1 Services/Feeders/Load Calculations, блок 2 Branch Circuits/
+  Devices/Lighting/Low Voltage) + RU/ES-оверлеи блоков 1–2 (200/200 в
   обоих языках); ветка `claude/az-b-general-contractor-9zj4e9`, коммиты
-  `92bbd86`…`7c41f9f`, в `main` не влито; файл помечен paid — финальный дом
+  `92bbd86`…`7fa8067`, в `main` не влито; файл помечен paid — финальный дом
   `content-banks-src`. Правило источников: код-факты только из 2018 IRC
   Part VIII (текст NEC 2017 для жилья со скобочными NEC-номерами), читается
   через безпоправочную адопцию Texas на up.codes со сверкой по Kansas;
