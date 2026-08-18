@@ -1,6 +1,6 @@
 # 10 — Контент-модель (банки вопросов, гайды, сэмплы)
 
-Последняя сверка: 2026-08-18 (точечная: банк `az-r11` выпущен в продакшен; полная — 2026-08-05)
+Последняя сверка: 2026-08-18 (точечная: банки `az-r11` и `az-r37r` выпущены в продакшен; полная — 2026-08-05)
 Источник: `lalianamen/llicena` — ветки `main` и `content-banks-src`;
 `docs/content/bank-playbook.md` прочитан полностью.
 
@@ -56,8 +56,9 @@ or any real exam)» (шапка `js/samples/c10-exam.js`); `correct` тольк�
   `04_DATABASE.md`.
 - Правка платного банка (процесс из `CLAUDE.md` осн. репо): checkout
   `content-banks-src` → правка + чекер там → `node
-  scripts/generate-bank-csv.js` (12 банков в списке на `main`, 13 с
-  `la-business-law` на ветке; CSV в `supabase/sql/bank_questions.csv`,
+  scripts/generate-bank-csv.js` (12 банков в списке на `main`; на ветке —
+  19 на 2026-08-18: +`la-business-law`, `c33-painting`, `c54-tile`, `az-b`,
+  `az-sre`, `az-r11`, `az-r37r`; CSV в `supabase/sql/bank_questions.csv`,
   gitignored) → владелец реимпортирует CSV в Supabase Table Editor.
   Альтернативный генератор — `scripts/generate-bank-seeds.js` (SQL-сиды,
   gitignored).
@@ -159,19 +160,35 @@ or any real exam)» (шапка `js/samples/c10-exam.js`); `correct` тольк�
   владельцем в Supabase `bank_questions`; курс подключён в main
   (61c07ba): каталог/пути/COURSE_REF/EXAM_FORMATS 110-70-240/6 платных
   списков (check-paid-sync: 17)/bank-updates; у владельца — перезапуск
-  trial-3day.sql + stripe-payments.sql и редеплой stripe-checkout; ветка `claude/az-b-general-contractor-9zj4e9`, коммиты
-  `92bbd86`…`e4593ea`, в `main` не влито; файл помечен paid — финальный дом
-  `content-banks-src`. Правило источников: код-факты только из 2018 IRC
+  trial-3day.sql + stripe-payments.sql и редеплой stripe-checkout.
+  Правило источников: код-факты только из 2018 IRC
   Part VIII (текст NEC 2017 для жилья со скобочными NEC-номерами), читается
   через безпоправочную адопцию Texas на up.codes со сверкой по Kansas;
   числа никогда не заимствуются из `c10`/`c46`/`c7` (другая редакция NEC).
-  Подключение курса на сайте (каталог/EXAM_FORMATS/платные списки) — НЕ
-  выполнено, по порядку владельца — после импорта банка в базу.
-- **Журнал обновлений** `js/bank-updates.js`: максимум 6 честных записей
-  (дата, банк, что сделано, источники, год данных, штат); текущие 6 записей
-  зафиксированы датами 2026-07-28…2026-08-16 (на ветке az-b; новейшая —
-  релиз `az-b`, старейшая запись C-27 от 2026-07-21 удалена по правилу
-  «максимум 6»; пересказ — в `26_CHANGELOG.md`).
+  С 2026-08-18 — `docs/content/az-r37r-blueprint.md` + парный
+  `az-r37r-ledger.md` для курса `az-r37r` (AZ ROC «R-37R — Plumbing,
+  Residential»; PSI-аутлайн rev 6/8/23: 100 вопросов, 70%, 240 минут,
+  open-book, справочники 2018 IPC / 2018 IFGC / NFPA 13D / 29 CFR 1926).
+  Статус на 2026-08-18 — **банк ВЫПУЩЕН в продакшен**: 500 EN + 500 RU +
+  500 ES (5×100), ключи A126/B125/C125/D124; статика на `content-banks-src`
+  (3560cf5), CSV импортирован владельцем в Supabase `bank_questions`; курс
+  подключён в main (6a173b9): каталог/пути/COURSE_REF (7 ссылок)/
+  EXAM_FORMATS 100-70-240/6 платных списков (check-paid-sync: 18)/
+  bank-updates (state:"az"); у владельца — перезапуск trial-3day.sql +
+  stripe-payments.sql и редеплой stripe-checkout (списки включают az-r11 и
+  az-r37r). Правило источников: IPC/IFGC 2018 — первичная безпоправочная
+  адопция Kansas на up.codes, кросс-чек Texas (~350 строковых сверок);
+  Oklahoma исключён (правит 708.1.3); два юрисдикционных [NUMBER]-брекета
+  модельного текста (903.1, 305.4.1) — числовые вопросы не писались;
+  септики — EPA SepticSmart (epa.gov), экскавация — 29 CFR 1926.650–652
+  (osha.gov), спринклеры — IRC 2018 P2904 как открытый мост к NFPA 13D;
+  числа никогда не заимствуются из `c36`/`c16` (семейство UPC/CPC).
+- **Журнал обновлений** `js/bank-updates.js`: честные записи (дата, банк,
+  что сделано, источники, год данных, штат); лимит — максимум 6 записей НА
+  КАЖДЫЙ ШТАТ (решение владельца 2026-08-18, ранее — 6 суммарно; кабинет
+  фильтрует записи по выбранному штату). На 2026-08-18 (main `6a173b9`,
+  v29) — 10 записей: AZ 4 (R-37R, R-11, B, SRE) + CA 6 (C-54, C-33, B-2,
+  C-8, C-27×2); пересказ — в `26_CHANGELOG.md`.
 - **Очередь контент-аудита** `docs/content-audit/queue.json`: элементы
   {id, source, status pending/done, checkedOn, result}; политика
   «deploy-everything (autonomous): агент не выдумывает; UNVERIFIED
