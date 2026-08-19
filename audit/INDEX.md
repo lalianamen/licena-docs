@@ -49,7 +49,8 @@
 | `29_BUSINESS_FRAMEWORK.md` | не создан | — | — |
 | `30_CTO_REPORT.md` | не создан (будет создан пустым; заполняет ChatGPT) | — | — |
 | `RELEASE_SUMMARY.md` | не создан | — | — |
-| `rfc/` | не создана | — | — |
+| `rfc/` | создана | 2026-08-19 | — |
+| `rfc/2026-08-19-lifecycle-notifications.md` | создан (статус: Proposed; Phase 1 реализуется на ветке, в main после одобрения) | 2026-08-19 | Partially Verified (аудит §1 — Verified; §2–10 — предложение) |
 | `decisions/ADR-001-UNIFIED-COURSE-REGISTRY.md` | создан (статус решения: Proposed, не реализовано; путь задан владельцем 2026-08-05) | 2026-08-05 | Partially Verified (факты §1–3 — Verified; §4–13 — предложение) |
 | `audit/INDEX.md` | заполнен | 2026-08-05 | Verified (производный от самих документов) |
 | `audit/COVERAGE.md` | заполнен | 2026-08-05 | Verified (производный от документов + листинга основного репо) |
