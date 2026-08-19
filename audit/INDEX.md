@@ -43,7 +43,7 @@
 | `23_SMM_STATE.md` | не создан | — | — |
 | `24_RISKS.md` | не создан | — | — |
 | `25_DECISIONS.md` | не создан | — | — |
-| `26_CHANGELOG.md` | заполнен | 2026-08-18 | Partially Verified |
+| `26_CHANGELOG.md` | заполнен | 2026-08-19 | Partially Verified |
 | `27_ROADMAP.md` | не создан | — | — |
 | `28_AI_CONTEXT.md` | заполнен | 2026-08-16 | Partially Verified |
 | `29_BUSINESS_FRAMEWORK.md` | не создан | — | — |
