@@ -263,7 +263,7 @@ cron-джоба не создана) — до активации ни одно �
 | 19 Prefs + отписка | ✅ 5 категорий + unsub-all + /u/ по токену; транзакционные отдельно |
 | 20 Teams | 📋 закладка (§8 RFC), Phase 3 |
 | 21 Referral | 📋 закладка (§8 RFC), Phase 3 |
-| 22 Событ< аналитики | ✅ частично: app_events+lpTrack (exam_date_set, exam_result_reported, prefs_changed), notification_log = reminder_sent, клики = ?src=em-*; платёжные — уже в Stripe-вебхуке |
+| 22 События аналитики | ✅ частично: app_events+lpTrack (exam_date_set, exam_result_reported, prefs_changed), notification_log = reminder_sent, клики = ?src=em-*; платёжные — уже в Stripe-вебхуке |
 | 23 KPI | ✅ частично: цепочки измеримы SQL-ом; готового отчёта нет |
 | 24 A/B-готовность | ✅ архитектурно (конфиг + копия в одном месте + meta) |
 | 25 Копия EN/ES/RU | ✅ 8 типов × 3 языка, язык = профиль |
