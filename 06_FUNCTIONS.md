@@ -179,9 +179,16 @@
   с reason rateLimit/quota), `gsc-query`, `schema`, `db-insert` (с числом уже
   вставленных). Успех: `{ok, property, start_date, end_date, snapshots, rows,
   datasets[], columns_used}`.
-- Деплой: `supabase functions deploy gsc-sync`, Verify JWT ON. Статус на
-  2026-08-25: код в `main` (`ca3b5b8` + фиксы `f1390ad`), деплой и первый
-  вызов — на стороне владельца; UNKNOWN — фактическое состояние деплоя.
+- Деплой: выполнен владельцем 2026-08-25 через Dashboard (Via Editor).
+  Итоговая версия кода: `384526c` (после `f1390ad` добавлены: допуск обоих
+  поколений API-ключей через capability-проверку GoTrue admin-эндпоинтом,
+  самодиагностика auth-отказа по role/длинам, исключение identity `id` из
+  предзаписной проверки required-колонок).
+- Первый боевой запуск 2026-08-25 подтверждён ответом функции: окно
+  2026-07-26…2026-08-22 (28 дней), 5 снапшотов, 324 строки GSC
+  (query+page 77, query+country 87, query+device 79, page+device 53,
+  date 28), без пагинации и усечения; фактические колонки:
+  property → `site_url`, остальные — одноимённые.
 
 ## Секреты (имена; значения только в Supabase → Edge Functions → Secrets)
 
