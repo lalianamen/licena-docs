@@ -1,6 +1,6 @@
 # 14 — Аналитика и сбор событий
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи»)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи») · 2026-08-26 (точечная: GA4)
 
 Дополнение 2026-08-12 (`72fc7a5` осн. репо): подключён Microsoft Clarity
 (проект «LICENA», Project ID `y1ic13wlta`, аккаунт владельца) — тепловые
@@ -13,6 +13,35 @@
 Источник: `lalianamen/llicena@main`. Только first-party; сторонних трекеров
 нет (grep gtag/googletagmanager/analytics.js по HTML и `js/*.js` — пусто).
 Числа — в `15_METRICS.md`.
+(Факт «сторонних трекеров нет» действителен по 2026-08-25 — с 2026-08-26
+подключён GA4, см. дополнение ниже.)
+
+Дополнение 2026-08-26 (`fca5fb2` осн. репо): подключён Google Analytics 4
+(задача владельца; Measurement ID `G-1YE5GDRVFZ`, GA-проперти «Licena Web»
+в аккаунте владельца). Схема установки: официальный загрузчик
+`<script async src="https://www.googletagmanager.com/gtag/js?id=G-1YE5GDRVFZ">`
+литерально в `<head>` каждой страницы + конфиг-сниппет вынесен в `js/ga.js`
+(`?v=1`; внешний файл, потому что CSP сайта не содержит `'unsafe-inline'`
+для скриптов — тот же паттерн, что `js/clarity.js`). Покрытие: все 171
+обслуживаемые страницы (root + `/es` + `/ru`: index, about, app, course,
+preview, practice-preview, 60 practice, 57 guides, 30 tools, demo/cabinet,
+privacy, terms, `/u`); вставка сразу после CSP-меты (на 4 страницах без
+CSP-меты — demo/cabinet, privacy, terms, `/u` — после `<meta charset>`).
+CSP на 167 страницах расширен по официальному CSP-гайду Google для Google
+tag: `script-src` +`https://*.googletagmanager.com`; `img-src`
++`https://*.google-analytics.com` +`https://*.googletagmanager.com`;
+`connect-src` +`https://*.google-analytics.com`
++`https://*.analytics.google.com` +`https://*.googletagmanager.com`.
+НЕ тронуты: email-шаблоны (`docs/email/`, `supabase/email-templates/`),
+печатные флаеры (`docs/marketing/flyer/`), файл верификации
+`googlec4665304f2eceeb0.html`. Перед установкой grep подтвердил отсутствие
+GA4/GTM на сайте — экземпляр тега один. События GA4 — стандартные
+автоматические (page_view и enhanced measurement по настройкам проперти);
+кастомные события в gtag не отправляются — событийная кастом-аналитика
+остаётся на Clarity (`track()` в `js/sample-quiz.js`) и first-party биконе.
+`privacy.html` на 2026-08-26 НЕ упоминает cookies GA4 (`_ga`, `_ga_*`) —
+раскрытие за владельцем (для Clarity `_clck`/`_clsk` раскрытие было сделано
+2026-08-12).
 
 ## Событие — ровно одно: page view
 
@@ -125,6 +154,8 @@ Supabase — UNKNOWN (за владельцем).
   `supabase/sql/page-views.sql`, `report-kpi.sql`, `cron-daily-stats.sql`
 - `googlec4665304f2eceeb0.html`, `docs/marketing/gsc-readout-2026-08.md`
 - grep-проверка отсутствия сторонних трекеров (index/app/course + `js/*.js`)
+- `js/ga.js`, `index.html` (образец вставки GA4 + расширенного CSP),
+  коммит `fca5fb2` осн. репо (список всех 171+167 затронутых страниц)
 
 ## Verification Status
 
