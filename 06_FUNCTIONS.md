@@ -146,6 +146,43 @@
 - Отправка Resend; получатели из `STATS_EMAIL` (comma-separated; дефолт в
   коде — личный адрес получателя отчёта, в базу знаний не переносится).
 
+## gsc-sync (`.../gsc-sync/index.ts`, 373 строк)
+
+Добавлена 2026-08-25 (задача владельца). Синхронизация Google Search Console →
+`public.gsc_snapshots`. POST-only; помимо `verify_jwt` требует в Authorization
+сам service-role ключ (anon-JWT отклоняется, стадия `auth`, 401 — фикс по
+результату адверсариальной ревизии).
+
+- Свойство: `https://licena.us/` (URL-encoded в пути API). Скоуп только
+  `https://www.googleapis.com/auth/webmasters.readonly`.
+- Аутентификация Google: RS256 JWT (WebCrypto, импорт PKCS8 из секрета
+  `GSC_SERVICE_ACCOUNT_JSON`; `iat` со сдвигом −60 с), обмен на access token
+  по `token_uri` из JSON (по умолчанию `https://oauth2.googleapis.com/token`).
+  Секрет читается только в память; в логи/ответы не попадает.
+- Окно: последние 28 полных дней, конец — 3 дня назад; календарные дни
+  считаются в `America/Los_Angeles` (GSC отдаёт даты в Pacific). Опциональное
+  тело `{"days": 1..90}` меняет длину окна.
+- Пять датасетов: query+page, query+country, query+device, page+device, date;
+  `rowLimit` 25000, пагинация по `startRow`, кап 4 страницы на датасет с
+  флагом `truncated`; `dataState:"final"`, `type:"web"`.
+- Схема `gsc_snapshots` не хранится в репо (таблица создана в Supabase
+  напрямую) — функция перед записью читает её фактическую схему через
+  OpenAPI-описание PostgREST (service role) и адаптирует вставку: карта
+  алиасов колонок (fetched_at/property/start_date/end_date/dimensions/
+  row_count/payload), `dimensions` в форму text[]/text/jsonb по типу колонки,
+  `payload` сериализуется строкой для text-колонки; незаполнимые NOT NULL
+  колонки — быстрый отказ (стадия `schema`).
+- Запись: по одной строке снапшота на датасет (5 отдельных insert), только
+  service role; политики RLS не создаются и не меняются.
+- Ошибки типизированы по стадиям без секретов: `auth`, `secret`,
+  `google-oauth`, `gsc-permission`, `gsc-property`, `gsc-quota` (включая 403
+  с reason rateLimit/quota), `gsc-query`, `schema`, `db-insert` (с числом уже
+  вставленных). Успех: `{ok, property, start_date, end_date, snapshots, rows,
+  datasets[], columns_used}`.
+- Деплой: `supabase functions deploy gsc-sync`, Verify JWT ON. Статус на
+  2026-08-25: код в `main` (`ca3b5b8` + фиксы `f1390ad`), деплой и первый
+  вызов — на стороне владельца; UNKNOWN — фактическое состояние деплоя.
+
 ## Секреты (имена; значения только в Supabase → Edge Functions → Secrets)
 
 `CLAUDE_API_KEY` (assistant); `STRIPE_SECRET_KEY` (все stripe-*);
@@ -154,8 +191,11 @@ ticket-issue, daily-stats); `TICKET_WEBHOOK_SECRET` (ticket-*);
 `GH_ISSUE_TOKEN`, `OWNER_EMAIL` (ticket-issue); `STATS_EMAIL` (daily-stats);
 `SUPABASE_URL`/`SUPABASE_ANON_KEY`/`SUPABASE_SERVICE_ROLE_KEY` — инжектируются
 платформой. Verify JWT: OFF только у `stripe-webhook`.
+- `GSC_SERVICE_ACCOUNT_JSON` — полный JSON сервисного аккаунта Google (gsc-sync; доступ Restricted к Search Console property `https://licena.us/`).
 
 ## Source References
+
+- `supabase/functions/gsc-sync/index.ts` (добавлено 2026-08-25)
 
 - `supabase/functions/assistant/index.ts`, `stripe-checkout/index.ts`,
   `stripe-webhook/index.ts`, `stripe-portal/index.ts`,
@@ -167,7 +207,7 @@ ticket-issue, daily-stats); `TICKET_WEBHOOK_SECRET` (ticket-*);
 
 ## Verification Status
 
-**Verified** — все 8 файлов функций прочитаны полностью; каждое утверждение
+**Verified** — все 9 файлов функций прочитаны полностью; каждое утверждение
 прослеживается к строкам кода. UNKNOWN: фактические настройки в дашбордах
 (Verify JWT-тумблеры, активация Customer Portal, набор событий в Stripe
 Webhooks, значения секретов) — из репозитория не видны; код фиксирует
