@@ -37,6 +37,12 @@ LICENA (licena.us) — трёхъязычный (EN/ES/RU) тренажёр ли
 внесены (см. пробел покрытия в `26_CHANGELOG.md`). Practice-страницы четырёх AZ trade-банков (`435946f`: 12 страниц +
 `js/samples/az-*.js` + 4 slug в `EXAMS` + sitemap 137 URL) ВЛИТЫ в `main`
 тем же fast-forward `034521e` (2026-08-25) и живут на проде.
+Дополнение 2026-08-27: у трёх невадских платных банков появились
+practice-страницы (`a25d54e` осн. репо, влито в `main`): слаги
+`nv-cms-exam` / `nv-b-general-building` / `nv-b2-residential` × EN/ES/RU
+(9 страниц по шаблону AZ), сэмплы `js/samples/nv-{cms,b,b2}.js`
+(8 оригинальных вопросов на банк, ключи пересверены по первоисточникам),
+`js/seo.js` EXAMS +3, `sitemap.xml` 137→146 URL. Детали — `12_SEO.md`.
 Дополнение 2026-08-26: подключён Google Analytics 4 (`fca5fb2` осн. репо,
 влито в `main`): Google tag `G-1YE5GDRVFZ` на всех 171 обслуживаемых
 страницах — загрузчик gtag.js в `<head>` + конфиг во внешнем `js/ga.js?v=1`

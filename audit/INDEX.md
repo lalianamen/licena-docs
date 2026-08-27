@@ -29,7 +29,7 @@
 | `09_PAYMENTS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `10_CONTENT_MODEL.md` | заполнен | 2026-08-05 | Partially Verified |
 | `11_I18N.md` | заполнен | 2026-08-05 | Partially Verified |
-| `12_SEO.md` | заполнен | 2026-08-13 | Partially Verified |
+| `12_SEO.md` | заполнен | 2026-08-27 | Partially Verified |
 | `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-11 | Partially Verified |
 | `14_ANALYTICS.md` | заполнен | 2026-08-26 | Verified (по коду; живые данные UNKNOWN) |
 | `15_METRICS.md` | заполнен | 2026-08-05 | Partially Verified |
