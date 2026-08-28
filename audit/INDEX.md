@@ -51,6 +51,7 @@
 | `RELEASE_SUMMARY.md` | не создан | — | — |
 | `rfc/` | не создана | — | — |
 | `decisions/ADR-001-UNIFIED-COURSE-REGISTRY.md` | создан (статус решения: Proposed, не реализовано; путь задан владельцем 2026-08-05) | 2026-08-05 | Partially Verified (факты §1–3 — Verified; §4–13 — предложение) |
+| `preview/roadmap/` | создана (превью-файлы фичи License Roadmap по команде владельца) | 2026-08-28 | Verified (см. README папки) |
 | `audit/INDEX.md` | заполнен | 2026-08-05 | Verified (производный от самих документов) |
 | `audit/COVERAGE.md` | заполнен | 2026-08-05 | Verified (производный от документов + листинга основного репо) |
 

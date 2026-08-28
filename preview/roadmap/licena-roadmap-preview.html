@@ -1,0 +1,1912 @@
+<title>LICENA License Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15273D; --ink2:#1E3A5C; --paper:#E8EBEC; --card:#FFFFFF;
+  --gold:#E0A116; --gold-deep:#B87E0A; --verify:#2E7D5B; --verify-soft:#E4F0EA;
+  --steel:#5E6E7E; --line:#D4DADE; --danger:#B23A2E; --danger-soft:#F6E5E2;
+  --r:14px; --shadow:0 1px 2px rgba(21,39,61,.06), 0 12px 30px rgba(21,39,61,.08);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'IBM Plex Sans',system-ui,sans-serif;line-height:1.5;
+  background-image:radial-gradient(circle at 1px 1px, rgba(21,39,61,.05) 1px, transparent 0);
+  background-size:22px 22px;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.mono{font-family:'IBM Plex Mono',monospace}
+h1,h2,h3{font-family:'Archivo',sans-serif;margin:0;letter-spacing:-.02em;line-height:1.04}
+.eyebrow{font-family:'Archivo';text-transform:uppercase;letter-spacing:.18em;
+  font-size:12px;font-weight:700;color:var(--gold-deep)}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer;border:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+
+/* announcement bar (above the header) */
+.announce{background:#0E1A29;color:var(--gold);text-align:center;font-size:13px;
+  font-weight:600;padding:8px 16px;line-height:1.45}
+
+/* top bar — dark (landing) */
+.top{position:sticky;top:0;z-index:20;background:rgba(21,39,61,.94);
+  backdrop-filter:saturate(140%) blur(12px);-webkit-backdrop-filter:saturate(140%) blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.08)}
+.top .wrap{display:flex;align-items:center;gap:14px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Archivo';font-weight:900;
+  font-size:21px;letter-spacing:-.01em;text-decoration:none;color:#fff}
+.brand .mk{width:30px;height:30px;border-radius:7px;background:var(--gold);color:var(--ink);
+  display:grid;place-items:center;font-size:15px;font-weight:900;font-family:'Archivo'}
+.top-nav{display:flex;gap:18px;margin-left:8px}
+.top-nav a{color:#b9c7d6;text-decoration:none;font-family:'Archivo';font-weight:600;
+  font-size:13.5px;letter-spacing:.01em;transition:color .12s ease}
+.top-nav a:hover{color:#fff}
+@media(max-width:1099px){.top-nav{display:none}}
+.tag{font-size:11px;font-weight:700;font-family:'Archivo';text-transform:uppercase;
+  letter-spacing:.1em;color:var(--ink);background:var(--gold);
+  padding:3px 8px;border-radius:6px}
+.langs{margin-left:auto;display:flex;gap:3px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+  padding:4px;border-radius:11px}
+.langs button{background:transparent;color:#9fb2c6;font-weight:700;font-size:13px;
+  font-family:'Archivo';letter-spacing:.02em;min-width:42px;min-height:38px;padding:7px 10px;border-radius:8px;
+  transition:color .12s ease, background .12s ease}
+.langs button:hover{color:#fff}
+.langs button[aria-pressed="true"]{background:#fff;color:var(--ink)}
+/* header auth pair: "Log in" text link + compact gold CTA, right-aligned */
+.top-login{margin-left:auto;color:#cdd8e3;text-decoration:none;font-family:'Archivo';
+  font-weight:600;font-size:14px;white-space:nowrap;transition:color .12s ease}
+.top-login:hover{color:#fff}
+.top-cta{padding:8px 16px;font-size:14px;border-radius:9px;
+  text-decoration:none;display:inline-flex;align-items:center;white-space:nowrap;flex:0 0 auto}
+.top-cta + .langs{margin-left:0}
+/* Header social emblems in BRAND colors (ink circle + gold glyph, same system
+   as .brand .mk). Explicit svg sizes — anti-regression. Telegram is RU-only
+   (the channel is Russian-language, same gate as .foot-tg-li); Facebook shows
+   on all languages (the page posts in EN/ES). */
+.top-soc{display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--ink2);
+  color:var(--gold);align-items:center;justify-content:center;flex:0 0 auto;
+  transition:transform .15s ease}
+.top-soc:hover{transform:translateY(-1px)}
+.top-tg{display:none}
+.top-tg svg{width:16px;height:16px;display:block;margin-right:2px}
+html[lang="ru"] .top-tg{display:inline-flex}
+.top-fb svg{width:9px;height:16px;display:block}
+.top-ig svg{width:16px;height:16px;display:block}
+.top-tt svg{width:14px;height:16px;display:block}
+
+/* landing eyebrows: darken to clear WCAG AA at 12px on paper/white
+   (scoped to landing contexts; .eyebrow is not used on app/course pages) */
+.hero .eyebrow,.story-inner .eyebrow,.testi>.eyebrow,.cover>.eyebrow,.faq>.eyebrow,.proof>.eyebrow{color:#8A5C06}
+
+/* hero */
+.hero{padding:62px 0 30px}
+.hero .eyebrow{display:inline-block;margin-bottom:14px}
+.hero h1{font-size:clamp(36px,6.2vw,60px);font-weight:900;max-width:13ch;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--gold-deep)}
+.hero p.sub{font-size:clamp(16px,2.2vw,18.5px);color:var(--steel);max-width:52ch;margin:18px 0 26px;line-height:1.55}
+
+/* dark hero band — copy + CTAs left, real product shot right */
+.hero-dark{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero-dark::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle at 82% -30%, rgba(224,161,23,.16), transparent 55%)}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center;
+  padding:58px 0 54px;position:relative;z-index:1}
+.hero-dark .hero{padding:0}
+.hero-dark .hero .eyebrow{color:var(--gold)}
+.hero-dark h1{color:#fff}
+.hero-dark p.sub{color:#b9c7d6}
+.hero-dark .cta-row .btn{text-decoration:none}
+.btn-dark-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.28)}
+.btn-dark-ghost:hover{border-color:rgba(255,255,255,.55)}
+.hero-mini{list-style:none;display:flex;flex-wrap:wrap;gap:7px 20px;padding:0;margin:20px 0 0}
+.hero-mini li{font-size:13px;color:#9fb2c6;display:inline-flex;align-items:center;gap:7px}
+.hero-mini li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);flex:0 0 auto}
+.hero-shot{margin:0;background:#fff;border-radius:16px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.38);border:1px solid rgba(255,255,255,.1)}
+.hero-shot img{display:block;width:100%;height:auto}
+.hero-shot figcaption{font-size:12.5px;color:var(--steel);padding:9px 14px;border-top:1px solid var(--line)}
+@media(max-width:920px){
+  .hero-grid{grid-template-columns:1fr;gap:30px;padding:38px 0 40px}
+}
+
+/* white stats band under the dark hero */
+.stats-band{background:#fff;border-bottom:1px solid var(--line)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 22px;
+  padding:22px 0;text-align:center}
+.hero-stats .hs-num{display:block;font-family:'Archivo';font-weight:800;font-size:26px;
+  letter-spacing:-.01em;line-height:1.1;color:var(--ink)}
+.hero-stats .hs-label{display:block;font-size:13px;color:var(--steel);line-height:1.35;margin-top:3px}
+@media(max-width:860px){
+  .hero-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px;padding:18px 0}
+}
+
+/* auth modal — the sign-in / register card opens over the page on any CTA */
+.auth-modal{position:fixed;inset:0;z-index:70;display:flex;padding:26px 16px;overflow-y:auto}
+.auth-modal[hidden]{display:none}
+.auth-modal-backdrop{position:fixed;inset:0;background:rgba(14,26,41,.62);
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.auth-modal-box{position:relative;z-index:1;margin:auto;width:100%;max-width:460px;
+  animation:authIn .22s ease}
+.auth-modal-x{position:absolute;top:-12px;right:-12px;z-index:2;width:36px;height:36px;
+  border-radius:50%;background:var(--ink);color:#fff;font-size:15px;line-height:1;
+  display:grid;place-items:center;box-shadow:0 6px 16px rgba(14,26,41,.4);
+  transition:transform .12s ease}
+.auth-modal-x:hover{transform:scale(1.06)}
+body.modal-open{overflow:hidden}
+.auth-modal .authwrap{margin:0;max-width:none}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font-family:'Archivo';font-weight:700;font-size:15px;padding:14px 22px;border-radius:11px;
+  transition:transform .12s ease, box-shadow .12s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--ink);color:#fff;box-shadow:0 6px 16px rgba(21,39,61,.22)}
+.btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 6px 16px rgba(224,161,23,.3)}
+.btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+/* Loading state for auth submit buttons: full-opacity button with a centered
+   spinner replacing the label, so a tapped Create-account / Log-in clearly
+   shows it is working (owner request 2026-07-19). */
+@keyframes lp-spin{to{transform:rotate(360deg)}}
+.btn.is-loading{color:transparent!important;opacity:1!important;pointer-events:none;cursor:wait;position:relative}
+.btn.is-loading::after{content:"";position:absolute;top:50%;left:50%;width:18px;height:18px;margin:-9px 0 0 -9px;
+  border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:lp-spin .65s linear infinite}
+
+/* disclaimer */
+.disc{margin:14px 0 8px;background:#fff;border:1px solid var(--line);border-left:5px solid var(--gold);
+  border-radius:var(--r);padding:20px 22px;display:flex;gap:15px;align-items:flex-start;
+  box-shadow:0 1px 2px rgba(21,39,61,.05)}
+.disc .ic{flex:0 0 27px;height:27px;border-radius:50%;background:var(--gold);color:var(--ink);
+  display:grid;place-items:center;font-weight:900;font-family:'Archivo';font-size:15px;margin-top:1px}
+.disc h3{font-size:16px;margin-bottom:4px;letter-spacing:-.01em}
+.disc p{margin:0;color:var(--steel);font-size:14.5px;line-height:1.55}
+
+/* flow card */
+.flow{margin:34px 0 10px;background:var(--card);border:1px solid var(--line);
+  border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.flow-head{display:flex;align-items:center;gap:10px;padding:16px 24px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#fff, #fbfbfa)}
+.steps{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.pip{font-size:11px;font-weight:700;font-family:'Archivo';text-transform:uppercase;letter-spacing:.08em;
+  color:var(--steel);background:var(--paper);border:1px solid var(--line);padding:5px 9px;border-radius:20px}
+.pip[data-on="1"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pip[data-done="1"]{background:var(--verify-soft);color:var(--verify);border-color:#bfe0cf}
+.flow-body{padding:30px 24px 34px}
+.screen{display:none;animation:fade .35s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.screen h2{font-size:clamp(24px,4vw,34px);font-weight:800}
+.screen .lead{color:var(--steel);margin:8px 0 22px;max-width:52ch}
+.field{margin:0 0 15px;max-width:440px}
+.field label{display:block;font-family:'Archivo';font-size:12.5px;font-weight:700;
+  letter-spacing:.01em;color:var(--ink);margin-bottom:7px}
+.field input[type=email]{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;
+  font-family:'IBM Plex Mono';font-size:15px;background:#fff}
+.field input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(21,39,61,.12)}
+.consent{display:flex;gap:11px;align-items:flex-start;max-width:480px;background:var(--paper);
+  border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin:4px 0 14px;cursor:pointer;
+  transition:border-color .12s ease, background .12s ease}
+.consent:hover{border-color:#c2cad0}
+.consent:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(21,39,61,.10)}
+.consent input{margin-top:2px;width:20px;height:20px;accent-color:var(--ink);flex:0 0 auto}
+.consent span{font-size:13.5px;line-height:1.45;color:var(--ink)}
+
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:560px;margin-bottom:22px}
+.plan{border:1.5px solid var(--line);border-radius:14px;padding:18px;background:#fff;cursor:pointer;transition:.12s}
+.plan:hover{border-color:var(--ink)}
+.plan[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,161,23,.2)}
+.plan .nm{font-family:'Archivo';font-weight:700;font-size:15px}
+.plan .pr{font-family:'Archivo';font-weight:900;font-size:30px;margin:6px 0 2px}
+.plan .pr small{font-size:14px;font-weight:600;color:var(--steel)}
+.plan .dt{font-size:13px;color:var(--steel)}
+
+/* pocket card (signature) */
+.pocket{max-width:430px;margin:6px 0 22px;border-radius:16px;color:#fff;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--ink) 0%, var(--ink2) 100%);
+  box-shadow:0 16px 40px rgba(21,39,61,.3);padding:22px 22px 20px}
+.pocket::after{content:"";position:absolute;inset:0;
+  background-image:radial-gradient(circle at 80% -20%, rgba(224,161,23,.25), transparent 55%);}
+.pocket .row{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1}
+.pocket .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#9fb2c6;font-family:'Archivo';font-weight:700}
+.pocket .org{font-family:'Archivo';font-weight:800;font-size:14px;color:var(--gold)}
+.pocket .code{font-family:'IBM Plex Mono';font-weight:600;font-size:26px;letter-spacing:.08em;margin:18px 0 4px;position:relative;z-index:1}
+.pocket .meta{display:flex;gap:22px;margin-top:14px;position:relative;z-index:1}
+.pocket .meta div{min-width:0}
+.pocket .meta .v{font-family:'IBM Plex Mono';font-size:13px;color:#dfe7ef;overflow:hidden;text-overflow:ellipsis}
+.seal{position:absolute;right:18px;bottom:16px;width:62px;height:62px;border-radius:50%;
+  border:2px solid rgba(224,161,23,.7);display:grid;place-items:center;z-index:1;
+  font-family:'Archivo';font-weight:800;font-size:9px;text-align:center;color:var(--gold);
+  text-transform:uppercase;letter-spacing:.06em;line-height:1.15}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;
+  padding:8px 13px;border-radius:20px;margin-bottom:16px}
+.status.ok{background:var(--verify-soft);color:var(--verify)}
+.status.warn{background:var(--danger-soft);color:var(--danger)}
+.status .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.note{font-size:13px;color:var(--steel);margin-top:6px;max-width:46ch}
+.resets{font-size:12.5px;color:var(--steel);margin-top:14px}
+
+/* feature tiles */
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 30px}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 20px;
+  transition:border-color .14s ease, transform .14s ease, box-shadow .14s ease}
+.feat:hover{border-color:#c2cad0;transform:translateY(-2px);box-shadow:0 10px 24px rgba(21,39,61,.07)}
+.feat-ic{width:40px;height:40px;border-radius:11px;background:var(--ink);color:var(--gold);
+  display:grid;place-items:center;margin-bottom:14px}
+.feat-ic svg{width:21px;height:21px}
+.feat-t{font-family:'Archivo';font-weight:700;font-size:15.5px;margin-bottom:6px}
+.feat-d{font-size:13.5px;color:var(--steel);line-height:1.55}
+@media(max-width:680px){
+  .feats{grid-template-columns:1fr;gap:12px}
+  .feat{display:grid;grid-template-columns:auto 1fr;column-gap:16px;row-gap:2px;align-items:start;padding:18px}
+  .feat-ic{margin-bottom:0;grid-row:1/3}
+  .feat-t{align-self:center}
+}
+
+/* ad slot */
+.adwrap{margin:30px 0}
+.adslot{border:2px dashed var(--line);border-radius:14px;min-height:96px;display:grid;place-items:center;
+  color:var(--steel);background:repeating-linear-gradient(45deg,#fff,#fff 10px,#fafbfb 10px,#fafbfb 20px)}
+.adslot .al{font-family:'Archivo';font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:12px}
+
+/* footer + demo bar */
+footer{margin-top:40px;border-top:1px solid var(--line);background:var(--ink);color:#cdd8e3}
+footer .wrap{padding:30px 22px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+footer .fb{font-family:'Archivo';font-weight:900;color:#fff;font-size:18px}
+footer small{color:#8ea2b6;font-size:12.5px;max-width:48ch;display:block;margin-top:4px}
+.demobar{background:#0e1a29;color:#7e93a8;font-size:12.5px;text-align:center;padding:9px 16px}
+.demobar button{background:transparent;color:#cbd6e1;text-decoration:underline;font-size:12.5px;padding:2px 6px}
+@media (max-width:620px){
+  .plans{grid-template-columns:1fr}
+  .hero{padding:28px 0 14px}
+  .hero .eyebrow{margin-bottom:10px}
+  .hero h1{max-width:none}
+  .hero p.sub{margin:14px 0 20px}
+  /* Header wraps on narrow phones: brand + social emblems stay on row 1, the
+     language switcher (order:3, margin-left:auto) drops to its own row and
+     right-aligns — instead of overflowing the viewport (fixed 2026-07-19). */
+  .top .wrap{flex-wrap:wrap;height:auto;min-height:64px;row-gap:9px;padding-top:9px;padding-bottom:9px}
+  .langs{order:3}
+  /* langs on its own wrapped row right-aligns again (the base rule zeroes it
+     only to sit flush against the CTA on one row) */
+  .top-cta + .langs{margin-left:auto}
+  .authcard{padding:22px 18px 24px;border-radius:16px}
+  .story-inner{border-radius:16px}
+  .tcard{padding:22px 20px 20px}
+}
+@media (max-width:560px){
+  .top-login{display:none} /* Log in stays one tap away via the auth-card tab */
+}
+@media (max-width:400px){
+  .top .wrap{gap:10px}
+  .top .tag{display:none}
+  .langs button{min-width:38px;padding:7px 8px}
+  .top-cta{padding:8px 12px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* auth page (login / register) */
+.authwrap{max-width:460px;margin:8px auto 0;scroll-margin-top:80px}
+.tabs{display:flex;gap:5px;margin-bottom:14px;background:#fff;border:1px solid var(--line);
+  border-radius:13px;padding:5px;box-shadow:0 1px 2px rgba(21,39,61,.04)}
+.tabs button{flex:1;background:transparent;color:var(--steel);font-family:'Archivo';font-weight:700;
+  font-size:14.5px;padding:12px;min-height:44px;border-radius:9px;
+  transition:color .12s ease, background .14s ease, box-shadow .14s ease}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:0 4px 12px rgba(21,39,61,.18)}
+.authcard{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 1px 2px rgba(21,39,61,.05), 0 18px 44px rgba(21,39,61,.10);padding:26px 26px 28px}
+.authcard::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:18px 18px 0 0;
+  background:linear-gradient(90deg,var(--gold),var(--gold-deep))}
+.authpanel{display:none}
+.authpanel.on{display:block;animation:authIn .28s ease}
+@keyframes authIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.field input[type=password],.field input[type=text],.field input[type=email],.pwwrap input,.field select{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;font-family:'IBM Plex Mono';font-size:15px;background:#fff}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235E6E7E' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:38px;cursor:pointer}
+.field input[type=password]:focus,.field input[type=text]:focus,.field input[type=email]:focus,.pwwrap input:focus,.field select:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(21,39,61,.12)}
+.pwwrap{position:relative}
+.pwwrap input{padding-right:50px}
+.pwtoggle{position:absolute;top:50%;right:4px;transform:translateY(-50%);background:none;border:0;cursor:pointer;
+  width:40px;height:40px;display:grid;place-items:center;border-radius:9px;font-size:18px;line-height:1;
+  opacity:.55;transition:opacity .12s,background .12s}
+.pwtoggle:hover{opacity:1;background:var(--paper)}
+.pwtoggle[aria-pressed=true]{opacity:1}
+.pwtoggle svg{display:block}
+.pwtoggle .pw-eye-off{display:none}
+.pwtoggle[aria-pressed="true"] .pw-eye{display:none}
+.pwtoggle[aria-pressed="true"] .pw-eye-off{display:block}
+/* hints appear on focus only (shorter form at rest); a failed validation
+   (.bad) must stay visible after focus leaves — it doubles as the error text */
+.pwhint{display:none;font-size:12.5px;color:var(--steel);line-height:1.4;margin:7px 0 0;max-width:440px}
+.field:focus-within .pwhint,.pwhint.bad{display:block}
+.pwhint.bad{color:var(--danger)}
+.field input.invalid,.pwwrap input.invalid,.field input.invalid:focus,.pwwrap input.invalid:focus{
+  border-color:var(--danger);box-shadow:0 0 0 3px var(--danger-soft)}
+.consent.invalid{border-color:var(--danger);box-shadow:0 0 0 3px var(--danger-soft)}
+.ferr{color:var(--danger);font-size:12.5px;line-height:1.35;margin:6px 0 0}
+.ferr:empty{display:none}
+.btn-block{width:100%;display:flex;justify-content:center}
+
+/* ── Support / requests assistant (AI chat) ───────────────────── */
+.sup-fab{position:fixed;right:20px;bottom:20px;z-index:60;width:56px;height:56px;border-radius:50%;
+  border:0;cursor:pointer;background:var(--ink);color:var(--gold);display:grid;place-items:center;
+  box-shadow:0 10px 26px rgba(21,39,61,.32);transition:transform .12s,box-shadow .12s}
+.sup-fab:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(21,39,61,.38)}
+.sup-fab svg{width:26px;height:26px}
+.sup-panel{position:fixed;right:20px;bottom:88px;z-index:60;width:360px;max-width:calc(100vw - 32px);
+  height:520px;max-height:calc(100vh - 120px);display:flex;flex-direction:column;
+  background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  box-shadow:0 18px 50px rgba(21,39,61,.22);animation:authIn .2s ease}
+.sup-panel[hidden]{display:none}
+.sup-head{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--ink);color:#fff}
+.sup-head strong{font-family:'Archivo';font-size:15px}
+.sup-x{background:none;border:0;color:#fff;font-size:17px;cursor:pointer;opacity:.8;line-height:1}
+.sup-x:hover{opacity:1}
+.sup-log{flex:1 1 auto;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--paper)}
+.sup-msg{max-width:84%;padding:9px 12px;border-radius:13px;font-size:14px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+.sup-msg a{color:inherit;text-decoration:underline}
+.sup-msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px}
+.sup-msg.user{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:4px}
+.sup-typing{align-self:flex-start;display:inline-flex;gap:4px;padding:12px 13px;background:#fff;border:1px solid var(--line);border-radius:13px}
+.sup-typing span{width:6px;height:6px;border-radius:50%;background:var(--steel);animation:supblink 1s infinite}
+.sup-typing span:nth-child(2){animation-delay:.15s}
+.sup-typing span:nth-child(3){animation-delay:.3s}
+@keyframes supblink{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-2px)}}
+.sup-input{flex:0 0 auto;display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:#fff}
+#supMsg{flex:1 1 auto;resize:none;max-height:96px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;
+  font-family:'IBM Plex Sans';font-size:14px;background:#fff;line-height:1.4}
+#supMsg:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(21,39,61,.12)}
+.sup-send{flex:0 0 auto;width:40px;border:0;border-radius:10px;background:var(--ink);color:#fff;cursor:pointer;font-size:15px}
+.sup-send:disabled{opacity:.45;cursor:default}
+.sup-attach{flex:0 0 auto;width:40px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--steel);cursor:pointer;display:grid;place-items:center}
+.sup-attach[hidden]{display:none}
+.sup-attach:hover{color:var(--ink);border-color:var(--ink)}
+.sup-attach svg{width:19px;height:19px}
+.sup-shots{flex:0 0 auto;display:flex;gap:8px;flex-wrap:wrap;padding:10px 10px 0;background:#fff}
+.sup-shots[hidden]{display:none}
+.sup-shot{position:relative;width:52px;height:52px;border-radius:9px;overflow:hidden;border:1px solid var(--line)}
+.sup-shot img{width:100%;height:100%;object-fit:cover;display:block}
+.sup-shot-x{position:absolute;top:2px;right:2px;width:18px;height:18px;border:0;border-radius:50%;background:rgba(21,39,61,.72);color:#fff;font-size:10px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+.sup-msg-shots{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.sup-msg-shots img{max-width:170px;max-height:170px;border-radius:9px;display:block}
+/* Discovery hint — teaser bubble above the FAB (logic in js/support.js) */
+.sup-hint{position:fixed;right:20px;bottom:86px;z-index:59;max-width:250px;
+  background:var(--ink);color:#fff;border-radius:14px;padding:12px 32px 12px 14px;
+  font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:13.5px;line-height:1.42;
+  box-shadow:0 14px 34px rgba(21,39,61,.34);cursor:pointer;
+  opacity:0;transform:translateY(8px) scale(.97);pointer-events:none;
+  transition:opacity .28s ease,transform .28s ease}
+.sup-hint.on{opacity:1;transform:none;pointer-events:auto}
+.sup-hint::after{content:"";position:absolute;right:22px;bottom:-6px;width:13px;height:13px;
+  background:var(--ink);transform:rotate(45deg);border-radius:0 0 3px 0}
+.sup-hint-x{position:absolute;top:5px;right:5px;width:20px;height:20px;border:0;background:transparent;
+  color:rgba(255,255,255,.6);font-size:12px;line-height:1;cursor:pointer;border-radius:6px}
+.sup-hint-x:hover{color:#fff;background:rgba(255,255,255,.14)}
+@media (prefers-reduced-motion:reduce){.sup-hint{transition:none}}
+@media (max-width:400px){.sup-panel{right:12px;left:12px;width:auto;height:72vh}.sup-fab{right:14px;bottom:14px}.sup-hint{right:14px;bottom:78px;max-width:220px}}
+/* landing-scoped CTA emphasis (does not affect shared .btn-primary on app/course) */
+.authcard .btn-primary{font-size:15.5px;padding:15px 22px;border-radius:12px;
+  box-shadow:0 8px 20px rgba(21,39,61,.24)}
+.authcard .btn-primary:hover{box-shadow:0 12px 26px rgba(21,39,61,.30)}
+.autherr{color:var(--danger);font-size:13px;min-height:18px;margin:2px 0 8px}
+.authcard .autherr:empty{min-height:0;margin:0}
+.demohint{font-size:12.5px;color:var(--steel);background:var(--paper);border:1px dashed var(--line);border-radius:9px;padding:9px 12px;margin-top:14px}
+
+/* ── Story / Why LICENA ───────────────────────────────────── */
+.story{margin:18px 0 40px}
+.story-inner{background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:48px 44px;box-shadow:var(--shadow)}
+.story-inner .eyebrow{margin-bottom:12px}
+.story-inner h2{font-size:clamp(26px,4.5vw,40px);font-weight:800;max-width:22ch;margin-bottom:28px}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.story-text p{color:var(--steel);font-size:16px;line-height:1.7;margin:0 0 18px}
+.story-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.pill{font-family:'Archivo';font-weight:700;font-size:12px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink);background:var(--paper);
+  border:1px solid var(--line);border-radius:20px;padding:5px 12px}
+.story-cards{display:flex;flex-direction:column;gap:14px}
+.story-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.sc-label{font-family:'Archivo';font-weight:700;font-size:12px;text-transform:uppercase;
+  letter-spacing:.1em;color:#8A5C06;margin-bottom:8px}
+.sc-val{font-size:14.5px;color:var(--ink);line-height:1.6}
+@media(max-width:740px){
+  .story-inner{padding:32px 22px}
+  .story-grid{grid-template-columns:1fr}
+}
+
+/* ── Testimonials ─────────────────────────────────────────── */
+.testi{margin:0 0 40px}
+.testi>.eyebrow{margin-bottom:10px}
+.testi>h2{font-size:clamp(24px,4vw,36px);font-weight:800;margin-bottom:24px;letter-spacing:-.02em}
+.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.tcard{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:26px 24px 22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:18px;
+  transition:border-color .14s ease, transform .14s ease}
+.tcard:hover{border-color:#c2cad0;transform:translateY(-2px)}
+.tcard::before{content:"\201C";position:absolute;top:10px;right:20px;font-family:'Archivo';
+  font-weight:900;font-size:52px;line-height:1;color:var(--gold);opacity:.22}
+.tcard-body{font-size:15px;color:var(--ink);line-height:1.65;flex:1;position:relative;z-index:1}
+.tcard-author{display:flex;align-items:center;gap:12px}
+.tcard-avatar{width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--gold);
+  font-family:'Archivo';font-weight:800;font-size:13px;
+  display:grid;place-items:center;flex:0 0 auto}
+.tcard-name{font-family:'Archivo';font-weight:700;font-size:14.5px;color:var(--ink)}
+.tcard-meta{font-size:12.5px;color:var(--steel);margin-top:2px}
+/* "show original / show translation" toggle on translated reviews */
+.tcard-orig-btn{align-self:flex-start;margin:-8px 0 0;padding:2px 0;background:none;border:0;
+  font:inherit;font-size:12.5px;color:var(--steel);text-decoration:underline;cursor:pointer}
+.tcard-orig-btn:hover{color:var(--ink)}
+@media(max-width:680px){.testi-grid{grid-template-columns:1fr}}
+
+/* ── Official resources cards (shared renderer — cabinet uses these) ── */
+/* grouped cards — CSS columns pack the groups with no large bottom void
+   (the set is small + finite); collapses to one column on phones below. */
+.res-list{column-count:2;column-gap:16px}
+.res-group{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:20px 22px 14px;box-shadow:var(--shadow);
+  break-inside:avoid;-webkit-column-break-inside:avoid;margin:0 0 16px}
+/* gold-accent group heading — echoes the brand accent on the story/footer labels */
+.res-group-hd{position:relative;font-family:'Archivo';font-weight:700;font-size:12px;
+  text-transform:uppercase;letter-spacing:.1em;color:#8A5C06;padding-left:13px;margin-bottom:6px}
+.res-group-hd::before{content:"";position:absolute;left:0;top:1px;bottom:1px;width:3px;border-radius:3px;
+  background:linear-gradient(180deg,var(--gold),var(--gold-deep))}
+.res-items{list-style:none;margin:0;padding:0}
+.res-link{display:flex;align-items:center;gap:12px;min-height:44px;padding:11px 12px;
+  margin:0 -12px;border-radius:11px;text-decoration:none;color:var(--ink);
+  transition:background .14s ease,transform .14s ease}
+.res-link:hover{background:var(--paper);transform:translateX(2px)}
+.res-link-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.res-title{font-family:'Archivo';font-weight:600;font-size:14.5px;line-height:1.35;color:var(--ink)}
+.res-src{font-family:'IBM Plex Mono';font-size:11.5px;font-weight:500;color:var(--steel);letter-spacing:.01em}
+.res-ext-ic{width:16px;height:16px;flex:0 0 16px;color:var(--steel);
+  transition:color .14s ease,transform .14s ease}
+.res-link:hover .res-ext-ic{color:var(--gold-deep);transform:translate(1px,-1px)}
+.res-updated{font-size:12px;color:var(--steel);font-family:'IBM Plex Mono';margin-top:16px;letter-spacing:.02em}
+@media(max-width:680px){.res-list{column-count:1}.res-group{margin-bottom:12px}}
+
+/* ── Product proof — real course-player screenshots ───────── */
+.proof{margin:0 0 40px}
+.proof>.eyebrow{margin-bottom:10px}
+.proof>h2{font-size:clamp(24px,4vw,36px);font-weight:800;margin-bottom:10px;letter-spacing:-.02em}
+.proof-lead{color:var(--steel);font-size:15.5px;line-height:1.6;max-width:56ch;margin:0 0 24px}
+.proof-main{margin:0;background:var(--card);border:1px solid var(--line);border-radius:16px;
+  box-shadow:var(--shadow);overflow:hidden}
+/* app-window chrome — says "this is the live product", first dot in brand gold */
+.proof-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--ink)}
+.proof-bar i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.26);flex:0 0 auto}
+.proof-bar i:first-child{background:var(--gold)}
+.proof-url{margin-left:8px;font-family:'IBM Plex Mono';font-size:11.5px;letter-spacing:.02em;
+  color:#9fb2c6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proof-main img,.proof-zoom img{display:block;width:100%;height:auto}
+/* close-up card overlaps the full shot; flow margin (not absolute) so long
+   RU/ES captions can never collide with the next section */
+.proof-zoom{position:relative;z-index:2;width:42%;min-width:300px;margin:-240px 20px 0 auto;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 10px 4px;
+  box-shadow:0 14px 38px rgba(21,39,61,.18)}
+.proof-zoom img{border:1px solid var(--line);border-radius:10px}
+.proof-zoom figcaption{position:relative;padding:10px 4px 8px 17px;font-size:13px;line-height:1.5;color:var(--steel)}
+.proof-zoom figcaption::before{content:"";position:absolute;left:2px;top:13px;bottom:11px;width:3px;border-radius:3px;
+  background:linear-gradient(180deg,var(--gold),var(--gold-deep))}
+@media(max-width:680px){
+  .proof-zoom{width:auto;min-width:0;margin:14px 0 0}
+}
+
+/* ── Exams we cover (landing) ─────────────────────────────── */
+.cover{margin:0 0 40px}
+.cover>.eyebrow{margin-bottom:10px}
+.cover>h2{font-size:clamp(24px,4vw,36px);font-weight:800;margin-bottom:10px;letter-spacing:-.02em}
+.cover-lead{color:var(--steel);font-size:15.5px;line-height:1.6;max-width:54ch;margin:0 0 24px}
+/* exam cards with status chips (mockup: "find your exam" grid) */
+.exam-grid{list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:12px}
+.exam-card{display:flex;flex-direction:column;gap:9px;min-height:92px;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+  text-decoration:none;color:var(--ink);box-shadow:0 1px 2px rgba(21,39,61,.05);
+  transition:border-color .14s ease,transform .14s ease,box-shadow .14s ease}
+.exam-card:hover{border-color:#c2cad0;transform:translateY(-2px);box-shadow:0 10px 24px rgba(21,39,61,.08)}
+.exam-chip{align-self:flex-start;font-family:'Archivo';font-weight:700;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.07em;padding:3px 8px;border-radius:6px;
+  background:var(--paper);border:1px solid var(--line);color:var(--steel);white-space:nowrap}
+.exam-chip.chip-free{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+.exam-name{font-family:'Archivo';font-weight:600;font-size:14.5px;line-height:1.35}
+.cover-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:22px}
+.cover-cta{text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.cover-note{font-size:13.5px;color:var(--steel)}
+@media(max-width:520px){.exam-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .exam-card{min-height:0;padding:12px 13px}.exam-name{font-size:13.5px}}
+
+/* ── FAQ (landing) ────────────────────────────────────────── */
+.faq{margin:0 0 40px}
+.faq>.eyebrow{margin-bottom:10px}
+.faq>h2{font-size:clamp(24px,4vw,36px);font-weight:800;margin-bottom:24px;letter-spacing:-.02em}
+.faq-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;align-items:start}
+.faq-item{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:22px 24px 20px;box-shadow:var(--shadow);
+  transition:border-color .14s ease,transform .14s ease}
+.faq-item:hover{border-color:#c2cad0;transform:translateY(-2px)}
+.faq-q{font-family:'Archivo';font-weight:700;font-size:16.5px;line-height:1.3;color:var(--ink);
+  padding-left:34px;margin-bottom:8px}
+/* signature gold "Q" chip */
+.faq-q::before{content:"Q";position:absolute;left:24px;top:22px;
+  width:24px;height:24px;border-radius:7px;background:var(--gold);color:var(--ink);
+  display:grid;place-items:center;font-family:'Archivo';font-weight:800;font-size:13px}
+.faq-a{font-size:14.5px;color:var(--steel);line-height:1.6;padding-left:34px}
+@media(max-width:680px){.faq-list{grid-template-columns:1fr}}
+/* landing FAQ accordion (scoped .faq-acc — practice pages keep the flat cards
+   built by js/sample-quiz.js with the legacy rules above) */
+.faq-acc{display:block;max-width:760px}
+.faq-acc .faq-item{padding:0;margin-bottom:12px}
+.faq-acc .faq-item:hover{transform:none}
+.faq-acc .faq-q{display:flex;align-items:center;gap:13px;margin:0;padding:17px 20px;
+  cursor:pointer;list-style:none}
+.faq-acc .faq-q::-webkit-details-marker{display:none}
+.faq-acc .faq-q::before{content:"Q";position:static;flex:0 0 24px;
+  width:24px;height:24px;border-radius:7px;background:var(--gold);color:var(--ink);
+  display:grid;place-items:center;font-family:'Archivo';font-weight:800;font-size:13px}
+.faq-acc .faq-q::after{content:"+";margin-left:auto;padding-left:12px;font-family:'Archivo';
+  font-weight:700;font-size:20px;line-height:1;color:var(--steel)}
+.faq-acc .faq-item[open] .faq-q::after{content:"–"}
+.faq-acc .faq-a{padding:0 20px 18px 57px}
+
+/* ── Gold CTA band before the footer ──────────────────────── */
+.cta-band{margin-top:46px;background:var(--gold)}
+.cta-band-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:16px 26px;padding:34px 0}
+.cta-band h2{font-size:clamp(22px,3.6vw,32px);font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.cta-band p{margin:6px 0 0;font-size:14px;color:rgba(21,39,61,.78)}
+.cta-band .btn-primary{text-decoration:none;flex:0 0 auto}
+.cta-band + footer{margin-top:0}
+
+/* ── Footer (expanded) ────────────────────────────────────── */
+footer{margin-top:48px;border-top:1px solid var(--line);background:var(--ink);color:#cdd8e3}
+footer .wrap{padding:48px 22px 0}
+.foot-cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;padding-bottom:40px}
+.foot-brand-col .fb{display:flex;align-items:center;gap:10px;font-family:'Archivo';
+  font-weight:900;color:#fff;font-size:20px;margin-bottom:12px}
+.foot-brand-col .fb .mk{width:30px;height:30px;border-radius:7px;background:var(--gold);
+  color:var(--ink);display:grid;place-items:center;font-size:15px;font-weight:900;font-family:'Archivo'}
+.foot-tagline{font-size:14px;color:#8ea2b6;line-height:1.6;margin:0;max-width:28ch}
+.foot-col-head{font-family:'Archivo';font-weight:700;font-size:12px;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--gold);margin-bottom:14px}
+.foot-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.foot-list li{font-size:13.5px;color:#8ea2b6;line-height:1.4}
+/* RU-only Telegram channel link: the channel is Russian-language, so it shows
+   only when the page language is RU (html[lang] is set on switch). */
+.foot-tg-li{display:none}
+html[lang="ru"] .foot-tg-li{display:list-item}
+.foot-note-small{font-size:12px;color:#5d7589;margin-top:10px;line-height:1.5}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding:18px 0;
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.foot-bottom small{color:#5d7589;font-size:12px}
+@media(max-width:820px){
+  .foot-cols{grid-template-columns:1fr 1fr;gap:28px}
+  .foot-brand-col{grid-column:1/-1}
+}
+@media(max-width:480px){
+  .foot-cols{grid-template-columns:1fr}
+  .foot-brand-col{grid-column:auto}
+}
+
+/* LICENA — License Roadmap (wizard + checklist). Mobile-first; tokens from
+   styles.css only. Status colors reuse the existing palette: verify green,
+   gold, danger, steel. */
+
+.rm-wrap{max-width:680px;margin:0 auto;padding:26px 18px 60px}
+
+/* ---- shared card ---- */
+.rw-card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:22px 18px;box-shadow:var(--shadow)}
+.rw-card h1{font-size:clamp(24px,5.6vw,34px);margin:8px 0 10px}
+.rw-card h2{font-size:clamp(19px,4.6vw,24px);margin:14px 0 6px}
+.rw-sub{color:var(--steel);font-size:14.5px;line-height:1.55;margin:4px 0 14px}
+.rw-q{font-family:'Archivo';font-weight:700;font-size:14.5px;margin:18px 0 8px}
+.rw-center{text-align:center}
+.rm-intro{padding:34px 20px}
+.rm-intro .btn{margin-top:8px}
+
+/* ---- questionnaire ---- */
+.rw-prog{display:flex;justify-content:space-between;align-items:baseline;
+  font-family:'IBM Plex Mono';font-size:12px;color:var(--steel)}
+.rw-prog-note{text-transform:uppercase;letter-spacing:.12em;font-size:10.5px}
+.rw-bar{height:5px;background:var(--paper);border-radius:99px;margin:8px 0 4px;overflow:hidden}
+.rw-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-deep));border-radius:99px;transition:width .3s}
+.rw-opts{display:flex;flex-direction:column;gap:8px;margin:6px 0 2px}
+.rw-chip{display:block;width:100%;text-align:left;padding:13px 14px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--card);font-size:14.5px;line-height:1.35;
+  transition:border-color .12s, background .12s}
+.rw-chip:hover{border-color:var(--steel)}
+.rw-chip.on{border-color:var(--gold-deep);background:#FBF4E3;font-weight:600}
+.rw-nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.rw-nav .btn{flex:0 0 auto}
+.rw-nav .btn-primary{margin-left:auto;padding:12px 22px}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);border-radius:10px;padding:12px 18px}
+.rw-shake{animation:rwshake .3s}
+@keyframes rwshake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.rw-disc{color:var(--steel);font-size:11.5px;line-height:1.5;margin:18px 0 0;
+  border-top:1px solid var(--line);padding-top:12px}
+
+/* ---- roadmap hero + progress ---- */
+.rm-hero{margin:4px 0 16px}
+.rm-hero h1{font-size:clamp(22px,5.4vw,30px);margin:8px 0 14px}
+.rm-journey{display:flex;justify-content:space-between;align-items:baseline;font-size:14px}
+.rm-journey strong{font-family:'IBM Plex Mono';font-size:15px}
+.rm-bar{height:10px;background:#fff;border:1px solid var(--line);border-radius:99px;margin:7px 0 8px;overflow:hidden}
+.rm-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--verify),#3E9A72);border-radius:99px;transition:width .4s}
+.rm-meta{color:var(--steel);font-size:12px}
+
+/* ---- "your next step" ---- */
+.rm-next{background:var(--ink);color:#fff;border-radius:16px;padding:20px 18px;margin:0 0 18px;
+  box-shadow:0 10px 26px rgba(21,39,61,.25)}
+.rm-next-k{font-family:'Archivo';text-transform:uppercase;letter-spacing:.18em;font-size:11px;
+  font-weight:700;color:var(--gold)}
+.rm-next h2{color:#fff;font-size:clamp(18px,4.6vw,22px);margin:8px 0 8px}
+.rm-next p{color:#C6D0DA;font-size:14px;line-height:1.55;margin:0 0 14px}
+
+/* ---- step list ---- */
+.rm-list{display:flex;flex-direction:column;gap:10px}
+.rm-here{font-family:'IBM Plex Mono';font-size:12px;color:var(--gold-deep);font-weight:700;
+  text-transform:uppercase;letter-spacing:.14em;margin:4px 0 -2px}
+.rm-step{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.rm-step-head{display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  background:none;padding:14px;font-size:14.5px}
+.rm-dot{flex:0 0 30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono';font-size:13px;font-weight:600;background:var(--paper);color:var(--steel);
+  border:1.5px solid var(--line)}
+.rm-step-t{flex:1;font-weight:600;font-family:'Archivo';letter-spacing:-.01em}
+.rm-badge{flex:0 0 auto;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  padding:4px 8px;border-radius:99px;background:var(--paper);color:var(--steel);white-space:nowrap}
+.rm-step-body{display:none;padding:2px 16px 16px 56px}
+.rm-step.open .rm-step-body{display:block}
+@media (max-width:480px){.rm-step-body{padding-left:16px}}
+.rm-d{font-size:13.5px;line-height:1.55;color:var(--ink2);margin:6px 0}
+.rm-h{font-family:'Archivo';font-weight:700;font-size:12px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--steel);margin:14px 0 2px}
+.rm-note{background:#FBF4E3;border:1px solid #EAD9A8;border-radius:10px;padding:10px 12px;
+  font-size:13px;line-height:1.5;margin:8px 0}
+.rm-src{display:block;font-size:12.5px;color:var(--ink2);text-decoration:underline;margin:10px 0 0;line-height:1.5}
+.rm-src-v{color:var(--steel);text-decoration:none}
+.rm-cta{display:inline-block;margin:12px 0 2px;padding:11px 18px;border-radius:10px;text-decoration:none;font-size:14px}
+.rm-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:14px;
+  border-top:1px solid var(--line);padding-top:12px}
+.rm-actions .rm-done{padding:10px 16px;font-size:13.5px;border-radius:10px}
+.rm-done-lbl{color:var(--verify);font-weight:700;font-size:13.5px}
+.rm-status{margin-left:auto;border:1.5px solid var(--line);border-radius:9px;padding:8px 10px;
+  font-family:inherit;font-size:12.5px;background:var(--card);color:var(--ink)}
+
+/* status accents */
+.rm-step.st-c .rm-dot{background:var(--verify-soft);color:var(--verify);border-color:var(--verify)}
+.rm-step.st-c .rm-badge{background:var(--verify-soft);color:var(--verify)}
+.rm-step.st-a .rm-dot{border-color:var(--gold-deep);color:var(--gold-deep)}
+.rm-step.st-a .rm-badge{background:#FBF4E3;color:var(--gold-deep)}
+.rm-step.st-r .rm-badge{background:#FBF4E3;color:var(--gold-deep)}
+.rm-step.st-p .rm-badge{background:#E7EDF4;color:var(--ink2)}
+.rm-step.st-w{opacity:.85}
+
+/* ---- save block / restart ---- */
+.rm-save{background:var(--card);border:1.5px dashed var(--gold-deep);border-radius:14px;
+  padding:18px;text-align:center;margin-top:18px}
+.rm-save h3{font-size:16px;margin:0 0 6px}
+.rm-save p{color:var(--steel);font-size:13.5px;line-height:1.5;margin:0 0 12px}
+.linkbtn.rm-restart{display:block;margin:18px auto 0;background:none;color:var(--steel);
+  font-size:13px;text-decoration:underline}
+
+/* ---- landing entry band (index.html) ---- */
+.rm-entry{background:var(--ink);color:#fff;padding:34px 0}
+.rm-entry-in{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.rm-entry-txt{flex:1 1 380px}
+.rm-entry-k{font-family:'Archivo';text-transform:uppercase;letter-spacing:.18em;
+  font-size:11px;font-weight:700;color:var(--gold)}
+.rm-entry h2{color:#fff;font-size:clamp(21px,4.6vw,28px);margin:8px 0 8px}
+.rm-entry p{color:#C6D0DA;font-size:14.5px;line-height:1.55;margin:0;max-width:56ch}
+.rm-entry-cta{flex:0 0 auto;background:var(--gold);color:var(--ink);text-decoration:none;
+  box-shadow:0 8px 20px rgba(224,161,22,.3)}
+.rm-entry-cta:hover{background:#EAB33B}
+
+/* ---- cabinet entry card (app.html) ---- */
+.rm-cab{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--ink);
+  color:#fff;border-radius:16px;padding:18px 20px;margin:14px 0 18px}
+.rm-cab-txt{flex:1 1 260px}
+.rm-cab h3{color:#fff;font-family:'Archivo';font-size:15.5px;margin:0 0 4px}
+.rm-cab p{color:#C6D0DA;font-size:13px;line-height:1.5;margin:0}
+.rm-cab .btn{flex:0 0 auto;background:var(--gold);color:var(--ink);text-decoration:none;
+  padding:11px 18px;font-size:13.5px}
+
+/* wizard dropdown (state / classification) */
+.rw-select{display:block;width:100%;margin:6px 0 2px;padding:13px 14px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--card);color:var(--ink);
+  font-family:inherit;font-size:15px;line-height:1.35;appearance:auto}
+.rw-select:focus{border-color:var(--gold-deep)}
+
+/* preview-only chrome */
+.pv-controls{display:flex;gap:8px;align-items:center}
+.pv-controls button{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;
+  border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600}
+.pv-controls button.on{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+</style>
+
+<div class="top"><div class="wrap">
+  <a class="brand" href="https://licena.us/" target="_blank" rel="noopener"><span class="mk">L</span>LICENA</a>
+  <span class="tag">License Roadmap · предпросмотр</span>
+  <div class="pv-controls" role="group" aria-label="Language">
+    <button data-pvlang="en">EN</button>
+    <button data-pvlang="es">ES</button>
+    <button data-pvlang="ru">RU</button>
+    <button id="pvDemo" title="Заполненный пример плана">Демо-план</button>
+  </div>
+</div></div>
+
+<div class="rm-wrap">
+  <main id="rmRoot" aria-live="polite"></main>
+</div>
+
+<script>
+/* Preview chrome: language via localStorage (the app reads lp:ui_lang when no
+   ?lang= is present) and a demo toggle that mimics ?demo=1 without relying on
+   the host preserving query strings. */
+(function () {
+  try {
+    var cur = localStorage.getItem("lp:ui_lang") || "en";
+    document.querySelectorAll("[data-pvlang]").forEach(function (b) {
+      if (b.getAttribute("data-pvlang") === cur) b.classList.add("on");
+      b.addEventListener("click", function () {
+        try { localStorage.setItem("lp:ui_lang", b.getAttribute("data-pvlang")); } catch (_e) {}
+        location.reload();
+      });
+    });
+    var demoOn = false;
+    try { demoOn = sessionStorage.getItem("pv:demo") === "1"; } catch (_e) {}
+    if (demoOn) {
+      var qs = location.search ? location.search + "&demo=1" : "?demo=1";
+      var orig = URLSearchParams;
+      // app-roadmap builds URLSearchParams(location.search); feed it demo=1
+      window.URLSearchParams = function (s) { return new orig(s === location.search ? qs : s); };
+      document.getElementById("pvDemo").classList.add("on");
+    }
+    document.getElementById("pvDemo").addEventListener("click", function () {
+      try { sessionStorage.setItem("pv:demo", demoOn ? "0" : "1"); } catch (_e) {}
+      location.reload();
+    });
+  } catch (_e) {}
+})();
+</script>
+<script>
+/* LICENA — license "path wizard" data (cabinet catalog).
+   A path = the goal license and the exams that get you there. required course
+   ids MUST exist in js/catalog/<state>.js (checked by scripts/verify.js's
+   node --check only — keep ids in sync by hand when the catalog changes).
+   Law & Business is required for every CSLB license; optional rows are honest
+   recommendations (EPA 608 is federally required for HVAC refrigerant work,
+   NICET tracks map to C-7/C-16, backflow to C-36, OSHA to any job site).
+   Construction only — transportation/beauty exams are self-contained. */
+const LICENSE_PATHS = [
+  { id:"az-any", stateId:"az", name:{ en:"Any AZ Contractor License",     es:"Cualquier licencia AZ",         ru:"Любая лицензия подрядчика AZ" },
+    required:["az-sre"],                             optional:["osha-construction"] },
+  { id:"az-b", stateId:"az", name:{ en:"General Residential Contractor (B)", es:"Contratista Residencial General (B)", ru:"General Residential Contractor (B)" },
+    required:["az-sre","az-b"],                      optional:["osha-construction"] },
+  { id:"az-r11", stateId:"az", name:{ en:"R-11 Electrical (Residential)",  es:"R-11 Eléctrico (Residencial)",  ru:"R-11 Электрика (жилая)" },
+    required:["az-sre","az-r11"],                    optional:["osha-construction"] },
+  { id:"az-r37r", stateId:"az", name:{ en:"R-37R Plumbing (Residential)",  es:"R-37R Plomería (Residencial)",  ru:"R-37R Сантехника (жилая)" },
+    required:["az-sre","az-r37r"],                   optional:["osha-construction"] },
+  { id:"az-r39r", stateId:"az", name:{ en:"R-39R Air Conditioning & Refrigeration", es:"R-39R Aire Acondicionado y Refrigeración", ru:"R-39R Кондиционирование и холод" },
+    required:["az-sre","az-r39r"],                   optional:["epa-608","osha-construction"] },
+  { id:"b",   stateId:"ca", name:{ en:"General Building (B)",        es:"Edificación General (B)",       ru:"General Building (B)" },
+    required:["cslb-law","b-general-building"],      optional:["osha-construction"] },
+  { id:"b2",  stateId:"ca", name:{ en:"Residential Remodeling (B-2)", es:"Remodelación Residencial (B-2)", ru:"Residential Remodeling (B-2)" },
+    required:["cslb-law","b2-residential-remodeling"], optional:["osha-construction"] },
+  { id:"c7",  stateId:"ca", name:{ en:"C-7 Low Voltage",             es:"C-7 Bajo Voltaje",              ru:"C-7 Слаботочные системы" },
+    required:["cslb-law","c7-low-voltage"],          optional:["nicet-fire-alarm","osha-construction"] },
+  { id:"c8",  stateId:"ca", name:{ en:"C-8 Concrete",                es:"C-8 Concreto",                  ru:"C-8 Бетонные работы" },
+    required:["cslb-law","c8-concrete"],             optional:["osha-construction"] },
+  { id:"c10", stateId:"ca", name:{ en:"C-10 Electrical",             es:"C-10 Eléctrico",                ru:"C-10 Электрика" },
+    required:["cslb-law","c10-exam"],                optional:["osha-construction"] },
+  { id:"c16", stateId:"ca", name:{ en:"C-16 Fire Protection",        es:"C-16 Protección Contra Incendios", ru:"C-16 Пожарная защита" },
+    required:["cslb-law","c16-fire-sprinkler"],      optional:["nicet-fire-alarm","nicet-water-based","osha-construction"] },
+  { id:"c20", stateId:"ca", name:{ en:"C-20 HVAC",                   es:"C-20 HVAC",                     ru:"C-20 HVAC" },
+    required:["cslb-law","c20-exam"],                optional:["epa-608","osha-construction"] },
+  { id:"c27", stateId:"ca", name:{ en:"C-27 Landscaping",            es:"C-27 Paisajismo",               ru:"C-27 Ландшафт" },
+    required:["cslb-law","c27-landscaping"],         optional:["osha-construction"] },
+  { id:"c33", stateId:"ca", name:{ en:"C-33 Painting",               es:"C-33 Pintura",                  ru:"C-33 Малярные работы" },
+    required:["cslb-law","c33-painting"],            optional:["osha-construction"] },
+  { id:"c36", stateId:"ca", name:{ en:"C-36 Plumbing",               es:"C-36 Plomería",                 ru:"C-36 Сантехника" },
+    required:["cslb-law","c36-plumbing"],            optional:["backflow","osha-construction"] },
+  { id:"c39", stateId:"ca", name:{ en:"C-39 Roofing",                es:"C-39 Techado",                  ru:"C-39 Кровля" },
+    required:["cslb-law","c39-roofing"],             optional:["osha-construction"] },
+  { id:"c46", stateId:"ca", name:{ en:"C-46 Solar",                  es:"C-46 Solar",                    ru:"C-46 Солнечные системы" },
+    required:["cslb-law","c46-solar"],               optional:["osha-construction"] },
+  { id:"c54", stateId:"ca", name:{ en:"C-54 Tile",                   es:"C-54 Azulejos",                 ru:"C-54 Плитка" },
+    required:["cslb-law","c54-tile"],                optional:["osha-construction"] },
+];
+
+</script>
+<script>
+/* LICENA — License Roadmap: state/step CONFIGURATION (data only, no UI).
+   Rules and official sources live here — never inside components — so a new
+   state is a new config block, not a rebuild. Every source URL was checked
+   live on the date in `verified`. UI strings live in i18n-roadmap.js keyed
+   by step key; questionnaire→status derivation logic in app-roadmap.js. */
+
+/* States the questionnaire offers. `available:false` renders the
+   "coming soon" screen after selection (spec: allow selecting Arizona). */
+window.ROADMAP_STATES = {
+  ca: { available: true,  lawCourse: "cslb-law" },
+  az: { available: false },
+  nv: { available: false }
+};
+
+/* California / CSLB roadmap steps.
+   weight     — share of LICENSING progress (sums to 100); progress is NOT
+                questionnaire screens completed.
+   course     — "law" | "trade" → connects the step to the existing LICENA
+                exam-prep product (course ids resolved via LICENSE_PATHS).
+   confirmable— the user may mark it complete themselves.
+   source     — official reference shown on the step card. */
+window.ROADMAP_CA_STEPS = [
+  { key: "classification", order: 1,  weight: 5,  confirmable: true,
+    source: { title: "CSLB — Licensing Classifications",
+              url: "https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/",
+              verified: "2026-08-28" } },
+  { key: "experience", order: 2,  weight: 10, confirmable: true,
+    source: { title: "CSLB — Applicants (experience requirements)",
+              url: "https://www.cslb.ca.gov/Contractors/Applicants/",
+              verified: "2026-08-28" } },
+  { key: "prepare_application", order: 3, weight: 10, confirmable: true,
+    source: { title: "CSLB — Application for Original Contractor License (PDF)",
+              url: "https://www.cslb.ca.gov/Resources/FormsAndApplications/ApplicationForOriginalContractorsLicense.pdf",
+              verified: "2026-08-28" } },
+  { key: "submit_application", order: 4, weight: 10, confirmable: true,
+    source: { title: "CSLB — Exam Application & Fee Schedule",
+              url: "https://www.cslb.ca.gov/Contractors/Applicants/Contractors_License/Exam_Application/",
+              verified: "2026-08-28" } },
+  { key: "fingerprinting", order: 5, weight: 5, confirmable: true,
+    source: { title: "CSLB — Applicants (fingerprinting / Live Scan)",
+              url: "https://www.cslb.ca.gov/Contractors/Applicants/",
+              verified: "2026-08-28" } },
+  { key: "application_review", order: 6, weight: 10, confirmable: true,
+    source: { title: "CSLB — Get Licensed to Build (official guide, PDF)",
+              url: "https://www.cslb.ca.gov/Resources/GuidesAndPublications/GetLicensedToBuild.pdf",
+              verified: "2026-08-28" } },
+  { key: "prep_law_business", order: 7, weight: 10, confirmable: true, course: "law",
+    source: { title: "CSLB — Law & Business Examination Study Guide (PDF)",
+              url: "https://www.cslb.ca.gov/Resources/StudyGuides/LawStudyGuide.pdf",
+              verified: "2026-08-28" } },
+  { key: "prep_trade", order: 8, weight: 10, confirmable: true, course: "trade",
+    source: { title: "CSLB — Examination Study Guides",
+              url: "https://www.cslb.ca.gov/About_Us/Examination_FAQ.aspx",
+              verified: "2026-08-28" } },
+  { key: "schedule_pass_exams", order: 9, weight: 15, confirmable: true,
+    source: { title: "CSLB — Examination FAQ (scheduling, retakes)",
+              url: "https://www.cslb.ca.gov/About_Us/Examination_FAQ.aspx",
+              verified: "2026-08-28" } },
+  { key: "final_requirements", order: 10, weight: 10, confirmable: true,
+    source: { title: "CSLB — Fee Schedule · Workers' Compensation",
+              url: "https://www.cslb.ca.gov/About_Us/Library/Fees.aspx",
+              verified: "2026-08-28" } },
+  { key: "license_issued", order: 11, weight: 5, confirmable: true,
+    source: { title: "CSLB — Check a License",
+              url: "https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx",
+              verified: "2026-08-28" } }
+];
+
+/* Per-trade official CSLB study guide (each checked live 2026-08-28).
+   Keyed by LICENSE_PATHS path id; used on the prep_trade card. */
+window.ROADMAP_CA_TRADE_GUIDES = {
+  b:   "https://www.cslb.ca.gov/Resources/StudyGuides/BStudyGuide.pdf",
+  b2:  "https://www.cslb.ca.gov/Resources/StudyGuides/B02StudyGuide.pdf",
+  c7:  "https://www.cslb.ca.gov/Resources/StudyGuides/C07StudyGuide.pdf",
+  c8:  "https://www.cslb.ca.gov/Resources/StudyGuides/C08StudyGuide.pdf",
+  c10: "https://www.cslb.ca.gov/Resources/StudyGuides/C10StudyGuide.pdf",
+  c16: "https://www.cslb.ca.gov/Resources/StudyGuides/C16StudyGuide.pdf",
+  c20: "https://www.cslb.ca.gov/Resources/StudyGuides/C20StudyGuide.pdf",
+  c27: "https://www.cslb.ca.gov/Resources/StudyGuides/C27StudyGuide.pdf",
+  c33: "https://www.cslb.ca.gov/Resources/StudyGuides/C33StudyGuide.pdf",
+  c36: "https://www.cslb.ca.gov/Resources/StudyGuides/C36StudyGuide.pdf",
+  c39: "https://www.cslb.ca.gov/Resources/StudyGuides/C39StudyGuide.pdf",
+  c46: "https://www.cslb.ca.gov/Resources/StudyGuides/C46StudyGuide.pdf"
+};
+
+/* Classifications CSLB requires to carry workers' compensation WHETHER OR NOT
+   they have employees (BPC 7125; the full official list is C-8, C-20, C-22,
+   C-39, C-61/D-49 — only the ids present in LICENSE_PATHS appear here).
+   Source checked live 2026-08-28: */
+window.ROADMAP_CA_WC_ALWAYS = ["c8", "c20", "c39"];
+window.ROADMAP_CA_WC_SOURCE = {
+  title: "CSLB — Workers' Compensation",
+  url: "https://www.cslb.ca.gov/Contractors/Maintain_License/Workers_Compensation.aspx",
+  verified: "2026-08-28"
+};
+
+/* Q4 "Where are you in the licensing process?" — ordered stages. The wizard
+   stores the stage id; app-roadmap derives initial step statuses from the
+   stage index plus the detail answers (Q5–Q8). */
+window.ROADMAP_STAGES = [
+  "researching",        // Just researching
+  "not_submitted",      // I have not submitted my application
+  "preparing_app",      // I am preparing my application
+  "submitted",          // I already submitted my application
+  "accepted",           // CSLB accepted my application
+  "exam_scheduled",     // My exam is scheduled
+  "passed_one",         // I passed one exam
+  "passed_all",         // I passed all required exams
+  "final_reqs",         // I am completing final licensing requirements
+  "issued"              // My license has been issued
+];
+
+</script>
+<script>
+/* LICENA — License Roadmap translations (EN/ES/RU). All UI strings and the
+   per-step educational content live HERE, never inside app-roadmap.js.
+   Step content keys: t_<step> title · d_<step> short explanation ·
+   todo_<step> "what to do" · docs_<step> documents line.
+   LEGAL RULE: guidance language only ("Based on your answers…", "Confirm with
+   CSLB…") — LICENA never determines eligibility; CSLB does. */
+
+window.TRM = {
+en: {
+  tag: "License Roadmap",
+  pageTitle: "Get Your License Roadmap",
+  introKicker: "California · CSLB · guided checklist",
+  introH: "Get Your License Roadmap",
+  introSub: "Answer a few questions and get a personalized, step-by-step plan — from deciding to get licensed to the day your license is issued. Free, in your language.",
+  introCta: "Start — it takes 2 minutes",
+  introResume: "Continue my roadmap",
+  introRestart: "Start over with new answers",
+  disclaimer: "Licena provides educational guidance and is not affiliated with CSLB. Licensing requirements are determined by the California Contractors State License Board.",
+  stepOf: "Step {n} of {t}",
+  back: "Back", next: "Next", finish: "Show my roadmap",
+  qStateH: "Which state do you want to get licensed in?",
+  qStateSub: "More states are on the way.",
+  stateCa: "California", stateAz: "Arizona", stateNv: "Nevada",
+  pickOne: "Select…",
+  nvSoonH: "The Nevada licensing roadmap is coming soon.",
+  nvSoonB: "We're building the Nevada (NSCB) roadmap now. The California roadmap is ready today — and our Nevada exam courses (CMS, B, B-2) are already live.",
+  azSoonH: "Arizona licensing roadmap is coming soon.",
+  azSoonB: "We're building the Arizona (AZ ROC) roadmap now. The California roadmap is ready today — and our Arizona exam practice is already live.",
+  azSwitchCa: "Continue with California",
+  qTradeH: "What type of contractor license are you pursuing?",
+  qTradeSub: "Pick your classification — or tell us you're not sure yet.",
+  tradeNotSure: "I'm not sure yet",
+  qExpH: "Your experience",
+  qExpYearsL: "How many years of relevant experience do you have?",
+  y0: "Less than 1 year", y1: "1–2 years", y2: "2–3 years", y4: "4+ years",
+  yns: "Not sure how my experience counts",
+  qExpTypeL: "What best describes your experience?",
+  x_employee: "Employee", x_self: "Self-employed", x_owner: "Business owner",
+  x_foreman: "Foreman / supervisor", x_combo: "Combination of the above", x_other: "Other",
+  qStageH: "Where are you in the licensing process?",
+  qStageSub: "This decides where your roadmap starts.",
+  stage_researching: "Just researching",
+  stage_not_submitted: "I have not submitted my application",
+  stage_preparing_app: "I am preparing my application",
+  stage_submitted: "I already submitted my application",
+  stage_accepted: "CSLB accepted my application",
+  stage_exam_scheduled: "My exam is scheduled",
+  stage_passed_one: "I passed one exam",
+  stage_passed_all: "I passed all required exams",
+  stage_final_reqs: "I am completing final licensing requirements",
+  stage_issued: "My license has been issued",
+  qAppH: "Your application",
+  qAppL: "Have you submitted your CSLB license application?",
+  a_yes: "Yes", a_no: "No", a_ns: "Not sure",
+  qAppStatusL: "Do you know your application status?",
+  st_waiting: "Submitted / waiting", st_accepted: "Accepted",
+  st_correction: "Correction requested", st_rejected: "Rejected / returned", st_ns: "Not sure",
+  qFingerH: "Have you completed fingerprinting / Live Scan, if required?",
+  f_yes: "Yes", f_no: "No", f_ns: "Not sure", f_notreq: "Not requested yet",
+  qExamsH: "Have you scheduled your CSLB exams?",
+  e_not: "Not yet", e_sched: "Scheduled", e_law: "Passed Law & Business",
+  e_trade: "Passed Trade exam", e_both: "Passed both required exams",
+  e_which: "I am not sure which exams I need",
+  qFinalH: "Final requirements",
+  qInstrL: "Have you received instructions from CSLB for final issuance requirements?",
+  i_yes: "Yes", i_no: "No", i_notyet: "Not yet",
+  qBondL: "Do you have the required contractor bond?",
+  b_have: "Yes", b_no: "No", b_notyet: "Not yet", b_ns: "Not sure",
+  qWcL: "Workers' compensation insurance status:",
+  w_have: "Have it", w_notreq: "Not required / no employees", w_need: "Need it", w_ns: "Not sure",
+  rmTitle: "Your California Contractor License Roadmap",
+  journeyL: "Your license journey",
+  pctDone: "{p}% complete",
+  lastUpdated: "Last updated: {d}",
+  nextStepH: "Your next step",
+  viewStep: "View this step",
+  youAreHere: "You are here",
+  s_not_started: "Not started", s_action_needed: "Action needed", s_in_progress: "In progress",
+  s_waiting: "Waiting", s_review_needed: "Review needed", s_completed: "Completed",
+  finalGoal: "Final goal",
+  whatToDo: "What to do",
+  docsL: "Documents & info you may need",
+  officialSrc: "Official source",
+  srcVerified: "checked {d}",
+  markComplete: "Mark as completed",
+  markedDone: "Completed ✓",
+  updateStatus: "Update status",
+  startLaw: "Start Law & Business Practice",
+  startTrade: "Start {name} Practice",
+  tradeGuideLink: "Official study guide (PDF)",
+  expNote: "Based on your answers, experience documentation may be an important step to review before you apply.",
+  wcAlwaysNote: "According to CSLB's current requirements (checked 2026-08-28), contractors in the C-8, C-20, C-22, C-39 and C-61/D-49 classifications must carry workers' compensation insurance whether or not they have employees (Business and Professions Code section 7125). Your classification — {name} — is on that list, so the \"not required / no employees\" exemption likely does not apply to you. Confirm on the official page:",
+  nsFlag: "You marked that you're not sure about your license type. Reviewing this step carefully is your best first move — and confirm the classification with CSLB's official descriptions.",
+  saveH: "Save your roadmap",
+  saveB: "Sign in free and your roadmap, progress and answers are saved to your account — pick up on any device.",
+  saveCta: "Sign in / create free account",
+  savedNote: "Saved to your account",
+  localNote: "Saved on this device only — sign in to keep it across devices.",
+  demoNote: "Preview with sample answers — your own roadmap starts from the questionnaire.",
+  qProgress: "Questionnaire",
+  t_classification: "Confirm your license classification",
+  d_classification: "Every CSLB license is issued in a classification — B General Building, C-10 Electrical, C-20 HVAC and so on. Your application, exams and experience all follow it.",
+  todo_classification: "Open the official classifications list and confirm the classification matches the work you actually do. If two look close, read both scope descriptions before you commit.",
+  docs_classification: "The classification you'll apply for (e.g. B, C-10, C-20).",
+  t_experience: "Confirm qualifying experience",
+  d_experience: "CSLB asks applicants to document journey-level experience in the trade — commonly four years within the last ten — certified by someone who can verify it. The exact requirements are determined by CSLB; confirm them on the official page.",
+  todo_experience: "List where your experience comes from (employers, self-employment, supervisory roles), who can certify it, and what records back it up — W-2s, contracts, invoices.",
+  docs_experience: "Work history with dates, certifier contacts, supporting records (W-2s, contracts, invoices).",
+  t_prepare_application: "Prepare your CSLB application",
+  d_prepare_application: "The application ties everything together: your classification, your qualifying individual and the experience certification.",
+  todo_prepare_application: "Download the official application and work through it. Before submitting, make sure your qualifying experience and license classification are consistent on every page.",
+  docs_prepare_application: "Application form, experience certification pages, personal identification details.",
+  t_submit_application: "Submit application and fee",
+  d_submit_application: "CSLB processes applications with the filing fee attached — current amounts are on the official fee schedule.",
+  todo_submit_application: "Submit the signed application with the fee from CSLB's schedule, and keep a full copy — its dates and details come up later in the process.",
+  docs_submit_application: "Signed application, filing fee, a copy of everything for your records.",
+  t_fingerprinting: "Complete fingerprinting when requested",
+  d_fingerprinting: "After an application is accepted, CSLB instructs applicants to complete fingerprinting (Live Scan in California) for the background check.",
+  todo_fingerprinting: "Wait for CSLB's fingerprint instructions, then complete Live Scan promptly at an approved location and keep the receipt.",
+  docs_fingerprinting: "CSLB fingerprint instructions, government photo ID, Live Scan receipt.",
+  t_application_review: "Application review / CSLB acceptance",
+  d_application_review: "CSLB reviews applications for completeness and may return them for corrections — that's common and fixable.",
+  todo_application_review: "Watch for mail and email from CSLB. If a correction is requested, respond exactly as asked and keep copies of everything.",
+  docs_application_review: "Any CSLB correspondence, your application copy.",
+  t_prep_law_business: "Prepare for the Law & Business exam",
+  d_prep_law_business: "Every CSLB license requires the Law & Business examination — contracts, employment, safety and business finances.",
+  todo_prep_law_business: "Study with the official guide, then drill practice questions until the exam format feels routine.",
+  docs_prep_law_business: "CSLB Law & Business study guide.",
+  t_prep_trade: "Prepare for your trade exam",
+  d_prep_trade: "Most classifications also require a trade examination in the classification you applied for.",
+  todo_prep_trade: "Work through the official study guide for your classification and practice in exam format.",
+  docs_prep_trade: "CSLB study guide for your classification.",
+  t_schedule_pass_exams: "Schedule and pass your exams",
+  d_schedule_pass_exams: "After acceptance, CSLB sends exam scheduling information; exams are taken at approved testing centers.",
+  todo_schedule_pass_exams: "Schedule when notified, arrive with the required identification, and pass each required exam. If a retake is needed, CSLB's examination FAQ explains how it works.",
+  docs_schedule_pass_exams: "Exam notice, photo ID.",
+  t_final_requirements: "Complete bond, insurance and final requirements",
+  d_final_requirements: "Before issuance, CSLB asks for the contractor bond, the initial license fee, and workers' compensation information. What applies to you is determined by CSLB.",
+  todo_final_requirements: "Follow CSLB's issuance instructions: file the contractor bond, provide the workers' comp certificate or the exemption that applies to your situation, and pay the initial license fee — confirm exact amounts on the official pages.",
+  docs_final_requirements: "Contractor bond, workers' compensation certificate or exemption, initial license fee.",
+  t_license_issued: "License issued",
+  d_license_issued: "CSLB issues your license number once every requirement is met.",
+  todo_license_issued: "Verify your license appears in CSLB's Check a License, and note your license number and renewal date.",
+  docs_license_issued: "—"
+},
+es: {
+  tag: "Plan de licencia",
+  pageTitle: "Obtén tu plan para conseguir la licencia",
+  introKicker: "California · CSLB · lista guiada",
+  introH: "Obtén tu plan para conseguir la licencia",
+  introSub: "Responde unas preguntas y recibe un plan personalizado paso a paso — desde decidir sacar la licencia hasta el día en que se emite. Gratis, en tu idioma.",
+  introCta: "Empezar — toma 2 minutos",
+  introResume: "Continuar mi plan",
+  introRestart: "Empezar de nuevo con respuestas nuevas",
+  disclaimer: "Licena ofrece orientación educativa y no está afiliada a la CSLB. Los requisitos de licencia los determina la Contractors State License Board de California.",
+  stepOf: "Paso {n} de {t}",
+  back: "Atrás", next: "Siguiente", finish: "Ver mi plan",
+  qStateH: "¿En qué estado quieres obtener la licencia?",
+  qStateSub: "Más estados en camino.",
+  stateCa: "California", stateAz: "Arizona", stateNv: "Nevada",
+  pickOne: "Selecciona…",
+  nvSoonH: "El plan de licencia de Nevada llega pronto.",
+  nvSoonB: "Estamos construyendo el plan de Nevada (NSCB). El plan de California ya está listo — y nuestros cursos de exámenes de Nevada (CMS, B, B-2) ya están disponibles.",
+  azSoonH: "El plan de licencia de Arizona llega pronto.",
+  azSoonB: "Estamos construyendo el plan de Arizona (AZ ROC). El plan de California ya está listo — y nuestra práctica de exámenes de Arizona ya está disponible.",
+  azSwitchCa: "Continuar con California",
+  qTradeH: "¿Qué tipo de licencia de contratista buscas?",
+  qTradeSub: "Elige tu clasificación — o dinos que aún no estás seguro.",
+  tradeNotSure: "Aún no estoy seguro",
+  qExpH: "Tu experiencia",
+  qExpYearsL: "¿Cuántos años de experiencia relevante tienes?",
+  y0: "Menos de 1 año", y1: "1–2 años", y2: "2–3 años", y4: "4+ años",
+  yns: "No sé cómo cuenta mi experiencia",
+  qExpTypeL: "¿Qué describe mejor tu experiencia?",
+  x_employee: "Empleado", x_self: "Trabajador por cuenta propia", x_owner: "Dueño de negocio",
+  x_foreman: "Capataz / supervisor", x_combo: "Combinación de las anteriores", x_other: "Otro",
+  qStageH: "¿En qué punto del proceso de licencia estás?",
+  qStageSub: "Esto decide dónde empieza tu plan.",
+  stage_researching: "Solo investigando",
+  stage_not_submitted: "No he presentado mi solicitud",
+  stage_preparing_app: "Estoy preparando mi solicitud",
+  stage_submitted: "Ya presenté mi solicitud",
+  stage_accepted: "La CSLB aceptó mi solicitud",
+  stage_exam_scheduled: "Mi examen está agendado",
+  stage_passed_one: "Aprobé un examen",
+  stage_passed_all: "Aprobé todos los exámenes requeridos",
+  stage_final_reqs: "Estoy completando los requisitos finales",
+  stage_issued: "Mi licencia ya fue emitida",
+  qAppH: "Tu solicitud",
+  qAppL: "¿Has presentado tu solicitud de licencia a la CSLB?",
+  a_yes: "Sí", a_no: "No", a_ns: "No estoy seguro",
+  qAppStatusL: "¿Conoces el estado de tu solicitud?",
+  st_waiting: "Presentada / en espera", st_accepted: "Aceptada",
+  st_correction: "Corrección solicitada", st_rejected: "Rechazada / devuelta", st_ns: "No estoy seguro",
+  qFingerH: "¿Completaste las huellas / Live Scan, si se requirió?",
+  f_yes: "Sí", f_no: "No", f_ns: "No estoy seguro", f_notreq: "Aún no me lo piden",
+  qExamsH: "¿Has agendado tus exámenes de la CSLB?",
+  e_not: "Todavía no", e_sched: "Agendados", e_law: "Aprobé Law & Business",
+  e_trade: "Aprobé el examen de oficio", e_both: "Aprobé ambos exámenes requeridos",
+  e_which: "No sé qué exámenes necesito",
+  qFinalH: "Requisitos finales",
+  qInstrL: "¿Recibiste instrucciones de la CSLB para los requisitos finales de emisión?",
+  i_yes: "Sí", i_no: "No", i_notyet: "Todavía no",
+  qBondL: "¿Tienes la fianza de contratista requerida?",
+  b_have: "Sí", b_no: "No", b_notyet: "Todavía no", b_ns: "No estoy seguro",
+  qWcL: "Estado del seguro de compensación laboral:",
+  w_have: "Lo tengo", w_notreq: "No requerido / sin empleados", w_need: "Lo necesito", w_ns: "No estoy seguro",
+  rmTitle: "Tu plan de licencia de contratista de California",
+  journeyL: "Tu camino a la licencia",
+  pctDone: "{p}% completado",
+  lastUpdated: "Última actualización: {d}",
+  nextStepH: "Tu siguiente paso",
+  viewStep: "Ver este paso",
+  youAreHere: "Estás aquí",
+  s_not_started: "Sin empezar", s_action_needed: "Acción requerida", s_in_progress: "En progreso",
+  s_waiting: "En espera", s_review_needed: "Revisar", s_completed: "Completado",
+  finalGoal: "Meta final",
+  whatToDo: "Qué hacer",
+  docsL: "Documentos e información que puedes necesitar",
+  officialSrc: "Fuente oficial",
+  srcVerified: "verificado {d}",
+  markComplete: "Marcar como completado",
+  markedDone: "Completado ✓",
+  updateStatus: "Actualizar estado",
+  startLaw: "Practicar Law & Business",
+  startTrade: "Practicar {name}",
+  tradeGuideLink: "Guía de estudio oficial (PDF)",
+  expNote: "Según tus respuestas, documentar tu experiencia puede ser un paso importante por revisar antes de solicitar.",
+  wcAlwaysNote: "Según los requisitos vigentes de la CSLB (verificado 28/8/2026), los contratistas de las clasificaciones C-8, C-20, C-22, C-39 y C-61/D-49 deben llevar seguro de compensación laboral tengan o no empleados (Business and Professions Code, sección 7125). Tu clasificación — {name} — está en esa lista, así que la exención de \"no requerido / sin empleados\" probablemente no te aplica. Confírmalo en la página oficial:",
+  nsFlag: "Marcaste que no estás seguro de tu tipo de licencia. Revisar este paso con calma es tu mejor primer movimiento — y confirma la clasificación con las descripciones oficiales de la CSLB.",
+  saveH: "Guarda tu plan",
+  saveB: "Inicia sesión gratis y tu plan, progreso y respuestas se guardan en tu cuenta — continúa en cualquier dispositivo.",
+  saveCta: "Iniciar sesión / crear cuenta gratis",
+  savedNote: "Guardado en tu cuenta",
+  localNote: "Guardado solo en este dispositivo — inicia sesión para conservarlo en todos.",
+  demoNote: "Vista previa con respuestas de ejemplo — tu propio plan empieza en el cuestionario.",
+  qProgress: "Cuestionario",
+  t_classification: "Confirma tu clasificación de licencia",
+  d_classification: "Cada licencia CSLB se emite en una clasificación — B General Building, C-10 Eléctrico, C-20 HVAC, etc. Tu solicitud, exámenes y experiencia la siguen.",
+  todo_classification: "Abre la lista oficial de clasificaciones y confirma que la tuya corresponde al trabajo que realmente haces. Si dos se parecen, lee ambos alcances antes de decidir.",
+  docs_classification: "La clasificación que solicitarás (p. ej. B, C-10, C-20).",
+  t_experience: "Confirma la experiencia calificable",
+  d_experience: "La CSLB pide documentar experiencia de nivel journeyman en el oficio — comúnmente cuatro años dentro de los últimos diez — certificada por alguien que pueda verificarla. Los requisitos exactos los determina la CSLB; confírmalos en la página oficial.",
+  todo_experience: "Anota de dónde viene tu experiencia (empleadores, cuenta propia, roles de supervisión), quién puede certificarla y qué registros la respaldan — W-2, contratos, facturas.",
+  docs_experience: "Historial laboral con fechas, contactos de certificadores, registros de respaldo (W-2, contratos, facturas).",
+  t_prepare_application: "Prepara tu solicitud CSLB",
+  d_prepare_application: "La solicitud une todo: tu clasificación, tu qualifying individual y la certificación de experiencia.",
+  todo_prepare_application: "Descarga la solicitud oficial y trabájala. Antes de presentarla, verifica que tu experiencia y tu clasificación sean consistentes en cada página.",
+  docs_prepare_application: "Formulario de solicitud, páginas de certificación de experiencia, datos de identificación.",
+  t_submit_application: "Presenta la solicitud y la tarifa",
+  d_submit_application: "La CSLB procesa solicitudes con la tarifa adjunta — los montos vigentes están en el arancel oficial.",
+  todo_submit_application: "Presenta la solicitud firmada con la tarifa del arancel de la CSLB y guarda una copia completa — sus fechas y datos reaparecen más adelante.",
+  docs_submit_application: "Solicitud firmada, tarifa de presentación, copia de todo para tu archivo.",
+  t_fingerprinting: "Completa las huellas cuando te lo pidan",
+  d_fingerprinting: "Tras aceptar una solicitud, la CSLB instruye completar las huellas (Live Scan en California) para la verificación de antecedentes.",
+  todo_fingerprinting: "Espera las instrucciones de huellas de la CSLB, completa el Live Scan pronto en un sitio aprobado y guarda el recibo.",
+  docs_fingerprinting: "Instrucciones de la CSLB, identificación oficial con foto, recibo del Live Scan.",
+  t_application_review: "Revisión de la solicitud / aceptación CSLB",
+  d_application_review: "La CSLB revisa la integridad de las solicitudes y puede devolverlas para corrección — es común y tiene arreglo.",
+  todo_application_review: "Vigila el correo postal y electrónico de la CSLB. Si piden una corrección, responde exactamente lo pedido y guarda copias de todo.",
+  docs_application_review: "Correspondencia de la CSLB, copia de tu solicitud.",
+  t_prep_law_business: "Prepárate para el examen Law & Business",
+  d_prep_law_business: "Toda licencia CSLB requiere el examen Law & Business — contratos, empleo, seguridad y finanzas del negocio.",
+  todo_prep_law_business: "Estudia con la guía oficial y ejercita preguntas de práctica hasta que el formato se sienta rutina.",
+  docs_prep_law_business: "Guía de estudio Law & Business de la CSLB.",
+  t_prep_trade: "Prepárate para tu examen de oficio",
+  d_prep_trade: "La mayoría de las clasificaciones también requieren un examen de oficio en la clasificación solicitada.",
+  todo_prep_trade: "Trabaja la guía de estudio oficial de tu clasificación y practica en formato de examen.",
+  docs_prep_trade: "Guía de estudio de la CSLB para tu clasificación.",
+  t_schedule_pass_exams: "Agenda y aprueba tus exámenes",
+  d_schedule_pass_exams: "Tras la aceptación, la CSLB envía la información para agendar; los exámenes se toman en centros aprobados.",
+  todo_schedule_pass_exams: "Agenda cuando te notifiquen, llega con la identificación requerida y aprueba cada examen. Si hace falta repetir, el FAQ oficial explica el proceso.",
+  docs_schedule_pass_exams: "Aviso de examen, identificación con foto.",
+  t_final_requirements: "Completa fianza, seguro y requisitos finales",
+  d_final_requirements: "Antes de emitir, la CSLB pide la fianza de contratista, la tarifa inicial de licencia e información de compensación laboral. Lo que te aplica lo determina la CSLB.",
+  todo_final_requirements: "Sigue las instrucciones de emisión de la CSLB: presenta la fianza, entrega el certificado de compensación laboral o la exención que te aplique, y paga la tarifa inicial — confirma los montos en las páginas oficiales.",
+  docs_final_requirements: "Fianza de contratista, certificado de compensación laboral o exención, tarifa inicial de licencia.",
+  t_license_issued: "Licencia emitida",
+  d_license_issued: "La CSLB emite tu número de licencia cuando se cumple cada requisito.",
+  todo_license_issued: "Verifica que tu licencia aparezca en Check a License de la CSLB y anota tu número y fecha de renovación.",
+  docs_license_issued: "—"
+},
+ru: {
+  tag: "План лицензии",
+  pageTitle: "Получить план получения лицензии",
+  introKicker: "Калифорния · CSLB · пошаговый чек-лист",
+  introH: "Получить план получения лицензии",
+  introSub: "Ответьте на несколько вопросов — и получите персональный пошаговый план: от решения получить лицензию до дня её выдачи. Бесплатно, на вашем языке.",
+  introCta: "Начать — займёт 2 минуты",
+  introResume: "Продолжить мой план",
+  introRestart: "Начать заново с новыми ответами",
+  disclaimer: "Licena даёт образовательные рекомендации и не связана с CSLB. Требования к лицензии определяет Contractors State License Board Калифорнии.",
+  stepOf: "Шаг {n} из {t}",
+  back: "Назад", next: "Далее", finish: "Показать мой план",
+  qStateH: "В каком штате вы хотите получить лицензию?",
+  qStateSub: "Другие штаты — на подходе.",
+  stateCa: "Калифорния", stateAz: "Аризона", stateNv: "Невада",
+  pickOne: "Выберите…",
+  nvSoonH: "План лицензирования для Невады скоро появится.",
+  nvSoonB: "Мы строим план для Невады (NSCB). Калифорнийский план готов уже сегодня — а невадские курсы экзаменов (CMS, B, B-2) уже работают.",
+  azSoonH: "План лицензирования для Аризоны скоро появится.",
+  azSoonB: "Мы строим план для Аризоны (AZ ROC). Калифорнийский план готов уже сегодня — а тренажёры аризонских экзаменов уже работают.",
+  azSwitchCa: "Продолжить с Калифорнией",
+  qTradeH: "Какую лицензию подрядчика вы получаете?",
+  qTradeSub: "Выберите классификацию — или скажите, что пока не уверены.",
+  tradeNotSure: "Пока не уверен(а)",
+  qExpH: "Ваш опыт",
+  qExpYearsL: "Сколько лет релевантного опыта у вас есть?",
+  y0: "Меньше 1 года", y1: "1–2 года", y2: "2–3 года", y4: "4+ года",
+  yns: "Не уверен(а), как считается мой опыт",
+  qExpTypeL: "Что лучше всего описывает ваш опыт?",
+  x_employee: "Наёмный работник", x_self: "Самозанятый", x_owner: "Владелец бизнеса",
+  x_foreman: "Бригадир / супервайзер", x_combo: "Сочетание перечисленного", x_other: "Другое",
+  qStageH: "На каком этапе получения лицензии вы находитесь?",
+  qStageSub: "От этого зависит, с чего начнётся ваш план.",
+  stage_researching: "Пока изучаю вопрос",
+  stage_not_submitted: "Я ещё не подал(а) заявление",
+  stage_preparing_app: "Готовлю заявление",
+  stage_submitted: "Заявление уже подано",
+  stage_accepted: "CSLB приняла моё заявление",
+  stage_exam_scheduled: "Экзамен назначен",
+  stage_passed_one: "Сдан один экзамен",
+  stage_passed_all: "Сданы все нужные экзамены",
+  stage_final_reqs: "Выполняю финальные требования",
+  stage_issued: "Лицензия уже выдана",
+  qAppH: "Ваше заявление",
+  qAppL: "Вы подали заявление на лицензию в CSLB?",
+  a_yes: "Да", a_no: "Нет", a_ns: "Не уверен(а)",
+  qAppStatusL: "Знаете ли вы статус заявления?",
+  st_waiting: "Подано / ожидание", st_accepted: "Принято",
+  st_correction: "Запрошены исправления", st_rejected: "Отклонено / возвращено", st_ns: "Не уверен(а)",
+  qFingerH: "Вы прошли снятие отпечатков / Live Scan, если требовалось?",
+  f_yes: "Да", f_no: "Нет", f_ns: "Не уверен(а)", f_notreq: "Ещё не запрашивали",
+  qExamsH: "Вы записались на экзамены CSLB?",
+  e_not: "Ещё нет", e_sched: "Записан(а)", e_law: "Сдан Law & Business",
+  e_trade: "Сдан trade-экзамен", e_both: "Сданы оба обязательных экзамена",
+  e_which: "Не знаю, какие экзамены мне нужны",
+  qFinalH: "Финальные требования",
+  qInstrL: "Вы получили от CSLB инструкции по финальным требованиям для выдачи?",
+  i_yes: "Да", i_no: "Нет", i_notyet: "Пока нет",
+  qBondL: "У вас есть требуемый бонд подрядчика?",
+  b_have: "Да", b_no: "Нет", b_notyet: "Пока нет", b_ns: "Не уверен(а)",
+  qWcL: "Статус страховки workers' compensation:",
+  w_have: "Есть", w_notreq: "Не требуется / нет работников", w_need: "Нужна", w_ns: "Не уверен(а)",
+  rmTitle: "Ваш план лицензии подрядчика Калифорнии",
+  journeyL: "Ваш путь к лицензии",
+  pctDone: "{p}% выполнено",
+  lastUpdated: "Обновлено: {d}",
+  nextStepH: "Ваш следующий шаг",
+  viewStep: "Открыть этот шаг",
+  youAreHere: "Вы здесь",
+  s_not_started: "Не начато", s_action_needed: "Нужно действие", s_in_progress: "В работе",
+  s_waiting: "Ожидание", s_review_needed: "Проверить", s_completed: "Выполнено",
+  finalGoal: "Финальная цель",
+  whatToDo: "Что делать",
+  docsL: "Документы и данные, которые могут понадобиться",
+  officialSrc: "Официальный источник",
+  srcVerified: "проверено {d}",
+  markComplete: "Отметить выполненным",
+  markedDone: "Выполнено ✓",
+  updateStatus: "Изменить статус",
+  startLaw: "Тренировать Law & Business",
+  startTrade: "Тренировать {name}",
+  tradeGuideLink: "Официальный study guide (PDF)",
+  expNote: "Судя по вашим ответам, документирование опыта может оказаться важным шагом, который стоит проверить до подачи.",
+  wcAlwaysNote: "По действующим требованиям CSLB (проверено 28.08.2026) подрядчики классификаций C-8, C-20, C-22, C-39 и C-61/D-49 обязаны иметь страховку workers' compensation независимо от наличия работников (Business and Professions Code, секция 7125). Ваша классификация — {name} — в этом списке, поэтому вариант «не требуется / нет работников», судя по всему, к вам не применим. Сверьте на официальной странице:",
+  nsFlag: "Вы отметили, что не уверены в типе лицензии. Спокойно разобрать этот шаг — лучший первый ход; сверьте классификацию с официальными описаниями CSLB.",
+  saveH: "Сохраните свой план",
+  saveB: "Войдите бесплатно — план, прогресс и ответы сохранятся в аккаунте, продолжайте с любого устройства.",
+  saveCta: "Войти / создать бесплатный аккаунт",
+  savedNote: "Сохранено в вашем аккаунте",
+  localNote: "Сохранено только на этом устройстве — войдите, чтобы не потерять.",
+  demoNote: "Превью с примерными ответами — ваш собственный план начинается с анкеты.",
+  qProgress: "Анкета",
+  t_classification: "Подтвердите классификацию лицензии",
+  d_classification: "Каждая лицензия CSLB выдаётся в классификации — B General Building, C-10 Электрика, C-20 HVAC и т. д. За ней следуют заявление, экзамены и опыт.",
+  todo_classification: "Откройте официальный список классификаций и убедитесь, что ваша соответствует работе, которую вы реально выполняете. Если две похожи — прочитайте оба описания объёма работ, прежде чем решить.",
+  docs_classification: "Классификация, на которую подаёте (например B, C-10, C-20).",
+  t_experience: "Подтвердите квалифицирующий опыт",
+  d_experience: "CSLB просит задокументировать опыт уровня journeyman в ремесле — обычно четыре года за последние десять — с подтверждением от того, кто может его удостоверить. Точные требования определяет CSLB; сверьте их на официальной странице.",
+  todo_experience: "Выпишите, откуда ваш опыт (работодатели, самозанятость, руководящие роли), кто может его удостоверить и какие записи его подтверждают — W-2, договоры, счета.",
+  docs_experience: "История работы с датами, контакты удостоверяющих, подтверждающие записи (W-2, договоры, счета).",
+  t_prepare_application: "Подготовьте заявление CSLB",
+  d_prepare_application: "Заявление связывает всё вместе: классификацию, qualifying individual и удостоверение опыта.",
+  todo_prepare_application: "Скачайте официальную форму и проработайте её. Перед подачей убедитесь, что опыт и классификация согласованы на каждой странице.",
+  docs_prepare_application: "Форма заявления, страницы удостоверения опыта, данные удостоверения личности.",
+  t_submit_application: "Подайте заявление и оплату",
+  d_submit_application: "CSLB обрабатывает заявления вместе с пошлиной — действующие суммы в официальном прейскуранте.",
+  todo_submit_application: "Подайте подписанное заявление с пошлиной по прейскуранту CSLB и сохраните полную копию — её даты и детали ещё пригодятся.",
+  docs_submit_application: "Подписанное заявление, пошлина, копия всего пакета для себя.",
+  t_fingerprinting: "Пройдите отпечатки, когда запросят",
+  d_fingerprinting: "После принятия заявления CSLB направляет на снятие отпечатков (в Калифорнии — Live Scan) для проверки биографии.",
+  todo_fingerprinting: "Дождитесь инструкций CSLB, оперативно пройдите Live Scan в одобренном пункте и сохраните квитанцию.",
+  docs_fingerprinting: "Инструкции CSLB, удостоверение личности с фото, квитанция Live Scan.",
+  t_application_review: "Рассмотрение заявления / принятие CSLB",
+  d_application_review: "CSLB проверяет комплектность заявлений и может вернуть на исправление — это обычное дело и решается.",
+  todo_application_review: "Следите за почтой и email от CSLB. Если запрошено исправление — ответьте ровно так, как просят, и сохраняйте копии.",
+  docs_application_review: "Переписка с CSLB, копия вашего заявления.",
+  t_prep_law_business: "Подготовьтесь к экзамену Law & Business",
+  d_prep_law_business: "Каждая лицензия CSLB требует экзамен Law & Business — договоры, найм, безопасность и финансы бизнеса.",
+  todo_prep_law_business: "Учитесь по официальному гайду и решайте практические вопросы, пока формат не станет привычным.",
+  docs_prep_law_business: "Официальный study guide Law & Business от CSLB.",
+  t_prep_trade: "Подготовьтесь к trade-экзамену",
+  d_prep_trade: "Большинство классификаций требуют ещё и trade-экзамен по выбранной классификации.",
+  todo_prep_trade: "Проработайте официальный study guide вашей классификации и тренируйтесь в формате экзамена.",
+  docs_prep_trade: "Официальный study guide CSLB по вашей классификации.",
+  t_schedule_pass_exams: "Запишитесь и сдайте экзамены",
+  d_schedule_pass_exams: "После принятия заявления CSLB присылает информацию о записи; экзамены сдаются в одобренных центрах.",
+  todo_schedule_pass_exams: "Запишитесь по уведомлению, придите с требуемыми документами и сдайте каждый обязательный экзамен. Если нужна пересдача — официальный FAQ объясняет порядок.",
+  docs_schedule_pass_exams: "Уведомление об экзамене, удостоверение с фото.",
+  t_final_requirements: "Закройте бонд, страховку и финальные требования",
+  d_final_requirements: "Перед выдачей CSLB запрашивает бонд подрядчика, первоначальную пошлину лицензии и сведения о workers' compensation. Что именно применимо к вам — определяет CSLB.",
+  todo_final_requirements: "Следуйте инструкциям CSLB по выдаче: подайте бонд, предоставьте сертификат workers' comp или подходящее вам освобождение и оплатите пошлину — точные суммы сверьте на официальных страницах.",
+  docs_final_requirements: "Бонд подрядчика, сертификат workers' compensation или освобождение, первоначальная пошлина.",
+  t_license_issued: "Лицензия выдана",
+  d_license_issued: "CSLB присваивает номер лицензии, когда выполнены все требования.",
+  todo_license_issued: "Проверьте, что лицензия видна в Check a License CSLB, запишите номер и дату продления.",
+  docs_license_issued: "—"
+}
+};
+
+</script>
+<script>
+/* LICENA — License Roadmap (Phase 1). Wizard → personalized checklist.
+   Config (steps/sources) in roadmap-config.js, strings in i18n-roadmap.js.
+   Persistence: Supabase (license_roadmaps + license_roadmap_steps) for
+   signed-in users, localStorage always as mirror/fallback — the page keeps
+   working before the SQL is applied and for signed-out visitors.
+   Guidance only: statuses come from the user's own answers and confirmations;
+   LICENA never determines eligibility (see disclaimer). */
+(function () {
+  "use strict";
+
+  /* ---------- language (same resolution as the auth page) ---------- */
+  var UI_LANGS = ["en", "es", "ru"];
+  var lang = (function () {
+    var p = new URLSearchParams(location.search).get("lang");
+    if (UI_LANGS.indexOf(p) > -1) return p;
+    var s = null; try { s = localStorage.getItem("lp:ui_lang"); } catch (_) {}
+    if (UI_LANGS.indexOf(s) > -1) return s;
+    var n = (navigator.language || "").toLowerCase();
+    return n.indexOf("es") === 0 ? "es" : n.indexOf("ru") === 0 ? "ru" : "en";
+  })();
+  var d = window.TRM[lang] || window.TRM.en;
+  function fill(s, vars) { return s.replace(/\{(\w+)\}/g, function (_, k) { return vars[k] !== undefined ? vars[k] : "{" + k + "}"; }); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+
+  /* ---------- analytics (existing pattern: Clarity custom events) ---------- */
+  function track(name) { try { if (typeof window.clarity === "function") window.clarity("event", name); } catch (_) {} }
+  function tag(k, v) { try { if (typeof window.clarity === "function" && v) window.clarity("set", k, String(v)); } catch (_) {} }
+
+  var DEMO = new URLSearchParams(location.search).get("demo") === "1";
+  var LS_KEY = "lp:roadmap:ca";
+  var STEPS = window.ROADMAP_CA_STEPS;
+  var STAGES = window.ROADMAP_STAGES;
+  var STATUS_SET = ["not_started", "action_needed", "in_progress", "waiting", "review_needed", "completed"];
+  var root = document.getElementById("rmRoot");
+  var session = null;
+
+  var caPaths = (typeof LICENSE_PATHS !== "undefined")
+    ? LICENSE_PATHS.filter(function (p) { return p.stateId === "ca"; }) : [];
+  function pathById(id) { for (var i = 0; i < caPaths.length; i++) if (caPaths[i].id === id) return caPaths[i]; return null; }
+  function tradeCourseOf(pathId) {
+    var p = pathById(pathId); if (!p) return null;
+    for (var i = 0; i < p.required.length; i++) if (p.required[i] !== "cslb-law") return p.required[i];
+    return null;
+  }
+  function tradeName(pathId) {
+    var p = pathById(pathId); return p ? (p.name[lang] || p.name.en) : "";
+  }
+
+  /* ---------- model ---------- */
+  var RM = null; // { id, state, trade, notSure, answers{}, steps{key:{status,completed_at}}, updatedAt }
+
+  function newModel(answers) {
+    var m = { id: null, state: "ca", trade: answers.trade === "not_sure" ? null : answers.trade,
+              notSure: answers.trade === "not_sure", answers: answers, steps: {},
+              updatedAt: new Date().toISOString() };
+    var derived = derive(answers);
+    STEPS.forEach(function (s) { m.steps[s.key] = { status: derived[s.key] || "not_started", completed_at: derived[s.key] === "completed" ? new Date().toISOString() : null }; });
+    return m;
+  }
+
+  /* Initial statuses from the questionnaire. Stage gives the baseline
+     (everything clearly behind the user's stage is completed); the detail
+     answers (Q5–Q8) then overlay specific steps. */
+  function derive(a) {
+    var st = {};
+    STEPS.forEach(function (s) { st[s.key] = "not_started"; });
+    var idx = STAGES.indexOf(a.stage); if (idx < 0) idx = 0;
+
+    // Baseline by stage
+    if (idx >= 3) { // submitted+
+      st.classification = "completed"; st.experience = "completed";
+      st.prepare_application = "completed"; st.submit_application = "completed";
+      st.application_review = "waiting";
+    }
+    if (idx >= 4) st.application_review = "completed";           // accepted+
+    if (idx >= 5) st.schedule_pass_exams = "in_progress";        // exam scheduled
+    if (idx >= 7) {                                              // passed all
+      st.prep_law_business = "completed"; st.prep_trade = "completed";
+      st.schedule_pass_exams = "completed";
+    }
+    if (idx >= 8) st.final_requirements = "action_needed";       // final reqs
+    if (idx >= 9) {                                              // issued
+      STEPS.forEach(function (s) { st[s.key] = "completed"; });
+      return st;
+    }
+
+    // Early stages
+    if (idx <= 2) {
+      st.classification = a.trade === "not_sure" ? "review_needed" : "action_needed";
+      st.experience = (a.years === "y4") ? "action_needed" : "review_needed";
+      if (idx === 2) st.prepare_application = "in_progress";
+      st.fingerprinting = "waiting"; st.application_review = "waiting";
+    }
+
+    // Q5 application status overlay (only meaningful once submitted)
+    if (idx >= 3) {
+      if (a.appStatus === "st_correction") st.application_review = "action_needed";
+      if (a.appStatus === "st_rejected") { st.prepare_application = "action_needed"; st.submit_application = "action_needed"; st.application_review = "not_started"; }
+      if (a.appStatus === "st_accepted") st.application_review = "completed";
+    }
+
+    // Q6 fingerprinting overlay
+    if (a.finger === "f_yes") st.fingerprinting = "completed";
+    else if (a.finger === "f_notreq") st.fingerprinting = "waiting";
+    else if (a.finger === "f_ns") st.fingerprinting = "review_needed";
+    else if (a.finger === "f_no") st.fingerprinting = (idx >= 4) ? "action_needed" : "waiting";
+
+    // Q7 exams overlay
+    if (a.exams === "e_law") { st.prep_law_business = "completed"; if (st.schedule_pass_exams !== "completed") st.schedule_pass_exams = "in_progress"; }
+    if (a.exams === "e_trade") { st.prep_trade = "completed"; if (st.schedule_pass_exams !== "completed") st.schedule_pass_exams = "in_progress"; }
+    if (a.exams === "e_both") { st.prep_law_business = "completed"; st.prep_trade = "completed"; st.schedule_pass_exams = "completed"; }
+    if (a.exams === "e_sched" && st.schedule_pass_exams !== "completed") st.schedule_pass_exams = "in_progress";
+    if (a.exams === "e_which") st.schedule_pass_exams = "review_needed";
+
+    // Q8 final requirements overlay
+    var wcAlways = window.ROADMAP_CA_WC_ALWAYS.indexOf(a.trade) > -1;
+    if (a.instr === "i_yes" && st.final_requirements === "not_started") st.final_requirements = "action_needed";
+    if (a.bond === "b_have" && (a.wc === "w_have" || (a.wc === "w_notreq" && !wcAlways)) &&
+        st.final_requirements !== "completed" && idx >= 7)
+      st.final_requirements = "in_progress";
+    // "not required / no employees" doesn't hold for the WC-always
+    // classifications (CSLB, BPC 7125) — send the step to review
+    if (a.wc === "w_notreq" && wcAlways && st.final_requirements !== "completed" && st.final_requirements !== "action_needed")
+      st.final_requirements = "review_needed";
+    return st;
+  }
+
+  function progressOf(m) {
+    var p = 0;
+    STEPS.forEach(function (s) { if (m.steps[s.key] && m.steps[s.key].status === "completed") p += s.weight; });
+    return Math.min(100, p);
+  }
+  function currentStepOf(m) {
+    var pick = null;
+    ["action_needed", "review_needed", "in_progress"].some(function (want) {
+      STEPS.some(function (s) { if (m.steps[s.key].status === want) { pick = s.key; return true; } return false; });
+      return !!pick;
+    });
+    if (!pick) STEPS.some(function (s) { if (m.steps[s.key].status === "not_started") { pick = s.key; return true; } return false; });
+    if (!pick) STEPS.some(function (s) { if (m.steps[s.key].status === "waiting") { pick = s.key; return true; } return false; });
+    return pick;
+  }
+
+  /* ---------- persistence ---------- */
+  function saveLocal(m) { if (DEMO) return; try { localStorage.setItem(LS_KEY, JSON.stringify(m)); } catch (_) {} }
+  function loadLocal() { try { var s = localStorage.getItem(LS_KEY); return s ? JSON.parse(s) : null; } catch (_) { return null; } }
+
+  function dbSave(m) {
+    if (DEMO || !session || typeof supa === "undefined") return Promise.resolve();
+    var row = { user_id: session.user.id, state: m.state, license_type: m.trade,
+                license_not_sure: !!m.notSure, answers: m.answers, status: "active",
+                current_step: currentStepOf(m), progress_percent: progressOf(m) };
+    var q = m.id
+      ? supa.from("license_roadmaps").update(row).eq("id", m.id).select("id").single()
+      : supa.from("license_roadmaps").insert(row).select("id").single();
+    return q.then(function (res) {
+      if (res.error || !res.data) return;
+      m.id = res.data.id;
+      var stepRows = STEPS.map(function (s) {
+        return { roadmap_id: m.id, step_key: s.key, step_order: s.order,
+                 status: m.steps[s.key].status, completed_at: m.steps[s.key].completed_at };
+      });
+      return supa.from("license_roadmap_steps").upsert(stepRows, { onConflict: "roadmap_id,step_key" });
+    }).catch(function () {});
+  }
+
+  function dbLoad() {
+    if (DEMO || !session || typeof supa === "undefined") return Promise.resolve(null);
+    return supa.from("license_roadmaps").select("*").eq("user_id", session.user.id)
+      .eq("status", "active").order("updated_at", { ascending: false }).limit(1)
+      .then(function (res) {
+        if (res.error || !res.data || !res.data.length) return null;
+        var r = res.data[0];
+        return supa.from("license_roadmap_steps").select("*").eq("roadmap_id", r.id).then(function (sr) {
+          var m = { id: r.id, state: r.state, trade: r.license_type, notSure: r.license_not_sure,
+                    answers: r.answers || {}, steps: {}, updatedAt: r.updated_at };
+          STEPS.forEach(function (s) { m.steps[s.key] = { status: "not_started", completed_at: null }; });
+          (sr.data || []).forEach(function (row) {
+            if (m.steps[row.step_key]) m.steps[row.step_key] = { status: row.status, completed_at: row.completed_at };
+          });
+          return m;
+        });
+      }).catch(function () { return null; });
+  }
+
+  function persist(m) { m.updatedAt = new Date().toISOString(); saveLocal(m); dbSave(m); }
+
+  /* ---------- wizard ---------- */
+  var W = { i: 0, a: {} };
+  /* Adaptive flow (owner feedback 2026-08-28): questions that only make sense
+     after an application exists are skipped for earlier stages — someone who
+     hasn't applied is never asked about fingerprints, exams or final
+     requirements. The step counter reflects the ACTIVE list. */
+  function stageIdx(a) { var i = STAGES.indexOf(a.stage); return i < 0 ? 0 : i; }
+  var SCREEN_DEFS = [
+    { name: "state" },
+    { name: "trade" },
+    { name: "exp" },
+    { name: "stage" },
+    { name: "app",    when: function (a) { return stageIdx(a) >= 3; } },
+    { name: "finger", when: function (a) { return stageIdx(a) >= 3 && a.appSubmitted === "a_yes"; } },
+    { name: "exams",  when: function (a) { return stageIdx(a) >= 3 && a.appSubmitted === "a_yes"; } },
+    { name: "final",  when: function (a) { return stageIdx(a) >= 3 && a.appSubmitted === "a_yes"; } }
+  ];
+  function activeScreens() {
+    return SCREEN_DEFS.filter(function (s) { return !s.when || s.when(W.a); })
+                      .map(function (s) { return s.name; });
+  }
+
+  /* Long single-choice lists (state, classification) render as a native
+     dropdown — owner request 2026-08-28; short option groups stay chips. */
+  function dropdown(items, sel, placeholder, onPick) {
+    var s = document.createElement("select"); s.className = "rw-select";
+    var ph = document.createElement("option");
+    ph.value = ""; ph.textContent = placeholder; ph.disabled = true; ph.selected = !sel;
+    s.appendChild(ph);
+    items.forEach(function (it) {
+      var o = document.createElement("option");
+      o.value = it.v; o.textContent = it.l; if (sel === it.v) o.selected = true;
+      s.appendChild(o);
+    });
+    s.addEventListener("change", function () { onPick(s.value); });
+    return s;
+  }
+
+  function chips(items, sel, onPick) {
+    var box = document.createElement("div"); box.className = "rw-opts";
+    items.forEach(function (it) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "rw-chip" + (sel === it.v ? " on" : "");
+      b.textContent = it.l;
+      b.addEventListener("click", function () {
+        box.querySelectorAll(".rw-chip").forEach(function (x) { x.classList.remove("on"); });
+        b.classList.add("on"); onPick(it.v);
+      });
+      box.appendChild(b);
+    });
+    return box;
+  }
+
+  function wizardScreen() {
+    var list = activeScreens();
+    if (W.i >= list.length) W.i = list.length - 1;
+    var name = list[W.i];
+    var el = document.createElement("div"); el.className = "rw-card";
+    var head = '<div class="rw-prog"><span>' + esc(fill(d.stepOf, { n: W.i + 1, t: list.length })) + "</span>" +
+      '<span class="rw-prog-note">' + esc(d.qProgress) + "</span></div>" +
+      '<div class="rw-bar"><i style="width:' + Math.round(((W.i) / list.length) * 100) + '%"></i></div>';
+    el.innerHTML = head;
+    var need = function () { return true; };
+
+    if (name === "state") {
+      el.innerHTML += "<h2>" + esc(d.qStateH) + "</h2><p class='rw-sub'>" + esc(d.qStateSub) + "</p>";
+      el.appendChild(dropdown([{ v: "ca", l: d.stateCa }, { v: "az", l: d.stateAz }, { v: "nv", l: d.stateNv }],
+        W.a.state, d.pickOne, function (v) { W.a.state = v; }));
+      need = function () { return !!W.a.state; };
+    }
+    if (name === "trade") {
+      el.innerHTML += "<h2>" + esc(d.qTradeH) + "</h2><p class='rw-sub'>" + esc(d.qTradeSub) + "</p>";
+      var items = caPaths.map(function (p) { return { v: p.id, l: p.name[lang] || p.name.en }; });
+      items.push({ v: "not_sure", l: d.tradeNotSure });
+      el.appendChild(dropdown(items, W.a.trade, d.pickOne, function (v) { W.a.trade = v; }));
+      need = function () { return !!W.a.trade; };
+    }
+    if (name === "exp") {
+      el.innerHTML += "<h2>" + esc(d.qExpH) + "</h2><p class='rw-q'>" + esc(d.qExpYearsL) + "</p>";
+      el.appendChild(chips([{ v: "y0", l: d.y0 }, { v: "y1", l: d.y1 }, { v: "y2", l: d.y2 }, { v: "y4", l: d.y4 }, { v: "yns", l: d.yns }], W.a.years, function (v) { W.a.years = v; }));
+      var p2 = document.createElement("p"); p2.className = "rw-q"; p2.textContent = d.qExpTypeL; el.appendChild(p2);
+      el.appendChild(chips([{ v: "x_employee", l: d.x_employee }, { v: "x_self", l: d.x_self }, { v: "x_owner", l: d.x_owner }, { v: "x_foreman", l: d.x_foreman }, { v: "x_combo", l: d.x_combo }, { v: "x_other", l: d.x_other }], W.a.expType, function (v) { W.a.expType = v; }));
+      need = function () { return !!W.a.years && !!W.a.expType; };
+    }
+    if (name === "stage") {
+      el.innerHTML += "<h2>" + esc(d.qStageH) + "</h2><p class='rw-sub'>" + esc(d.qStageSub) + "</p>";
+      el.appendChild(chips(STAGES.map(function (s) { return { v: s, l: d["stage_" + s] }; }), W.a.stage, function (v) { W.a.stage = v; }));
+      need = function () { return !!W.a.stage; };
+    }
+    if (name === "app") {
+      el.innerHTML += "<h2>" + esc(d.qAppH) + "</h2><p class='rw-q'>" + esc(d.qAppL) + "</p>";
+      var statusWrapId = "rwAppStatus";
+      el.appendChild(chips([{ v: "a_yes", l: d.a_yes }, { v: "a_no", l: d.a_no }, { v: "a_ns", l: d.a_ns }], W.a.appSubmitted, function (v) {
+        W.a.appSubmitted = v;
+        var w = el.querySelector("#" + statusWrapId); if (w) w.style.display = v === "a_yes" ? "" : "none";
+      }));
+      var wrap = document.createElement("div"); wrap.id = statusWrapId;
+      wrap.style.display = W.a.appSubmitted === "a_yes" ? "" : "none";
+      var pq = document.createElement("p"); pq.className = "rw-q"; pq.textContent = d.qAppStatusL; wrap.appendChild(pq);
+      wrap.appendChild(chips([{ v: "st_waiting", l: d.st_waiting }, { v: "st_accepted", l: d.st_accepted }, { v: "st_correction", l: d.st_correction }, { v: "st_rejected", l: d.st_rejected }, { v: "st_ns", l: d.st_ns }], W.a.appStatus, function (v) { W.a.appStatus = v; }));
+      el.appendChild(wrap);
+      need = function () { return !!W.a.appSubmitted && (W.a.appSubmitted !== "a_yes" || !!W.a.appStatus); };
+    }
+    if (name === "finger") {
+      el.innerHTML += "<h2>" + esc(d.qFingerH) + "</h2>";
+      el.appendChild(chips([{ v: "f_yes", l: d.f_yes }, { v: "f_no", l: d.f_no }, { v: "f_ns", l: d.f_ns }, { v: "f_notreq", l: d.f_notreq }], W.a.finger, function (v) { W.a.finger = v; }));
+      need = function () { return !!W.a.finger; };
+    }
+    if (name === "exams") {
+      el.innerHTML += "<h2>" + esc(d.qExamsH) + "</h2>";
+      el.appendChild(chips([{ v: "e_not", l: d.e_not }, { v: "e_sched", l: d.e_sched }, { v: "e_law", l: d.e_law }, { v: "e_trade", l: d.e_trade }, { v: "e_both", l: d.e_both }, { v: "e_which", l: d.e_which }], W.a.exams, function (v) { W.a.exams = v; }));
+      need = function () { return !!W.a.exams; };
+    }
+    if (name === "final") {
+      el.innerHTML += "<h2>" + esc(d.qFinalH) + "</h2><p class='rw-q'>" + esc(d.qInstrL) + "</p>";
+      el.appendChild(chips([{ v: "i_yes", l: d.i_yes }, { v: "i_no", l: d.i_no }, { v: "i_notyet", l: d.i_notyet }], W.a.instr, function (v) { W.a.instr = v; }));
+      var b1 = document.createElement("p"); b1.className = "rw-q"; b1.textContent = d.qBondL; el.appendChild(b1);
+      el.appendChild(chips([{ v: "b_have", l: d.b_have }, { v: "b_no", l: d.b_no }, { v: "b_notyet", l: d.b_notyet }, { v: "b_ns", l: d.b_ns }], W.a.bond, function (v) { W.a.bond = v; }));
+      var w1 = document.createElement("p"); w1.className = "rw-q"; w1.textContent = d.qWcL; el.appendChild(w1);
+      el.appendChild(chips([{ v: "w_have", l: d.w_have }, { v: "w_notreq", l: d.w_notreq }, { v: "w_need", l: d.w_need }, { v: "w_ns", l: d.w_ns }], W.a.wc, function (v) { W.a.wc = v; }));
+      need = function () { return !!W.a.instr && !!W.a.bond && !!W.a.wc; };
+    }
+
+    var nav = document.createElement("div"); nav.className = "rw-nav";
+    if (W.i > 0) {
+      var back = document.createElement("button"); back.className = "btn btn-ghost"; back.textContent = d.back;
+      back.addEventListener("click", function () { W.i--; render(wizardScreen()); });
+      nav.appendChild(back);
+    }
+    var next = document.createElement("button"); next.className = "btn btn-primary";
+    next.textContent = W.i === list.length - 1 ? d.finish : d.next;
+    next.addEventListener("click", function () {
+      if (!need()) { el.classList.add("rw-shake"); setTimeout(function () { el.classList.remove("rw-shake"); }, 350); return; }
+      track("license_questionnaire_step_completed");
+      if (name === "state" && window.ROADMAP_STATES[W.a.state] && !window.ROADMAP_STATES[W.a.state].available) {
+        render(stateSoon(W.a.state)); return;
+      }
+      // answers on THIS screen may have grown/shrunk the active list
+      var now = activeScreens();
+      if (W.i >= now.length - 1) { finishWizard(); return; }
+      W.i++; render(wizardScreen());
+    });
+    nav.appendChild(next);
+    el.appendChild(nav);
+    // an answer on this screen can change how many screens remain — keep the
+    // Next / "Show my roadmap" label honest
+    var refreshNext = function () {
+      var L = activeScreens();
+      next.textContent = W.i >= L.length - 1 ? d.finish : d.next;
+    };
+    el.addEventListener("click", refreshNext);
+    el.addEventListener("change", refreshNext);
+    var disc = document.createElement("p"); disc.className = "rw-disc"; disc.textContent = d.disclaimer; el.appendChild(disc);
+    return el;
+  }
+
+  function stateSoon(stateId) {
+    var el = document.createElement("div"); el.className = "rw-card rw-center";
+    var h = stateId === "nv" ? d.nvSoonH : d.azSoonH;
+    var b0 = stateId === "nv" ? d.nvSoonB : d.azSoonB;
+    el.innerHTML = "<h2>" + esc(h) + "</h2><p class='rw-sub'>" + esc(b0) + "</p>";
+    var b = document.createElement("button"); b.className = "btn btn-primary"; b.textContent = d.azSwitchCa;
+    b.addEventListener("click", function () { W.a.state = "ca"; W.i = 1; render(wizardScreen()); });
+    el.appendChild(b);
+    var disc = document.createElement("p"); disc.className = "rw-disc"; disc.textContent = d.disclaimer; el.appendChild(disc);
+    return el;
+  }
+
+  function finishWizard() {
+    track("license_questionnaire_completed");
+    RM = newModel(W.a);
+    persist(RM);
+    track("license_roadmap_created");
+    tag("roadmap_state", RM.state); tag("roadmap_trade", RM.trade || "not_sure");
+    renderRoadmap();
+  }
+
+  /* ---------- roadmap view ---------- */
+  var STATUS_CLASS = { not_started: "st-n", action_needed: "st-a", in_progress: "st-p", waiting: "st-w", review_needed: "st-r", completed: "st-c" };
+
+  function examCta(courseId, label) {
+    var href = session ? ("course.html?id=" + courseId + "&lang=" + lang) : ("/?lang=" + lang + "&src=roadmap#authwrap");
+    return '<a class="btn btn-primary rm-cta" data-course="' + esc(courseId) + '" href="' + href + '">' + esc(label) + "</a>";
+  }
+
+  function stepCard(s, open) {
+    var st = RM.steps[s.key].status;
+    var isLast = s.key === "license_issued";
+    var card = document.createElement("div");
+    card.className = "rm-step " + STATUS_CLASS[st] + (open ? " open" : "");
+    card.setAttribute("data-step", s.key);
+    var statusLbl = (isLast && st !== "completed") ? d.finalGoal : d["s_" + st];
+    var headHtml = '<button class="rm-step-head" aria-expanded="' + (open ? "true" : "false") + '">' +
+      '<span class="rm-dot" aria-hidden="true">' + (st === "completed" ? "✓" : s.order) + "</span>" +
+      '<span class="rm-step-t">' + esc(d["t_" + s.key]) + "</span>" +
+      '<span class="rm-badge">' + esc(statusLbl) + "</span></button>";
+    var body = '<div class="rm-step-body">' +
+      "<p class='rm-d'>" + esc(d["d_" + s.key]) + "</p>";
+    if (s.key === "classification" && RM.notSure) body += "<p class='rm-note'>" + esc(d.nsFlag) + "</p>";
+    if (s.key === "final_requirements" && RM.trade && window.ROADMAP_CA_WC_ALWAYS.indexOf(RM.trade) > -1) {
+      var wcs = window.ROADMAP_CA_WC_SOURCE;
+      body += "<p class='rm-note'>" + esc(fill(d.wcAlwaysNote, { name: tradeName(RM.trade) })) +
+        ' <a target="_blank" rel="noopener" href="' + wcs.url + '">' + esc(wcs.title) + " ↗</a></p>";
+    }
+    if (s.key === "experience" && RM.steps.experience.status === "review_needed") body += "<p class='rm-note'>" + esc(d.expNote) + "</p>";
+    body += "<p class='rm-h'>" + esc(d.whatToDo) + "</p><p class='rm-d'>" + esc(d["todo_" + s.key]) + "</p>";
+    if (d["docs_" + s.key] && d["docs_" + s.key] !== "—")
+      body += "<p class='rm-h'>" + esc(d.docsL) + "</p><p class='rm-d'>" + esc(d["docs_" + s.key]) + "</p>";
+    if (s.course === "law")
+      body += examCta("cslb-law", d.startLaw);
+    if (s.course === "trade") {
+      if (RM.trade) {
+        var tc = tradeCourseOf(RM.trade);
+        if (tc) body += examCta(tc, fill(d.startTrade, { name: tradeName(RM.trade) }));
+        var g = window.ROADMAP_CA_TRADE_GUIDES[RM.trade];
+        if (g) body += '<a class="rm-src" target="_blank" rel="noopener" href="' + g + '">' + esc(d.tradeGuideLink) + " ↗</a>";
+      } else {
+        body += "<p class='rm-note'>" + esc(d.nsFlag) + "</p>";
+      }
+    }
+    body += '<a class="rm-src" target="_blank" rel="noopener" href="' + s.source.url + '">' +
+      esc(d.officialSrc) + ": " + esc(s.source.title) + " ↗ <span class='rm-src-v'>(" + esc(fill(d.srcVerified, { d: s.source.verified })) + ")</span></a>";
+    // actions
+    body += '<div class="rm-actions">';
+    if (st !== "completed" && s.confirmable)
+      body += '<button class="btn btn-primary rm-done">' + esc(d.markComplete) + "</button>";
+    if (st === "completed")
+      body += '<span class="rm-done-lbl">' + esc(d.markedDone) + "</span>";
+    body += '<select class="rm-status" aria-label="' + esc(d.updateStatus) + '">' +
+      STATUS_SET.map(function (v) { return '<option value="' + v + '"' + (v === st ? " selected" : "") + ">" + esc(d["s_" + v]) + "</option>"; }).join("") +
+      "</select></div>";
+    body += "</div>";
+    card.innerHTML = headHtml + body;
+
+    card.querySelector(".rm-step-head").addEventListener("click", function () {
+      var was = card.classList.contains("open");
+      card.classList.toggle("open", !was);
+      card.querySelector(".rm-step-head").setAttribute("aria-expanded", String(!was));
+      if (!was) { track("license_roadmap_step_opened"); tag("roadmap_step", s.key); }
+    });
+    var doneBtn = card.querySelector(".rm-done");
+    if (doneBtn) doneBtn.addEventListener("click", function () { setStatus(s.key, "completed"); });
+    card.querySelector(".rm-status").addEventListener("change", function (e) { setStatus(s.key, e.target.value); });
+    var cta = card.querySelector(".rm-cta");
+    if (cta) cta.addEventListener("click", function () { track("license_exam_prep_clicked"); tag("roadmap_step", s.key); });
+    return card;
+  }
+
+  function setStatus(key, status) {
+    if (STATUS_SET.indexOf(status) < 0) return;
+    RM.steps[key].status = status;
+    RM.steps[key].completed_at = status === "completed" ? new Date().toISOString() : null;
+    if (status === "completed") track("license_roadmap_step_completed");
+    persist(RM);
+    renderRoadmap(key);
+  }
+
+  function renderRoadmap(keepOpen) {
+    track("license_roadmap_viewed");
+    var pct = progressOf(RM);
+    var cur = currentStepOf(RM);
+    var el = document.createElement("div");
+
+    var when = new Date(RM.updatedAt);
+    var dateStr = when.toLocaleDateString(lang === "ru" ? "ru-RU" : lang === "es" ? "es-ES" : "en-US", { month: "short", day: "numeric" });
+    var hero = document.createElement("div"); hero.className = "rm-hero";
+    hero.innerHTML = "<div class='eyebrow'>" + esc(d.tag) + (RM.trade ? " · " + esc(tradeName(RM.trade)) : "") + "</div>" +
+      "<h1>" + esc(d.rmTitle) + "</h1>" +
+      '<div class="rm-journey"><span>' + esc(d.journeyL) + "</span><strong>" + esc(fill(d.pctDone, { p: pct })) + "</strong></div>" +
+      '<div class="rm-bar"><i style="width:' + pct + '%"></i></div>' +
+      '<div class="rm-meta">' + esc(fill(d.lastUpdated, { d: dateStr })) + " · " +
+      (DEMO ? esc(d.demoNote) : (session ? esc(d.savedNote) : esc(d.localNote))) + "</div>";
+    el.appendChild(hero);
+
+    if (cur) {
+      var curStep = STEPS.filter(function (s) { return s.key === cur; })[0];
+      var next = document.createElement("div"); next.className = "rm-next";
+      next.innerHTML = "<div class='rm-next-k'>" + esc(d.nextStepH) + "</div>" +
+        "<h2>" + esc(d["t_" + cur]) + "</h2><p>" + esc(d["todo_" + cur]) + "</p>" +
+        '<button class="btn btn-primary" id="rmView">' + esc(d.viewStep) + "</button>";
+      el.appendChild(next);
+    }
+
+    var list = document.createElement("div"); list.className = "rm-list";
+    STEPS.forEach(function (s) {
+      if (s.key === cur) {
+        var here = document.createElement("div"); here.className = "rm-here"; here.textContent = d.youAreHere + " ↓";
+        list.appendChild(here);
+      }
+      list.appendChild(stepCard(s, keepOpen === s.key));
+    });
+    el.appendChild(list);
+
+    if (!session && !DEMO) {
+      var save = document.createElement("div"); save.className = "rm-save";
+      save.innerHTML = "<h3>" + esc(d.saveH) + "</h3><p>" + esc(d.saveB) + "</p>" +
+        '<a class="btn btn-primary" href="/?lang=' + lang + '&src=roadmap#authwrap">' + esc(d.saveCta) + "</a>";
+      el.appendChild(save);
+    }
+    var restart = document.createElement("button"); restart.className = "linkbtn rm-restart"; restart.textContent = d.introRestart;
+    restart.addEventListener("click", function () { W = { i: 0, a: {} }; track("license_roadmap_started"); render(wizardScreen()); });
+    el.appendChild(restart);
+
+    var disc = document.createElement("p"); disc.className = "rw-disc"; disc.textContent = d.disclaimer; el.appendChild(disc);
+    render(el);
+    var vb = el.querySelector("#rmView");
+    if (vb) vb.addEventListener("click", function () {
+      var target = el.querySelector('[data-step="' + cur + '"]');
+      if (target) {
+        if (!target.classList.contains("open")) target.querySelector(".rm-step-head").click();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
+
+  /* ---------- intro ---------- */
+  function intro(hasSaved) {
+    var el = document.createElement("div"); el.className = "rw-card rw-center rm-intro";
+    el.innerHTML = "<div class='eyebrow'>" + esc(d.introKicker) + "</div>" +
+      "<h1>" + esc(d.introH) + "</h1><p class='rw-sub'>" + esc(d.introSub) + "</p>";
+    if (hasSaved) {
+      var cont = document.createElement("button"); cont.className = "btn btn-primary"; cont.textContent = d.introResume;
+      cont.addEventListener("click", function () { renderRoadmap(); });
+      el.appendChild(cont);
+      var re = document.createElement("button"); re.className = "linkbtn rm-restart"; re.textContent = d.introRestart;
+      re.addEventListener("click", function () { W = { i: 0, a: {} }; track("license_roadmap_started"); render(wizardScreen()); });
+      el.appendChild(re);
+    } else {
+      var go = document.createElement("button"); go.className = "btn btn-primary"; go.textContent = d.introCta;
+      go.addEventListener("click", function () { track("license_roadmap_started"); render(wizardScreen()); });
+      el.appendChild(go);
+    }
+    var disc = document.createElement("p"); disc.className = "rw-disc"; disc.textContent = d.disclaimer; el.appendChild(disc);
+    return el;
+  }
+
+  function render(el) { root.innerHTML = ""; root.appendChild(el); window.scrollTo(0, 0); }
+
+  /* ---------- boot ---------- */
+  function boot() {
+    document.title = d.pageTitle + " — LICENA";
+    var tagEl = document.querySelector(".tag"); if (tagEl) tagEl.textContent = d.tag;
+    if (DEMO) {
+      W.a = { state: "ca", trade: "c20", years: "y4", expType: "x_combo", stage: "submitted",
+              appSubmitted: "a_yes", appStatus: "st_accepted", finger: "f_yes",
+              exams: "e_law", instr: "i_notyet", bond: "b_notyet", wc: "w_ns" };
+      RM = newModel(W.a);
+      renderRoadmap();
+      return;
+    }
+    var ready = (typeof supa !== "undefined")
+      ? supa.auth.getSession().then(function (r) { session = (r.data || {}).session || null; }).catch(function () {})
+      : Promise.resolve();
+    ready.then(function () { return dbLoad(); }).then(function (m) {
+      if (m) { RM = m; saveLocal(m); render(intro(true)); return; }
+      var local = loadLocal();
+      if (local) {
+        RM = local;
+        if (session) dbSave(RM); // first visit after signing in: adopt the local roadmap
+        render(intro(true)); return;
+      }
+      render(intro(false));
+    });
+  }
+  boot();
+})();
+
+</script>
