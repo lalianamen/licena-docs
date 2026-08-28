@@ -47,6 +47,14 @@ LICENA (licena.us) — трёхъязычный (EN/ES/RU) тренажёр ли
 лендинга и из кабинета, превью `/roadmap.html?demo=1`. Детали —
 `13_UX.md`, схема — `04_DATABASE.md`. Post-license фазы (бизнес-сетап,
 маркетинг и т. п.) сознательно НЕ строились (границы фазы 1).
+Вторая итерация 2026-08-28 (`2c71fc6` осн. репо, влито в `main`) — логика
+персонализации: derive() завершает classification/experience только при
+принятии заявления CSLB (не при подаче), новый движок recommendNext()
+(«Your next step» по каскаду приоритетов + CTA), блок «While you wait»,
+маркер «You are here» по user-reported этапу (`ROADMAP_STAGE_POSITION`),
+подпись «LICENA recommendation — not a CSLB determination», контекстные
+подписи вех mc_*; схема БД и события Clarity не менялись; e2e — 95
+проверок с персонами A–J. Детали — `13_UX.md`.
 Дополнение 2026-08-27: у трёх невадских платных банков появились
 practice-страницы (`a25d54e` осн. репо, влито в `main`): слаги
 `nv-cms-exam` / `nv-b-general-building` / `nv-b2-residential` × EN/ES/RU
