@@ -1,6 +1,28 @@
 # 04 — База данных (Supabase Postgres)
 
-Последняя сверка: 2026-08-05
+Последняя сверка: 2026-08-05 (полная) · 2026-08-28 (точечная: License Roadmap)
+
+Дополнение 2026-08-28 (`0d7fcfb` осн. репо, `supabase/sql/license-roadmaps.sql`):
+новые таблицы фичи License Roadmap (Phase 1) — SQL идемпотентен, применяется
+владельцем в SQL Editor; до применения фича работает на localStorage.
+- `public.license_roadmaps` — id uuid PK (gen_random_uuid), user_id → auth.users
+  (cascade), state text, license_type text (id из `js/paths.js` LICENSE_PATHS),
+  license_not_sure boolean, answers jsonb (ответы анкеты), status
+  ('active'/'archived'/'issued'), current_step text, progress_percent int,
+  created_at/updated_at; индекс (user_id, updated_at desc). Один пользователь
+  может иметь несколько роадмапов (штат × лицензия).
+- `public.license_roadmap_steps` — id uuid PK, roadmap_id → license_roadmaps
+  (cascade), step_key text, step_order int, status text (6 значений:
+  not_started/action_needed/in_progress/waiting/review_needed/completed),
+  completed_at, metadata jsonb, created_at/updated_at; unique (roadmap_id,
+  step_key).
+- RLS: обе таблицы owner-only на все операции (auth.uid() = user_id;
+  для steps — через exists по родительскому роадмапу).
+- Триггеры `touch_updated_at` (общая функция public.touch_updated_at)
+  на update обеих таблиц.
+- Контент шагов/правила НЕ в БД — в клиентском конфиге
+  `js/roadmap/roadmap-config.js` (добавление штата не меняет схему).
+Статус применения в Supabase на 2026-08-28: UNKNOWN — за владельцем.
 Источник: SQL-файлы репозитория `lalianamen/llicena@main` (все прочитаны
 полностью). ВАЖНО: файлы — это скрипты, которые владелец запускает вручную в
 Supabase SQL Editor; фактическое текущее состояние живой БД по репозиторию не

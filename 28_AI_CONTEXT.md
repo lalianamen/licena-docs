@@ -37,6 +37,16 @@ LICENA (licena.us) — трёхъязычный (EN/ES/RU) тренажёр ли
 внесены (см. пробел покрытия в `26_CHANGELOG.md`). Practice-страницы четырёх AZ trade-банков (`435946f`: 12 страниц +
 `js/samples/az-*.js` + 4 slug в `EXAMS` + sitemap 137 URL) ВЛИТЫ в `main`
 тем же fast-forward `034521e` (2026-08-25) и живут на проде.
+Дополнение 2026-08-28: запущен License Roadmap Phase 1 (`0d7fcfb` осн.
+репо, влито в `main`) — начало расширения из тренажёра в платформу
+сопровождения лицензирования: `/roadmap.html` (анкета 8 экранов →
+персональный чек-лист 11 шагов CSLB, EN/ES/RU, прогресс по весам шагов),
+конфиг-архитектура под новые штаты (`js/roadmap/roadmap-config.js`),
+персистентность Supabase (`supabase/sql/license-roadmaps.sql` — применяет
+владелец; статус применения UNKNOWN) + localStorage-фолбэк, входы с
+лендинга и из кабинета, превью `/roadmap.html?demo=1`. Детали —
+`13_UX.md`, схема — `04_DATABASE.md`. Post-license фазы (бизнес-сетап,
+маркетинг и т. п.) сознательно НЕ строились (границы фазы 1).
 Дополнение 2026-08-27: у трёх невадских платных банков появились
 practice-страницы (`a25d54e` осн. репо, влито в `main`): слаги
 `nv-cms-exam` / `nv-b-general-building` / `nv-b2-residential` × EN/ES/RU

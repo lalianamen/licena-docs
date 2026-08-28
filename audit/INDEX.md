@@ -21,7 +21,7 @@
 | `01_PROJECT_OVERVIEW.md` | заполнен | 2026-08-05 | Partially Verified |
 | `02_ARCHITECTURE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `03_REPO_STRUCTURE.md` | заполнен | 2026-08-13 | Partially Verified |
-| `04_DATABASE.md` | заполнен | 2026-08-05 | Partially Verified |
+| `04_DATABASE.md` | заполнен | 2026-08-28 | Partially Verified |
 | `05_API.md` | заполнен | 2026-08-05 | Partially Verified |
 | `06_FUNCTIONS.md` | заполнен | 2026-08-05 | Verified |
 | `07_AUTH_ACCESS.md` | заполнен | 2026-08-05 | Partially Verified |
@@ -30,7 +30,7 @@
 | `10_CONTENT_MODEL.md` | заполнен | 2026-08-05 | Partially Verified |
 | `11_I18N.md` | заполнен | 2026-08-05 | Partially Verified |
 | `12_SEO.md` | заполнен | 2026-08-27 | Partially Verified |
-| `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-11 | Partially Verified |
+| `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-28 | Partially Verified |
 | `14_ANALYTICS.md` | заполнен | 2026-08-26 | Verified (по коду; живые данные UNKNOWN) |
 | `15_METRICS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
