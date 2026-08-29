@@ -4,7 +4,9 @@
 
 ## Status
 
-**READY_FOR_CLAUDE**
+**IN_PROGRESS**
+
+Private dispatch: `lalianamen/LLICENA#188`
 
 ## Objective
 
