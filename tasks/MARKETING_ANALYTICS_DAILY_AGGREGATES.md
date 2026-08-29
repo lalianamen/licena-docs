@@ -4,7 +4,10 @@
 
 ## Status
 
-**CHANGES_REQUESTED**
+**IN_PROGRESS**
+
+2026-08-29 07:10 UTC: Review 1 принят полностью — все 6 blocking findings
+в работе (интерактивная Claude-сессия владельца).
 
 Review 1: `tasks/reviews/2026-08-29-marketing-aggregates-review-1.md`.
 Merge/apply/deploy запрещены до исправления blocking findings.
