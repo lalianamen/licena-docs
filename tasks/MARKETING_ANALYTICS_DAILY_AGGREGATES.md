@@ -4,7 +4,14 @@
 
 ## Status
 
-**IN_PROGRESS**
+**READY_FOR_REVIEW**
+
+2026-08-29 06:25 UTC: discovery + реализация завершены — отчёт со всеми
+доказательствами: `tasks/reports/2026-08-29-marketing-aggregates-discovery-handoff.md`.
+Private branch: `claude/marketing-analytics-aggregates` @ `5e56eef`.
+main НЕ изменён · БД НЕ изменена · функции НЕ деплоились.
+Blocker для полной верификации: у сессии нет доступа к живой/branch Supabase —
+SQL-применение, idempotency-на-БД, RLS/advisors проверяются на review.
 
 2026-08-29 06:16 UTC: взято в работу интерактивной Claude-сессией владельца.
 Фаза 1 (discovery) — в процессе; отчёт будет в `tasks/reports/`.
