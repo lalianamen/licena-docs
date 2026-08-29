@@ -1,6 +1,6 @@
 # 04 — База данных (Supabase Postgres)
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-28 (точечная: License Roadmap) · 2026-08-29 (точечная: Application Assistant)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-28 (точечная: License Roadmap) · 2026-08-29 (точечная: Application Assistant + Adaptive Intake v2)
 
 Дополнение 2026-08-28 (`0d7fcfb` осн. репо, `supabase/sql/license-roadmaps.sql`):
 новые таблицы фичи License Roadmap (Phase 1) — SQL идемпотентен, применяется
@@ -41,6 +41,23 @@
   водительского удостоверения или тексты disclosure-объяснений — клиент
   (`js/roadmap/app-application.js`) эти поля сознательно не собирает; они
   заполняются пользователем только в официальной форме CSLB.
+Статус применения в Supabase на 2026-08-29: UNKNOWN — за владельцем.
+
+Дополнение 2026-08-29 (`037bdd9` осн. репо, `supabase/sql/license-roadmaps-v2.sql`):
+Adaptive Intake v2 — 12 новых колонок в `public.license_roadmaps`
+(идемпотентный `ADD COLUMN IF NOT EXISTS`; RLS и политики НЕ меняются):
+- Даты (тип date): `application_submitted_at`, `correction_received_at`,
+  `fingerprint_scheduled_at`, `fingerprint_completed_at`, `law_exam_date`,
+  `trade_exam_date`, `license_issued_at` — все со слов пользователя.
+- `entity_type` text ('sole_owner'/'partnership'/'corporation'/'llc'/'tribal'),
+  `entity_name` text, `dba` boolean default false, `license_number` text,
+  `reminder_opt_in` boolean default false (напоминания об экзаменах —
+  ОТДЕЛЬНО от маркетинговых согласий).
+- Обратная совместимость: клиент (`js/roadmap/app-roadmap.js` dbSave)
+  сначала пишет расширенную строку, при ошибке (колонок ещё нет) — строку
+  v1; полные ответы в любом случае остаются в `answers` jsonb. Откат —
+  закомментированный `DROP COLUMN IF EXISTS` в том же файле (обратимая
+  миграция; данные дублируются в jsonb).
 Статус применения в Supabase на 2026-08-29: UNKNOWN — за владельцем.
 Источник: SQL-файлы репозитория `lalianamen/llicena@main` (все прочитаны
 полностью). ВАЖНО: файлы — это скрипты, которые владелец запускает вручную в
