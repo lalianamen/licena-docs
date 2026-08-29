@@ -4,7 +4,14 @@
 
 ## Status
 
-**IN_PROGRESS**
+**READY_FOR_REVIEW** (Review 2)
+
+2026-08-29 07:35 UTC: все 6 blocking findings Review 1 исправлены —
+ответ: `tasks/reports/2026-08-29-marketing-aggregates-review1-response.md`.
+Branch: `claude/marketing-analytics-aggregates` @ `64199f9`.
+main/БД/функции по-прежнему не тронуты; дифф daily-stats пуст.
+Оставшийся blocker (как разрешено ревью): проверки, требующие живой/branch
+Supabase — за review/владельцем.
 
 2026-08-29 07:10 UTC: Review 1 принят полностью — все 6 blocking findings
 в работе (интерактивная Claude-сессия владельца).
