@@ -2,7 +2,7 @@
 
 Последняя сверка: 2026-08-29
 Файлы этой папки — превью-материалы фичи License Roadmap, снятые с кода
-`lalianamen/llicena@main` (`3feeef0` — логика персонализации + фикс цвета текста чипов;
+`lalianamen/llicena@main` (`f305f63` — логика персонализации + точечные официальные ссылки под ответы;
 первоначально собраны с `96f1465`). Владелец запросил хранение
 превью-файлов в базе знаний (команда «закинь файлы в док
 репозитарий», 2026-08-28); обновлены по команде «покажи превью»
@@ -22,17 +22,17 @@
 ## Живые ссылки (на 2026-08-29)
 
 - Прод: `https://licena.us/roadmap.html` (`?demo=1` — заполненный пример; `?lang=ru|es`)
-- Vercel-превью (публичное, preview-деплой в проект masterdomhvac-site, production того проекта не затронут; актуальный деплой с `?v=` версии `2c71fc6`):
-  `https://masterdomhvac-site-gvc5o6tam-armen-lalian-s-projects.vercel.app`
+- Vercel-превью (публичное, preview-деплой в проект masterdomhvac-site, production того проекта не затронут; актуальный деплой с `?v=` версии `f305f63`):
+  `https://masterdomhvac-site-ppoz532bn-armen-lalian-s-projects.vercel.app`
   (прежний деплой `…-bzoro4cjn-…` остаётся живым, но ссылается на старые `?v=`)
-- Claude-артефакт (приватный по умолчанию, share — из меню страницы; версия `personalization-v2`):
+- Claude-артефакт (приватный по умолчанию, share — из меню страницы; версия `precise-links`):
   `https://claude.ai/code/artifact/b44537f8-c40e-4eac-98c7-df3b768ac681`
 
 Описание самой фичи — `13_UX.md`; схема БД — `04_DATABASE.md`.
 
 ## Source References
 
-- `lalianamen/llicena@main` `3feeef0`: `roadmap.html`, `css/styles.css`,
+- `lalianamen/llicena@main` `f305f63`: `roadmap.html`, `css/styles.css`,
   `css/roadmap.css`, `js/paths.js`, `js/roadmap/*` (содержимое встроено в
   `licena-roadmap-preview.html` дословно).
 - Скриншоты `artifact-demo-*.png` — Playwright-рендер этих же файлов,
@@ -43,4 +43,4 @@
 
 **Verified** — файлы собраны скриптом из названных исходников и отрендерены
 перед публикацией (0 ошибок консоли); ссылки проверены живыми 2026-08-29
-(Vercel-превью — HTTP 200, отдаёт `app-roadmap.js?v=5`).
+(Vercel-превью — HTTP 200, отдаёт `app-roadmap.js?v=6`).

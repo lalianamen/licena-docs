@@ -30,7 +30,7 @@
 | `10_CONTENT_MODEL.md` | заполнен | 2026-08-05 | Partially Verified |
 | `11_I18N.md` | заполнен | 2026-08-05 | Partially Verified |
 | `12_SEO.md` | заполнен | 2026-08-27 | Partially Verified |
-| `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-28 | Partially Verified |
+| `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-29 | Partially Verified |
 | `14_ANALYTICS.md` | заполнен | 2026-08-26 | Verified (по коду; живые данные UNKNOWN) |
 | `15_METRICS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
@@ -43,7 +43,7 @@
 | `23_SMM_STATE.md` | не создан | — | — |
 | `24_RISKS.md` | не создан | — | — |
 | `25_DECISIONS.md` | не создан | — | — |
-| `26_CHANGELOG.md` | заполнен | 2026-08-28 | Partially Verified |
+| `26_CHANGELOG.md` | заполнен | 2026-08-29 | Partially Verified |
 | `27_ROADMAP.md` | не создан | — | — |
 | `28_AI_CONTEXT.md` | заполнен | 2026-08-28 | Partially Verified |
 | `29_BUSINESS_FRAMEWORK.md` | не создан | — | — |

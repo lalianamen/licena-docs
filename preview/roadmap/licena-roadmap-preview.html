@@ -879,13 +879,13 @@ window.ROADMAP_CA_STEPS = [
               url: "https://www.cslb.ca.gov/Contractors/Applicants/Contractors_License/Exam_Application/",
               verified: "2026-08-28" } },
   { key: "fingerprinting", order: 5, weight: 5, confirmable: true,
-    source: { title: "CSLB — Applicants (fingerprinting / Live Scan)",
-              url: "https://www.cslb.ca.gov/Contractors/Applicants/",
-              verified: "2026-08-28" } },
+    source: { title: "CSLB — Fingerprinting, Disclosure, and Background Review",
+              url: "https://www.cslb.ca.gov/About_US/FAQS/Fingerprint_Q_And_A.aspx",
+              verified: "2026-08-29" } },
   { key: "application_review", order: 6, weight: 10, confirmable: true,
-    source: { title: "CSLB — Get Licensed to Build (official guide, PDF)",
-              url: "https://www.cslb.ca.gov/Resources/GuidesAndPublications/GetLicensedToBuild.pdf",
-              verified: "2026-08-28" } },
+    source: { title: "CSLB — Check Application Status (by Application Fee Number)",
+              url: "https://www.cslb.ca.gov/OnlineServices/CheckApplicationII/ApplicantRequest.aspx",
+              verified: "2026-08-29" } },
   { key: "prep_law_business", order: 7, weight: 10, confirmable: true, course: "law",
     source: { title: "CSLB — Law & Business Examination Study Guide (PDF)",
               url: "https://www.cslb.ca.gov/Resources/StudyGuides/LawStudyGuide.pdf",
@@ -923,6 +923,38 @@ window.ROADMAP_CA_TRADE_GUIDES = {
   c36: "https://www.cslb.ca.gov/Resources/StudyGuides/C36StudyGuide.pdf",
   c39: "https://www.cslb.ca.gov/Resources/StudyGuides/C39StudyGuide.pdf",
   c46: "https://www.cslb.ca.gov/Resources/StudyGuides/C46StudyGuide.pdf"
+};
+
+/* Per-classification official CSLB description page — the classification
+   card links straight to the USER'S OWN class, not the generic list. Query
+   values checked live 2026-08-29 (note: CSLB drops the dash from C-10 up —
+   ?Class=C10, but keeps it in B-2/C-7/C-8). */
+window.ROADMAP_CA_CLASS_VERIFIED = "2026-08-29";
+window.ROADMAP_CA_CLASS_PAGES = (function (base) {
+  return { b: base + "B", b2: base + "B-2", c7: base + "C-7", c8: base + "C-8",
+           c10: base + "C10", c16: base + "C16", c20: base + "C20", c27: base + "C27",
+           c33: base + "C33", c36: base + "C36", c39: base + "C39", c46: base + "C46" };
+})("https://www.cslb.ca.gov/About_Us/Library/Licensing_Classifications/Licensing_Classifications_Detail.aspx?Class=");
+
+/* The exact experience document CSLB reads: form 13A-11 (rev. 12/2024).
+   Downloaded and read 2026-08-29 — the expFormHow i18n instruction mirrors
+   the form's own General Information page. */
+window.ROADMAP_CA_EXPERIENCE_FORM = {
+  title: "CSLB — Certification of Work Experience (13A-11, PDF)",
+  url: "https://www.cslb.ca.gov/Resources/FormsAndApplications/CertificationOfWorkExperience.pdf",
+  verified: "2026-08-29"
+};
+
+/* Extra precise links rendered on specific step cards (checked live 2026-08-29). */
+window.ROADMAP_CA_PROCESSING_TIMES = {
+  title: "CSLB — Current Processing Times",
+  url: "https://www.cslb.ca.gov/OnlineServices/ProcessingTimes/ProcessingTimes.aspx",
+  verified: "2026-08-29"
+};
+window.ROADMAP_CA_BOND_SOURCE = {
+  title: "CSLB — Bond Information",
+  url: "https://www.cslb.ca.gov/Contractors/Maintain_License/Bond_Information/",
+  verified: "2026-08-29"
 };
 
 /* Classifications CSLB requires to carry workers' compensation WHETHER OR NOT
@@ -1062,6 +1094,10 @@ en: {
   expNote: "Based on your answers, experience documentation may be an important step to review before you apply.",
   wcAlwaysNote: "According to CSLB's current requirements (checked 2026-08-28), contractors in the C-8, C-20, C-22, C-39 and C-61/D-49 classifications must carry workers' compensation insurance whether or not they have employees (Business and Professions Code section 7125). Your classification — {name} — is on that list, so the \"not required / no employees\" exemption likely does not apply to you. Confirm on the official page:",
   nsFlag: "You marked that you're not sure about your license type. Reviewing this step carefully is your best first move — and confirm the classification with CSLB's official descriptions.",
+  classSrc: "CSLB — {name}: official classification description",
+  todo_classification_direct: "Open the official {name} scope description (link below) and confirm it covers the work you actually do. If a neighboring classification looks close, read both scope descriptions before you commit — your application, exams and experience documentation all follow this choice.",
+  expFormLink: "Download form 13A-11 — Certification of Work Experience (PDF)",
+  expFormHow: "The exact document CSLB reads is form 13A-11, Certification of Work Experience — one form per employer or work setting. You complete Part 1 (your name; the company where the experience was gained — or the self-employed checkbox). Your certifier completes and signs Part 2: your journeyman-level time in the trade (from–to, full- or part-time) and the specific duties you performed. Type or print in black or dark-blue ink, no strikeouts, original signatures only; submit the forms with your application and keep copies — experience must be verifiable through payroll records, and CSLB audits a random 3% of applications.",
   posLbl: "Where you are — as you reported: {stage}",
   recNote: "A LICENA recommendation based on your answers — not a CSLB determination.",
   wyw_h: "While you wait",
@@ -1230,6 +1266,10 @@ es: {
   expNote: "Según tus respuestas, documentar tu experiencia puede ser un paso importante por revisar antes de solicitar.",
   wcAlwaysNote: "Según los requisitos vigentes de la CSLB (verificado 28/8/2026), los contratistas de las clasificaciones C-8, C-20, C-22, C-39 y C-61/D-49 deben llevar seguro de compensación laboral tengan o no empleados (Business and Professions Code, sección 7125). Tu clasificación — {name} — está en esa lista, así que la exención de \"no requerido / sin empleados\" probablemente no te aplica. Confírmalo en la página oficial:",
   nsFlag: "Marcaste que no estás seguro de tu tipo de licencia. Revisar este paso con calma es tu mejor primer movimiento — y confirma la clasificación con las descripciones oficiales de la CSLB.",
+  classSrc: "CSLB — {name}: descripción oficial de la clasificación",
+  todo_classification_direct: "Abre la descripción oficial del alcance de {name} (enlace abajo) y confirma que cubre el trabajo que realmente haces. Si una clasificación vecina se parece, lee ambos alcances antes de decidir — tu solicitud, tus exámenes y la documentación de experiencia siguen esta elección.",
+  expFormLink: "Descargar el formulario 13A-11 — Certification of Work Experience (PDF)",
+  expFormHow: "El documento exacto que la CSLB lee es el formulario 13A-11, Certification of Work Experience — un formulario por cada empleador o lugar de trabajo. Tú completas la Parte 1 (tu nombre; la empresa donde obtuviste la experiencia — o la casilla de cuenta propia). Tu certificador completa y firma la Parte 2: tu tiempo de nivel journeyman en el oficio (desde–hasta, tiempo completo o parcial) y las tareas específicas que realizaste. Escribe con tinta negra o azul oscuro, sin tachaduras, solo firmas originales; presenta los formularios junto con la solicitud y guarda copias — la experiencia debe poder verificarse con registros de nómina y la CSLB audita al azar el 3% de las solicitudes.",
   posLbl: "Dónde estás — según reportaste: {stage}",
   recNote: "Recomendación de LICENA basada en tus respuestas — no una determinación de la CSLB.",
   wyw_h: "Mientras esperas",
@@ -1398,6 +1438,10 @@ ru: {
   expNote: "Судя по вашим ответам, документирование опыта может оказаться важным шагом, который стоит проверить до подачи.",
   wcAlwaysNote: "По действующим требованиям CSLB (проверено 28.08.2026) подрядчики классификаций C-8, C-20, C-22, C-39 и C-61/D-49 обязаны иметь страховку workers' compensation независимо от наличия работников (Business and Professions Code, секция 7125). Ваша классификация — {name} — в этом списке, поэтому вариант «не требуется / нет работников», судя по всему, к вам не применим. Сверьте на официальной странице:",
   nsFlag: "Вы отметили, что не уверены в типе лицензии. Спокойно разобрать этот шаг — лучший первый ход; сверьте классификацию с официальными описаниями CSLB.",
+  classSrc: "CSLB — {name}: официальное описание классификации",
+  todo_classification_direct: "Откройте официальное описание объёма работ {name} (ссылка ниже) и убедитесь, что оно покрывает работу, которую вы реально выполняете. Если похожа соседняя классификация — прочитайте оба описания, прежде чем решить: за этим выбором следуют заявление, экзамены и документы об опыте.",
+  expFormLink: "Скачать форму 13A-11 — Certification of Work Experience (PDF)",
+  expFormHow: "Документ, который CSLB реально читает, — форма 13A-11 Certification of Work Experience: отдельная форма на каждого работодателя или место работы. Часть 1 заполняете вы (имя; компания, где получен опыт, — или галочка самозанятости). Часть 2 заполняет и подписывает удостоверяющий (certifier): ваш стаж уровня journeyman в ремесле (с–по, полная или частичная занятость) и конкретные выполнявшиеся работы. Чёрные или тёмно-синие чернила, без зачёркиваний, только оригинальные подписи; формы подаются вместе с заявлением, копии сохраните себе — опыт должен подтверждаться платёжными ведомостями, CSLB выборочно проверяет 3% заявлений.",
   posLbl: "Где вы сейчас — по вашим словам: {stage}",
   recNote: "Рекомендация LICENA на основе ваших ответов — не решение CSLB.",
   wyw_h: "Пока вы ждёте",
@@ -1973,16 +2017,31 @@ ru: {
       '<span class="rm-dot" aria-hidden="true">' + (st === "completed" ? "✓" : s.order) + "</span>" +
       '<span class="rm-step-t">' + esc(d["t_" + s.key]) + "</span>" +
       '<span class="rm-badge">' + esc(statusLbl) + "</span></button>";
+    // Precise-source overrides: when the user named their classification, the
+    // card links straight to THEIR class page and the to-do names it — never
+    // the generic list (owner requirement 2026-08-29).
+    var src = s.source, todoTxt = d["todo_" + s.key];
+    if (s.key === "classification" && RM.trade && window.ROADMAP_CA_CLASS_PAGES[RM.trade]) {
+      src = { title: fill(d.classSrc, { name: tradeName(RM.trade) }),
+              url: window.ROADMAP_CA_CLASS_PAGES[RM.trade],
+              verified: window.ROADMAP_CA_CLASS_VERIFIED };
+      todoTxt = fill(d.todo_classification_direct, { name: tradeName(RM.trade) });
+    }
     var body = '<div class="rm-step-body">' +
       "<p class='rm-d'>" + esc(d["d_" + s.key]) + "</p>";
     if (s.key === "classification" && RM.notSure) body += "<p class='rm-note'>" + esc(d.nsFlag) + "</p>";
+    if (s.key === "experience") {
+      var xf = window.ROADMAP_CA_EXPERIENCE_FORM;
+      body += "<p class='rm-note'>" + esc(d.expFormHow) +
+        ' <a target="_blank" rel="noopener" href="' + xf.url + '">' + esc(d.expFormLink) + " ↗</a></p>";
+    }
     if (s.key === "final_requirements" && RM.trade && window.ROADMAP_CA_WC_ALWAYS.indexOf(RM.trade) > -1) {
       var wcs = window.ROADMAP_CA_WC_SOURCE;
       body += "<p class='rm-note'>" + esc(fill(d.wcAlwaysNote, { name: tradeName(RM.trade) })) +
         ' <a target="_blank" rel="noopener" href="' + wcs.url + '">' + esc(wcs.title) + " ↗</a></p>";
     }
     if (s.key === "experience" && RM.steps.experience.status === "review_needed") body += "<p class='rm-note'>" + esc(d.expNote) + "</p>";
-    body += "<p class='rm-h'>" + esc(d.whatToDo) + "</p><p class='rm-d'>" + esc(d["todo_" + s.key]) + "</p>";
+    body += "<p class='rm-h'>" + esc(d.whatToDo) + "</p><p class='rm-d'>" + esc(todoTxt) + "</p>";
     if (d["docs_" + s.key] && d["docs_" + s.key] !== "—")
       body += "<p class='rm-h'>" + esc(d.docsL) + "</p><p class='rm-d'>" + esc(d["docs_" + s.key]) + "</p>";
     if (s.course === "law")
@@ -1997,8 +2056,15 @@ ru: {
         body += "<p class='rm-note'>" + esc(d.nsFlag) + "</p>";
       }
     }
-    body += '<a class="rm-src" target="_blank" rel="noopener" href="' + s.source.url + '">' +
-      esc(d.officialSrc) + ": " + esc(s.source.title) + " ↗ <span class='rm-src-v'>(" + esc(fill(d.srcVerified, { d: s.source.verified })) + ")</span></a>";
+    // step-specific extra precise links (config, checked live)
+    var extraSrc = [];
+    if (s.key === "application_review") extraSrc.push(window.ROADMAP_CA_PROCESSING_TIMES);
+    if (s.key === "final_requirements") { extraSrc.push(window.ROADMAP_CA_BOND_SOURCE); extraSrc.push(window.ROADMAP_CA_WC_SOURCE); }
+    extraSrc.forEach(function (x) {
+      body += '<a class="rm-src" target="_blank" rel="noopener" href="' + x.url + '">' + esc(x.title) + " ↗</a>";
+    });
+    body += '<a class="rm-src" target="_blank" rel="noopener" href="' + src.url + '">' +
+      esc(d.officialSrc) + ": " + esc(src.title) + " ↗ <span class='rm-src-v'>(" + esc(fill(d.srcVerified, { d: src.verified })) + ")</span></a>";
     // actions
     body += '<div class="rm-actions">';
     if (st !== "completed" && s.confirmable)
