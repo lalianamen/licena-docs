@@ -4,7 +4,13 @@
 
 ## Status
 
-**READY_FOR_CLAUDE**
+**IN_PROGRESS**
+
+2026-08-29 06:16 UTC: взято в работу интерактивной Claude-сессией владельца.
+Фаза 1 (discovery) — в процессе; отчёт будет в `tasks/reports/`.
+Ограничение, известное заранее: у сессии НЕТ доступа к живой Supabase
+(ни ключей, ни branch database) — discovery по коду/SQL приватного репо;
+состояние живой БД помечается UNKNOWN, тесты на живой БД — blocker для review.
 
 ## Objective
 
