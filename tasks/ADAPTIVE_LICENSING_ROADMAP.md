@@ -14,6 +14,12 @@ Private dispatch: `lalianamen/LLICENA#188`
 Общий статус остаётся IN_PROGRESS: gaps G1–G4 (даты) ведёт claude[bot] на
 отдельной feature-ветке.
 
+2026-08-29 08:05 UTC: gaps G1–G4 реализованы интерактивной сессией на
+ветке `claude/ticket-adaptive-licensing-dates` @ `a8553ba` (claude[bot] не
+запушил свою ветку за 2 часа — работа подхвачена, имя ветки сохранено).
+Отчёт: `tasks/reports/2026-08-29-adaptive-roadmap-dates-g1-g4.md`.
+Обе части задачи теперь **READY_FOR_REVIEW**; main/БД не тронуты.
+
 ## Objective
 
 Провести аудит текущей реализации roadmap/intake в приватном репозитории `lalianamen/LLICENA`, сравнить её с требованиями ниже и затем реализовать adaptive licensing intake небольшими обратно совместимыми изменениями.
