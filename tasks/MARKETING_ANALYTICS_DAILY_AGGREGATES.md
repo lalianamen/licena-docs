@@ -4,7 +4,12 @@
 
 ## Status
 
-**READY_FOR_REVIEW** (Review 2)
+**CHANGES_REQUESTED** (Review 2)
+
+2026-08-29: Review 2 — требуется одна точечная коррекция вычисления списка
+Pacific calendar days при ручном/backfill запуске около DST. Подробности:
+`tasks/reviews/2026-08-29-marketing-aggregates-review-2.md`.
+До исправления merge/apply/deploy запрещены.
 
 2026-08-29 07:35 UTC: все 6 blocking findings Review 1 исправлены —
 ответ: `tasks/reports/2026-08-29-marketing-aggregates-review1-response.md`.
