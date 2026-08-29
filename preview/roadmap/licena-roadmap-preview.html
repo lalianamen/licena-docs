@@ -611,7 +611,8 @@ html[lang="ru"] .foot-tg-li{display:list-item}
 .rw-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-deep));border-radius:99px;transition:width .3s}
 .rw-opts{display:flex;flex-direction:column;gap:8px;margin:6px 0 2px}
 .rw-chip{display:block;width:100%;text-align:left;padding:13px 14px;border-radius:12px;
-  border:1.5px solid var(--line);background:var(--card);font-size:14.5px;line-height:1.35;
+  border:1.5px solid var(--line);background:var(--card);color:var(--ink);
+  font-size:14.5px;line-height:1.35;
   transition:border-color .12s, background .12s}
 .rw-chip:hover{border-color:var(--steel)}
 .rw-chip.on{border-color:var(--gold-deep);background:#FBF4E3;font-weight:600}
@@ -662,7 +663,7 @@ html[lang="ru"] .foot-tg-li{display:list-item}
   text-transform:uppercase;letter-spacing:.14em;margin:4px 0 -2px}
 .rm-step{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .rm-step-head{display:flex;align-items:center;gap:12px;width:100%;text-align:left;
-  background:none;padding:14px;font-size:14.5px}
+  background:none;color:var(--ink);padding:14px;font-size:14.5px}
 .rm-dot{flex:0 0 30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   font-family:'IBM Plex Mono';font-size:13px;font-weight:600;background:var(--paper);color:var(--steel);
   border:1.5px solid var(--line)}
@@ -731,6 +732,17 @@ html[lang="ru"] .foot-tg-li{display:list-item}
   border:1.5px solid var(--line);background:var(--card);color:var(--ink);
   font-family:inherit;font-size:15px;line-height:1.35;appearance:auto}
 .rw-select:focus{border-color:var(--gold-deep)}
+
+/* preview-only chrome */
+.pv-controls{display:flex;gap:8px;align-items:center;margin-left:auto;flex-wrap:wrap}
+.pv-controls button{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;
+  border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600}
+.pv-controls button.on{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+/* This preview commits to LICENA's light look regardless of the host theme:
+   the artifact frame stamps color-scheme:dark inline in dark mode, which
+   turns UA-colored widget text light — force light so every control stays
+   legible on the light cards. */
+html{color-scheme:light !important}
 </style>
 
 <div class="top"><div class="wrap">

@@ -2,7 +2,7 @@
 
 Последняя сверка: 2026-08-29
 Файлы этой папки — превью-материалы фичи License Roadmap, снятые с кода
-`lalianamen/llicena@main` (`2c71fc6` — версия с логикой персонализации;
+`lalianamen/llicena@main` (`3feeef0` — логика персонализации + фикс цвета текста чипов;
 первоначально собраны с `96f1465`). Владелец запросил хранение
 превью-файлов в базе знаний (команда «закинь файлы в док
 репозитарий», 2026-08-28); обновлены по команде «покажи превью»
@@ -32,7 +32,7 @@
 
 ## Source References
 
-- `lalianamen/llicena@main` `2c71fc6`: `roadmap.html`, `css/styles.css`,
+- `lalianamen/llicena@main` `3feeef0`: `roadmap.html`, `css/styles.css`,
   `css/roadmap.css`, `js/paths.js`, `js/roadmap/*` (содержимое встроено в
   `licena-roadmap-preview.html` дословно).
 - Скриншоты `artifact-demo-*.png` — Playwright-рендер этих же файлов,
