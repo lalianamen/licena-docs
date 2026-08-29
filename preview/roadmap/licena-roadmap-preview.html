@@ -640,6 +640,21 @@ html[lang="ru"] .foot-tg-li{display:list-item}
   font-weight:700;color:var(--gold)}
 .rm-next h2{color:#fff;font-size:clamp(18px,4.6vw,22px);margin:8px 0 8px}
 .rm-next p{color:#C6D0DA;font-size:14px;line-height:1.55;margin:0 0 14px}
+.rm-pos{font-family:'IBM Plex Mono';font-size:12px;color:var(--ink2);margin-top:6px}
+.rm-next-ctas{display:flex;flex-wrap:wrap;gap:10px;margin:2px 0 14px}
+.rm-next-ctas .rm-cta{margin:0;background:var(--gold);color:var(--ink);
+  box-shadow:0 6px 16px rgba(224,161,22,.3)}
+.rm-next-ctas .rm-cta:hover{background:#EAB33B}
+.rm-next .btn-ghost{border-color:rgba(255,255,255,.35);color:#fff}
+.rm-next .rm-src{color:#C6D0DA;margin:0 0 14px}
+.rm-next p.rm-next-note{font-size:11.5px;color:#8FA1B3;margin:12px 0 0;
+  border-top:1px solid rgba(255,255,255,.12);padding-top:10px}
+.rm-wyw{background:var(--card);border:1.5px dashed var(--gold-deep);border-radius:14px;
+  padding:16px 18px;margin:-6px 0 18px}
+.rm-wyw h3{font-family:'Archivo';font-size:13px;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--gold-deep);margin:0 0 6px}
+.rm-wyw p{color:var(--ink2);font-size:13.5px;line-height:1.5;margin:0 0 12px}
+.rm-wyw .rm-next-ctas{margin-bottom:2px}
 
 /* ---- step list ---- */
 .rm-list{display:flex;flex-direction:column;gap:10px}
@@ -685,6 +700,7 @@ html[lang="ru"] .foot-tg-li{display:list-item}
 .rm-save{background:var(--card);border:1.5px dashed var(--gold-deep);border-radius:14px;
   padding:18px;text-align:center;margin-top:18px}
 .rm-save h3{font-size:16px;margin:0 0 6px}
+.rm-save .btn{display:inline-block;text-decoration:none}
 .rm-save p{color:var(--steel);font-size:13.5px;line-height:1.5;margin:0 0 12px}
 .linkbtn.rm-restart{display:block;margin:18px auto 0;background:none;color:var(--steel);
   font-size:13px;text-decoration:underline}
@@ -715,12 +731,6 @@ html[lang="ru"] .foot-tg-li{display:list-item}
   border:1.5px solid var(--line);background:var(--card);color:var(--ink);
   font-family:inherit;font-size:15px;line-height:1.35;appearance:auto}
 .rw-select:focus{border-color:var(--gold-deep)}
-
-/* preview-only chrome */
-.pv-controls{display:flex;gap:8px;align-items:center}
-.pv-controls button{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;
-  border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600}
-.pv-controls button.on{background:var(--gold);border-color:var(--gold);color:var(--ink)}
 </style>
 
 <div class="top"><div class="wrap">
@@ -914,6 +924,22 @@ window.ROADMAP_CA_WC_SOURCE = {
   verified: "2026-08-28"
 };
 
+/* USER-REPORTED CURRENT POSITION: which roadmap step each Q4 stage answer
+   corresponds to. This drives the "you are here" marker — the user's own
+   stage, distinct from the recommended next ACTION (recommendNext). */
+window.ROADMAP_STAGE_POSITION = {
+  researching: "classification",
+  not_submitted: "classification",
+  preparing_app: "prepare_application",
+  submitted: "application_review",
+  accepted: "prep_law_business",
+  exam_scheduled: "schedule_pass_exams",
+  passed_one: "schedule_pass_exams",
+  passed_all: "final_requirements",
+  final_reqs: "final_requirements",
+  issued: "license_issued"
+};
+
 /* Q4 "Where are you in the licensing process?" — ordered stages. The wizard
    stores the stage id; app-roadmap derives initial step statuses from the
    stage index plus the detail answers (Q5–Q8). */
@@ -929,7 +955,6 @@ window.ROADMAP_STAGES = [
   "final_reqs",         // I am completing final licensing requirements
   "issued"              // My license has been issued
 ];
-
 </script>
 <script>
 /* LICENA — License Roadmap translations (EN/ES/RU). All UI strings and the
@@ -1025,6 +1050,37 @@ en: {
   expNote: "Based on your answers, experience documentation may be an important step to review before you apply.",
   wcAlwaysNote: "According to CSLB's current requirements (checked 2026-08-28), contractors in the C-8, C-20, C-22, C-39 and C-61/D-49 classifications must carry workers' compensation insurance whether or not they have employees (Business and Professions Code section 7125). Your classification — {name} — is on that list, so the \"not required / no employees\" exemption likely does not apply to you. Confirm on the official page:",
   nsFlag: "You marked that you're not sure about your license type. Reviewing this step carefully is your best first move — and confirm the classification with CSLB's official descriptions.",
+  posLbl: "Where you are — as you reported: {stage}",
+  recNote: "A LICENA recommendation based on your answers — not a CSLB determination.",
+  wyw_h: "While you wait",
+  wyw_b: "You don't have to lose this time — exam preparation can start now, while CSLB reviews your application.",
+  par_h: "Useful in parallel",
+  par_b: "Exam preparation can run alongside your application work — you can start now.",
+  nx_corr_t: "Respond to the CSLB correction",
+  nx_corr_b: "You told us CSLB requested a correction. Responding exactly as asked is the immediate priority — and if the correction concerns your classification or experience, review those details before you resend.",
+  nx_rej_t: "Revise and resubmit your application",
+  nx_rej_b: "You told us your application was rejected or returned. Review CSLB's letter, fix what it names — classification and experience details are the usual causes — and resubmit.",
+  nx_wait_t: "Wait for CSLB application review",
+  nx_wait_b: "You told us your application is submitted and waiting. There is no application action to take right now — CSLB will contact you about fingerprinting and your exam.",
+  nx_prep_t: "Prepare for your exams",
+  nx_prep_b: "Your application has been accepted — the exams are what stands between you and the license. Start preparing now.",
+  nx_sched_t: "Prepare for your scheduled exams",
+  nx_sched_b: "Your exam date is set — make every day until then count with focused practice.",
+  nx_remain_t: "Prepare for the remaining exam",
+  nx_remain_b: "One exam is passed — {name} is what's left. Finish strong.",
+  nx_final_t: "Complete final licensing requirements",
+  nx_final_b: "Exams are behind you. What remains is paperwork: the contractor bond, workers' compensation information and the initial license fee, per CSLB's instructions.",
+  nx_waitiss_t: "Wait for license issuance",
+  nx_waitiss_b: "You reported the final requirements are in motion. Once CSLB confirms them, your license number is issued — you can verify it on the official register.",
+  nx_issued_t: "Your license is issued — congratulations!",
+  nx_issued_b: "You reported your license has been issued. Verify it appears in CSLB's Check a License and note your license number and renewal date.",
+  nx_research_b: "Make sure this classification matches the work you plan to perform before preparing your application.",
+  lawShort: "Law & Business",
+  mc_submit_application: "Yes, I submitted my application",
+  mc_application_review: "Yes, CSLB accepted my application",
+  mc_fingerprinting: "Yes, I completed Live Scan",
+  mc_schedule_pass_exams: "Yes, I passed all required exams",
+  mc_license_issued: "Yes, my license has been issued",
   saveH: "Save your roadmap",
   saveB: "Sign in free and your roadmap, progress and answers are saved to your account — pick up on any device.",
   saveCta: "Sign in / create free account",
@@ -1162,6 +1218,37 @@ es: {
   expNote: "Según tus respuestas, documentar tu experiencia puede ser un paso importante por revisar antes de solicitar.",
   wcAlwaysNote: "Según los requisitos vigentes de la CSLB (verificado 28/8/2026), los contratistas de las clasificaciones C-8, C-20, C-22, C-39 y C-61/D-49 deben llevar seguro de compensación laboral tengan o no empleados (Business and Professions Code, sección 7125). Tu clasificación — {name} — está en esa lista, así que la exención de \"no requerido / sin empleados\" probablemente no te aplica. Confírmalo en la página oficial:",
   nsFlag: "Marcaste que no estás seguro de tu tipo de licencia. Revisar este paso con calma es tu mejor primer movimiento — y confirma la clasificación con las descripciones oficiales de la CSLB.",
+  posLbl: "Dónde estás — según reportaste: {stage}",
+  recNote: "Recomendación de LICENA basada en tus respuestas — no una determinación de la CSLB.",
+  wyw_h: "Mientras esperas",
+  wyw_b: "No tienes que perder este tiempo — la preparación para los exámenes puede empezar ya, mientras la CSLB revisa tu solicitud.",
+  par_h: "Útil en paralelo",
+  par_b: "La preparación para los exámenes puede avanzar junto con tu solicitud — puedes empezar ahora.",
+  nx_corr_t: "Responde a la corrección de la CSLB",
+  nx_corr_b: "Nos dijiste que la CSLB pidió una corrección. Responder exactamente lo pedido es la prioridad inmediata — y si la corrección toca tu clasificación o experiencia, revisa esos datos antes de reenviar.",
+  nx_rej_t: "Corrige y vuelve a presentar tu solicitud",
+  nx_rej_b: "Nos dijiste que tu solicitud fue rechazada o devuelta. Revisa la carta de la CSLB, corrige lo que señala — clasificación y experiencia son las causas habituales — y preséntala de nuevo.",
+  nx_wait_t: "Espera la revisión de la CSLB",
+  nx_wait_b: "Nos dijiste que tu solicitud está presentada y en espera. Ahora mismo no hay acción sobre la solicitud — la CSLB te contactará sobre las huellas y tu examen.",
+  nx_prep_t: "Prepárate para tus exámenes",
+  nx_prep_b: "Tu solicitud fue aceptada — los exámenes son lo que queda entre tú y la licencia. Empieza a prepararte ya.",
+  nx_sched_t: "Prepárate para tus exámenes agendados",
+  nx_sched_b: "Tu fecha de examen ya está fijada — aprovecha cada día con práctica enfocada.",
+  nx_remain_t: "Prepárate para el examen restante",
+  nx_remain_b: "Un examen aprobado — falta {name}. Termina fuerte.",
+  nx_final_t: "Completa los requisitos finales",
+  nx_final_b: "Los exámenes quedaron atrás. Falta el papeleo: la fianza de contratista, la información de compensación laboral y la tarifa inicial, según las instrucciones de la CSLB.",
+  nx_waitiss_t: "Espera la emisión de la licencia",
+  nx_waitiss_b: "Reportaste que los requisitos finales están en marcha. Cuando la CSLB los confirme, se emite tu número de licencia — puedes verificarlo en el registro oficial.",
+  nx_issued_t: "Tu licencia fue emitida — ¡felicidades!",
+  nx_issued_b: "Reportaste que tu licencia ya fue emitida. Verifica que aparezca en Check a License de la CSLB y anota tu número y fecha de renovación.",
+  nx_research_b: "Asegúrate de que esta clasificación corresponde al trabajo que planeas hacer antes de preparar tu solicitud.",
+  lawShort: "Law & Business",
+  mc_submit_application: "Sí, presenté mi solicitud",
+  mc_application_review: "Sí, la CSLB aceptó mi solicitud",
+  mc_fingerprinting: "Sí, completé el Live Scan",
+  mc_schedule_pass_exams: "Sí, aprobé todos los exámenes requeridos",
+  mc_license_issued: "Sí, mi licencia ya fue emitida",
   saveH: "Guarda tu plan",
   saveB: "Inicia sesión gratis y tu plan, progreso y respuestas se guardan en tu cuenta — continúa en cualquier dispositivo.",
   saveCta: "Iniciar sesión / crear cuenta gratis",
@@ -1299,6 +1386,37 @@ ru: {
   expNote: "Судя по вашим ответам, документирование опыта может оказаться важным шагом, который стоит проверить до подачи.",
   wcAlwaysNote: "По действующим требованиям CSLB (проверено 28.08.2026) подрядчики классификаций C-8, C-20, C-22, C-39 и C-61/D-49 обязаны иметь страховку workers' compensation независимо от наличия работников (Business and Professions Code, секция 7125). Ваша классификация — {name} — в этом списке, поэтому вариант «не требуется / нет работников», судя по всему, к вам не применим. Сверьте на официальной странице:",
   nsFlag: "Вы отметили, что не уверены в типе лицензии. Спокойно разобрать этот шаг — лучший первый ход; сверьте классификацию с официальными описаниями CSLB.",
+  posLbl: "Где вы сейчас — по вашим словам: {stage}",
+  recNote: "Рекомендация LICENA на основе ваших ответов — не решение CSLB.",
+  wyw_h: "Пока вы ждёте",
+  wyw_b: "Это время не обязано пропадать — подготовку к экзаменам можно начать уже сейчас, пока CSLB рассматривает заявление.",
+  par_h: "Полезно параллельно",
+  par_b: "Подготовка к экзаменам может идти параллельно с работой над заявлением — можно начать уже сейчас.",
+  nx_corr_t: "Ответьте на запрос исправлений от CSLB",
+  nx_corr_b: "Вы сообщили, что CSLB запросила исправления. Ответить ровно так, как просят — первоочередная задача; если исправления касаются классификации или опыта, перепроверьте эти данные перед отправкой.",
+  nx_rej_t: "Исправьте и подайте заявление заново",
+  nx_rej_b: "Вы сообщили, что заявление отклонено или возвращено. Разберите письмо CSLB, исправьте названное — обычно это классификация и данные об опыте — и подайте заново.",
+  nx_wait_t: "Дождитесь рассмотрения заявления CSLB",
+  nx_wait_b: "Вы сообщили, что заявление подано и ожидает рассмотрения. Действий по заявлению сейчас нет — CSLB свяжется с вами насчёт отпечатков и экзамена.",
+  nx_prep_t: "Готовьтесь к экзаменам",
+  nx_prep_b: "Заявление принято — между вами и лицензией остались экзамены. Начните подготовку сейчас.",
+  nx_sched_t: "Готовьтесь к назначенным экзаменам",
+  nx_sched_b: "Дата экзамена назначена — используйте каждый день до неё для целевой практики.",
+  nx_remain_t: "Готовьтесь к оставшемуся экзамену",
+  nx_remain_b: "Один экзамен сдан — остался {name}. Дожмите.",
+  nx_final_t: "Закройте финальные требования",
+  nx_final_b: "Экзамены позади. Остались формальности: бонд подрядчика, сведения о workers' compensation и первоначальная пошлина — по инструкциям CSLB.",
+  nx_waitiss_t: "Дождитесь выдачи лицензии",
+  nx_waitiss_b: "Вы сообщили, что финальные требования в работе. Как только CSLB их подтвердит, будет присвоен номер лицензии — его можно проверить в официальном реестре.",
+  nx_issued_t: "Лицензия выдана — поздравляем!",
+  nx_issued_b: "Вы сообщили, что лицензия уже выдана. Проверьте, что она видна в Check a License CSLB, запишите номер и дату продления.",
+  nx_research_b: "Прежде чем готовить заявление, убедитесь, что эта классификация соответствует работе, которую вы планируете выполнять.",
+  lawShort: "Law & Business",
+  mc_submit_application: "Да, я подал(а) заявление",
+  mc_application_review: "Да, CSLB приняла моё заявление",
+  mc_fingerprinting: "Да, я прошёл(шла) Live Scan",
+  mc_schedule_pass_exams: "Да, я сдал(а) все нужные экзамены",
+  mc_license_issued: "Да, моя лицензия выдана",
   saveH: "Сохраните свой план",
   saveB: "Войдите бесплатно — план, прогресс и ответы сохранятся в аккаунте, продолжайте с любого устройства.",
   saveCta: "Войти / создать бесплатный аккаунт",
@@ -1352,7 +1470,6 @@ ru: {
   docs_license_issued: "—"
 }
 };
-
 </script>
 <script>
 /* LICENA — License Roadmap (Phase 1). Wizard → personalized checklist.
@@ -1423,13 +1540,23 @@ ru: {
     STEPS.forEach(function (s) { st[s.key] = "not_started"; });
     var idx = STAGES.indexOf(a.stage); if (idx < 0) idx = 0;
 
-    // Baseline by stage
+    // Baseline by stage. Submitting an application completes only what the
+    // user actually did (prepare + submit); classification and experience
+    // complete only on explicit acceptance evidence — CSLB accepting the
+    // application. A submission alone never implies CSLB verified them.
+    var notSure = a.trade === "not_sure";
+    var accepted = idx >= 4 || (idx >= 3 && a.appStatus === "st_accepted");
     if (idx >= 3) { // submitted+
-      st.classification = "completed"; st.experience = "completed";
       st.prepare_application = "completed"; st.submit_application = "completed";
-      st.application_review = "waiting";
+      st.application_review = accepted ? "completed" : "waiting";
+      if (accepted) {
+        st.classification = notSure ? "review_needed" : "completed";
+        st.experience = "completed";
+      } else {
+        st.classification = notSure ? "review_needed" : "in_progress";
+        st.experience = (a.years === "y4") ? "in_progress" : "review_needed";
+      }
     }
-    if (idx >= 4) st.application_review = "completed";           // accepted+
     if (idx >= 5) st.schedule_pass_exams = "in_progress";        // exam scheduled
     if (idx >= 7) {                                              // passed all
       st.prep_law_business = "completed"; st.prep_trade = "completed";
@@ -1443,17 +1570,26 @@ ru: {
 
     // Early stages
     if (idx <= 2) {
-      st.classification = a.trade === "not_sure" ? "review_needed" : "action_needed";
+      st.classification = notSure ? "review_needed" : "action_needed";
       st.experience = (a.years === "y4") ? "action_needed" : "review_needed";
       if (idx === 2) st.prepare_application = "in_progress";
       st.fingerprinting = "waiting"; st.application_review = "waiting";
     }
 
-    // Q5 application status overlay (only meaningful once submitted)
+    // Q5 application status overlay (only meaningful once submitted).
+    // A correction or a returned application can concern the classification
+    // or the experience — both go back to review unless acceptance already
+    // confirmed them.
     if (idx >= 3) {
-      if (a.appStatus === "st_correction") st.application_review = "action_needed";
-      if (a.appStatus === "st_rejected") { st.prepare_application = "action_needed"; st.submit_application = "action_needed"; st.application_review = "not_started"; }
-      if (a.appStatus === "st_accepted") st.application_review = "completed";
+      if (a.appStatus === "st_correction") {
+        st.application_review = "action_needed";
+        if (!accepted) { st.classification = "review_needed"; st.experience = "review_needed"; }
+      }
+      if (a.appStatus === "st_rejected") {
+        st.prepare_application = "action_needed"; st.submit_application = "action_needed";
+        st.application_review = "not_started";
+        if (!accepted) { st.classification = "review_needed"; st.experience = "review_needed"; }
+      }
     }
 
     // Q6 fingerprinting overlay
@@ -1498,15 +1634,102 @@ ru: {
     return pick;
   }
 
+  function stepByKey(k) { for (var i = 0; i < STEPS.length; i++) if (STEPS[i].key === k) return STEPS[i]; return null; }
+
+  function prepCtas(law, trade) {
+    var out = [];
+    if (law) out.push(examCta("cslb-law", d.startLaw));
+    if (trade && RM.trade) {
+      var tc = tradeCourseOf(RM.trade);
+      if (tc) out.push(examCta(tc, fill(d.startTrade, { name: tradeName(RM.trade) })));
+    }
+    return out;
+  }
+
+  /* LICENA's RECOMMENDED next action — derived from the user-reported stage
+     and detail answers, distinct from the "you are here" stage position
+     (ROADMAP_STAGE_POSITION). Returns { key, t, b, wait, par, ctas, src }:
+     wait  — nothing actionable on the application itself right now (the
+             "While you wait" block carries the exam-prep CTAs);
+     par   — the recommendation has a useful parallel track (same block,
+             "Useful in parallel" heading);
+     ctas  — exam-prep CTA html (rendered inside the next-step card when
+             neither wait nor par). Null when everything is completed. */
+  function recommendNext(m) {
+    var a = m.answers || {};
+    var idx = STAGES.indexOf(a.stage); if (idx < 0) idx = 0;
+    var s = m.steps;
+    function done(k) { return s[k] && s[k].status === "completed"; }
+    var allDone = STEPS.every(function (x) { return done(x.key); });
+    if (allDone || idx >= 9)
+      return { key: "license_issued", t: d.nx_issued_t, b: d.nx_issued_b,
+               src: stepByKey("license_issued").source, ctas: [] };
+    // A CSLB correction or a returned application beats everything else
+    if (a.appStatus === "st_correction" && s.application_review.status === "action_needed")
+      return { key: "application_review", t: d.nx_corr_t, b: d.nx_corr_b, ctas: [] };
+    if (a.appStatus === "st_rejected" && s.prepare_application.status === "action_needed")
+      return { key: "prepare_application", t: d.nx_rej_t, b: d.nx_rej_b, ctas: [] };
+    // Final phase
+    if (idx >= 8) {
+      if (s.final_requirements.status === "in_progress")
+        return { key: "final_requirements", t: d.nx_waitiss_t, b: d.nx_waitiss_b, wait: true,
+                 src: stepByKey("license_issued").source, ctas: [] };
+      return { key: "final_requirements", t: d.nx_final_t, b: d.nx_final_b, ctas: [] };
+    }
+    if (idx === 7)                                               // passed all exams
+      return { key: "final_requirements", t: d.nx_final_t, b: d.nx_final_b, ctas: [] };
+    // One exam passed → the remaining one is the whole game
+    if (a.exams === "e_law" || a.exams === "e_trade") {
+      var lawLeft = a.exams === "e_trade";
+      if (!lawLeft && m.notSure)   // trade exam remains but classification unknown
+        return { key: "classification", t: d.t_classification, b: d.nsFlag, ctas: [] };
+      var remainKey = lawLeft ? "prep_law_business" : "prep_trade";
+      if (!done(remainKey))
+        return { key: remainKey, t: d.nx_remain_t,
+                 b: fill(d.nx_remain_b, { name: lawLeft ? d.lawShort : tradeName(m.trade) }),
+                 ctas: prepCtas(lawLeft, !lawLeft) };
+    }
+    // "Not sure" about the classification → resolving it comes first
+    if (m.notSure && !done("classification"))
+      return { key: "classification", t: d.t_classification, b: d.nsFlag,
+               ctas: idx >= 2 ? prepCtas(true, false) : [] };
+    if (s.fingerprinting.status === "action_needed")
+      return { key: "fingerprinting", t: d.t_fingerprinting, b: d.todo_fingerprinting, par: true,
+               ctas: prepCtas(!done("prep_law_business"), !done("prep_trade")) };
+    var accepted = idx >= 4 || (idx >= 3 && a.appStatus === "st_accepted");
+    if (accepted) {
+      var lawDone = done("prep_law_business"), tradeDone = done("prep_trade");
+      if (lawDone && tradeDone) {
+        if (done("schedule_pass_exams"))
+          return { key: "final_requirements", t: d.nx_final_t, b: d.nx_final_b, ctas: [] };
+        return { key: "schedule_pass_exams", t: d.t_schedule_pass_exams, b: d.todo_schedule_pass_exams, ctas: [] };
+      }
+      var sched = idx >= 5 || a.exams === "e_sched";
+      return { key: lawDone ? "prep_trade" : "prep_law_business",
+               t: sched ? d.nx_sched_t : d.nx_prep_t, b: sched ? d.nx_sched_b : d.nx_prep_b,
+               ctas: prepCtas(!lawDone, !tradeDone) };
+    }
+    if (idx === 3)                                               // submitted, waiting
+      return { key: "application_review", t: d.nx_wait_t, b: d.nx_wait_b, wait: true,
+               ctas: prepCtas(!done("prep_law_business"), !done("prep_trade")) };
+    if (idx === 2)                                               // preparing the application
+      return { key: "prepare_application", t: d.t_prepare_application, b: d.todo_prepare_application,
+               par: true, ctas: prepCtas(true, true) };
+    // researching / not submitted yet
+    return { key: "classification", t: d.t_classification,
+             b: m.notSure ? d.nsFlag : d.nx_research_b, ctas: [] };
+  }
+
   /* ---------- persistence ---------- */
   function saveLocal(m) { if (DEMO) return; try { localStorage.setItem(LS_KEY, JSON.stringify(m)); } catch (_) {} }
   function loadLocal() { try { var s = localStorage.getItem(LS_KEY); return s ? JSON.parse(s) : null; } catch (_) { return null; } }
 
   function dbSave(m) {
     if (DEMO || !session || typeof supa === "undefined") return Promise.resolve();
+    var rec = recommendNext(m);
     var row = { user_id: session.user.id, state: m.state, license_type: m.trade,
                 license_not_sure: !!m.notSure, answers: m.answers, status: "active",
-                current_step: currentStepOf(m), progress_percent: progressOf(m) };
+                current_step: rec ? rec.key : currentStepOf(m), progress_percent: progressOf(m) };
     var q = m.id
       ? supa.from("license_roadmaps").update(row).eq("id", m.id).select("id").single()
       : supa.from("license_roadmaps").insert(row).select("id").single();
@@ -1767,7 +1990,9 @@ ru: {
     // actions
     body += '<div class="rm-actions">';
     if (st !== "completed" && s.confirmable)
-      body += '<button class="btn btn-primary rm-done">' + esc(d.markComplete) + "</button>";
+      // major milestones confirm with an explicit, context-specific label
+      // ("Yes, my license has been issued") — ordinary steps keep the generic one
+      body += '<button class="btn btn-primary rm-done">' + esc(d["mc_" + s.key] || d.markComplete) + "</button>";
     if (st === "completed")
       body += '<span class="rm-done-lbl">' + esc(d.markedDone) + "</span>";
     body += '<select class="rm-status" aria-label="' + esc(d.updateStatus) + '">' +
@@ -1802,7 +2027,13 @@ ru: {
   function renderRoadmap(keepOpen) {
     track("license_roadmap_viewed");
     var pct = progressOf(RM);
-    var cur = currentStepOf(RM);
+    var a = RM.answers || {};
+    var rec = recommendNext(RM);
+    // USER-REPORTED position (the stage they picked) — where the marker sits.
+    // Distinct from rec.key, the RECOMMENDED next action.
+    var here = (window.ROADMAP_STAGE_POSITION || {})[a.stage] || (rec && rec.key) || currentStepOf(RM);
+    if (here === "application_review" && a.appStatus === "st_accepted") here = "prep_law_business";
+    var viewKey = rec ? rec.key : currentStepOf(RM);
     var el = document.createElement("div");
 
     var when = new Date(RM.updatedAt);
@@ -1813,23 +2044,38 @@ ru: {
       '<div class="rm-journey"><span>' + esc(d.journeyL) + "</span><strong>" + esc(fill(d.pctDone, { p: pct })) + "</strong></div>" +
       '<div class="rm-bar"><i style="width:' + pct + '%"></i></div>' +
       '<div class="rm-meta">' + esc(fill(d.lastUpdated, { d: dateStr })) + " · " +
-      (DEMO ? esc(d.demoNote) : (session ? esc(d.savedNote) : esc(d.localNote))) + "</div>";
+      (DEMO ? esc(d.demoNote) : (session ? esc(d.savedNote) : esc(d.localNote))) + "</div>" +
+      (a.stage && d["stage_" + a.stage]
+        ? '<div class="rm-pos">' + esc(fill(d.posLbl, { stage: d["stage_" + a.stage] })) + "</div>" : "");
     el.appendChild(hero);
 
-    if (cur) {
-      var curStep = STEPS.filter(function (s) { return s.key === cur; })[0];
+    if (rec) {
       var next = document.createElement("div"); next.className = "rm-next";
-      next.innerHTML = "<div class='rm-next-k'>" + esc(d.nextStepH) + "</div>" +
-        "<h2>" + esc(d["t_" + cur]) + "</h2><p>" + esc(d["todo_" + cur]) + "</p>" +
-        '<button class="btn btn-primary" id="rmView">' + esc(d.viewStep) + "</button>";
+      var inline = !rec.wait && !rec.par && rec.ctas.length;
+      var nx = "<div class='rm-next-k'>" + esc(d.nextStepH) + "</div>" +
+        "<h2>" + esc(rec.t) + "</h2><p>" + esc(rec.b) + "</p>";
+      if (inline) nx += '<div class="rm-next-ctas">' + rec.ctas.join(" ") + "</div>";
+      if (rec.src) nx += '<a class="rm-src" target="_blank" rel="noopener" href="' + rec.src.url + '">' +
+        esc(d.officialSrc) + ": " + esc(rec.src.title) + " ↗</a>";
+      nx += '<button class="btn btn-ghost" id="rmView">' + esc(d.viewStep) + "</button>" +
+        "<p class='rm-next-note'>" + esc(d.recNote) + "</p>";
+      next.innerHTML = nx;
       el.appendChild(next);
+      // secondary track: exam prep while the application waits / in parallel
+      if ((rec.wait || rec.par) && rec.ctas.length) {
+        var wyw = document.createElement("div"); wyw.className = "rm-wyw";
+        wyw.innerHTML = "<h3>" + esc(rec.wait ? d.wyw_h : d.par_h) + "</h3>" +
+          "<p>" + esc(rec.wait ? d.wyw_b : d.par_b) + "</p>" +
+          '<div class="rm-next-ctas">' + rec.ctas.join(" ") + "</div>";
+        el.appendChild(wyw);
+      }
     }
 
     var list = document.createElement("div"); list.className = "rm-list";
     STEPS.forEach(function (s) {
-      if (s.key === cur) {
-        var here = document.createElement("div"); here.className = "rm-here"; here.textContent = d.youAreHere + " ↓";
-        list.appendChild(here);
+      if (s.key === here) {
+        var hereEl = document.createElement("div"); hereEl.className = "rm-here"; hereEl.textContent = d.youAreHere + " ↓";
+        list.appendChild(hereEl);
       }
       list.appendChild(stepCard(s, keepOpen === s.key));
     });
@@ -1847,9 +2093,12 @@ ru: {
 
     var disc = document.createElement("p"); disc.className = "rw-disc"; disc.textContent = d.disclaimer; el.appendChild(disc);
     render(el);
+    el.querySelectorAll(".rm-next .rm-cta, .rm-wyw .rm-cta").forEach(function (c) {
+      c.addEventListener("click", function () { track("license_exam_prep_clicked"); });
+    });
     var vb = el.querySelector("#rmView");
     if (vb) vb.addEventListener("click", function () {
-      var target = el.querySelector('[data-step="' + cur + '"]');
+      var target = el.querySelector('[data-step="' + viewKey + '"]');
       if (target) {
         if (!target.classList.contains("open")) target.querySelector(".rm-step-head").click();
         target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1908,5 +2157,4 @@ ru: {
   }
   boot();
 })();
-
 </script>
