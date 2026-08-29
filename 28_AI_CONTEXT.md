@@ -55,6 +55,19 @@ LICENA (licena.us) — трёхъязычный (EN/ES/RU) тренажёр ли
 подпись «LICENA recommendation — not a CSLB determination», контекстные
 подписи вех mc_*; схема БД и события Clarity не менялись; e2e — 95
 проверок с персонами A–J. Детали — `13_UX.md`.
+Дополнение 2026-08-29: Application Assistant Phase 1 (`2c66f13` осн. репо,
+влито в `main`) — `/application.html`: ведомая подготовка официального
+заявления CSLB (CA · Original · Sole Owner) с картой 1:1 на формы 13A-1
+(rev. 01/2026) и 13A-11, FieldExplanation на сложных полях, опытным
+ассистентом, 3-уровневой валидацией, печатным Review Packet и подачей
+только через официальные каналы CSLB (портал SimpliGov для sole owner /
+Easy-Fill / почта; API третьих сторон у CSLB нет; статус «подано» — только
+со слов пользователя). Файлы: `js/roadmap/application-config.js`,
+`i18n-application.js`, `app-application.js`, `css/application.css`,
+`supabase/sql/license-applications.sql` (владелец ещё должен применить;
+статус UNKNOWN). SSN/ITIN, дата рождения, водительское удостоверение НЕ
+собираются. Интеграция в Roadmap: CTA шага 3 + user-reported подача.
+Детали — `13_UX.md`, схема — `04_DATABASE.md`.
 Дополнение 2026-08-27: у трёх невадских платных банков появились
 practice-страницы (`a25d54e` осн. репо, влито в `main`): слаги
 `nv-cms-exam` / `nv-b-general-building` / `nv-b2-residential` × EN/ES/RU

@@ -21,7 +21,7 @@
 | `01_PROJECT_OVERVIEW.md` | заполнен | 2026-08-05 | Partially Verified |
 | `02_ARCHITECTURE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `03_REPO_STRUCTURE.md` | заполнен | 2026-08-13 | Partially Verified |
-| `04_DATABASE.md` | заполнен | 2026-08-28 | Partially Verified |
+| `04_DATABASE.md` | заполнен | 2026-08-29 | Partially Verified |
 | `05_API.md` | заполнен | 2026-08-05 | Partially Verified |
 | `06_FUNCTIONS.md` | заполнен | 2026-08-05 | Verified |
 | `07_AUTH_ACCESS.md` | заполнен | 2026-08-05 | Partially Verified |
@@ -45,7 +45,7 @@
 | `25_DECISIONS.md` | не создан | — | — |
 | `26_CHANGELOG.md` | заполнен | 2026-08-29 | Partially Verified |
 | `27_ROADMAP.md` | не создан | — | — |
-| `28_AI_CONTEXT.md` | заполнен | 2026-08-28 | Partially Verified |
+| `28_AI_CONTEXT.md` | заполнен | 2026-08-29 | Partially Verified |
 | `29_BUSINESS_FRAMEWORK.md` | не создан | — | — |
 | `30_CTO_REPORT.md` | не создан (будет создан пустым; заполняет ChatGPT) | — | — |
 | `RELEASE_SUMMARY.md` | не создан | — | — |

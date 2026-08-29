@@ -1,6 +1,6 @@
 # 04 — База данных (Supabase Postgres)
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-28 (точечная: License Roadmap)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-28 (точечная: License Roadmap) · 2026-08-29 (точечная: Application Assistant)
 
 Дополнение 2026-08-28 (`0d7fcfb` осн. репо, `supabase/sql/license-roadmaps.sql`):
 новые таблицы фичи License Roadmap (Phase 1) — SQL идемпотентен, применяется
@@ -23,6 +23,25 @@
 - Контент шагов/правила НЕ в БД — в клиентском конфиге
   `js/roadmap/roadmap-config.js` (добавление штата не меняет схему).
 Статус применения в Supabase на 2026-08-28: UNKNOWN — за владельцем.
+
+Дополнение 2026-08-29 (`2c66f13` осн. репо, `supabase/sql/license-applications.sql`):
+таблица фичи Application Assistant (Phase 1) — SQL идемпотентен, применяется
+владельцем в SQL Editor; до применения фича работает на localStorage.
+- `public.license_applications` — id uuid PK (gen_random_uuid), user_id →
+  auth.users (cascade), state text ('ca'), application_type text ('original'),
+  entity_type text, classification_id text, status text (check:
+  draft/review_needed/ready_for_submission/submitted_user_confirmed/
+  under_review/correction_requested/accepted), completion_percent int (0–100),
+  sections jsonb (подготовленные ответы по разделам), submitted_user_at date
+  (ДАТА СО СЛОВ ПОЛЬЗОВАТЕЛЯ — не подтверждение CSLB), correction jsonb,
+  created_at/updated_at; индекс (user_id, updated_at desc).
+- RLS: owner-only на select/insert/update/delete (auth.uid() = user_id).
+- Триггер `license_applications_touch` (общая функция touch_updated_at).
+- ПРИВАТНОСТЬ: sections НИКОГДА не содержит SSN/ITIN, дату рождения, номер
+  водительского удостоверения или тексты disclosure-объяснений — клиент
+  (`js/roadmap/app-application.js`) эти поля сознательно не собирает; они
+  заполняются пользователем только в официальной форме CSLB.
+Статус применения в Supabase на 2026-08-29: UNKNOWN — за владельцем.
 Источник: SQL-файлы репозитория `lalianamen/llicena@main` (все прочитаны
 полностью). ВАЖНО: файлы — это скрипты, которые владелец запускает вручную в
 Supabase SQL Editor; фактическое текущее состояние живой БД по репозиторию не
@@ -248,6 +267,7 @@ time-limited signed URL.
 
 **Partially Verified.**
 
+- `supabase/sql/license-applications.sql` (прочитан целиком 2026-08-29);
 - Проверено: полное содержание всех SQL-файлов репозитория (схемы, политики,
   функции, триггеры, cron) — каждая строка таблиц выше взята из текста файлов.
 - Непроверяемо из репозитория (UNKNOWN): фактическое состояние живой БД —
