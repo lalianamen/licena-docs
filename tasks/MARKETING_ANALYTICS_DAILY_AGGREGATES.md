@@ -4,7 +4,15 @@
 
 ## Status
 
-**READY_FOR_REVIEW** (Review 2)
+**READY_FOR_REVIEW** (Review 3)
+
+2026-08-29 08:20 UTC: узкое замечание Review 2 (DST-unsafe target days)
+исправлено — календарная арифметика от текущей PT-даты
+(core.targetDaysBack); оба repro-кейса ревью дают корректный ответ;
+11 новых тестов по полному списку ревью, 48/48 core-тестов PASS.
+Branch: `claude/marketing-analytics-aggregates` @ последний коммит
+(см. git). main/БД/функции не тронуты; дифф daily-stats пуст.
+DB-execution проверки — pre-production gate (Supabase branch за владельцем).
 
 2026-08-29 07:35 UTC: все 6 blocking findings Review 1 исправлены —
 ответ: `tasks/reports/2026-08-29-marketing-aggregates-review1-response.md`.
