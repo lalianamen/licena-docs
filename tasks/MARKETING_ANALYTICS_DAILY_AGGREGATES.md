@@ -4,7 +4,10 @@
 
 ## Status
 
-**READY_FOR_REVIEW**
+**CHANGES_REQUESTED**
+
+Review 1: `tasks/reviews/2026-08-29-marketing-aggregates-review-1.md`.
+Merge/apply/deploy запрещены до исправления blocking findings.
 
 2026-08-29 06:25 UTC: discovery + реализация завершены — отчёт со всеми
 доказательствами: `tasks/reports/2026-08-29-marketing-aggregates-discovery-handoff.md`.
