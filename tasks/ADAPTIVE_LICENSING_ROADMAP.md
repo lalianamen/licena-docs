@@ -8,6 +8,12 @@
 
 Private dispatch: `lalianamen/LLICENA#188`
 
+2026-08-29: аудит source state `037bdd9` завершён — **READY_FOR_REVIEW** для этого
+состояния (см. `tasks/reports/2026-08-29-adaptive-roadmap-audit-037bdd9.md`:
+раскрытие о деплое, критерии, проверки, preview, скриншоты, миграции — UNKNOWN).
+Общий статус остаётся IN_PROGRESS: gaps G1–G4 (даты) ведёт claude[bot] на
+отдельной feature-ветке.
+
 ## Objective
 
 Провести аудит текущей реализации roadmap/intake в приватном репозитории `lalianamen/LLICENA`, сравнить её с требованиями ниже и затем реализовать adaptive licensing intake небольшими обратно совместимыми изменениями.
