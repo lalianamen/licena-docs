@@ -1,6 +1,6 @@
 # 06 — Supabase Edge Functions
 
-Последняя сверка: 2026-08-05
+Последняя сверка: 2026-08-05 · 2026-08-30 (точечная: marketing-aggregates)
 Источник: `lalianamen/llicena@main`, каталог `supabase/functions/` — 8 функций
 (Deno). Все файлы прочитаны полностью в этой сверке. Контракты «вход/выход»
 кратко продублированы в `05_API.md`; здесь — устройство каждой функции.
@@ -146,6 +146,50 @@
 - Отправка Resend; получатели из `STATS_EMAIL` (comma-separated; дефолт в
   коде — личный адрес получателя отчёта, в базу знаний не переносится).
 
+## marketing-aggregates (`.../marketing-aggregates/index.ts` 169 строк + `core.ts` 252 строки)
+
+Добавлено 2026-08-30. Задеплоена на живой проект владельцем 2026-08-30
+(подтверждение: `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`);
+исходники — ветка `claude/marketing-analytics-aggregates` @ `ae13124`, в `main`
+на дату сверки НЕ смерджены.
+
+- Назначение: пишет обезличенные ежедневные агрегаты в `marketing_daily_metrics`,
+  `marketing_channel_daily`, `marketing_page_daily` и снепшот текущего состояния
+  в `marketing_state_snapshots`. Отдельная от `daily-stats` функция сознательно:
+  сбой агрегатов не может стоить владельцу ежедневного письма; файл
+  `daily-stats/index.ts` не изменялся (диффа нет).
+- Разделение файлов: `core.ts` — чистая логика без Deno и сети (импортируется
+  тестами `scripts/test-marketing-core.mjs` через `node --experimental-strip-types`,
+  то есть тестируется production-код, а не копия); `index.ts` — только I/O:
+  авторизация, пагинация, запись.
+- Авторизация вызывающего: `verify_jwt` пропускает ЛЮБОЙ проектный JWT, включая
+  публичный anon-ключ, поэтому функция дополнительно требует сервисные
+  credentials — прямое совпадение с `SUPABASE_SERVICE_ROLE_KEY` либо, для
+  нового формата `sb_secret_...`, проверка возможностей через
+  `/auth/v1/admin/users` (200 отвечают только сервисные ключи). Иначе 403.
+  Тот же паттерн, что у `gsc-sync`.
+- Вход: `{"days": N}`, по умолчанию 3, clamp 1–40 (bounded backfill).
+  Целевые дни — последние N **завершённых** календарных дней Pacific,
+  вычисленные календарной арифметикой от текущей PT-даты (`core.targetDaysBack`);
+  текущий неполный день никогда не входит.
+- Чтение `page_views` постраничное (PAGE_SIZE 1000, MAX_ROWS 400000) и
+  **fail-closed**: при исчерпании бюджета возвращается HTTP 507
+  `source_window_truncated` и не пишется ничего.
+- Детерминизм: атрибуция канала устройства считается по ФИКСИРОВАННОМУ окну
+  28 дней, заканчивающемуся концом целевого дня (`ATTRIBUTION_LOOKBACK_DAYS`),
+  а не по ширине backfill — день, посчитанный отдельно, равен тому же дню внутри
+  любого более широкого прогона.
+- Запись: по одному дню за раз через RPC `marketing_replace_day` (delete+insert
+  в одной транзакции). Снепшот текущего состояния — только за день запуска.
+- Таксономия каналов — побайтовая копия блока из `daily-stats/index.ts` между
+  маркерами `channel-taxonomy-begin/end`; расхождение ловит
+  `scripts/check-channel-parity.js`.
+- Тестеры (`profiles.is_tester`) исключены из всех пользовательских метрик;
+  устройства до входа отфильтровать нельзя — то же ограничение, что у письма.
+- Секреты: сверх стандартных `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` — нет.
+- Расписание: cron-задание `marketing-aggregates`, `30 15 * * *`
+  (`supabase/sql/cron-marketing-aggregates.sql`).
+
 ## gsc-sync (`.../gsc-sync/index.ts`, 373 строк)
 
 Добавлена 2026-08-25 (задача владельца). Синхронизация Google Search Console →
@@ -202,6 +246,12 @@ ticket-issue, daily-stats); `TICKET_WEBHOOK_SECRET` (ticket-*);
 
 ## Source References
 
+- `supabase/functions/marketing-aggregates/index.ts` и `core.ts`,
+  `supabase/sql/marketing-daily-aggregates.sql`,
+  `supabase/sql/cron-marketing-aggregates.sql`,
+  `scripts/test-marketing-core.mjs`, `scripts/check-channel-parity.js`
+  (ветка `claude/marketing-analytics-aggregates` @ `ae13124`; добавлено 2026-08-30)
+- `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md` (факт деплоя)
 - `supabase/functions/gsc-sync/index.ts` (добавлено 2026-08-25)
 
 - `supabase/functions/assistant/index.ts`, `stripe-checkout/index.ts`,

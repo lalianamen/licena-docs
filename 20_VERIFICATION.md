@@ -1,6 +1,6 @@
 # 20 — Проверки качества (verification)
 
-Последняя сверка: 2026-08-05
+Последняя сверка: 2026-08-05 · 2026-08-30 (точечная: проверки marketing-aggregates)
 Источник: `lalianamen/llicena@main`. Тест-фреймворка в проекте НЕТ
 (зафиксировано в `CLAUDE.md` осн. репо: vanilla static, «no test framework»);
 проверки = собственные Node-чекеры + обязательный ручной чек-лист.
@@ -16,6 +16,21 @@
 | `check-paid-sync.js` (полностью) | идентичность course-id-списков платных банков в 5 файлах / 7 местах: PAID_COURSES, PAID_SUBS, PAID map, allowlist `start_trial`, оба RLS not-in списка. Рассинхрон = ERROR. Введён после инцидента 2026-08-04 (шапка файла) |
 | `check-course-ref.js` (шапка) | у каждого exam-курса запущенных категорий есть справочная панель COURSE_REF; guides и незапущенные вертикали исключены. Введён после пропусков c33/az-sre |
 | `node --check` | синтаксис всех не-vendor JS (`js/**` рекурсивно + корневые `*.js`) |
+
+Проверки, НЕ входящие в `verify.js` (запускаются отдельно, добавлены
+2026-08-30 вместе со слоем маркетинговых агрегатов; ветка
+`claude/marketing-analytics-aggregates` @ `ae13124`):
+
+| Команда | Что проверяет |
+|---|---|
+| `node --experimental-strip-types scripts/test-marketing-core.mjs` | 48 проверок логики агрегации, импортируя **production-модуль** `supabase/functions/marketing-aggregates/core.ts`, а не его копию: детерминизм дня относительно ширины backfill, границы PT-суток и переходы DST, независимость списка целевых дней от времени вызова, отсутствие текущего неполного дня, полнота набора строк дня, семантика снепшота текущего состояния, fail-closed поведение постраничного чтения |
+| `node scripts/check-channel-parity.js` | побайтовое совпадение блока таксономии каналов между `supabase/functions/daily-stats/index.ts` и `.../marketing-aggregates/core.ts` (маркеры `channel-taxonomy-begin/end`); расхождение = ошибка |
+
+Проверки на живой базе (миграция, RLS/гранты, advisors, идемпотентность RPC,
+вызов Edge Function с сервисным ключом) автоматизации не имеют и выполняются
+владельцем по runbook: `tasks/reports/2026-08-30-marketing-aggregates-runbook.md`,
+результаты — `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`.
+У AI-сессии доступа к Supabase нет.
 
 Правило запуска: обязательно после любой правки `js/questions/*`
 (`CLAUDE.md` осн. репо); на `content-banks-src` чекер запускается там же

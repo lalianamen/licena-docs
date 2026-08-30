@@ -1,6 +1,6 @@
 # 08 — Безопасность
 
-Последняя сверка: 2026-08-05
+Последняя сверка: 2026-08-05 · 2026-08-30 (точечная: маркетинговые агрегаты)
 Только факты из кода и внутренних документов основного репозитория; без
 оценок и рекомендаций. Слабые места перечислены исключительно там, где они
 прямо названы в коде/документах проекта или следуют из прочитанного кода.
@@ -26,6 +26,46 @@
 | AI-ассистент | ключ API на сервере; лимиты 6/40/8000; промпт-инструкция игнорировать смену роли из сообщений/скриншотов/поиска; принимаются только свои storage-URL | `assistant/index.ts` |
 | Защита от trial-фарминга | `course_trials` не очищается; одна выдача на (user, course) навсегда | `trial-3day.sql` |
 | Crawl-щиты | `robots.txt` Disallow: `/supabase/`, `/docs/`, `/js/questions/`, `/js/guides/` — сам файл помечает это как «crawl-level deterrent only» | `robots.txt` |
+
+## Дополнение 2026-08-30: default privileges Supabase и `TRUNCATE` в обход RLS
+
+Установленный факт, зафиксированный при применении миграции
+`supabase/sql/marketing-daily-aggregates.sql` на живой базе (выгрузка
+`information_schema.role_table_grants`, 2026-08-30, отчёт
+`tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`):
+
+- Default privileges Supabase в схеме `public` выдают ролям `anon` и
+  `authenticated` **все** привилегии (SELECT, INSERT, UPDATE, DELETE,
+  TRUNCATE, REFERENCES, TRIGGER) на каждую **новую** таблицу — независимо от
+  того, что записано в миграции.
+- Включённый RLS без политик закрывает доступ к строкам (deny-all для ролей
+  без BYPASSRLS), поэтому чтения и записи строк такой грант не даёт.
+- **`TRUNCATE` не подчиняется RLS.** Право `TRUNCATE` у клиентской роли
+  означает возможность очистить таблицу целиком, несмотря на RLS.
+- Следствие для этой миграции: в неё добавлен явный
+  `revoke all on <таблица> from anon, authenticated` (коммит `ae13124`
+  ветки `claude/marketing-analytics-aggregates`); та же команда выполнена на
+  живой базе. Повторная проверка грантов ПОСЛЕ `revoke` — `UNKNOWN`
+  (контрольный запрос не выполнялся, см. отчёт).
+- Область факта: проверялись только 4 таблицы `marketing_*`. Состояние
+  грантов на ранее созданных таблицах в рамках этой сверки **не**
+  проверялось — `UNKNOWN`.
+
+Гейт авторизации Edge Function `marketing-aggregates`: `verify_jwt`
+пропускает любой валидный проектный JWT, включая публичный anon-ключ,
+поэтому функция дополнительно требует сервисные credentials (прямое
+совпадение с `SUPABASE_SERVICE_ROLE_KEY` либо проверка возможностей через
+`/auth/v1/admin/users` для ключей формата `sb_secret_...`), иначе 403 — тот
+же паттерн, что у `gsc-sync` (`supabase/functions/marketing-aggregates/index.ts`).
+
+Хранение ключа в cron: service-role-ключ записан в теле cron-задачи в
+`cron.job` (`supabase/sql/cron-marketing-aggregates.sql`) — тот же подход,
+что и у `supabase/sql/cron-daily-stats.sql`.
+
+Security Advisor Supabase на 2026-08-30: 0 errors, 22 warnings, 11
+suggestions; ни одно предупреждение не относится к объектам `marketing_*`
+(полная выгрузка предоставлена владельцем). Содержание остальных 22
+предупреждений в этой сверке не разбиралось — `UNKNOWN`.
 
 ## Задокументированные в самом проекте слабые места (факты, не аудит)
 

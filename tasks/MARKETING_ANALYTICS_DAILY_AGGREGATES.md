@@ -4,7 +4,24 @@
 
 ## Status
 
-**READY_FOR_REVIEW** (Review 3)
+**DATABASE VALIDATION PASSED — слой работает в production; мерж кода в `main`
+не выполнен**
+
+2026-08-30: владелец выполнил все 7 шагов runbook на живой Supabase.
+Итог: миграция применена; RLS включён без политик; EXECUTE на
+`marketing_replace_day` только у `postgres`/`service_role`; обнаруженные
+default-гранты Supabase у `anon`/`authenticated` отозваны (правка внесена и в
+миграцию — `ae13124`); Security Advisor 0 errors и ни одного warning про
+`marketing_*`; Edge Function `marketing-aggregates` задеплоена; backfill за 30
+завершённых PT-дней записал 30 дней / 62 канальные / 491 постраничную строку;
+повторный идентичный вызов не создал дублей и не изменил объём (идемпотентность
+подтверждена на данных); cron-задача `marketing-aggregates` зарегистрирована
+(`30 15 * * *`, active). Отчёт с дословными результатами:
+`tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`.
+Открытые пункты: повторная проверка грантов после `revoke` (`UNKNOWN`), первый
+автоматический запуск по расписанию, и мерж ветки
+`claude/marketing-analytics-aggregates` @ `ae13124` в `main` — мерж в этой
+сессии заблокирован политикой окружения, ветка запушена и готова.
 
 2026-08-30: Review 3 — исправление DST проверено по коду и тестам.
 Решение: **CODE CORRECTION VERIFIED — READY FOR DATABASE VALIDATION**.

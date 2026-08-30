@@ -1,6 +1,6 @@
 # 04 — База данных (Supabase Postgres)
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-28 (точечная: License Roadmap) · 2026-08-29 (точечная: Application Assistant + Adaptive Intake v2)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-28 (точечная: License Roadmap) · 2026-08-29 (точечная: Application Assistant + Adaptive Intake v2) · 2026-08-30 (точечная: marketing daily aggregates)
 
 Дополнение 2026-08-28 (`0d7fcfb` осн. репо, `supabase/sql/license-roadmaps.sql`):
 новые таблицы фичи License Roadmap (Phase 1) — SQL идемпотентен, применяется
@@ -59,10 +59,49 @@ Adaptive Intake v2 — 12 новых колонок в `public.license_roadmaps`
   закомментированный `DROP COLUMN IF EXISTS` в том же файле (обратимая
   миграция; данные дублируются в jsonb).
 Статус применения в Supabase на 2026-08-29: UNKNOWN — за владельцем.
+Дополнение 2026-08-30 (ветка `claude/marketing-analytics-aggregates` @ `ae13124`
+осн. репо, `supabase/sql/marketing-daily-aggregates.sql`): слой обезличенных
+маркетинговых агрегатов. В отличие от блоков выше — **применён на живой базе
+владельцем 2026-08-30** (подтверждение: `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`).
+- `public.marketing_daily_metrics` — day date PK; page_views, unique_devices_raw,
+  engaged_devices, signed_in_users, signups, weekly_active_users (все int,
+  `CHECK (>= 0)`), computed_at timestamptz, source_version text.
+- `public.marketing_channel_daily` — PK (day, channel); channel text с
+  закрытым `CHECK` по списку таксономии; visitors, engaged_visitors, signups,
+  views (`CHECK (>= 0)`), computed_at.
+- `public.marketing_page_daily` — PK (day, path); path text с `CHECK` на длину;
+  views, engaged_visitors (`CHECK (>= 0)`), computed_at.
+- `public.marketing_state_snapshots` — day date PK; active_paid_subscriptions,
+  active_trials, trial_to_paid_count (`CHECK (>= 0)`), computed_at,
+  source_version. Метрики текущего состояния, которые нельзя реконструировать
+  «на прошлую дату» (строки `user_courses` мутируются на месте), пишутся только
+  за день запуска и никогда не бэкфиллятся.
+- Персональных данных нет ни в одной из 4 таблиц: только счётчики по дню,
+  каналу и пути (без user_id, device, IP, referrer-строк).
+- RLS включён на всех 4 таблицах, политик нет → `anon`/`authenticated` не
+  получают ни одной строки. Дополнительно: `revoke all ... from anon,
+  authenticated` — default privileges Supabase в схеме `public` выдают клиентским
+  ролям все права на каждую НОВУЮ таблицу, а `TRUNCATE` не подчиняется RLS.
+  Запись выполняет только `service_role` (обходит RLS).
+- Функция `marketing_replace_day(p_day date, p_daily jsonb, p_channels jsonb,
+  p_pages jsonb)` — security **invoker**, `set search_path = public`;
+  delete+insert трёх таблиц за один день в одной транзакции (атомарная замена,
+  идемпотентность, отсутствие «застрявших» строк каналов/путей после
+  пересчёта). EXECUTE отозван у public/anon/authenticated, выдан `service_role`.
+- Откат — закомментированные `DROP` в том же файле.
+
+Дополнение 2026-08-30 (cron): к таблице cron-заданий ниже добавлена
+`marketing-aggregates` — `30 15 * * *`, `supabase/sql/cron-marketing-aggregates.sql`;
+зарегистрирована на живой базе 2026-08-30 (`active = true`). pg_cron + pg_net с
+service-role-ключом в заголовке (Dashboard-cron не подходит: функция отвечает
+403 на не-сервисные ключи).
+
 Источник: SQL-файлы репозитория `lalianamen/llicena@main` (все прочитаны
 полностью). ВАЖНО: файлы — это скрипты, которые владелец запускает вручную в
 Supabase SQL Editor; фактическое текущее состояние живой БД по репозиторию не
-проверяемо (см. «Verification Status»).
+проверяемо (см. «Verification Status»). Исключение — блок 2026-08-30
+(marketing aggregates): его применение подтверждено выводом Supabase Dashboard,
+зафиксированным в `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`.
 
 ## Таблицы
 
@@ -208,6 +247,7 @@ RLS включён, политик нет — только service role (пиш�
 | `start_trial(p_course text)` | `supabase/sql/trial-3day.sql` | security definer; проверяет вход в список 14 платных курсов → `'not_paid_course'`; одна запись в `course_trials` навсегда → `'trial_used'`; живой доступ → `'already_active'`; иначе вставляет trial-строку и upsert в `user_courses` со `status='active'`, `expires_at = now()+3 days` → `'ok'`. Grant: только `authenticated` |
 | `daily_signups(days int=8)` | `supabase/sql/report-kpi.sql` | security definer (читает `auth.users`); регистрации по дням Pacific; revoke от public/anon/authenticated — только service role |
 | `recent_signups(days int=40)` | `supabase/sql/report-kpi.sql` | user_id + день регистрации; для атрибуции каналов в daily-stats; доступ как выше |
+| `marketing_replace_day(p_day date, p_daily jsonb, p_channels jsonb, p_pages jsonb)` | `supabase/sql/marketing-daily-aggregates.sql` | security **invoker**, `set search_path=public`; атомарная замена всех агрегатов одного дня (delete+insert по трём таблицам в одной транзакции). EXECUTE revoke от public/anon/authenticated, grant `service_role` |
 | `touch_updated_at()` | `supabase/support_tickets.sql` | trigger-функция `updated_at = now()` |
 | `notify_ticket_email()` | `supabase/ticket_email_trigger.sql` | security definer; `pg_net.http_post` → Edge Function `ticket-email` на INSERT и на UPDATE со сменой статуса на done/rejected; заголовок `x-ticket-secret` (плейсхолдер `__TICKET_WEBHOOK_SECRET__` в файле) |
 | `notify_ticket_issue()` | `supabase/ticket_issue_trigger.sql` | security definer; `pg_net.http_post` → Edge Function `ticket-issue` на INSERT тикетов kind `request|complaint` |
@@ -226,6 +266,7 @@ RLS включён, политик нет — только service role (пиш�
 |---|---|---|---|
 | `expire-subscriptions` | `30 7 * * *` (00:30 PT) | `user_courses.status='inactive'` для строк со `status in ('active','trial')` и истёкшим `expires_at` | `supabase/sql/subscriptions-schema.sql` §3 |
 | `daily-stats` | `0 15 * * *` (08:00 LA летом) | `net.http_post` → Edge Function `daily-stats` (или через Dashboard-Cron — рекомендованный путь в файле) | `supabase/sql/cron-daily-stats.sql` |
+| `marketing-aggregates` | `30 15 * * *` (через 30 мин после письма) | `net.http_post` → Edge Function `marketing-aggregates`, тело `{"days": 3}`; заголовок с service-role-ключом обязателен | `supabase/sql/cron-marketing-aggregates.sql` |
 
 Расширения, включаемые скриптами: `pg_cron`, `pg_net`
 (`cron-daily-stats.sql`, `ticket_*_trigger.sql`).

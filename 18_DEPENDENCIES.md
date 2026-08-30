@@ -1,6 +1,6 @@
 # 18 — Зависимости
 
-Последняя сверка: 2026-08-05
+Последняя сверка: 2026-08-05 · 2026-08-30 (точечная: marketing-aggregates)
 
 Дополнение 2026-08-12 (`72fc7a5` осн. репо): + Microsoft Clarity (внешний
 сервис аналитики использования; скрипт `https://www.clarity.ms/tag/y1ic13wlta`
@@ -35,10 +35,10 @@ Deno.
 | Импорт | Версия | Назначение | Функции | Источник версии |
 |---|---|---|---|---|
 | `npm:stripe` | **@17** (мажор) | Stripe SDK; `apiVersion` в коде НЕ задан → используется дефолт SDK | stripe-checkout, stripe-webhook, stripe-portal | import-спецификатор |
-| `npm:@supabase/supabase-js` | **@2** (мажор) | service-role клиент БД | 6 функций (все, кроме ticket-email/ticket-issue) | import-спецификатор |
+| `npm:@supabase/supabase-js` | **@2** (мажор) | service-role клиент БД | 7 функций (все, кроме ticket-email/ticket-issue; с 2026-08-30 включая `marketing-aggregates`, ветка `claude/marketing-analytics-aggregates`) | import-спецификатор |
 | `npm:jose` | **@5** (мажор) | JWKS-проверка JWT | stripe-checkout, stripe-portal | import-спецификатор |
 | `npm:@anthropic-ai/sdk` | **не зафиксирована** (без версии в импорте) | Claude API | assistant | import-спецификатор без версии |
-| Deno runtime | **UNKNOWN** (управляется Supabase) | среда исполнения функций | все 8 | — |
+| Deno runtime | **UNKNOWN** (управляется Supabase) | среда исполнения функций | все 9 (8 в `main` + `marketing-aggregates` на ветке) | — |
 
 ## Инструментальные
 
@@ -48,6 +48,7 @@ Deno.
 | `actions/checkout` | **@v4** | клонирование в 4 workflow | `.github/workflows/*.yml` |
 | `anthropics/claude-code-action` | **@v1** | запуск Claude Code по тикету | `.github/workflows/claude-support.yml` |
 | Python 3 (`http.server`) | не зафиксирована | локальный запуск статики (опционально) | `README.md` осн. репо |
+| Node.js флаг `--experimental-strip-types` | требуется Node с поддержкой флага (минимальная версия не зафиксирована) | запуск `scripts/test-marketing-core.mjs`: импорт production-модуля `supabase/functions/marketing-aggregates/core.ts` (TypeScript) напрямую | `scripts/test-marketing-core.mjs` (добавлено 2026-08-30) |
 
 ## Внешние сервисы (версии API)
 

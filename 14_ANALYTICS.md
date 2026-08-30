@@ -1,6 +1,6 @@
 # 14 — Аналитика и сбор событий
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи») · 2026-08-26 (точечная: GA4)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи») · 2026-08-26 (точечная: GA4) · 2026-08-30 (точечная: маркетинговые агрегаты)
 
 Дополнение 2026-08-12 (`72fc7a5` осн. репо): подключён Microsoft Clarity
 (проект «LICENA», Project ID `y1ic13wlta`, аккаунт владельца) — тепловые
@@ -147,6 +147,46 @@ localStorage пользователя и на сервере НЕ существ
 не требуется). Статус на 2026-08-11: код в репозитории, задеплоен ли в
 Supabase — UNKNOWN (за владельцем).
 
+## Дополнение 2026-08-30: слой ежедневных маркетинговых агрегатов
+
+Задача `tasks/MARKETING_ANALYTICS_DAILY_AGGREGATES.md`. Отдельный от письма
+слой аналитики: Edge Function `marketing-aggregates` (ветка
+`claude/marketing-analytics-aggregates` @ `ae13124`; в `main` не смерджена)
+раз в сутки в 15:30 UTC пересчитывает последние 3 завершённых Pacific-дня и
+пишет обезличенные агрегаты в 4 таблицы —
+`marketing_daily_metrics` (день: page_views, unique_devices_raw,
+engaged_devices, signed_in_users, signups, weekly_active_users),
+`marketing_channel_daily` (день × канал: visitors, engaged_visitors, signups,
+views), `marketing_page_daily` (день × путь: views, engaged_visitors),
+`marketing_state_snapshots` (день запуска: active_paid_subscriptions,
+active_trials, trial_to_paid_count). Схема и RLS — `04_DATABASE.md`,
+устройство функции — `06_FUNCTIONS.md`.
+
+Отличия от ежедневного письма (оба слоя читают один и тот же `page_views`):
+- письмо остаётся источником оперативной картины и НЕ изменялось (диффа в
+  `supabase/functions/daily-stats/index.ts` нет);
+- агрегаты хранят историю в БД, поэтому пригодны для запросов за 7/30 дней
+  без пересборки писем;
+- «вовлечённое устройство» = ≥ 2 просмотра за день; окно атрибуции канала
+  устройства здесь фиксированное — 28 дней до конца целевого дня (у письма —
+  скользящее 8-дневное), что делает пересчёт любого дня детерминированным;
+- таксономия каналов побайтово совпадает с письмом
+  (`scripts/check-channel-parity.js`);
+- тестеры (`profiles.is_tester`) исключены из пользовательских метрик; на
+  уровне устройств до входа фильтрация невозможна — то же ограничение, что у
+  письма.
+
+Персональных данных слой не хранит: только счётчики по дню/каналу/пути.
+
+Фактическое состояние на 2026-08-30 (подтверждено выводом Supabase Dashboard,
+`tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`): таблицы
+созданы, функция задеплоена, выполнен backfill за 30 завершённых PT-дней
+(2026-07-30 … 2026-08-28) — 30 строк в `marketing_daily_metrics`, 62 в
+`marketing_channel_daily`, 491 в `marketing_page_daily`; повторный
+идентичный запуск не создал дублей; cron-задача зарегистрирована и активна.
+Первый автоматический запуск по расписанию на дату сверки ещё не состоялся
+(UNKNOWN).
+
 ## Source References
 
 - `js/stats.js`, `js/pageview.js` — полностью
@@ -156,6 +196,13 @@ Supabase — UNKNOWN (за владельцем).
 - grep-проверка отсутствия сторонних трекеров (index/app/course + `js/*.js`)
 - `js/ga.js`, `index.html` (образец вставки GA4 + расширенного CSP),
   коммит `fca5fb2` осн. репо (список всех 171+167 затронутых страниц)
+- `supabase/functions/marketing-aggregates/core.ts` и `index.ts`,
+  `supabase/sql/marketing-daily-aggregates.sql`,
+  `supabase/sql/cron-marketing-aggregates.sql`,
+  `scripts/check-channel-parity.js` (ветка
+  `claude/marketing-analytics-aggregates` @ `ae13124`)
+- `tasks/MARKETING_ANALYTICS_DAILY_AGGREGATES.md`,
+  `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`
 
 ## Verification Status
 
