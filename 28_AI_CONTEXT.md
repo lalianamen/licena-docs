@@ -219,12 +219,14 @@ googletagmanager/google-analytics/analytics.google.com. Детали и покр
   `supabase/sql/marketing-daily-aggregates.sql`,
   `supabase/sql/cron-marketing-aggregates.sql`,
   `scripts/test-marketing-core.mjs`, `scripts/check-channel-parity.js`.
-  Ежедневное письмо `daily-stats` — отдельный слой, НЕ изменялось (диффа нет);
-  таксономия каналов у двух слоёв должна оставаться побайтово одинаковой
-  (`node scripts/check-channel-parity.js`) — правка бакетов каналов
-  автоматически меняет и письмо владельца. Канал `other` = любой реферер,
-  кроме FB/IG/TG/TikTok, поэтому органика поисковиков попадает туда; `direct`
-  = пустой `document.referrer`. Детали: `06_FUNCTIONS.md`, `04_DATABASE.md`,
+  Ежедневное письмо `daily-stats` — отдельный слой; 2026-08-30 (`c2e9dd6`) в
+  нём изменён ТОЛЬКО блок таксономии каналов и подписи строк разбивки.
+  Таксономия каналов у двух слоёв обязана оставаться побайтово одинаковой
+  (`node scripts/check-channel-parity.js`) — правка бакетов автоматически
+  меняет и письмо владельца, и требует переразвёртывания ОБЕИХ функций.
+  Бакеты с 2026-08-30: `direct` (пустой `document.referrer`), `flyer`,
+  `facebook`, `instagram`, `telegram`, `tiktok`, `search`, `ai`, `other`;
+  до этой даты поиск и AI-трафик попадали в `other`. Детали: `06_FUNCTIONS.md`, `04_DATABASE.md`,
   `14_ANALYTICS.md`,
   `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`,
   `tasks/reports/2026-08-30-marketing-analytics-activation-response.md`.

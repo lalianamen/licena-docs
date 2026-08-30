@@ -68,7 +68,13 @@ Adaptive Intake v2 — 12 новых колонок в `public.license_roadmaps`
   `CHECK (>= 0)`), computed_at timestamptz, source_version text.
 - `public.marketing_channel_daily` — PK (day, channel); channel text с
   закрытым `CHECK` по списку таксономии; visitors, engaged_visitors, signups,
-  views (`CHECK (>= 0)`), computed_at.
+  views (`CHECK (>= 0)`), computed_at. Список каналов расширен 2026-08-30
+  (`c2e9dd6`, `supabase/sql/marketing-channels-search-ai.sql`) значениями
+  `search` и `ai`: `('direct','flyer','facebook','instagram','telegram',
+  'tiktok','search','ai','other')`. Отдельный ALTER-файл нужен потому, что
+  `create table if not exists` не меняет уже существующую таблицу; его
+  требуется выполнить ДО переразвёртывания функции, иначе запись `search`
+  срывает транзакцию замены дня.
 - `public.marketing_page_daily` — PK (day, path); path text с `CHECK` на длину;
   views, engaged_visitors (`CHECK (>= 0)`), computed_at.
 - `public.marketing_state_snapshots` — day date PK; active_paid_subscriptions,
