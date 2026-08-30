@@ -151,7 +151,7 @@ Supabase — UNKNOWN (за владельцем).
 
 Задача `tasks/MARKETING_ANALYTICS_DAILY_AGGREGATES.md`. Отдельный от письма
 слой аналитики: Edge Function `marketing-aggregates` (ветка
-`claude/marketing-analytics-aggregates` @ `ae13124`; в `main` не смерджена)
+`main` @ `ae13124`, мерж 2026-08-30)
 раз в сутки в 15:30 UTC пересчитывает последние 3 завершённых Pacific-дня и
 пишет обезличенные агрегаты в 4 таблицы —
 `marketing_daily_metrics` (день: page_views, unique_devices_raw,
@@ -200,7 +200,7 @@ active_trials, trial_to_paid_count). Схема и RLS — `04_DATABASE.md`,
   `supabase/sql/marketing-daily-aggregates.sql`,
   `supabase/sql/cron-marketing-aggregates.sql`,
   `scripts/check-channel-parity.js` (ветка
-  `claude/marketing-analytics-aggregates` @ `ae13124`)
+  `main` @ `ae13124`)
 - `tasks/MARKETING_ANALYTICS_DAILY_AGGREGATES.md`,
   `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`
 

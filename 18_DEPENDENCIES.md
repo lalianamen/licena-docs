@@ -35,7 +35,7 @@ Deno.
 | Импорт | Версия | Назначение | Функции | Источник версии |
 |---|---|---|---|---|
 | `npm:stripe` | **@17** (мажор) | Stripe SDK; `apiVersion` в коде НЕ задан → используется дефолт SDK | stripe-checkout, stripe-webhook, stripe-portal | import-спецификатор |
-| `npm:@supabase/supabase-js` | **@2** (мажор) | service-role клиент БД | 7 функций (все, кроме ticket-email/ticket-issue; с 2026-08-30 включая `marketing-aggregates`, ветка `claude/marketing-analytics-aggregates`) | import-спецификатор |
+| `npm:@supabase/supabase-js` | **@2** (мажор) | service-role клиент БД | 7 функций (все, кроме ticket-email/ticket-issue; с 2026-08-30 включая `marketing-aggregates`) | import-спецификатор |
 | `npm:jose` | **@5** (мажор) | JWKS-проверка JWT | stripe-checkout, stripe-portal | import-спецификатор |
 | `npm:@anthropic-ai/sdk` | **не зафиксирована** (без версии в импорте) | Claude API | assistant | import-спецификатор без версии |
 | Deno runtime | **UNKNOWN** (управляется Supabase) | среда исполнения функций | все 9 (8 в `main` + `marketing-aggregates` на ветке) | — |

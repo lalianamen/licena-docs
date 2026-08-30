@@ -209,22 +209,25 @@ googletagmanager/google-analytics/analytics.google.com. Детали и покр
   читает из скрытых/встроенных `data-t`-элементов (`#lq-right`,
   `#gc-pb-*`, `.un`) — не переименовывать эти id/классы.
 
-- (дополнение 2026-08-30) **Маркетинговые агрегаты — код НЕ в `main`, но
-  работает в production.** Расхождение, важное для любой новой сессии:
-  Edge Function `marketing-aggregates` задеплоена на живой проект, 4 таблицы
-  `marketing_*` созданы, cron `30 15 * * *` активен, но исходники лежат
-  ТОЛЬКО на ветке `claude/marketing-analytics-aggregates` @ `ae13124` —
-  мерж в `main` на дату сверки не выполнен (в сессии мерж заблокирован
-  политикой окружения). Прежде чем править эту функцию — брать код с ветки,
-  не с `main`. Файлы: `supabase/functions/marketing-aggregates/{core.ts,index.ts}`,
+- (дополнение 2026-08-30, уточнено в тот же день) **Маркетинговые агрегаты —
+  в `main` и в production.** `main` осн. репо = `ae13124` (мерж выполнен
+  2026-08-30 по указанию владельца; ранее в этом же документе значилось, что
+  мерж не выполнен — запись отменяется этой). Edge Function
+  `marketing-aggregates` задеплоена на живой проект, 4 таблицы `marketing_*`
+  созданы, cron `30 15 * * *` активен, записан backfill за 30 завершённых
+  PT-дней. Файлы: `supabase/functions/marketing-aggregates/{core.ts,index.ts}`,
   `supabase/sql/marketing-daily-aggregates.sql`,
   `supabase/sql/cron-marketing-aggregates.sql`,
   `scripts/test-marketing-core.mjs`, `scripts/check-channel-parity.js`.
   Ежедневное письмо `daily-stats` — отдельный слой, НЕ изменялось (диффа нет);
   таксономия каналов у двух слоёв должна оставаться побайтово одинаковой
-  (`node scripts/check-channel-parity.js`). Детали: `06_FUNCTIONS.md`,
-  `04_DATABASE.md`, `14_ANALYTICS.md`,
-  `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`.
+  (`node scripts/check-channel-parity.js`) — правка бакетов каналов
+  автоматически меняет и письмо владельца. Канал `other` = любой реферер,
+  кроме FB/IG/TG/TikTok, поэтому органика поисковиков попадает туда; `direct`
+  = пустой `document.referrer`. Детали: `06_FUNCTIONS.md`, `04_DATABASE.md`,
+  `14_ANALYTICS.md`,
+  `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`,
+  `tasks/reports/2026-08-30-marketing-analytics-activation-response.md`.
 
 ## Расхождения, зафиксированные при сверке (факты, без оценок)
 

@@ -59,8 +59,8 @@ Adaptive Intake v2 — 12 новых колонок в `public.license_roadmaps`
   закомментированный `DROP COLUMN IF EXISTS` в том же файле (обратимая
   миграция; данные дублируются в jsonb).
 Статус применения в Supabase на 2026-08-29: UNKNOWN — за владельцем.
-Дополнение 2026-08-30 (ветка `claude/marketing-analytics-aggregates` @ `ae13124`
-осн. репо, `supabase/sql/marketing-daily-aggregates.sql`): слой обезличенных
+Дополнение 2026-08-30 (`main` @ `ae13124` осн. репо,
+`supabase/sql/marketing-daily-aggregates.sql`): слой обезличенных
 маркетинговых агрегатов. В отличие от блоков выше — **применён на живой базе
 владельцем 2026-08-30** (подтверждение: `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`).
 - `public.marketing_daily_metrics` — day date PK; page_views, unique_devices_raw,

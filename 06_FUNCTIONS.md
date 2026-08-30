@@ -150,8 +150,8 @@
 
 Добавлено 2026-08-30. Задеплоена на живой проект владельцем 2026-08-30
 (подтверждение: `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md`);
-исходники — ветка `claude/marketing-analytics-aggregates` @ `ae13124`, в `main`
-на дату сверки НЕ смерджены.
+исходники в `main` @ `ae13124` (мерж 2026-08-30; разработка велась на ветке
+`claude/marketing-analytics-aggregates`).
 
 - Назначение: пишет обезличенные ежедневные агрегаты в `marketing_daily_metrics`,
   `marketing_channel_daily`, `marketing_page_daily` и снепшот текущего состояния
@@ -250,7 +250,7 @@ ticket-issue, daily-stats); `TICKET_WEBHOOK_SECRET` (ticket-*);
   `supabase/sql/marketing-daily-aggregates.sql`,
   `supabase/sql/cron-marketing-aggregates.sql`,
   `scripts/test-marketing-core.mjs`, `scripts/check-channel-parity.js`
-  (ветка `claude/marketing-analytics-aggregates` @ `ae13124`; добавлено 2026-08-30)
+  (`main` @ `ae13124`; добавлено 2026-08-30)
 - `tasks/reports/2026-08-30-marketing-aggregates-db-validation.md` (факт деплоя)
 - `supabase/functions/gsc-sync/index.ts` (добавлено 2026-08-25)
 
