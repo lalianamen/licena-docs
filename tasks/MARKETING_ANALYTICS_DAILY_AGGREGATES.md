@@ -6,6 +6,12 @@
 
 **READY_FOR_REVIEW** (Review 3)
 
+2026-08-30: Review 3 — исправление DST проверено по коду и тестам.
+Решение: **CODE CORRECTION VERIFIED — READY FOR DATABASE VALIDATION**.
+Отчёт: `tasks/reviews/2026-08-30-marketing-aggregates-review-3.md`.
+Это не `APPROVED_FOR_MAIN`: проверки migration/RLS/RPC/advisors на branch DB
+ещё не выполнены.
+
 2026-08-29 08:20 UTC: узкое замечание Review 2 (DST-unsafe target days)
 исправлено — календарная арифметика от текущей PT-даты
 (core.targetDaysBack); оба repro-кейса ревью дают корректный ответ;
