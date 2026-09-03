@@ -43,9 +43,9 @@
 | `23_SMM_STATE.md` | не создан | — | — |
 | `24_RISKS.md` | не создан | — | — |
 | `25_DECISIONS.md` | не создан | — | — |
-| `26_CHANGELOG.md` | заполнен | 2026-08-30 | Partially Verified |
+| `26_CHANGELOG.md` | заполнен | 2026-09-03 | Partially Verified |
 | `27_ROADMAP.md` | не создан | — | — |
-| `28_AI_CONTEXT.md` | заполнен | 2026-08-30 | Partially Verified |
+| `28_AI_CONTEXT.md` | заполнен | 2026-09-03 | Partially Verified |
 | `29_BUSINESS_FRAMEWORK.md` | не создан | — | — |
 | `30_CTO_REPORT.md` | не создан (будет создан пустым; заполняет ChatGPT) | — | — |
 | `RELEASE_SUMMARY.md` | не создан | — | — |
