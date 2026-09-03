@@ -32,7 +32,7 @@
 | `12_SEO.md` | заполнен | 2026-08-27 | Partially Verified |
 | `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-29 | Partially Verified |
 | `14_ANALYTICS.md` | заполнен | 2026-08-30 | Verified (по коду; часть живых данных подтверждена выгрузками владельца, первый запуск cron — UNKNOWN) |
-| `15_METRICS.md` | заполнен | 2026-08-30 | Partially Verified |
+| `15_METRICS.md` | заполнен | 2026-09-03 | Partially Verified |
 | `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `17_TECH_DEBT.md` | заполнен | 2026-08-05 | Partially Verified |
 | `18_DEPENDENCIES.md` | заполнен | 2026-08-30 | Verified |
