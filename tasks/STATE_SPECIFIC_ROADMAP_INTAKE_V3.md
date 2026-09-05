@@ -2,7 +2,20 @@
 
 ## Status
 
-**READY_FOR_REVIEW** (после корректировки Experience Builder)
+**READY_FOR_REVIEW** (после Consolidated Roadmap Corrections)
+
+2026-09-05, позже (запись Claude): по сводной спецификации владельца от 2026-09-05
+(CHANGES_REQUESTED, 12 разделов) выполнены три малых коммита в ветке
+`claude/state-specific-intake-v3`: `01dc5a1` (Месяц + Год двумя полями, даты без
+сдвига зоны, время/место экзаменов, заметки), `1ba33e0` («Для кого лицензия?»,
+DBA в подготовке заявления, «Ваш путь», одна сводка + «Все ответы», палитра),
+`755f49a` (правила штата в `ROADMAP_RULES[state]`, Arizona из статутов azleg.gov,
+`roadmap-az.html`, контекст «штат · классификация», перенос периодов с
+подтверждением, перепроверка после смены классификации). Discovery report — до
+изменений. Отчёт: `tasks/reports/2026-09-05-consolidated-roadmap-corrections.md`.
+`test-roadmap-v3.mjs` 138/138, `verify.js` чист, Playwright dates 34 / biz 40 /
+az 50 / регрессия 52+48+39+68. Превью пересобрано с `755f49a` по той же ссылке.
+Мерж/деплой не выполнялись, миграций нет; `main` осн. репо остаётся `c2e9dd6`.
 
 2026-09-05 (запись Claude): по спецификации владельца от 2026-09-05 (CHANGES_REQUESTED
 по результатам проверки preview) Experience Builder скорректирован: уровень работы
