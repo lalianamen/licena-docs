@@ -2,7 +2,23 @@
 
 ## Status
 
-**READY_FOR_REVIEW** (после Consolidated Roadmap Corrections)
+**READY_FOR_REVIEW** (после исправления противоречий intake, `ef5fd71`)
+
+2026-09-05, ещё позже (запись Claude): по спецификации владельца «исправление
+противоречий intake и проверка licensing roadmap» (CHANGES_REQUESTED) в ветке
+`claude/state-specific-intake-v3` сделан один коммит `ef5fd71` поверх `755f49a`:
+исправлены шесть противоречий A–F (уровень «Contractor» без истории лицензий;
+устаревший `companyLicensed` после «никогда»; общий номер лицензии; сброс статуса
+Law при выборе Trade; reciprocity по факту любой лицензии другого штата; «выдана» =
+оба экзамена сданы), правила CSLB сверены с официальными страницами (renew ≤5 лет /
+reapply, clear_suspension, условия reciprocity, 18 мес / 21 день / 5 лет, Live Scan
+90 дней, сборы, contractor bond, Bond of Qualifying Individual, LLC, workers' comp,
+asbestos); holder-вопрос разбит на «на кого лицензия» → «компания уже существует?».
+Отчёт: `tasks/reports/2026-09-05-intake-contradictions.md`. `test-roadmap-v3.mjs`
+155/155, `verify.js` чист, Playwright: новая `bugs-suite` 27 + регрессия cv 55 /
+cv2 48 / exp 39 / exp2 68 / dates 34 / biz 41 / az 50, 0 ошибок консоли. Превью
+пересобрано с `ef5fd71` по той же ссылке. Мерж/деплой не выполнялись, миграций нет.
+ROC-страницы по-прежнему HTTP 403 — непроверенные правила Arizona перечислены в отчёте.
 
 2026-09-05, позже (запись Claude): по сводной спецификации владельца от 2026-09-05
 (CHANGES_REQUESTED, 12 разделов) выполнены три малых коммита в ветке
