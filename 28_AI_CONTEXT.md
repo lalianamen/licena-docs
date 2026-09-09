@@ -268,9 +268,12 @@ nv-c2, COURSE_REF, bank-updates — NV станет 6/6, лимит) → CSV.
   `docs/smm/queue-fb/` (Facebook) и запушить в `main` — workflow постит сам.
 - Промо-видео (2026-09-09, ветка `claude/lasena-video-creation-bgxgc9`, в
   `main` НЕ смержено): `docs/smm/video/licena-promo.html` — HTML+GSAP-композиция
-  в токенах сайта, `?lang=en|es|ru`, `?fmt=v|w`; готовые MP4 —
-  `docs/smm/video/out/`; перерендер — `render.mjs` (Playwright + ffmpeg
-  libx264), источники каждой строки и инструкция — `docs/smm/video/README.md`.
+  в токенах сайта, `?lang=en|es|ru`, `?fmt=v|w`; готовые MP4 со звуком —
+  `docs/smm/video/out/` (озвучка edge-tts из `vo/script.py`, музыка и SFX
+  синтезируются в `audio.py`, сборка `mux.py`; тайминг сцен держится по
+  длительностям реплик `VO_DUR`: EN ≈ 59 с, ES ≈ 63 с, RU ≈ 64 с); перерендер —
+  `render.mjs` → `audio.py` → `mux.py`, источники каждой строки и инструкция —
+  `docs/smm/video/README.md`.
   В `docs/smm/queue*/` не кладётся — автопостинг не срабатывает.
 - Контент-аудит банков: очередь `docs/content-audit/queue.json`
   (статусы pending/done, политика «UNVERIFIED флагуется, не правится»).
