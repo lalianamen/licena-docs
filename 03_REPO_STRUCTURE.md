@@ -1,6 +1,6 @@
 # 03 — Структура основного репозитория (`lalianamen/llicena`)
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор) · 2026-08-13 (точечная: css/exam-dark.css — тёмная палитра C-10-пилота, подключается только 3 страницами C-10; см. 13_UX.md)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор) · 2026-09-09 (точечная: `docs/smm/video/` — промо-видео, ветка не в `main`) · 2026-08-13 (точечная: css/exam-dark.css — тёмная палитра C-10-пилота, подключается только 3 страницами C-10; см. 13_UX.md)
 Состояние: ветка `main`, 357 файлов (без `.git`). Ниже — полная структура с
 назначением; роли взяты из header-комментариев самих файлов и `CLAUDE.md`
 основного репо.
@@ -90,6 +90,7 @@ full-bleed банды, `body{overflow-x:clip}`; auth-модал и саппор�
 | `docs/email/confirm-signup.html` | Шаблон письма подтверждения |
 | `docs/marketing/` | Лейн marketing: `plan-2026-H2.md`, `growth-narrow-first-2026-07.md`, `seo-audit-2026-07-19.md`, `seo-backlog.md`, `decisions-log.md`, `gsc-readout-2026-08.md`, `spec-per-exam-pages.md`, `flyer/` (HTML+PDF флаеры 4×6/A6, EN-ES) |
 | `docs/smm/` | Лейн smm: пост-паки по датам, `calendar.md`, лончкиты Instagram/TikTok, `queue/` и `queue-fb/` (txt-файлы → автопост через GitHub Actions), расписания |
+| `docs/smm/video/` | Промо-видео (ветка `claude/lasena-video-creation-bgxgc9`, в `main` НЕ смержено, 2026-09-09): композиция `licena-promo.html` (HTML + GSAP 3.12.5; копия EN/ES/RU в таблице `STR`; `?lang=en\|es\|ru`, `?fmt=v` 1080×1920 / `?fmt=w` 1920×1080; `?render=1` → `window.__seek(t)`), `render.mjs` (Playwright Chromium → JPEG-кадры → ffmpeg libx264, 30 fps, yuv420p), `contact.mjs` (контактный лист), `build-preview.mjs` (однофайловый превью-плеер), `fonts/` (Archivo, IBM Plex Sans/Mono — latin + cyrillic, OFL), `vendor/gsap.min.js`, `out/` (MP4: `licena-promo-{en,es,ru}-9x16.mp4`, `licena-promo-en-16x9.mp4`; 47,2 с, без звука), `README.md` (раскадровка с источником каждой строки, перерендер) |
 
 ## `supabase/` — бэкенд как код
 
