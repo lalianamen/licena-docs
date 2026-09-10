@@ -1,6 +1,6 @@
 # 03 — Структура основного репозитория (`lalianamen/llicena`)
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор) · 2026-08-13 (точечная: css/exam-dark.css — тёмная палитра C-10-пилота, подключается только 3 страницами C-10; см. 13_UX.md)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор) · 2026-08-13 (точечная: css/exam-dark.css — тёмная палитра C-10-пилота, подключается только 3 страницами C-10; см. 13_UX.md) · 2026-09-10 (точечная: `docs/smm/video/`)
 Состояние: ветка `main`, 357 файлов (без `.git`). Ниже — полная структура с
 назначением; роли взяты из header-комментариев самих файлов и `CLAUDE.md`
 основного репо.
@@ -89,7 +89,7 @@ full-bleed банды, `body{overflow-x:clip}`; auth-модал и саппор�
 | `docs/content-audit/queue.json` | Очередь автоматической контент-сверки банков по официальным источникам (cron; статусы pending/done) |
 | `docs/email/confirm-signup.html` | Шаблон письма подтверждения |
 | `docs/marketing/` | Лейн marketing: `plan-2026-H2.md`, `growth-narrow-first-2026-07.md`, `seo-audit-2026-07-19.md`, `seo-backlog.md`, `decisions-log.md`, `gsc-readout-2026-08.md`, `spec-per-exam-pages.md`, `flyer/` (HTML+PDF флаеры 4×6/A6, EN-ES) |
-| `docs/smm/` | Лейн smm: пост-паки по датам, `calendar.md`, лончкиты Instagram/TikTok, `queue/` и `queue-fb/` (txt-файлы → автопост через GitHub Actions), расписания |
+| `docs/smm/` | Лейн smm: пост-паки по датам, `calendar.md`, лончкиты Instagram/TikTok, `queue/` и `queue-fb/` (txt-файлы → автопост через GitHub Actions), расписания; `video/c20-fall-protection/` (2026-09-10, ветка `claude/lasena-30sec-video-rkeqq6`: `index.html`-анимация + `render.js` → `out/*.mp4` EN/ES/RU + `out/cover-*.png`, `fonts/*.woff2`) |
 
 ## `supabase/` — бэкенд как код
 
