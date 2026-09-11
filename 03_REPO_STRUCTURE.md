@@ -95,7 +95,7 @@ full-bleed банды, `body{overflow-x:clip}`; auth-модал и саппор�
 
 | Путь | Назначение |
 |---|---|
-| `functions/assistant/` | AI-саппорт (Claude `claude-sonnet-4-6`, web search) |
+| `functions/assistant/` | AI-саппорт (Claude `claude-sonnet-4-6` в `main`; на ветке `claude/cool-maxwell-dw6toy` @ `a3d05d6` — `claude-haiku-4-5` (решение владельца 2026-09-11, не смержено, функция не передеплоена), web search) |
 | `functions/stripe-checkout/` | Checkout-сессия $20/мес за курс (14 платных курсов) |
 | `functions/stripe-webhook/` | Единственный источник выдачи доступа (`user_courses`) |
 | `functions/stripe-portal/` | Портал управления подпиской |

@@ -119,7 +119,7 @@ fail-open: сбой бэкенда никого не блокирует.
 
 ## Саппорт и автоматизация
 
-- AI-ассистент: Edge Function `assistant`, модель `claude-sonnet-4-6`,
+- AI-ассистент: Edge Function `assistant`, модель `claude-sonnet-4-6` в `main`; на ветке `claude/cool-maxwell-dw6toy` @ `a3d05d6` — `claude-haiku-4-5` (решение владельца 2026-09-11, не смержено, функция не передеплоена),
   веб-поиск на стороне функции; ключ API в браузер не попадает
   (`js/support.js`, `supabase/functions/assistant/index.ts`).
 - Тикеты: `support_tickets` + Storage для вложений + триггеры

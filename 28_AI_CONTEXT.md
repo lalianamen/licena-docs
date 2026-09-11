@@ -237,6 +237,19 @@ only»; `app-course.js` v72. Четвёртый коммит `564182a` (реше
 ключ + «✗ No answer»; `app-course.js` v73, `course.css` v38. Ветка
 по-прежнему READY_FOR_REVIEW, в `main` не мержилась.
 
+Дополнение 2026-09-11 (вечер): по выгрузке расхода API за 2026-08-29 (один
+запуск claude[bot] по issue #188 на Opus 5: 9,87 млн токенов чтения кэша,
+102 тыс. выхода, ≈ $9 по прайсу за discovery-отчёт без ветки; Haiku 4.5 —
+служебные вызовы Claude Code с двумя веб-поисками, ≈ $0,11) владелец решил:
+всё, что идёт через чат-бот, работает не выше Haiku 4.5. Коммит `a3d05d6`
+на ветке `claude/cool-maxwell-dw6toy` (не смержено): Edge Function
+`assistant` — `MODEL` `claude-sonnet-4-6` → `claude-haiku-4-5`, инструмент
+веб-поиска → базовый `web_search_20250305`; `claude-support.yml` —
+`--model claude-haiku-4-5` в `claude_args`. Вступает в силу только после
+мержа И `supabase functions deploy assistant` (функция деплоится отдельно
+от `main`). Стоимость по прайсу: Haiku 4.5 $1/$5 за MTok против $3/$15 у
+Sonnet 4.6 и $5/$25 у Opus 5.
+
 ## Ключевые инварианты (нарушение = сломанный прод)
 
 1. **Деплой = push в `main`**: GitHub Pages отдаёт ветку как есть. Никаких
@@ -289,7 +302,7 @@ only»; `app-course.js` v72. Четвёртый коммит `564182a` (реше
 - SEO-голова: только `js/seo.js` (лейн marketing) + `sitemap.xml` + `robots.txt`;
   при правках HTML-страниц бампать `?v=` по спеке marketing.
 - AI-саппорт: `supabase/functions/assistant/index.ts`, модель
-  `claude-sonnet-4-6`; список фактов о продукте зашит в промпт функции —
+  `claude-sonnet-4-6` в `main`; на ветке `claude/cool-maxwell-dw6toy` @ `a3d05d6` — `claude-haiku-4-5` (решение владельца 2026-09-11, не смержено, функция не передеплоена); список фактов о продукте зашит в промпт функции —
   при изменении продукта его тоже надо обновлять.
 - Автопостинг соцсетей: положить `.txt` в `docs/smm/queue/` (Telegram) или
   `docs/smm/queue-fb/` (Facebook) и запушить в `main` — workflow постит сам.

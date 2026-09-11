@@ -78,7 +78,7 @@ UPDATE→done/rejected) и `ticket-issue` (INSERT request/complaint) — заг�
 | Сервис | Кто вызывает | Что используется |
 |---|---|---|
 | Stripe API (npm `stripe@17`) | `stripe-checkout`, `stripe-portal`, `stripe-webhook` | `customers.create`, `checkout.sessions.create` (mode subscription, price_data $20/usd/month), `billingPortal`-сессии, `subscriptions.retrieve/update`, верификация вебхуков |
-| Anthropic Claude API (npm `@anthropic-ai/sdk`) | `assistant` | model `claude-sonnet-4-6`, web search, tools (запись тикетов), лимиты: 6 ходов, 40 сообщений, 8000 символов |
+| Anthropic Claude API (npm `@anthropic-ai/sdk`) | `assistant` | model `claude-sonnet-4-6` в `main`; на ветке `claude/cool-maxwell-dw6toy` @ `a3d05d6` — `claude-haiku-4-5` (решение владельца 2026-09-11, не смержено, функция не передеплоена), web search, tools (запись тикетов), лимиты: 6 ходов, 40 сообщений, 8000 символов |
 | Resend | `ticket-email`, `ticket-issue`, `daily-stats` | транзакционные письма от `noreply@licena.us` |
 | GitHub REST API | `ticket-issue` (создание issue); workflow `claude-support` (`anthropics/claude-code-action@v1`, секрет `ANTHROPIC_API_KEY`) | issues в `lalianamen/llicena` |
 | Telegram Bot API | workflow `telegram-post.yml` | `POST https://api.telegram.org/bot<TOKEN>/sendMessage` при push `docs/smm/queue/*.txt` |

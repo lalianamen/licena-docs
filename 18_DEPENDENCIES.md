@@ -57,8 +57,8 @@ Deno.
 | GitHub Pages | n/a | хостинг статики с `main` | `CNAME`, `.nojekyll`, README |
 | Supabase | проект `vewhmndummfhnbxnrqya.supabase.co`; план/регион UNKNOWN | БД, Auth, Functions, Storage, pg_cron/pg_net | `js/supabase-client.js` |
 | Stripe API | версия не пиннится (SDK-дефолт stripe@17) | подписки $20/мес | три stripe-функции |
-| Anthropic API | модель **`claude-sonnet-4-6`** | AI-саппорт | `assistant/index.ts:18` |
-| Anthropic API (CI) | модель UNKNOWN (выбирает claude-code-action) | работа тикетов | `claude-support.yml` |
+| Anthropic API | модель **`claude-sonnet-4-6` в `main`; на ветке `claude/cool-maxwell-dw6toy` @ `a3d05d6` — `claude-haiku-4-5` (решение владельца 2026-09-11, не смержено, функция не передеплоена)** | AI-саппорт | `assistant/index.ts:18` |
+| Anthropic API (CI) | модель: в `main` UNKNOWN (выбирает claude-code-action); на ветке `claude/cool-maxwell-dw6toy` @ `a3d05d6` — `claude-haiku-4-5` (`--model` в `claude_args`, решение владельца 2026-09-11, не смержено) | работа тикетов | `claude-support.yml` |
 | Resend | HTTP API, версия не пиннится | письма от `noreply@licena.us` | ticket-email, ticket-issue, daily-stats |
 | Telegram Bot API | версия не пиннится | автопост в `@licena_us` | `telegram-post.yml` |
 | Facebook Graph API | **v23.0** (в URL) | автопост на страницу | `facebook-post.yml:71` |

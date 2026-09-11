@@ -19,11 +19,11 @@
 | `CLAUDE.md` | заполнен | 2026-08-05 | n/a — правила, заданные владельцем, а не факты проекта |
 | `README.md` | заполнен | 2026-08-05 | Verified |
 | `01_PROJECT_OVERVIEW.md` | заполнен | 2026-08-05 | Partially Verified |
-| `02_ARCHITECTURE.md` | заполнен | 2026-08-05 | Partially Verified |
-| `03_REPO_STRUCTURE.md` | заполнен | 2026-08-13 | Partially Verified |
+| `02_ARCHITECTURE.md` | заполнен | 2026-09-11 | Partially Verified |
+| `03_REPO_STRUCTURE.md` | заполнен | 2026-09-11 | Partially Verified |
 | `04_DATABASE.md` | заполнен | 2026-08-30 | Partially Verified |
-| `05_API.md` | заполнен | 2026-08-05 | Partially Verified |
-| `06_FUNCTIONS.md` | заполнен | 2026-08-30 | Verified |
+| `05_API.md` | заполнен | 2026-09-11 | Partially Verified |
+| `06_FUNCTIONS.md` | заполнен | 2026-09-11 | Verified |
 | `07_AUTH_ACCESS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `08_SECURITY.md` | заполнен | 2026-08-30 | Partially Verified |
 | `09_PAYMENTS.md` | заполнен | 2026-08-05 | Partially Verified |
@@ -35,10 +35,10 @@
 | `15_METRICS.md` | заполнен | 2026-09-03 | Partially Verified |
 | `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `17_TECH_DEBT.md` | заполнен | 2026-08-05 | Partially Verified |
-| `18_DEPENDENCIES.md` | заполнен | 2026-08-30 | Verified |
+| `18_DEPENDENCIES.md` | заполнен | 2026-09-11 | Verified |
 | `19_INFRASTRUCTURE.md` | заполнен | 2026-08-13 | Partially Verified |
 | `20_VERIFICATION.md` | заполнен | 2026-08-30 | Verified |
-| `21_AGENT_PROCESS.md` | заполнен | 2026-08-05 | Partially Verified |
+| `21_AGENT_PROCESS.md` | заполнен | 2026-09-11 | Partially Verified |
 | `22_MARKETING_STATE.md` | не создан | — | — |
 | `23_SMM_STATE.md` | не создан | — | — |
 | `24_RISKS.md` | не создан | — | — |
