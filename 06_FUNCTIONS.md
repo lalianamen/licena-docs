@@ -10,7 +10,7 @@
 Серверный прокси к Claude API для чат-виджета (`js/support.js`); ключ API
 никогда не попадает в браузер.
 
-- Модель: `claude-sonnet-4-6` в `main`; на ветке `claude/cool-maxwell-dw6toy` @ `a3d05d6` — `claude-haiku-4-5` (решение владельца 2026-09-11, не смержено, функция не передеплоена) (константа `MODEL`); `max_tokens: 1024`.
+- Модель: `claude-haiku-4-5` в `main` с `e266e4b` (PR #190, решение владельца 2026-09-11; до `a3d05d6` — `claude-sonnet-4-6`); задеплоенная функция — UNKNOWN до `supabase functions deploy assistant` (константа `MODEL`); `max_tokens: 1024`.
 - Лимиты: `MAX_TURNS=6` (tool-use цикл), `MAX_MESSAGES=40`, `MAX_CHARS=8000`.
 - Системный промпт (в файле): что такое LICENA (три языка, CA+AZ, «не школа,
   не гарантирует сдачу»); беты нет с 2026-07-31, платно с 2026-08-01;
@@ -26,7 +26,7 @@
 - `STATE_NOTES` — per-state контекст (ca: список курсов CA-кабинета;
   az: SRE + бесплатные федеральные, AZ trade-банков нет — предлагать тикет,
   ссылки на гайды licena.us).
-- `TOOLS`: `web_search_20260209` в `main` (на ветке @ `a3d05d6` — базовый `web_search_20250305`: вариант 20260209 требует Opus 4.6+ / Sonnet 4.6+, Haiku 4.5 его не принимает) (server-side) и `create_ticket`
+- `TOOLS`: `web_search_20250305` в `main` с `e266e4b` (базовый вариант — Haiku 4.5 не принимает `web_search_20260209`, который требует Opus 4.6+ / Sonnet 4.6+) (server-side) и `create_ticket`
   (input_schema: kind `request|complaint`, summary, email — required;
   course_id, target_lang — optional) → INSERT в `support_tickets`
   service role'ом; id тикета возвращается виджету (`ticketId`).

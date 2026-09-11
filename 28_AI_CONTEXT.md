@@ -269,6 +269,14 @@ licena.us (`roadmap.css?v=19`); блок `.rm-cab` в кабинете снов�
 ни одной из этих правок. Статус задач Intake V3 в `tasks/` этой сессией не
 менялся — их закрытие (`DONE`) ведёт сессия, которая делала выкладку.
 
+Дополнение 2026-09-11 (ночь): ветка `claude/cool-maxwell-dw6toy` ВЛИТА в
+`main` — `e266e4b` (PR #190, разрешение владельца). На сайте: пересдача
+ошибок в плеере (`app-course.js` v73), лимит Haiku 4.5 в коде чат-бота,
+карточка роадмапа кабинета читаема в тёмной теме (`roadmap.css` v20).
+Выкладка GitHub Pages: проверено curl 2026-09-11 через ~50 с после мержа — licena.us отдаёт `roadmap.css?v=20` (с `background:#15273D` у `.rm-cab`), `app-course.js?v=73` (с `retakeWrong`, `SKIPPED`, `lp:retake:`), `course.html` с `#retakeWrongSideBtn`. Функция `assistant` на проде до
+`supabase functions deploy assistant` остаётся на Sonnet 4.6 — UNKNOWN,
+выполнил ли владелец деплой.
+
 ## Ключевые инварианты (нарушение = сломанный прод)
 
 1. **Деплой = push в `main`**: GitHub Pages отдаёт ветку как есть. Никаких
@@ -321,7 +329,7 @@ licena.us (`roadmap.css?v=19`); блок `.rm-cab` в кабинете снов�
 - SEO-голова: только `js/seo.js` (лейн marketing) + `sitemap.xml` + `robots.txt`;
   при правках HTML-страниц бампать `?v=` по спеке marketing.
 - AI-саппорт: `supabase/functions/assistant/index.ts`, модель
-  `claude-sonnet-4-6` в `main`; на ветке `claude/cool-maxwell-dw6toy` @ `a3d05d6` — `claude-haiku-4-5` (решение владельца 2026-09-11, не смержено, функция не передеплоена); список фактов о продукте зашит в промпт функции —
+  `claude-haiku-4-5` в `main` с `e266e4b` (PR #190, решение владельца 2026-09-11; до `a3d05d6` — `claude-sonnet-4-6`); задеплоенная функция — UNKNOWN до `supabase functions deploy assistant`; список фактов о продукте зашит в промпт функции —
   при изменении продукта его тоже надо обновлять.
 - Автопостинг соцсетей: положить `.txt` в `docs/smm/queue/` (Telegram) или
   `docs/smm/queue-fb/` (Facebook) и запушить в `main` — workflow постит сам.

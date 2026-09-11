@@ -1,9 +1,10 @@
 # LICENA — плеер курса: «Retake wrong only» — пересдача только ошибочных вопросов блока (отчёт для владельца)
 
 Последняя сверка: 2026-09-11
-Статус: **READY_FOR_REVIEW** (после дополнений 2026-09-11: кнопка в сайдбаре `75e901f` — §9; пересдача сохраняется
-и возобновляется, `c2c0263` — §10; пропущенные вопросы засчитываются как ошибки, `564182a` — §11).
-Merge в `main` и production deploy НЕ выполнялись — только после явного `APPROVED_FOR_MAIN`.
+Статус: **DONE** — владелец дал `APPROVED_FOR_MAIN` в сессии 2026-09-11 («мерж», затем «разрешаю»); PR
+`lalianamen/LLICENA#190` слит в `main` коммитом `e266e4b` (ветка `claude/cool-maxwell-dw6toy` @ `088c46d`, поверх
+`main` `66d1727` — выкладки Intake V3). Выкладка GitHub Pages: проверено curl 2026-09-11 через ~50 с после мержа — licena.us отдаёт `roadmap.css?v=20` (с `background:#15273D` у `.rm-cab`), `app-course.js?v=73` (с `retakeWrong`, `SKIPPED`, `lp:retake:`), `course.html` с `#retakeWrongSideBtn`.
+История статусов: READY_FOR_REVIEW после `08ef240` (§1–§8), дополнения `75e901f` (§9), `c2c0263` (§10), `564182a` (§11).
 Issue `lalianamen/LLICENA#189` ЗАКРЫТ 2026-09-11 по решению владельца (state `completed`) — реализация на ветке, ревью
 не отменяется. Ответ пользователю владелец отправляет письмом лично со скриншотами (автоматическое письмо «resolved»
 шлёт только мерж PR из ветки `claude/ticket-*` через `claude-ticket-resolved.yml` → `ticket-status`; эта ветка под правило
