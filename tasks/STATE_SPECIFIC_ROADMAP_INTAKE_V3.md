@@ -2,7 +2,17 @@
 
 ## Status
 
-**RELEASED — California** (`main` @ `66d1727`, 2026-09-11); **Arizona и Nevada — READY_FOR_REVIEW** (ветка @ `eea5c20`, оба `available:false` до решения владельца)
+**RELEASED — California + палитра сайта** (`main` @ `c5c2385`, 2026-09-11); код Arizona и Nevada в `main`, оба `available:false` до решения владельца
+
+2026-09-11, релиз палитры (запись Claude): по команде владельца «так выкладывай в маин»
+ветка `claude/state-specific-intake-v3` (`a3656b5`) смержена с `origin/main` (`0b76ec6`,
+PR #190/#191; конфликты только в строках `?v=`, правка `.rm-cab` в `cabinet-dark.css`
+снята — карточка уже исправлена в `main`), `main` переведён fast-forward на `c5c2385`.
+Production: `roadmap-dark.css?v=1`, `roadmap.css?v=20`, `roadmap-config.js?v=15`,
+`app-roadmap.js?v=24`; байты ключевых файлов совпадают с репозиторием. Рендер всех
+экранов 49/49 после выкладки (первый прогон до fast-forward был пустым из-за упавшего
+локального сервера). Arizona/Nevada в `main`, но `available:false`.
+
 
 2026-09-11, палитра (запись Claude): по запросу владельца «применим цветовую палитру
 сайта ко всему родмапу» — коммит `a3656b5` в той же ветке: `css/roadmap-dark.css`

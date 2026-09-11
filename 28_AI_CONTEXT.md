@@ -490,6 +490,14 @@ _PROCESSING`; ROC-страницы из песочницы недоступны 
 кабинете блоки roadmap перефиксированы в `landing.css` / `cabinet-dark.css` с префиксом
 `body` (там `roadmap.css` грузится после тем).
 
+Дополнение 2026-09-11 (релиз палитры): `main` осн. репо @ `c5c2385` — палитра сайта на
+страницах roadmap в production (`css/roadmap-dark.css?v=1`, `roadmap.css?v=20`), код
+Arizona (exams-first) и Nevada (`roadmap-nv.html`) тоже в `main`, но `ROADMAP_STATES` /
+`ROADMAP_RULES` `.az/.nv.available = false` — включение = `available:true` + bump
+`roadmap-config.js?v=` на `roadmap.html`, `roadmap-az.html`, `roadmap-nv.html`,
+`application.html`. Карточка roadmap в кабинете исправлена в `roadmap.css` (`a4a733d`,
+PR #190), не в `cabinet-dark.css`.
+
 ## Source References
 
 Все пути — в репозитории `lalianamen/llicena`:
