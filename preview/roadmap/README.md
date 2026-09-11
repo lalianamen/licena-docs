@@ -54,7 +54,7 @@
 Внешняя ссылка (файл отдаётся как HTML через raw.githack.com; GitHub raw и jsDelivr
 отдают его как `text/plain`):
 
-- по коммиту (постоянная, сборка с `a3656b5` — палитра сайта, AZ exams-first + NV, 2026-09-11): `__DOCSHA_LINK__`
+- по коммиту (постоянная, сборка с `a3656b5` — палитра сайта, AZ exams-first + NV, 2026-09-11): `https://rawcdn.githack.com/lalianamen/licena-docs/fbc4c871b8d5fff0300ea06362810047c9dee3e9/preview/roadmap/licena-roadmap-v3.html`
 - сборка с `eea5c20` (AZ exams-first + NV, 2026-09-11): `https://rawcdn.githack.com/lalianamen/licena-docs/7720af91d81025c316264b6388998badd8b4f3c8/preview/roadmap/licena-roadmap-v3.html`
 - сборка с `4c5d1d5` (2026-09-11): `https://rawcdn.githack.com/lalianamen/licena-docs/b57e872cdb190df056d980bc55eb9f86f039006e/preview/roadmap/licena-roadmap-v3.html`
 - предыдущая сборка (`3cb2136`): `https://rawcdn.githack.com/lalianamen/licena-docs/77a753da7b7d23e04787bd1f2ef0c9f09766237b/preview/roadmap/licena-roadmap-v3.html`
