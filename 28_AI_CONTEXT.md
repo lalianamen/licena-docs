@@ -221,7 +221,12 @@ nv-c2, COURSE_REF, bank-updates — NV станет 6/6, лимит) → CSV.
 run» — только для полного прогона. Файлы: `js/app-course.js` v70,
 `js/i18n-app.js` v58 (`courseRetakeWrong` EN/ES/RU), `course.html`,
 `preview.html`, `css/course.css` v36, `app.html`. Отчёт:
-`tasks/reports/2026-09-11-retake-wrong-only.md`.
+`tasks/reports/2026-09-11-retake-wrong-only.md`. Позже в тот же день, по
+замечанию владельца («если не нажать сразу — потом не найти»; «отдельно для
+каждого блока») — второй коммит `75e901f`: кнопка «Retake wrong only (N)» и в
+сайдбаре, N и действие по активному блоку, при 0 отключена; метка фильтра
+«Wrong only (N)» теперь тоже по активному блоку; `app-course.js` v71,
+`course.css` v37. Ветка по-прежнему READY_FOR_REVIEW, в `main` не мержилась.
 
 ## Ключевые инварианты (нарушение = сломанный прод)
 
