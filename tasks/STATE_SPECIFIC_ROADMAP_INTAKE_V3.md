@@ -2,7 +2,21 @@
 
 ## Status
 
-**RELEASED — California** (`main` @ `66d1727`, 2026-09-11); Arizona — `available:false` до проверки источников ROC
+**RELEASED — California** (`main` @ `66d1727`, 2026-09-11); **Arizona и Nevada — READY_FOR_REVIEW** (ветка @ `eea5c20`, оба `available:false` до решения владельца)
+
+2026-09-11, AZ/NV (запись Claude): по запросу владельца «проанализировать аризону и
+неваду и на базе проведенного анализа подготовить родмап и туда» в ветке
+`claude/state-specific-intake-v3` сделан коммит `eea5c20` поверх `66d1727`. Анализ:
+`tasks/reports/2026-09-11-az-nv-roadmap-analysis.md` (ROC — 403, A.A.C. через LII, A.R.S.,
+PSI 2477; NSCB, NRS/NAC 624, PSI 270). Аризона: экзамены до заявления (PSI, R4-9-106) —
+введён `R.examsFirst`, шаги переставлены, факты экзаменов/сборов/бондов из A.A.C.;
+Невада: полный рулсет, новая `roadmap-nv.html`, оверлей `_nv` (171 × 3), кабинет
+маршрутизирует по штату. Тестами найдены и исправлены: стирание экзаменов при «заявление
+не подано», подпись «10-year window» при 15-летнем окне, семь достижимых CSLB-строк на
+AZ/NV. `verify.js` чист, `test-roadmap-v3.mjs` 200, Playwright az-suite2 43 / nv-suite 53,
+регрессия CA undo 56 / final 42 из 43 / db-roundtrip 8 / expq 49 из 50 / cv 53 / exp2 68 / biz 41 / dates 34 / bugs 26 из 27 / exp-logic 27; превью пересобрано (AZ/NV в переключателе). Мерж/деплой не
+выполнялись. Отчёт: `tasks/reports/2026-09-11-az-nv-roadmap.md`.
+
 
 2026-09-11, релиз (запись Claude): по команде владельца «ок заливаем родмап пока на
 калифорнию» ветка `claude/state-specific-intake-v3` (`4c5d1d5`) смержена с `origin/main`

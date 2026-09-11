@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<link rel="icon" href="https://licena.us/favicon.svg?v=1" type="image/svg+xml">
 <title>Roadmap Intake V3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1004,12 +997,10 @@ html[lang="ru"] .foot-tg-li{display:list-item}
    legible on the light cards. */
 html{color-scheme:light !important}
 </style>
-</head>
-<body>
-
 <div class="pv-scen"><label for="pvScen">Preview</label><select id="pvScen">
 <option value="">0 · Анкета — новая беседа (California)</option>
-<option value="az">AZ · Анкета — новая беседа (Arizona, roadmap-az.html)</option>
+<option value="az">AZ · Анкета — новая беседа (Arizona, roadmap-az.html — превью, не опубликовано)</option>
+<option value="nv">NV · Анкета — новая беседа (Nevada, roadmap-nv.html — превью, не опубликовано)</option>
 <option value="sole">1 · Sole Owner (first licence)</option>
 <option value="llc">2 · First licence, existing LLC</option>
 <option value="rme">3 · Owner, RME qualifies the company</option>
@@ -1114,14 +1105,30 @@ const LICENSE_PATHS = [
     required:["cslb-law","c46-solar"],               optional:["osha-construction"] },
   { id:"c54", stateId:"ca", name:{ en:"C-54 Tile",                   es:"C-54 Azulejos",                 ru:"C-54 Плитка" },
     required:["cslb-law","c54-tile"],                optional:["osha-construction"] },
+  // Nevada (NSCB): the Contractor Management Survey is required for EVERY
+  // classification, so it plays the role Law & Business plays in California and
+  // the Statutes & Rules exam plays in Arizona — every path starts with it.
+  { id:"nv-any", stateId:"nv", name:{ en:"Any NV Contractor License",  es:"Cualquier licencia NV",         ru:"Любая лицензия подрядчика NV" },
+    required:["nv-cms"],                             optional:["osha-construction"] },
+  { id:"nv-b",  stateId:"nv", name:{ en:"General Building (B)",        es:"Edificación General (B)",       ru:"General Building (B)" },
+    required:["nv-cms","nv-b"],                      optional:["osha-construction"] },
+  { id:"nv-b2", stateId:"nv", name:{ en:"Residential & Small Commercial (B-2)", es:"Residencial y Comercial Menor (B-2)", ru:"Жилые и малые коммерческие (B-2)" },
+    required:["nv-cms","nv-b2"],                     optional:["osha-construction"] },
+  { id:"nv-c2", stateId:"nv", name:{ en:"C-2 Electrical",              es:"C-2 Eléctrico",                 ru:"C-2 Электрика" },
+    required:["nv-cms","nv-c2"],                     optional:["osha-construction"] },
+  { id:"nv-c21", stateId:"nv", name:{ en:"C-21 Refrigeration & Air Conditioning", es:"C-21 Refrigeración y Aire Acondicionado", ru:"C-21 Кондиционирование и холод" },
+    required:["nv-cms","nv-c21"],                    optional:["epa-608","osha-construction"] },
 ];
+
 </script>
 <script>
 (function () {
-  // preview-only: ?state=az renders the Arizona page (roadmap-az.html carries
-  // data-state="az" in the repo; here one file stands in for both pages)
-  if (new URLSearchParams(location.search).get("state") === "az")
-    document.getElementById("rmRoot").setAttribute("data-state", "az");
+  // preview-only: ?state=az / ?state=nv render the Arizona / Nevada pages
+  // (roadmap-az.html / roadmap-nv.html carry data-state in the repo; here one
+  // file stands in for all three pages)
+  var st = new URLSearchParams(location.search).get("state");
+  if (st === "az" || st === "nv")
+    document.getElementById("rmRoot").setAttribute("data-state", st);
 })();
 </script>
 <script>
@@ -1535,6 +1542,11 @@ const LICENSE_PATHS = [
       // classification within the preceding five years — ROC's records decide.
       if (w.key === "prior_qp_5y")
         ok = (a.priorQP === "y") && (a.priorQP5y === "y");
+      // Nevada (NSCB License Examinations, 2026-09-11): a qualified individual
+      // on another Nevada license in the same classification within the last
+      // four years generally is not re-examined — the Board's records decide.
+      if (w.key === "prior_qi_4y")
+        ok = (a.priorQP === "y") && (a.priorQP5y === "y");
       if (ok) out.push({ key: w.key, section: w.section, needs: w.needs });
     });
     return out;
@@ -1665,8 +1677,8 @@ const LICENSE_PATHS = [
    "coming soon" screen after selection (spec: allow selecting Arizona). */
 window.ROADMAP_STATES = {
   ca: { available: true,  lawCourse: "cslb-law" },
-  az: { available: true,  lawCourse: "az-sre" },   // rule set: ROADMAP_RULES.az (2026-09-05)
-  nv: { available: false }
+  az: { available: false, lawCourse: "az-sre" },   // rule set: ROADMAP_RULES.az; not live yet — owner: California first (2026-09-11)
+  nv: { available: false, lawCourse: "nv-cms" }    // rule set: ROADMAP_RULES.nv (2026-09-11); not live yet
 };
 
 /* California / CSLB roadmap steps.
@@ -2116,29 +2128,94 @@ window.ROADMAP_CA_TRIBAL_SOURCE = {
    ═══════════════════════════════════════════════════════════════════════════ */
 window.ROADMAP_AZ_SOURCES = {
   qual:  { title: "A.R.S. § 32-1122 — Qualifications for license",
-           url: "https://www.azleg.gov/ars/32/01122.htm", verified: "2026-09-05" },
+           url: "https://www.azleg.gov/ars/32/01122.htm", verified: "2026-09-11" },
   issue: { title: "A.R.S. § 32-1124 — License issuance; required posting; suspension",
-           url: "https://www.azleg.gov/ars/32/01124.htm", verified: "2026-09-05" },
+           url: "https://www.azleg.gov/ars/32/01124.htm", verified: "2026-09-11" },
   qp:    { title: "A.R.S. § 32-1127.01 — Qualifying parties; disassociation; requalification",
-           url: "https://www.azleg.gov/ars/32/01127-01.htm", verified: "2026-09-05" },
+           url: "https://www.azleg.gov/ars/32/01127-01.htm", verified: "2026-09-11" },
   bond:  { title: "A.R.S. § 32-1152 — Bonds",
-           url: "https://www.azleg.gov/ars/32/01152.htm", verified: "2026-09-05" },
+           url: "https://www.azleg.gov/ars/32/01152.htm", verified: "2026-09-11" },
+  fees:  { title: "A.R.S. § 32-1126 — Fees (statutory caps; recovery-fund assessment)",
+           url: "https://www.azleg.gov/ars/32/01126.htm", verified: "2026-09-11" },
+  fund:  { title: "A.R.S. § 32-1132 — Residential contractors' recovery fund",
+           url: "https://www.azleg.gov/ars/32/01132.htm", verified: "2026-09-11" },
   acc:   { title: "Arizona Corporation Commission — business entities",
-           url: "https://azcc.gov/", verified: "2026-09-05" }
+           url: "https://azcc.gov/", verified: "2026-09-11" },
+  /* Arizona Administrative Code, Title 4 Ch. 9. The official host
+     (apps.azsos.gov) answered HTTP 403; the text was read on the Legal
+     Information Institute mirror on 2026-09-11 — section numbers and history
+     notes match the official code. */
+  aacFees: { title: "A.A.C. R4-9-130 — Schedule of Fees",
+             url: "https://www.law.cornell.edu/regulations/arizona/Ariz-Admin-Code-SS-R4-9-130", verified: "2026-09-11" },
+  aacBond: { title: "A.A.C. R4-9-112 — Bond limits by classification and annual volume",
+             url: "https://www.law.cornell.edu/regulations/arizona/Ariz-Admin-Code-SS-R4-9-112", verified: "2026-09-11" },
+  aacExam: { title: "A.A.C. R4-9-106 — Examinations (70% pass, two-year validity, waivers, retakes)",
+             url: "https://www.law.cornell.edu/regulations/arizona/Ariz-Admin-Code-SS-R4-9-106", verified: "2026-09-11" },
+  aacApp:  { title: "A.A.C. R4-9-113 — Application Process (60-day time frame)",
+             url: "https://www.law.cornell.edu/regulations/arizona/Ariz-Admin-Code-SS-R4-9-113", verified: "2026-09-11" },
+  aacExp:  { title: "A.A.C. R4-9-119 — Minimum Trade Experience Required for Licensing",
+             url: "https://www.law.cornell.edu/regulations/arizona/Ariz-Admin-Code-SS-R4-9-119", verified: "2026-09-11" },
+  aacRes:  { title: "A.A.C. R4-9-103 — Residential license classifications",
+             url: "https://www.law.cornell.edu/regulations/arizona/Ariz-Admin-Code-SS-R4-9-103", verified: "2026-09-11" },
+  aacCom:  { title: "A.A.C. R4-9-102 — Commercial license classifications",
+             url: "https://www.law.cornell.edu/regulations/arizona/Ariz-Admin-Code-SS-R4-9-102", verified: "2026-09-11" },
+  aacDual: { title: "A.A.C. R4-9-104 — Dual license classifications",
+             url: "https://www.law.cornell.edu/regulations/arizona/Ariz-Admin-Code-SS-R4-9-104", verified: "2026-09-11" },
+  /* PSI is ROC's contracted trade-exam vendor; the SRE itself is ROC's own
+     online course-and-exam (bulletin read 2026-09-11). */
+  psi:   { title: "PSI — Arizona ROC Candidate Information Bulletin",
+           url: "https://test-takers.psiexams.com/api/content/bulletin/2477", verified: "2026-09-11" },
+  psiPortal: { title: "PSI — Arizona ROC examination registration",
+               url: "https://test-takers.psiexams.com/azcon", verified: "2026-09-11" }
 };
+/* ORDER (PSI bulletin, "Guidelines for Licensure", 2026-09-11): "Licensing
+   applications cannot be accepted until all examination requirements have been
+   completed" — the SRE and any trade exam come FIRST; the application is filed
+   with the original score report within two years of passing. Then the
+   60-day review (A.A.C. R4-9-113), the bond on file and issuance. */
 window.ROADMAP_AZ_STEPS = [
-  { key: "classification",       order: 1,  weight: 5,  confirmable: true, source: window.ROADMAP_AZ_SOURCES.qual },
+  { key: "classification",       order: 1,  weight: 5,  confirmable: true, source: window.ROADMAP_AZ_SOURCES.aacRes },
   { key: "experience",           order: 2,  weight: 10, confirmable: true, source: window.ROADMAP_AZ_SOURCES.qual },
-  { key: "prepare_application",  order: 3,  weight: 10, confirmable: true, source: window.ROADMAP_AZ_SOURCES.qual },
-  { key: "submit_application",   order: 4,  weight: 10, confirmable: true, source: window.ROADMAP_AZ_SOURCES.bond },
-  { key: "fingerprinting",       order: 5,  weight: 5,  confirmable: true, source: window.ROADMAP_AZ_SOURCES.qual },
-  { key: "application_review",   order: 6,  weight: 10, confirmable: true, source: window.ROADMAP_AZ_SOURCES.issue },
-  { key: "prep_law_business",    order: 7,  weight: 10, confirmable: true, course: "law",   source: window.ROADMAP_AZ_SOURCES.qual },
-  { key: "prep_trade",           order: 8,  weight: 10, confirmable: true, course: "trade", source: window.ROADMAP_AZ_SOURCES.qual },
-  { key: "schedule_pass_exams",  order: 9,  weight: 15, confirmable: true, source: window.ROADMAP_AZ_SOURCES.qual },
-  { key: "final_requirements",   order: 10, weight: 10, confirmable: true, source: window.ROADMAP_AZ_SOURCES.bond },
+  { key: "prep_law_business",    order: 3,  weight: 10, confirmable: true, course: "law",   source: window.ROADMAP_AZ_SOURCES.psi },
+  { key: "prep_trade",           order: 4,  weight: 10, confirmable: true, course: "trade", source: window.ROADMAP_AZ_SOURCES.psi },
+  { key: "schedule_pass_exams",  order: 5,  weight: 15, confirmable: true, source: window.ROADMAP_AZ_SOURCES.aacExam },
+  { key: "prepare_application",  order: 6,  weight: 10, confirmable: true, source: window.ROADMAP_AZ_SOURCES.qual },
+  { key: "submit_application",   order: 7,  weight: 10, confirmable: true, source: window.ROADMAP_AZ_SOURCES.aacFees },
+  { key: "fingerprinting",       order: 8,  weight: 5,  confirmable: true, source: window.ROADMAP_AZ_SOURCES.qual },
+  { key: "application_review",   order: 9,  weight: 10, confirmable: true, source: window.ROADMAP_AZ_SOURCES.aacApp },
+  { key: "final_requirements",   order: 10, weight: 10, confirmable: true, source: window.ROADMAP_AZ_SOURCES.aacBond },
   { key: "license_issued",       order: 11, weight: 5,  confirmable: true, source: window.ROADMAP_AZ_SOURCES.issue }
 ];
+/* Exam facts — PSI bulletin + A.A.C. R4-9-106 (2026-09-11). */
+window.ROADMAP_AZ_EXAM_FACTS = {
+  examsFirst: true, applyWithinYears: 2, passingPercent: 70,
+  sre: { fee: 61, provider: "AZ ROC online course + exam" },
+  trade: { vendor: "PSI", feeOne: 66, feeTwo: 116, solarOnly: 40, feeValidYears: 1,
+           retakeWaitDays: 30, attempts: 3, laterWaitDays: 90 },
+  source: window.ROADMAP_AZ_SOURCES.psi, ruleSource: window.ROADMAP_AZ_SOURCES.aacExam
+};
+/* Fees — A.A.C. R4-9-130 (effective 7/1/2014); statutory caps A.R.S. 32-1126. */
+window.ROADMAP_AZ_FEES = {
+  generalCommercial:   { application: 200, license: 580 },
+  specialtyCommercial: { application: 100, license: 480 },
+  generalResidential:  { application: 180, license: 320 },
+  specialtyResidential:{ application: 80,  license: 270 },
+  generalDual:         { application: 200, license: 480 },
+  specialtyDual:       { application: 100, license: 380 },
+  recoveryFundInitial: 370, recoveryFundBiennial: 270, changeQualifyingParty: 100,
+  source: window.ROADMAP_AZ_SOURCES.aacFees, capsSource: window.ROADMAP_AZ_SOURCES.fees
+};
+/* Bond amounts by estimated annual volume — A.A.C. R4-9-112 (and A.R.S. 32-1152). */
+window.ROADMAP_AZ_BONDS = {
+  generalCommercial:    [[150000, 5000], [500000, 15000], [1000000, 25000], [5000000, 50000], [10000000, 75000], [null, 100000]],
+  specialtyCommercial:  [[150000, 2500], [500000, 7000], [1000000, 17500], [5000000, 25000], [10000000, 37500], [null, 50000]],
+  generalResidential:   [[750000, 9000], [null, 15000]],
+  specialtyResidential: [[375000, 4250], [null, 7500]],
+  residentialExtra: { recoveryFundOrBond: 200000 },   // A.R.S. 32-1152(C)
+  source: window.ROADMAP_AZ_SOURCES.aacBond
+};
+/* Application time frames — A.A.C. R4-9-113; A.R.S. 32-1124(A). */
+window.ROADMAP_AZ_PROCESSING = { overallDays: 60, adminDays: 40, deficiencyResponseDays: 30, source: window.ROADMAP_AZ_SOURCES.aacApp };
 /* A.R.S. 32-1122(E)(1): "a minimum of four years' practical or management
    trade experience, at least two of which must have been within the last ten
    years"; technical training may substitute for at most two years; the
@@ -2229,6 +2306,170 @@ window.ROADMAP_CA_FINAL_SOURCES = {
             url: "https://www.cslb.ca.gov/About_Us/Library/Fees.aspx", verified: "2026-09-05" }
 };
 
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NEVADA — State Contractors Board (NSCB). Read 2026-09-11 on
+   nvcontractorsboard.com (www.nscb.nv.gov redirects there), leg.state.nv.us
+   (NRS / NAC 624) and PSI's Nevada bulletin. Anything not on those pages is
+   deliberately absent (UNKNOWN), never borrowed from another state.
+   ═══════════════════════════════════════════════════════════════════════════ */
+window.ROADMAP_NV_SOURCES = {
+  qual:   { title: "NRS 624.260 — Experience, knowledge and financial responsibility; qualified individual",
+            url: "https://www.leg.state.nv.us/nrs/nrs-624.html#NRS624Sec260", verified: "2026-09-11" },
+  charac: { title: "NRS 624.265 — Good character; background investigation; fingerprints",
+            url: "https://www.leg.state.nv.us/nrs/nrs-624.html#NRS624Sec265", verified: "2026-09-11" },
+  bondSt: { title: "NRS 624.270 — Bond or deposit: requirements; amount; conditions",
+            url: "https://www.leg.state.nv.us/nrs/nrs-624.html#NRS624Sec270", verified: "2026-09-11" },
+  feesSt: { title: "NRS 624.280 — Fees: application ≤ $550, license ≤ $900 biennially, examination ≤ $300",
+            url: "https://www.leg.state.nv.us/nrs/nrs-624.html#NRS624Sec280", verified: "2026-09-11" },
+  term:   { title: "NRS 624.283 — License expires two years after issuance; automatic suspension if not renewed",
+            url: "https://www.leg.state.nv.us/nrs/nrs-624.html#NRS624Sec283", verified: "2026-09-11" },
+  qp:     { title: "NRS 624.285 — Qualifying person leaves: notify in 10 days, replace in 30",
+            url: "https://www.leg.state.nv.us/nrs/nrs-624.html#NRS624Sec285", verified: "2026-09-11" },
+  vehicle:{ title: "NRS 624.288 — Name and license number on commercial vehicles",
+            url: "https://www.leg.state.nv.us/nrs/nrs-624.html#NRS624Sec288", verified: "2026-09-11" },
+  insurance: { title: "NRS 624.256 — Proof of industrial insurance (workers' compensation) before issuance",
+            url: "https://www.leg.state.nv.us/nrs/nrs-624.html#NRS624Sec256", verified: "2026-09-11" },
+  fund:   { title: "NRS 624.470 — Residential Recovery Fund assessment ($200 / $500 / $1,000 per biennium by monetary limit)",
+            url: "https://www.leg.state.nv.us/nrs/nrs-624.html#NRS624Sec470", verified: "2026-09-11" },
+  fpFee:  { title: "NAC 624.681 — Fee for processing fingerprint cards (Repository + FBI charges, cashier's check to Nevada Highway Patrol)",
+            url: "https://www.leg.state.nv.us/NAC/NAC-624.html#NAC624Sec681", verified: "2026-09-11" },
+  reqs:   { title: "NSCB — License Requirements (experience, financial statements, bond, exams)",
+            url: "https://www.nvcontractorsboard.com/licensing/license-requirements/", verified: "2026-09-11" },
+  exams:  { title: "NSCB — License Examinations (CMS + trade, PSI, eligibility, retakes)",
+            url: "https://www.nvcontractorsboard.com/licensing/license-examinations/", verified: "2026-09-11" },
+  endorse:{ title: "NSCB — Licensure by Endorsement (four years, trade-exam waiver, CMS always required)",
+            url: "https://www.nvcontractorsboard.com/licensing/licensure-by-endorsement/", verified: "2026-09-11" },
+  classes:{ title: "NSCB — License Classifications (A, B, C)",
+            url: "https://www.nvcontractorsboard.com/licensing/license-classifications/", verified: "2026-09-11" },
+  bonds:  { title: "NSCB — Bonds ($1,000–$500,000, set by the Board at approval)",
+            url: "https://www.nvcontractorsboard.com/licensing/bonds/", verified: "2026-09-11" },
+  faq:    { title: "NSCB — FAQ: fees ($300 application, $600 two-year license), term, industrial insurance",
+            url: "https://www.nvcontractorsboard.com/licensing/faq-for-general-requirements/", verified: "2026-09-11" },
+  faqQP:  { title: "NSCB — FAQ: qualifying party",
+            url: "https://www.nvcontractorsboard.com/licensing/faq-qualifying-party/", verified: "2026-09-11" },
+  limit:  { title: "NSCB — Raise Your License Limit (monetary limit and financial statements)",
+            url: "https://www.nvcontractorsboard.com/licensing/raise-your-license-limit/", verified: "2026-09-11" },
+  presub: { title: "NSCB — Pre-Submittal Application Review (free analyst review before filing)",
+            url: "https://www.nvcontractorsboard.com/licensing/pre-submittal-application-review/", verified: "2026-09-11" },
+  apply:  { title: "NSCB — Contractor's License Application (forms)",
+            url: "https://www.nvcontractorsboard.com/licensing/contractors-license-application/", verified: "2026-09-11" },
+  forms:  { title: "NSCB — Forms and Applications",
+            url: "https://www.nvcontractorsboard.com/licensing/forms-and-applications/", verified: "2026-09-11" },
+  appPdf: { title: "NSCB — New License Application (PDF, rev. 03/2026)",
+            url: "https://www.nvcontractorsboard.com/wp-content/uploads/2026/06/New-License-Application.pdf", verified: "2026-09-11" },
+  certForm: { title: "NSCB — Certification of Work Experience (PDF)",
+            url: "https://www.nvcontractorsboard.com/wp-content/uploads/2024/02/CERTIFICATION-OF-WORK-EXPERIENCE.pdf", verified: "2026-09-11" },
+  resume: { title: "NSCB — Resume of Experience (PDF)",
+            url: "https://www.nvcontractorsboard.com/wp-content/uploads/2024/02/Resume_LicenseApplicationForm.pdf", verified: "2026-09-11" },
+  bkgd:   { title: "NSCB — Background Disclosure Statement and Fingerprint Waiver (PDF)",
+            url: "https://www.nvcontractorsboard.com/wp-content/uploads/2024/02/BKGD_LicenseApplicationForm.pdf", verified: "2026-09-11" },
+  portal: { title: "NSCB — Online application portal",
+            url: "https://app.nvcontractorsboard.com/Clients/NVSCB/Private/Shared/Login.aspx", verified: "2026-09-11" },
+  psi:    { title: "PSI — Nevada State Contractors Board Candidate Information Bulletin",
+            url: "https://test-takers.psiexams.com/api/content/bulletin/270", verified: "2026-09-11" },
+  psiPortal: { title: "PSI — Nevada examination registration",
+            url: "https://test-takers.psiexams.com/nvcon", verified: "2026-09-11" },
+  sos:    { title: "Nevada Secretary of State — SilverFlume (State Business License / Nevada Business ID)",
+            url: "https://www.nvsilverflume.gov/startBusiness", verified: "2026-09-11" }
+};
+/* ORDER (NSCB License Examinations + New License Application, 2026-09-11):
+   application (with experience certifications, financial statement, background
+   forms) → fingerprints → the Board verifies experience and issues exam
+   eligibility → CMS + trade exams → approval → bond, license fee, industrial
+   insurance → issuance. The California skeleton fits; the labels are Nevada's. */
+window.ROADMAP_NV_STEPS = [
+  { key: "classification",       order: 1,  weight: 5,  confirmable: true, source: window.ROADMAP_NV_SOURCES.classes },
+  { key: "experience",           order: 2,  weight: 10, confirmable: true, source: window.ROADMAP_NV_SOURCES.qual },
+  { key: "prepare_application",  order: 3,  weight: 10, confirmable: true, source: window.ROADMAP_NV_SOURCES.apply },
+  { key: "submit_application",   order: 4,  weight: 10, confirmable: true, source: window.ROADMAP_NV_SOURCES.faq },
+  { key: "fingerprinting",       order: 5,  weight: 5,  confirmable: true, source: window.ROADMAP_NV_SOURCES.charac },
+  { key: "application_review",   order: 6,  weight: 10, confirmable: true, source: window.ROADMAP_NV_SOURCES.exams },
+  { key: "prep_law_business",    order: 7,  weight: 10, confirmable: true, course: "law",   source: window.ROADMAP_NV_SOURCES.psi },
+  { key: "prep_trade",           order: 8,  weight: 10, confirmable: true, course: "trade", source: window.ROADMAP_NV_SOURCES.psi },
+  { key: "schedule_pass_exams",  order: 9,  weight: 15, confirmable: true, source: window.ROADMAP_NV_SOURCES.exams },
+  { key: "final_requirements",   order: 10, weight: 10, confirmable: true, source: window.ROADMAP_NV_SOURCES.bonds },
+  { key: "license_issued",       order: 11, weight: 5,  confirmable: true, source: window.ROADMAP_NV_SOURCES.term }
+];
+/* NRS 624.260(6)–(8): four years within the fifteen years before filing, as a
+   journeyman, foreman, supervising employee or contractor in the classification
+   applied for; accredited training may satisfy up to three years; a person
+   previously qualified in the same classification is not held to the 15-year
+   window. (NSCB's older FAQ still says "10 years"; the statute governs.) */
+window.ROADMAP_NV_EXPERIENCE_RULE = {
+  years: 4, withinYears: 15, minWithinYears: null,
+  levels: ["journeyman", "foreman", "supervising", "contractor"],
+  certForms: 4,                                  // four Certification of Work Experience forms per qualifier (NSCB)
+  source: window.ROADMAP_NV_SOURCES.qual, regSource: window.ROADMAP_NV_SOURCES.reqs
+};
+window.ROADMAP_NV_EDU_CREDIT = { maxYears: 3, discretionary: true, source: window.ROADMAP_NV_SOURCES.qual };
+/* NSCB License Examinations: "actively served as a qualified employee, within
+   the last four (4) years, on another license in the same classification" —
+   generally no re-examination. The Board decides from its records. */
+window.ROADMAP_NV_WAIVERS = [
+  { key: "prior_qi_4y", section: "NSCB — License Examinations",
+    needs: ["actively served as the qualified individual on another Nevada license",
+            "in the same classification",
+            "within the last four years — as reflected in the Board's records"] }
+];
+/* NRS 624.285: notify within 10 days; replace within 30 days (Board may extend);
+   otherwise the license is suspended. */
+window.ROADMAP_NV_DISASSOCIATION = {
+  notifyDays: 10, replaceDays: 30, consequence: "suspend",
+  source: window.ROADMAP_NV_SOURCES.qp
+};
+/* Licensure by endorsement (NSCB page, 2026-09-11): an active license in the
+   endorsing state with the same qualified individual for the past four years,
+   no discipline; the trade exam may be waived for the listed states; the
+   Business & Law (CMS) exam is never waived. */
+window.ROADMAP_NV_RECIPROCITY = {
+  states: ["al", "az", "ca", "ct", "fl", "hi", "la", "nm", "nc", "sc", "tn", "wv"],
+  activeYears: 4, goodStanding: true,
+  verificationForm: "Request for Verification of License",
+  application: "Contractor's License Application (Licensure by Endorsement section)",
+  waivesTradeExam: true,
+  lawExamStillRequiredUnlessPassedWithinYears: null,   // CMS is always required
+  needsVerificationForm: true,
+  source: window.ROADMAP_NV_SOURCES.endorse, reqSource: window.ROADMAP_NV_SOURCES.endorse,
+  examSource: window.ROADMAP_NV_SOURCES.exams
+};
+/* PSI bulletin (2026-09-11) + NSCB License Examinations. */
+window.ROADMAP_NV_EXAM_FACTS = {
+  vendor: "PSI", unlockedBy: "exam eligibility letter after the Board verifies experience",
+  cms: { items: 60, minutes: 120, passing: 45, passingPercent: 75, openBook: true },
+  feeOne: 95, feeTwo: 140, attempts: 3, retakeWaitDays: 14, voidReapplyDays: 30,
+  source: window.ROADMAP_NV_SOURCES.psi, eligibilitySource: window.ROADMAP_NV_SOURCES.exams
+};
+window.ROADMAP_NV_FEES = { application: 300, license: 600, termYears: 2, limitRaise: 250,
+                           source: window.ROADMAP_NV_SOURCES.faq, capsSource: window.ROADMAP_NV_SOURCES.feesSt };
+window.ROADMAP_NV_BOND = { min: 1000, max: 500000, setBy: "Board at approval", cashDepositAdminFee: 200,
+                           source: window.ROADMAP_NV_SOURCES.bonds, statute: window.ROADMAP_NV_SOURCES.bondSt };
+/* NRS 624.470: residential contractors, per biennium, by monetary limit. */
+window.ROADMAP_NV_RECOVERY_FUND = { tiers: [[1000000, 200], ["limited", 500], ["unlimited", 1000]], source: window.ROADMAP_NV_SOURCES.fund };
+/* New License Application §10–11 (rev. 03/2026): financial statement by requested monetary limit. */
+window.ROADMAP_NV_FINANCIAL = {
+  tiers: [
+    { upTo: 25000,   statement: "self-prepared (accounting software + affidavit), Board form, or CPA; current within 6 months" },
+    { upTo: 499999,  statement: "compiled by an independent CPA (6 months) or reviewed/audited (1 year)" },
+    { upTo: 999999,  statement: "compiled with full disclosures by a CPA (6 months) or reviewed/audited (1 year)" },
+    { upTo: null,    statement: "reviewed or audited by an independent CPA (1 year)" }
+  ],
+  minLimitB: 200000, bankVerificationForm: true,
+  source: window.ROADMAP_NV_SOURCES.appPdf, limitSource: window.ROADMAP_NV_SOURCES.limit
+};
+/* NRS 624.265(2): on the Board's request, fingerprint cards + authorization from
+   the applicant, every officer/director/partner/associate and the qualifier;
+   the application checklist lists the Background Disclosure and Fingerprint
+   Waiver for ALL persons listed. Fee = Repository + FBI charges (NAC 624.681). */
+window.ROADMAP_NV_FINGERPRINTS = { who: "all persons listed on the application and the qualified individual",
+                                   after: "submission of the background forms", source: window.ROADMAP_NV_SOURCES.charac,
+                                   feeSource: window.ROADMAP_NV_SOURCES.fpFee, form: window.ROADMAP_NV_SOURCES.bkgd };
+window.ROADMAP_NV_APPLY_PAGES = { all: window.ROADMAP_NV_SOURCES.apply };
+/* After issuance: NRS 624.288 — name and license number on commercial vehicles. */
+window.ROADMAP_NV_RTW = [
+  { key: "vehicle", when: function () { return true; }, source: window.ROADMAP_NV_SOURCES.vehicle }
+];
+
 /* ═══ STATE RULE SETS (owner spec 2026-09-05 §2) ═══════════════════════════
    Everything the questionnaire and the plan read that DEPENDS on the state,
    keyed by the page's state. The California block reuses the verified objects
@@ -2274,36 +2515,81 @@ window.ROADMAP_RULES = {
     rtw: window.ROADMAP_RTW
   },
   az: {
-    available: true, lawCourse: "az-sre", assistant: false,
+    available: false, lawCourse: "az-sre", assistant: false,   // owner 2026-09-11: California first; AZ publishes after review
+    examsFirst: true,                                 // exams precede the application (PSI bulletin; A.A.C. R4-9-106)
     steps: window.ROADMAP_AZ_STEPS,
     experience: window.ROADMAP_AZ_EXPERIENCE_RULE,
     uiLevels: ["practical", "management", "helper"],
-    capOwnProperty: false, applyPages: null,            // ROC's online application: UNKNOWN (403)
-    experienceForm: window.ROADMAP_AZ_SOURCES.qual,   // ROC's own form: UNKNOWN (403) — the statute stands in
+    capOwnProperty: false, applyPages: null,            // ROC's own application pages: UNKNOWN (roc.az.gov 403)
+    experienceForm: window.ROADMAP_AZ_SOURCES.aacExp,  // R4-9-119: what evidence the Registrar must accept; ROC's form itself UNKNOWN
     experienceExamSource: null, experienceDocs: null,   // ROC pages unreadable (403) — nothing borrowed from CSLB
     selfJourneyQuestion: false,                         // the journeyman concept is California's
     eduCredit: window.ROADMAP_AZ_EDU_CREDIT,
-    military: null,                                   // not addressed by the statute read
-    waivers: window.ROADMAP_AZ_WAIVERS, waiverSource: window.ROADMAP_AZ_SOURCES.qual,
+    military: { creditPossible: true, reportedOnExperienceForm: false, source: window.ROADMAP_AZ_SOURCES.aacExp }, // R4-9-119(1): military service or training is accepted evidence
+    waivers: window.ROADMAP_AZ_WAIVERS, waiverSource: window.ROADMAP_AZ_SOURCES.aacExam,
     examWaiverQP: true,                               // the waiver questions are about a prior qualifying-party role
     disassociation: window.ROADMAP_AZ_DISASSOCIATION,
     qualifierSource: window.ROADMAP_AZ_SOURCES.qual,
-    reciprocity: null,                                // UNKNOWN (ROC page not readable)
+    reciprocity: null,                                // R4-9-106 allows a trade-exam waiver for an out-of-state qualifying party; the list of states lives on roc.az.gov — UNKNOWN
     entityUI: { main: ["corporation", "llc", "partnership"], other: [] },
     sosSource: window.ROADMAP_AZ_SOURCES.acc, sosStatement: false,
-    classPages: null, classIndexUrl: null,            // UNKNOWN (ROC classification pages not readable)
-    tradeGuides: null, processingTimes: null,
-    bondSource: window.ROADMAP_AZ_SOURCES.bond,
+    classPages: null, classIndexUrl: window.ROADMAP_AZ_SOURCES.aacRes.url,
+    tradeGuides: null, processingTimes: window.ROADMAP_AZ_SOURCES.aacApp,
+    processing: window.ROADMAP_AZ_PROCESSING,
+    bondSource: window.ROADMAP_AZ_SOURCES.aacBond, bonds: window.ROADMAP_AZ_BONDS,
+    fees: window.ROADMAP_AZ_FEES,
     wcAlways: [], wcSource: null,
     correctionDays: null, examWindowMonths: null,     // no such deadlines in the statutes read
     asbestosSource: null, llcSource: null,
     finalItems: ["bond", "wc"],
     expired: null, suspendedSource: null,             // UNKNOWN (ROC pages not readable)
+    examFacts: window.ROADMAP_AZ_EXAM_FACTS,
     rtw: window.ROADMAP_AZ_RTW
   },
-  nv: { available: false }
+  nv: {
+    available: false, lawCourse: "nv-cms", assistant: false,   // published after the owner's review
+    steps: window.ROADMAP_NV_STEPS,
+    experience: window.ROADMAP_NV_EXPERIENCE_RULE,
+    uiLevels: ["journeyman", "foreman", "supervising", "contractor", "helper"],
+    capOwnProperty: false,                              // NRS 624 lists no owner-builder experience setting
+    applyPages: window.ROADMAP_NV_APPLY_PAGES,
+    experienceForm: window.ROADMAP_NV_SOURCES.certForm,
+    experienceExamSource: window.ROADMAP_NV_SOURCES.reqs,
+    experienceDocs: window.ROADMAP_NV_SOURCES.resume,
+    selfJourneyQuestion: true,                          // NRS 624.260(8) defines journeyman: fully qualified, without supervision
+    eduCredit: window.ROADMAP_NV_EDU_CREDIT,
+    military: { creditPossible: true, reportedOnExperienceForm: false, source: window.ROADMAP_NV_SOURCES.reqs },
+    waivers: window.ROADMAP_NV_WAIVERS, waiverSource: window.ROADMAP_NV_SOURCES.exams,
+    examWaiverQP: true,
+    disassociation: window.ROADMAP_NV_DISASSOCIATION,
+    qualifierSource: window.ROADMAP_NV_SOURCES.qual,
+    reciprocity: window.ROADMAP_NV_RECIPROCITY,
+    entityUI: { main: ["corporation", "llc", "partnership"], other: [] },
+    sosSource: window.ROADMAP_NV_SOURCES.sos, sosStatement: false,
+    classPages: null, classIndexUrl: window.ROADMAP_NV_SOURCES.classes.url,
+    tradeGuides: null, processingTimes: null,           // "processing times vary" (NSCB FAQ)
+    bondSource: window.ROADMAP_NV_SOURCES.bonds, bond: window.ROADMAP_NV_BOND,
+    fees: window.ROADMAP_NV_FEES, recoveryFund: window.ROADMAP_NV_RECOVERY_FUND,
+    financial: window.ROADMAP_NV_FINANCIAL, fingerprints: window.ROADMAP_NV_FINGERPRINTS,
+    wcAlways: [], wcSource: window.ROADMAP_NV_SOURCES.insurance,
+    correctionDays: null, examWindowMonths: null,
+    asbestosSource: null, llcSource: null,
+    finalItems: ["bond", "wc", "fee"],
+    finalSources: { bond: window.ROADMAP_NV_SOURCES.bonds, fee: window.ROADMAP_NV_SOURCES.faq },
+    expired: null, suspendedSource: null,               // NRS 624.283: automatic suspension when not renewed — reinstatement rules not modelled
+    examFacts: window.ROADMAP_NV_EXAM_FACTS,
+    rtw: window.ROADMAP_NV_RTW
+  }
 };
 
+</script>
+<script>
+(function () {
+  ["az", "nv"].forEach(function (st) {
+    if (window.ROADMAP_RULES && window.ROADMAP_RULES[st]) window.ROADMAP_RULES[st].available = true;
+    if (window.ROADMAP_STATES && window.ROADMAP_STATES[st]) window.ROADMAP_STATES[st].available = true;
+  });
+})();
 </script>
 <script>
 /* LICENA — License Roadmap translations (EN/ES/RU). All UI strings and the
@@ -2811,6 +3097,18 @@ en: {
   prepDepsWarn: "Still open at LICENA's preliminary level: {items}. You can keep working on the draft — it is not ready to submit until these are resolved, and CSLB makes the final decision.",
   rmAppOfficial: "Open the application on the CSLB site",
   rmEditAnswers: "Change my answers",
+  rowExams: "Exams",
+  qExamsH: "Your exams",
+  qExamsSub: "In this state the exams come before the application — tell us where each one stands.",
+  recipState_al: "Alabama",
+  recipState_ca: "California",
+  recipState_ct: "Connecticut",
+  recipState_fl: "Florida",
+  recipState_hi: "Hawaii",
+  recipState_nm: "New Mexico",
+  recipState_sc: "South Carolina",
+  recipState_tn: "Tennessee",
+  recipState_wv: "West Virginia",
   cvBackPlan: "← Back to my plan without saving",
   fixQ_submit_application: "Correct the mark that you submitted the application?",
   fixQ_application_review: "Correct the mark that CSLB accepted your application?",
@@ -3034,7 +3332,186 @@ en: {
   expImportedNote: "Copied from your {state} questionnaire — open it to restate the level for this state and say who can verify it.",
   /* Arizona wording — layered over the block above on roadmap-az.html.
      Facts: A.R.S. 32-1122, 32-1124, 32-1127.01, 32-1152 (azleg.gov, 2026-09-05). */
+  _nv: {
+    nsFlag: "You marked that you're not sure about your license type. Reviewing this step carefully is your best first move — and confirm the classification with NSCB's official classification list.",
+    expDocTypesL: "Which of these do you have? (typical examples — NSCB decides what supports your certifications)",
+    expNonLicNote: "Working for yourself without a license is real experience, but it is not the same as being a licensed contractor, and it does not change your answer about licenses. NSCB's Resume of Experience asks self-employed applicants for a customer list with addresses and phone numbers.",
+    expJlNote: "NRS 624.260(8) defines a journeyman as a person fully qualified to perform, without supervision, work in the classification applied for (or who has completed an apprenticeship program) — as opposed to a trainee, helper or laborer.",
+    expCertRelNote: "NSCB's Certification of Work Experience (Part 2) is completed by the employer or business the qualifier worked with and signed under penalty of perjury; identical wording on several certificates is not accepted, and the certifier may be asked for more about the work they witnessed.",
+    expOutsideNote: "{n} months fall outside the 15-year window and were not counted.",
+    nx_susp_b: "The suspension on your license must be cleared with NSCB before you can be returned to good standing and contract again — this is not a new application.",
+    att_reciprocity: "Your out-of-state license meets NSCB's published endorsement conditions. You still file the Contractor's License Application (Licensure by Endorsement section) with the Request for Verification of License; the Board may waive the trade exam, and the Business & Law (CMS) exam is still required.",
+    stateName: "Nevada",
+    introKicker: "Nevada · NSCB · guided checklist",
+    rmTitle: "Your Nevada Contractor License Roadmap",
+    disclaimer: "Licena provides educational guidance and is not affiliated with the Nevada State Contractors Board (NSCB). Licensing requirements are determined by the Board under NRS and NAC Chapter 624.",
+    recNote: "A LICENA recommendation based on your answers — not an NSCB determination.",
+    s_waiting: "Waiting for NSCB",
+    manualNote: "Status set by you. LICENA does not check anything with NSCB — official confirmation comes only from the Board.",
+    prepDepsWarn: "Still open at LICENA's preliminary level: {items}. You can keep working on the application — it is not ready to submit until these are resolved, and the Board makes the final decision.",
+    nx_expclar_b: "Some of your work periods still need the level or the content of the work clarified, or the time entered is short of the requirement. Open the experience step and work through the periods — the application can be prepared in parallel. The Board makes the final decision.",
+    dashNoDateSub: "Appears once you enter an exam date or a statutory deadline — nothing is assumed.",
+    dashExpMay: "preliminary status: may meet {years} years — the Board decides",
+    fixQ_application_review: "Correct the mark that NSCB verified your experience and issued exam eligibility?",
+    fixQ_fingerprinting: "Correct the mark that the fingerprint step is completed?",
+    qClassSub: "Everything that follows — the CMS and trade exams, the experience the Board verifies, the forms you file — depends on this choice, so it is required.",
+    d_classification: "Every NSCB license is issued in a classification — Class A General Engineering, Class B General Building (B-2 Residential and Small Commercial …) or one of the 42 Class C specialties (C-2 Electrical, C-21 Refrigeration and Air Conditioning …). Your trade exam and the experience the Board verifies follow from it (NAC 624).",
+    todo_classification: "Confirm the classification matches the work you will contract for; the Board's classification list decides the scope and whether a trade exam is required.",
+    docs_classification: "The classification you'll apply for (e.g. B-2, C-2, C-21) — NSCB License Classifications.",
+    rowHist: "Nevada license",
+    qHist2: "Have you ever held a Nevada contractor license?",
+    att_original: "You are getting your first Nevada contractor license.",
+    at_replace_qualifier: "Replace the qualified individual",
+    att_replace_qualifier: "You are replacing the qualified individual on a company license.",
+    att_reapply: "You are reapplying after an expired or suspended license.",
+    r_qual: "I am the qualified individual",
+    r_owner_rme: "I am an owner, officer or member — someone else is the qualified individual",
+    r_prev_qual: "I was previously the qualified individual on this license",
+    roleOwnerNote: "Owning the company and being its qualified individual are different things. Ownership by itself is neither qualifying experience nor qualifier status — NRS 624.260 sets the experience and examination requirements the qualified individual must meet.",
+    qGoalL: "With another person currently the qualified individual:",
+    g_replace_rme: "Replace the qualified individual and qualify the company myself",
+    g_add_class: "Keep the qualified individual and add a classification",
+    g_prepare: "Prepare in case the qualified individual leaves",
+    qRmeLeftL: "If the qualified individual has already left, when? (optional)",
+    rmeDeadlineNote: "Under NRS 624.285 the licensee must notify the Board in writing within 10 days after the qualified individual leaves and replace that person with another qualified, Board-approved person within 30 days (the Board may extend for good cause) — otherwise the license is suspended.",
+    dateKindRme: "Replace the qualified individual (30 days, NRS 624.285)",
+    ent_corporation: "Nevada corporation",
+    entCmp_llc: "LLC: a separate legal entity; the license is issued to the LLC. Every applicant needs a Nevada Business ID from the Secretary of State (SilverFlume) before the application is filed (New License Application, rev. 03/2026).",
+    entitySetupNote: "You plan to apply as an entity that isn't formed yet. NSCB's application requires a Nevada Business ID from the Secretary of State (SilverFlume) before it is filed — plan this step first.",
+    qExpIntro: "Licena helps you structure what you did, period by period. Nevada asks the qualified individual for four years of experience as a journeyman, foreman, supervising employee or contractor within the last fifteen years — but whether experience is credited is decided by the State Contractors Board, not here.",
+    qExpQuickL: "Do you have at least {years} years of experience as a journeyman, foreman, supervising employee or contractor in {name} — within the last fifteen years — that can be verified?",
+    expWindowNote: "NRS 624.260(6): within the 15 years immediately preceding the application, at least 4 years of experience as a journeyman, foreman, supervising employee or contractor in the specific classification; training at an accredited college or university (or an equivalent program the Board accepts) may satisfy up to 3 of those years. NSCB's older FAQ still says ten years — the statute governs.",
+    lvlNote: "NRS 624.260(8) defines a journeyman as a person fully qualified to perform the work of the classification without supervision, or who completed an approved apprenticeship. Trainee and helper time is real work, but enter it as such — the Board decides what counts.",
+    expFormLink: "NSCB — Certification of Work Experience (PDF)",
+    expFormHow: "NSCB verifies experience on four Certification of Work Experience forms per qualifier (or a current master's certification from a governmental agency, or transferrable military experience), plus the Resume of Experience; self-employed claims need a customer list with addresses and phone numbers (License Requirements, 2026-09-11).",
+    expPotentialL: "Potentially qualifying experience (journeyman, foreman, supervising employee or contractor)",
+    expSt_ok: "may meet the statutory four years — the Board verifies the level and the work",
+    expSt_short: "about {dur} short of four years so far",
+    expDisclaimer: "Licena provides a preliminary educational estimate based on your answers. The final decision on whether experience qualifies and is credited is the Nevada State Contractors Board's.",
+    xqAct_yes_b: "Line up the four people who will sign your Certification of Work Experience forms and the records behind each period — the Board verifies experience before it issues exam eligibility. Whether the experience qualifies is the Board's decision.",
+    xqAct_unsure_b: "List each period, who saw the work first-hand and which records exist. Experience nobody can certify is the most common reason applications stall.",
+    xqAct_no_b: "Enter every period — including part-time and self-employed work — and your training: accredited college or university training may stand in for up to three of the four years (NRS 624.260(6)). The Board decides; the plan never subtracts credit on its own.",
+    lvlS_helper: "Learning the trade under someone else's direction — entered for the record; the Board decides what counts",
+    expLevelNote: "Enter the level honestly; the Board verifies experience from the certifications and the Resume of Experience (NRS 624.260).",
+    expSelfNameNote: "Working for yourself? Enter a short label for your own activity — NSCB's Resume of Experience asks self-employed applicants for a customer list with addresses and phone numbers.",
+    expPartTimeNote: "Part-time work is entered as such; how the Board credits it is its call — nothing here converts hours into years.",
+    expPartTimeApart: "Plus {dur} at part-time — kept separate; the Board decides how it counts.",
+    expCertDirectNote: "Each Certification of Work Experience form is signed by a person who can verify the work first-hand; the form itself says who may sign — name someone who saw the work.",
+    expDocsNote: "Illustrative document types only — NSCB's forms say what to submit; no single document decides anything.",
+    expNoCertWarn: "{n} period(s) have nobody named to verify them. NSCB requires four signed Certification of Work Experience forms — line up people who can sign.",
+    expRandomNote: "",
+    expNeedsReview: "Experience status: needs review — Nevada expects four years as a journeyman, foreman, supervising employee or contractor within the last fifteen; check how your time adds up before you apply.",
+    expCertNeeded: "Experience status: certification needed — arrange the four people who will sign your Certification of Work Experience forms.",
+    expShortNote: "That's okay — the plan will honestly show the gap and the lawful ways to close it: more experience and, for up to three years, accredited college or university training (NRS 624.260(6)); the Board decides any credit.",
+    qEduHasL: "Have you completed training in this trade at an accredited college or university, an equivalent program accepted by the Board, or an approved apprenticeship?",
+    edu2_appr: "Apprenticeship approved by the State Apprenticeship Council",
+    eduNote: "NRS 624.260(6): training received in a program offered at an accredited college or university, or an equivalent program accepted by the Board, may satisfy not more than three of the four years. The Board decides the credit — LICENA never subtracts it.",
+    eduForeignNote: "Training completed in another country: ask NSCB how it is evaluated — nothing here assumes credit.",
+    rmEduForeignB: "You studied outside the U.S. Ask NSCB how foreign training is evaluated before you count on any credit.",
+    milNote: "NSCB accepts transferrable military experience or training as experience verification (License Requirements). Report it with your service records — the Board decides the credit; a Veterans Assistance Program is available.",
+    qWaiverH: "Examination waiver review",
+    qWaiverSub: "NSCB generally does not re-examine a person who actively served as the qualified individual on another Nevada license in the same classification within the last four years. Answer honestly — the Board checks its own records.",
+    wv_priorQPL: "Have you served as the qualified individual for a Nevada licensee in this same classification?",
+    wv_priorQP5yL: "Within the last four years?",
+    waiverMaybeNote: "Your answers match {sec}: a qualified individual who actively served on another Nevada license in the same classification within the last four years generally is not re-examined. The Board confirms from its records — nothing is waived until it does.",
+    waiverFormNote: "State the earlier qualified-individual role on your application; the Board checks its records.",
+    waiverNoneNote: "Nothing in your answers matches a published waiver, so plan on the CMS exam and, where required, the trade exam.",
+    expPriorQPNote: "You said you were the qualified individual in this classification before: NSCB waives the experience certification when you served as a qualified employee in the same classification on another Nevada license within the last five years — the Board confirms.",
+    recipNote: "Nevada licenses by endorsement: an active license with the same qualified individual for the past four years in Alabama, Arizona, California, Connecticut, Florida, Hawaii, Louisiana, New Mexico, North Carolina, South Carolina, Tennessee or West Virginia may waive the trade exam; the Business & Law (CMS) exam is never waived. The endorsing state completes the Request for Verification of License form.",
+    recipMetNote: "This license meets NSCB's published endorsement conditions (a listed state, active with the same qualified individual for the past four years, no discipline). The trade exam MAY be waived — the Board confirms; the CMS exam is still required.",
+    recipNotMetNote: "As answered, this license does not meet NSCB's published endorsement conditions: {reasons}. Your path stays a regular first license and your experience is certified as usual — an out-of-state license by itself waives neither an exam nor the experience review.",
+    rr_state: "the state is not one of NSCB's endorsement states",
+    rr_years: "the license has not been active with the same qualified individual for the past four years",
+    rr_good: "the license is not in good standing",
+    ry_lt5: "Less than 4 years",
+    ry_5plus: "4 years or more",
+    recipRowMet: "conditions met — NSCB confirms",
+    lawShort: "Business & Law (CMS)",
+    dashLaw: "CMS",
+    qLawStatusL: "Business & Law (CMS) exam — status",
+    qLawDateL: "CMS exam date",
+    dateKindLaw: "CMS exam",
+    startLaw: "Start Business & Law (CMS) Practice",
+    examLawRequired: "Business & Law (CMS): required — never waived",
+    examLawMayWaive: "Business & Law (CMS): required in every case",
+    examTradeRequired: "{name}: required unless NSCB confirms a waiver",
+    examTradeMayWaive: "{name}: may be waived — NSCB confirms",
+    x_waived: "Waived — confirmed by NSCB",
+    examFactsNote: "Nevada: exams are given by PSI after NSCB issues exam eligibility. The CMS exam has 60 scored questions in 120 minutes, 45 correct (75%) passes, open book (Construction Business and Law Manual for Nevada); trade exams are closed book. PSI fee $95 for one portion, $140 for two; three attempts with two weeks between them — after a third failure the application is void and you reapply after 30 days.",
+    nx_prep_b: "NSCB verified your experience and issued your exam eligibility — the CMS and trade exams are what stands between you and the license. Start preparing now.",
+    nx_retake_b: "A failed exam just means another attempt: PSI lets you retake after two weeks, three attempts in all — after a third failure the application becomes void and you reapply after 30 days. Target your weak areas.",
+    nx_wait_t: "Wait for NSCB to verify your experience",
+    nx_wait_b: "Your application is filed. Board staff verify the experience certifications first; then the Examination Eligibility letter with your candidate ID arrives, and you schedule with PSI. Processing times vary — your License Analyst can tell you where it stands.",
+    nx_corr_t: "Respond to NSCB's request",
+    nx_corr_b: "You told us NSCB asked for more information or a correction. Responding exactly as asked is the immediate priority — keep copies of everything you send.",
+    nx_rej_b: "You told us your application was denied or returned. Review the Board's letter and fix what it names; a new application needs a new $300 fee.",
+    nx_final_b: "Exams are behind you. What remains before issuance: the bond in the amount the Board set at approval ($1,000–$500,000), the $600 two-year license fee, the Residential Recovery Fund assessment where it applies, and proof of industrial insurance or the exemption affidavit (NRS 624.256).",
+    nx_waitiss_b: "You reported the final requirements are in motion. Once NSCB confirms them, the license number appears on the Board's website and the wall and pocket cards are mailed.",
+    nx_issued_b: "You reported your license has been issued. Note your license number: it goes on your commercial vehicles (NRS 624.288), and the license expires two years after issuance (NRS 624.283).",
+    nx_cert_b: "Your application needs four signed Certification of Work Experience forms. Arranging the people who can sign them now prevents the most common delay.",
+    wyw_b: "You don't have to lose this time — exam preparation can start now, while NSCB verifies your experience.",
+    qAppSubL: "Have you submitted your NSCB application for this license?",
+    appNumNote: "Use the number from NSCB's receipt or correspondence, if you have one.",
+    qAccDateL: "When did NSCB issue your exam eligibility? (from the letter)",
+    stg_acc: "Experience verified — exam eligibility received",
+    mc_application_review: "Yes, NSCB verified my experience (exam eligibility received)",
+    mc_fingerprinting: "Yes, I completed the fingerprint step",
+    qFingerH: "Have you completed the fingerprint step (Background Disclosure and Fingerprint Waiver forms, then fingerprints)?",
+    fp_not: "Forms not submitted yet",
+    fp_req: "Forms submitted — fingerprints pending",
+    fp_sched: "Appointment set",
+    fp_done: "Completed",
+    dateKindFp: "Fingerprint appointment",
+    t_prepare_application: "Prepare your NSCB application",
+    d_prepare_application: "The New License Application (rev. 03/2026) is filed with the $300 fee, the Resume of Experience, four Certification of Work Experience forms per qualifier, a Background Disclosure Statement and Fingerprint Waiver for every person listed, copies of IDs, a financial statement matching the monetary limit you request (self-prepared up to $25,000; CPA-compiled, reviewed or audited above it), a Bank Verification Form and, for sole proprietors, the Child Support Information Statement. A Nevada Business ID from the Secretary of State comes first. NSCB offers a free pre-submittal review by a license analyst.",
+    todo_prepare_application: "Get your Nevada Business ID (SilverFlume), decide the monetary limit and order the matching financial statement, collect the four experience certifications and the background forms for everyone listed, and book a free pre-submittal review with a license analyst.",
+    docs_prepare_application: "New License Application, Resume of Experience, four Certification of Work Experience forms, Background Disclosure and Fingerprint Waiver forms, IDs, financial statement, Bank Verification Form, Nevada Business ID.",
+    t_submit_application: "Submit application and $300 fee",
+    d_submit_application: "The application is filed with the nonrefundable $300 application fee (NSCB FAQ; statutory cap $550, NRS 624.280) — online through NSCB's portal or on paper. The Board processes only complete applications with all supporting documents.",
+    todo_submit_application: "File the complete application with the $300 fee and keep a full copy; incomplete applications are not processed.",
+    docs_submit_application: "Signed application, $300 fee, all supporting forms, a copy for your records.",
+    t_fingerprinting: "Complete fingerprints for everyone listed",
+    d_fingerprinting: "Once the Background Disclosure Statement and Fingerprint Waiver forms are submitted, every person listed on the application and the qualified individual obtain fingerprints for the Nevada Department of Public Safety and FBI check (NRS 624.265); the processing fee equals the Repository and FBI charges, paid by cashier's check to the Nevada Highway Patrol (NAC 624.681).",
+    todo_fingerprinting: "After the background forms are filed, have everyone listed fingerprinted as NSCB instructs and keep the receipts.",
+    docs_fingerprinting: "Background Disclosure and Fingerprint Waiver forms, NSCB fingerprint instructions, government photo ID, cashier's check for the processing fee.",
+    t_application_review: "Experience verification and exam eligibility",
+    d_application_review: "Board staff verify the experience certifications; once they do, the Examination Eligibility letter with your candidate ID arrives and you can schedule with PSI (NSCB License Examinations). Processing times vary — your assigned License Analyst can tell you where it stands.",
+    todo_application_review: "Watch for NSCB correspondence; answer any request exactly as asked and keep copies. Contact your License Analyst if you need a status.",
+    docs_application_review: "NSCB correspondence, your application copy, the Examination Eligibility letter once it arrives.",
+    t_prep_law_business: "Prepare for the Business & Law (CMS) exam",
+    d_prep_law_business: "The CMS exam is required for every license: 60 scored questions in 120 minutes, 45 correct (75%) to pass, open book with the Construction Business and Law Manual for Nevada; topics — licensing, estimating and bidding, lien law, financial management, tax, labor, project management, contracts, risk, environment and safety (PSI bulletin). LICENA's Nevada CMS course covers this material.",
+    todo_prep_law_business: "Work through the CMS topics with LICENA's practice questions, then drill in exam format until it feels routine.",
+    docs_prep_law_business: "Construction Business and Law Manual for Nevada; NRS/NAC Chapter 624.",
+    d_prep_trade: "Where the classification requires it, PSI also gives a trade exam specific to your classification — closed book, with the exception of certain code references (NSCB License Examinations).",
+    todo_prep_trade: "Practice in exam format for your classification.",
+    docs_prep_trade: "PSI content outline and references for your classification.",
+    d_schedule_pass_exams: "Exams are scheduled with PSI after the Examination Eligibility letter arrives (Las Vegas, Reno, Elko, or PSI centers elsewhere); PSI fee $95 for one portion, $140 for two. Three attempts per exam with two weeks between them; after a third failure the application becomes void and a new application is possible after 30 days (NSCB License Examinations; PSI bulletin).",
+    todo_schedule_pass_exams: "Register with PSI using your candidate ID, bring the required identification and your references for the open-book CMS, and pass each required exam.",
+    docs_schedule_pass_exams: "Examination Eligibility letter, government photo ID, open-book references for the CMS.",
+    t_final_requirements: "Bond, license fee, insurance — then issuance",
+    d_final_requirements: "On approval the Board sets your bond between $1,000 and $500,000 (surety rated A or better, or a cashier's-check deposit plus a $200 biennial fee); the $600 two-year license fee is due; residential contractors pay the Residential Recovery Fund assessment by monetary limit ($200 up to $1,000,000; $500 above it; $1,000 unlimited — NRS 624.470); and before issuance the Board requires proof of industrial insurance or the affidavit that you have no employees and will not subcontract or bid for a principal contractor (NRS 624.256).",
+    todo_final_requirements: "Buy the bond in the amount NSCB set, pay the $600 license fee and any recovery-fund assessment, and provide the industrial insurance proof or affidavit.",
+    docs_final_requirements: "Surety bond on the Board's form or cashier's check, license fee, recovery-fund assessment (residential), industrial insurance certificate or exemption affidavit.",
+    qBondL: "Do you have the bond in the amount NSCB set at approval ($1,000–$500,000)?",
+    qFeeL: "License fee ($600 for two years) — paid?",
+    feeNote: "NSCB: the application fee is $300; if approved, the license fee is $600 for a two-year license. Residential contractors also pay the Residential Recovery Fund assessment by monetary limit (NRS 624.470).",
+    w_notreq: "Not required — affidavit (no employees, no subcontracting, no bids to a principal contractor)",
+    d_license_issued: "Once every requirement is met and a license number is assigned it appears on NSCB's website; the wall card and pocket cards are mailed. The license expires two years after issuance and is renewed biennially (NRS 624.283).",
+    todo_license_issued: "Note your license number and renewal date; put your name and license number on your commercial vehicles (NRS 624.288).",
+    rtwIntro: "Your contractor license is issued. One statutory requirement applies as soon as you work — your name and license number on your commercial vehicles — and your city or county may add their own.",
+    rtw_vehicle_t: "Mark your commercial vehicles",
+    rtw_vehicle_b: "NRS 624.288: display your name and license number, in letters and numbers approximately 1½ inches high, on each commercial motor vehicle registered under the licensee's name.",
+    d_experience: "The qualified individual needs four years of experience as a journeyman, foreman, supervising employee or contractor in the classification, within the last fifteen years (NRS 624.260(6)); accredited training may cover up to three of those years.",
+    todo_experience: "List your work history by period, who can certify it and what records back it up; NSCB needs four signed Certification of Work Experience forms and a Resume of Experience — self-employed periods need a customer list.",
+    docs_experience: "Work history with dates, four people who will sign the certifications, Resume of Experience, supporting records.",
+  },
   _az: {
+    nsFlag: "You marked that you're not sure about your license type. Reviewing this step carefully is your best first move — and confirm the classification with the A.A.C. R4-9 classification rules and ROC.",
+    expDocTypesL: "Which of these do you have? (typical examples — the Registrar decides what supports your experience)",
+    expNonLicNote: "Working for yourself without a license is real experience, but it is not the same as being a licensed contractor, and it does not change your answer about licenses. The Registrar verifies the qualifying party's experience (A.R.S. 32-1122(B)).",
+    expJlNote: "Arizona's rule speaks of practical or management trade experience (A.R.S. 32-1122(E)(1); A.A.C. R4-9-119) rather than a journeyman level — the Registrar decides what counts. Enter the work as it was.",
+    expCertRelNote: "ROC verifies experience on the forms the Registrar prescribes (A.R.S. 32-1122(B)); who may sign for you is set by ROC's own form and instructions, which are not reproduced here.",
+    nx_susp_b: "The suspension on your license must be cleared with ROC before you can be returned to good standing and contract again — this is not a new application.",
     stateName: "Arizona",
     x_waived: "Waived — confirmed by ROC",
     qLawStatusL: "Statutes & Rules Exam — status",
@@ -3063,7 +3540,7 @@ en: {
     entCmp_llc: "LLC: a separate legal entity; the license is issued to the LLC, and the application must attest that it is in good standing with the Arizona Corporation Commission (A.R.S. 32-1122(B)(1)(g)).",
     entitySetupNote: "You plan to apply as an entity that isn't formed yet. ROC's application requires a corporation or LLC to attest that it is in good standing with the Arizona Corporation Commission (A.R.S. 32-1122(B)(1)(g)) — plan this step before you file.",
     expFormLink: "A.R.S. 32-1122 — Qualifications for license",
-    expFormHow: "ROC verifies the qualifying party's experience on the forms the Registrar prescribes (A.R.S. 32-1122(B)). The statute asks for four years of practical or management trade experience, at least two of them within the last ten years, in the type of construction applied for (32-1122(E)(1)).",
+    expFormHow: "ROC verifies the qualifying party's experience on the forms the Registrar prescribes (A.R.S. 32-1122(B)); A.A.C. R4-9-119 requires the Registrar to accept military service or training, diplomas or transcripts from accredited programs and apprenticeship completion certificates, whether or not you or your employer were licensed at the time. The statute asks for four years of practical or management trade experience, at least two of them within the last ten years (32-1122(E)(1)).",
     qExpIntro: "Licena helps you structure what you did, period by period. Arizona asks the qualifying party for four years of practical or management trade experience, at least two of them within the last ten years — but whether experience is credited is decided by the Registrar of Contractors, not here.",
     qExpQuickL: "Do you have at least {years} years of practical or management experience in {name} — at least two of them within the last ten years — that can be verified?",
     s_waiting: "Waiting for ROC",
@@ -3146,45 +3623,52 @@ en: {
     t_classification: "Confirm your license classification",
     d_classification: "Every ROC license is issued in a classification — the application designates the classification sought (A.R.S. 32-1122(B)(1)(a)). Your exams and the experience ROC verifies follow from it.",
     todo_classification: "Confirm the classification matches the work you will contract for; the Registrar's classification rules decide the scope.",
-    docs_classification: "The classification you'll apply for (e.g. B, R-11, R-39R).",
+    docs_classification: "The classification you'll apply for (A.A.C. R4-9-103 residential: B, R-11, R-37, R-39…; R4-9-102 commercial; R4-9-104 dual).",
     d_experience: "The qualifying party needs four years of practical or management trade experience, at least two within the last ten years, in the type of construction applied for (A.R.S. 32-1122(E)(1)).",
     todo_experience: "List your work history by period, who can verify it and what records back it up. Accredited technical training may stand in for up to two years — the Registrar decides.",
     docs_experience: "Work history with dates, people who can verify it, supporting records.",
-    t_prepare_application: "Prepare your ROC application",
-    d_prepare_application: "A verified application on the Registrar's forms names the classification, the business and its people, the qualifying party, the place of business and the workers' compensation attestation (A.R.S. 32-1122(B)(1)).",
-    todo_prepare_application: "Gather what 32-1122(B) lists: the people and addresses behind the business, the qualifying party, good standing with the Corporation Commission for an LLC or corporation, and the workers' compensation attestation.",
-    docs_prepare_application: "Application on ROC's forms, experience verification, entity good-standing attestation, workers' compensation policy number or proof of self-insurance where required.",
-    t_submit_application: "Submit application, fee and bond",
-    d_submit_application: "The application is filed with the fee and with the bond or cash deposit required by A.R.S. 32-1152 (32-1122(B)(2)–(3)). Fee amounts are set by ROC.",
-    todo_submit_application: "File the application with ROC's fee and evidence of the bond or cash deposit, and keep a full copy.",
-    docs_submit_application: "Signed application, fee, bond or cash deposit evidence, a copy for your records.",
+    t_prepare_application: "Prepare your ROC application (after the exams)",
+    d_prepare_application: "A verified application on the Registrar's forms names the classification, the business and its people, the qualifying party, the place of business and the workers' compensation attestation (A.R.S. 32-1122(B)(1)); it is filed with the original score report, the fees and the bond or cash deposit.",
+    todo_prepare_application: "Gather what 32-1122(B) lists: the people and addresses behind the business, the qualifying party, good standing with the Corporation Commission for an LLC or corporation, the workers' compensation attestation, your score report(s) and the bond.",
+    docs_prepare_application: "Application on ROC's forms, original score report(s), experience evidence, entity good-standing attestation, bond or cash deposit, workers' compensation policy number or proof of self-insurance where required.",
+    t_submit_application: "Submit application, fees and bond",
+    d_submit_application: "The application is filed with the fees and with the bond or cash deposit required by A.R.S. 32-1152 (32-1122(B)(2)–(3)). A.A.C. R4-9-130: application + license fee — general commercial $200 + $580, specialty commercial $100 + $480, general residential $180 + $320, specialty residential $80 + $270, general dual $200 + $480, specialty dual $100 + $380; residential and dual licenses also pay the recovery-fund assessment ($370 initial).",
+    todo_submit_application: "File the application with the fees, the original score report and evidence of the bond or cash deposit, and keep a full copy.",
+    docs_submit_application: "Signed application, fees, original score report(s), bond or cash deposit evidence, a copy for your records.",
     t_fingerprinting: "Submit fingerprints if ROC requires them",
     d_fingerprinting: "The Registrar may require a full set of fingerprints and the fees under A.R.S. 41-1750 for a state and federal criminal records check (32-1122(H)).",
     todo_fingerprinting: "If ROC asks, submit the fingerprints and fee as instructed and keep the receipt.",
     docs_fingerprinting: "ROC's fingerprint instructions, government photo ID.",
     t_application_review: "Application review by ROC",
-    d_application_review: "After a complete application is filed, the Registrar notifies the applicant of the action taken within 60 days (A.R.S. 32-1124(A)).",
-    todo_application_review: "Watch for ROC correspondence; respond exactly to any correction request and keep copies.",
+    d_application_review: "A.A.C. R4-9-113: the Registrar's overall time frame is 60 calendar days — 40 days to review completeness (license or a deficiency notice) and 20 days of substantive review; you have 30 days to answer a deficiency notice, or the application is returned and the application fee is forfeited (A.R.S. 32-1124(A), (D)).",
+    todo_application_review: "Watch for ROC correspondence; answer any deficiency notice within 30 days, exactly as asked, and keep copies.",
     docs_application_review: "ROC correspondence, your application copy.",
     t_prep_law_business: "Prepare for the Statutes & Rules Exam",
-    d_prep_law_business: "The written examination covers Arizona's building, safety, health and lien laws, administrative principles of contracting and the Registrar's rules (A.R.S. 32-1122(E)(2)); LICENA's Statutes & Rules course covers this material.",
-    todo_prep_law_business: "Study the statutes and rules, then drill practice questions until the exam format feels routine.",
-    docs_prep_law_business: "A.R.S. Title 32, Chapter 10 and the Registrar's rules.",
-    d_prep_trade: "Where ROC requires it for the classification, the examination also tests the kind of work, construction plans and specifications, and the standards and practices of the craft (A.R.S. 32-1122(E)(2)).",
-    todo_prep_trade: "Practice in exam format for your classification.",
-    docs_prep_trade: "Trade references for your classification.",
-    d_schedule_pass_exams: "The examination, if required, must be taken not more than two years before application (A.R.S. 32-1122(E)(2)); the Registrar waives it for a qualifying party who held that role for an Arizona licensee in the same classification within the preceding five years (32-1122(F)).",
-    todo_schedule_pass_exams: "Schedule through ROC's testing arrangements, bring the required identification, and pass each required exam.",
-    t_final_requirements: "Complete bond, insurance and final requirements",
-    d_final_requirements: "Before an original license is granted the Registrar requires a surety bond or cash deposit in the amounts of A.R.S. 32-1152, set by classification and estimated annual volume; residential and dual contractors also carry the recovery-fund assessment or an additional $200,000 bond (32-1152(C)). The application carries the workers' compensation attestation (32-1122(B)(1)(i)).",
-    todo_final_requirements: "Keep the bond or cash deposit in force and provide the workers' compensation information ROC asks for.",
-    docs_final_requirements: "Bond or cash deposit evidence, workers' compensation policy number or proof of self-insurance.",
+    d_prep_law_business: "The Statutes & Rules Exam (SRE) is ROC's own online course with a test at the end ($61; PSI bulletin); it covers Arizona's building, safety, health and lien laws, administrative principles of contracting and the Registrar's rules (A.R.S. 32-1122(E)(2); A.A.C. R4-9-106). It is required for a new qualifying party who was not the qualifying party on another Arizona license within the last five years.",
+    todo_prep_law_business: "Study Title 32, Chapter 10 and the Registrar's rules with LICENA's Statutes & Rules practice, then take ROC's online SRE.",
+    docs_prep_law_business: "A.R.S. Title 32, Chapter 10; A.A.C. Title 4, Chapter 9; ROC's SRE course.",
+    d_prep_trade: "Whether your classification also needs a PSI trade exam (and a solar portion) is set by ROC's License Classification Requirements form RC-L-206B; PSI publishes each exam's content outline with the time limit, item counts and references (PSI bulletin, 2026-09-11).",
+    todo_prep_trade: "Check RC-L-206B for your classification, download PSI's content outline, and practice in exam format.",
+    docs_prep_trade: "PSI content outline and references for your classification.",
+    d_schedule_pass_exams: "Exams come first in Arizona. PSI schedules the trade exam after ROC's eligibility e-mail; 70% passes (A.A.C. R4-9-106); a failed exam is retaken after 30 days, three attempts, then a 90-day wait; the fee is valid one year. The application must reach ROC within two years of passing (PSI bulletin). ROC waives the exams for a qualifying party who held that role in the same classification within the preceding five years (A.R.S. 32-1122(F)).",
+    todo_schedule_pass_exams: "Take ROC's online SRE, then schedule the trade exam with PSI (test center or remote), bring the required identification, and keep the original score report for the application.",
+    t_final_requirements: "Bond on file, insurance — then issuance",
+    d_final_requirements: "The license bond or cash deposit is not effective until filed at a ROC office (A.A.C. R4-9-112). Amounts by classification and estimated annual volume: general commercial $5,000–$100,000, specialty commercial $2,500–$50,000, general residential $9,000 or $15,000, specialty residential $4,250 or $7,500; residential and dual contractors also carry the recovery-fund assessment or an additional $200,000 bond (A.R.S. 32-1152(C)). The application carries the workers' compensation attestation (32-1122(B)(1)(i)).",
+    todo_final_requirements: "Keep the bond or cash deposit on file and in force, pay the recovery-fund assessment where it applies, and provide the workers' compensation information ROC asks for.",
+    docs_final_requirements: "Bond or cash deposit evidence, recovery-fund assessment receipt (residential/dual), workers' compensation policy number or proof of self-insurance.",
     d_license_issued: "The Registrar issues the license once it determines the applicant is qualified (A.R.S. 32-1124(A)); the license is nontransferable (32-1124(B)).",
     todo_license_issued: "Note your ROC license number: it must appear on premises where work is performed, on bids, estimates and advertising (A.R.S. 32-1124(B)).",
     qBondL: "Do you have the surety bond or cash deposit required by A.R.S. 32-1152?",
     rtwIntro: "Your contractor license is issued. One statutory requirement applies as soon as you work — posting the ROC number — and your city or county may add their own.",
     rtw_posting_t: "Post your ROC license number",
     rtw_posting_b: "A.R.S. 32-1124(B): the license number, preceded by 'ROC', must be posted in a conspicuous place where work is performed, on all written bids and estimates, and on advertising, letterheads and customer documents.",
+    nx_prep_t: "Pass your exams first",
+    nx_prep_b: "In Arizona the exams come before the application: ROC accepts a licensing application only with the original score report, filed within two years of passing (PSI bulletin). Prepare for the Statutes & Rules Exam and, where your classification requires it, the PSI trade exam.",
+    stg_acc: "ROC approved my application — issuance pending (bond, fees)",
+    qExamsH: "Your exams — Statutes & Rules and the trade exam",
+    qExamsSub: "In Arizona the exams are taken before the application is filed. Tell us where each stands — a passed exam stays valid for two years.",
+    examFactsNote: "Arizona: the Statutes & Rules Exam (SRE) is ROC's own online course-and-exam ($61); trade exams are given by PSI ($66 for one, $116 for two, solar portion $40); 70% passes; a failed exam is retaken after 30 days, three attempts, then 90 days between attempts; the application must be filed within two years of passing.",
+    docs_schedule_pass_exams: "PSI eligibility e-mail, government photo ID, original score report(s).",
   },
   qHolder3: "Who is the license for?",
   hkS_me: "Issued to you as an individual — the simplest start; you answer for the business personally.",
@@ -3694,6 +4178,18 @@ es: {
   prepDepsWarn: "Aún pendiente en la estimación preliminar de LICENA: {items}. Puedes seguir con el borrador — no está listo para presentar hasta resolverlo, y la decisión final es de la CSLB.",
   rmAppOfficial: "Abrir la solicitud en el sitio de la CSLB",
   rmEditAnswers: "Cambiar mis respuestas",
+  rowExams: "Exámenes",
+  qExamsH: "Tus exámenes",
+  qExamsSub: "En este estado los exámenes van antes de la solicitud — indica en qué punto está cada uno.",
+  recipState_al: "Alabama",
+  recipState_ca: "California",
+  recipState_ct: "Connecticut",
+  recipState_fl: "Florida",
+  recipState_hi: "Hawái",
+  recipState_nm: "Nuevo México",
+  recipState_sc: "Carolina del Sur",
+  recipState_tn: "Tennessee",
+  recipState_wv: "Virginia Occidental",
   cvBackPlan: "← Volver a mi plan sin guardar",
   fixQ_submit_application: "¿Corregir la marca de que presentaste la solicitud?",
   fixQ_application_review: "¿Corregir la marca de que la CSLB aceptó tu solicitud?",
@@ -3917,7 +4413,186 @@ es: {
   expImportedNote: "Copiado de tu cuestionario de {state}: ábrelo para indicar el nivel según este estado y quién puede verificarlo.",
   /* Arizona wording — layered over the block above on roadmap-az.html.
      Facts: A.R.S. 32-1122, 32-1124, 32-1127.01, 32-1152 (azleg.gov, 2026-09-05). */
+  _nv: {
+    nsFlag: "Marcaste que no estás seguro de tu tipo de licencia. Revisar este paso con calma es tu mejor primer movimiento — y confirma la clasificación con la lista oficial de clasificaciones de la NSCB.",
+    expDocTypesL: "¿Cuáles de estos tienes? (ejemplos típicos — la NSCB decide qué respalda tus certificaciones)",
+    expNonLicNote: "Trabajar por tu cuenta sin licencia es experiencia real, pero no es lo mismo que ser contratista con licencia, y no cambia tu respuesta sobre licencias. El Resume of Experience de la NSCB pide a los solicitantes autónomos una lista de clientes con direcciones y teléfonos.",
+    expJlNote: "NRS 624.260(8) define journeyman como una persona plenamente calificada para realizar, sin supervisión, el trabajo de la clasificación que solicita (o que completó un programa de aprendizaje) — a diferencia de un aprendiz, ayudante o peón.",
+    expCertRelNote: "La Certification of Work Experience de la NSCB (Parte 2) la completa el empleador o la empresa con la que trabajó el qualifier y se firma bajo pena de perjurio; no se aceptan certificados con redacción idéntica, y a quien certifica se le puede pedir más información sobre el trabajo que presenció.",
+    expOutsideNote: "{n} meses quedan fuera de la ventana de 15 años y no se contaron.",
+    nx_susp_b: "La suspensión de tu licencia debe levantarse ante la NSCB antes de volver a estar en regla y contratar; no es una solicitud nueva.",
+    att_reciprocity: "Tu licencia de otro estado cumple las condiciones publicadas de endorsement de la NSCB. Igual presentas la Contractor's License Application (sección Licensure by Endorsement) con el Request for Verification of License; la Junta puede eximir el examen del oficio, y el examen Business & Law (CMS) sigue siendo obligatorio.",
+    stateName: "Nevada",
+    introKicker: "Nevada · NSCB · lista guiada",
+    rmTitle: "Tu plan de licencia de contratista de Nevada",
+    disclaimer: "Licena ofrece orientación educativa y no está afiliada a la Nevada State Contractors Board (NSCB). Los requisitos de licencia los determina la Junta conforme a NRS y NAC Capítulo 624.",
+    recNote: "Una recomendación de LICENA basada en tus respuestas — no una decisión de la NSCB.",
+    s_waiting: "Esperando a la NSCB",
+    manualNote: "Estado marcado por ti. LICENA no verifica nada con la NSCB — la confirmación oficial solo llega de la Junta.",
+    prepDepsWarn: "Aún pendiente en la estimación preliminar de LICENA: {items}. Puedes seguir con la solicitud — no está lista para presentar hasta resolverlo, y la decisión final es de la Junta.",
+    nx_expclar_b: "Algunos de tus períodos aún requieren aclarar el nivel o el contenido del trabajo, o el tiempo ingresado no llega al requisito. Abre el paso de experiencia y revisa los períodos — la solicitud puede prepararse en paralelo. La decisión final es de la Junta.",
+    dashNoDateSub: "Aparece cuando ingreses una fecha de examen o un plazo legal — no se supone nada.",
+    dashExpMay: "estado preliminar: podría cumplir {years} años — la Junta decide",
+    fixQ_application_review: "¿Corregir la marca de que la NSCB verificó tu experiencia y emitió la elegibilidad de examen?",
+    fixQ_fingerprinting: "¿Corregir la marca de que el paso de huellas está completado?",
+    qClassSub: "Todo lo que sigue — los exámenes CMS y de oficio, la experiencia que verifica la Junta, los formularios que presentas — depende de esta elección, por eso es obligatoria.",
+    d_classification: "Cada licencia de la NSCB se emite en una clasificación — Clase A General Engineering, Clase B General Building (B-2 Residential and Small Commercial…) o una de las 42 especialidades de Clase C (C-2 Electrical, C-21 Refrigeration and Air Conditioning…). Tu examen de oficio y la experiencia que verifica la Junta dependen de ella (NAC 624).",
+    todo_classification: "Confirma que la clasificación coincide con el trabajo que contratarás; la lista de clasificaciones de la Junta define el alcance y si se exige examen de oficio.",
+    docs_classification: "La clasificación que solicitarás (p. ej. B-2, C-2, C-21) — NSCB License Classifications.",
+    rowHist: "Licencia de Nevada",
+    qHist2: "¿Has tenido alguna vez una licencia de contratista de Nevada?",
+    att_original: "Estás obteniendo tu primera licencia de contratista de Nevada.",
+    at_replace_qualifier: "Reemplazar al qualified individual",
+    att_replace_qualifier: "Estás reemplazando al qualified individual en una licencia de empresa.",
+    att_reapply: "Estás volviendo a solicitar tras una licencia vencida o suspendida.",
+    r_qual: "Yo soy el qualified individual",
+    r_owner_rme: "Soy dueño, directivo o miembro — otra persona es el qualified individual",
+    r_prev_qual: "Antes fui el qualified individual de esta licencia",
+    roleOwnerNote: "Ser dueño de la empresa y ser su qualified individual son cosas distintas. La propiedad por sí sola no es experiencia calificante ni estatus de qualifier — NRS 624.260 fija los requisitos de experiencia y examen que debe cumplir el qualified individual.",
+    qGoalL: "Con otra persona como qualified individual actualmente:",
+    g_replace_rme: "Reemplazar al qualified individual y calificar la empresa yo mismo",
+    g_add_class: "Mantener al qualified individual y agregar una clasificación",
+    g_prepare: "Prepararme por si el qualified individual se va",
+    qRmeLeftL: "Si el qualified individual ya se fue, ¿cuándo? (opcional)",
+    rmeDeadlineNote: "Según NRS 624.285 el licenciatario debe notificar a la Junta por escrito dentro de los 10 días posteriores a la salida del qualified individual y reemplazarlo con otra persona calificada y aprobada por la Junta dentro de 30 días (la Junta puede extenderlo con causa justificada) — de lo contrario la licencia se suspende.",
+    dateKindRme: "Reemplazar al qualified individual (30 días, NRS 624.285)",
+    ent_corporation: "Corporación de Nevada",
+    entCmp_llc: "LLC: una entidad legal separada; la licencia se emite a la LLC. Todo solicitante necesita un Nevada Business ID del Secretario de Estado (SilverFlume) antes de presentar la solicitud (New License Application, rev. 03/2026).",
+    entitySetupNote: "Planeas solicitar como una entidad que aún no existe. La solicitud de la NSCB exige un Nevada Business ID del Secretario de Estado (SilverFlume) antes de presentarla — planifica este paso primero.",
+    qExpIntro: "Licena te ayuda a ordenar lo que hiciste, período por período. Nevada pide al qualified individual cuatro años de experiencia como journeyman, foreman, supervising employee o contractor dentro de los últimos quince años — pero si la experiencia se acredita lo decide la State Contractors Board, no aquí.",
+    qExpQuickL: "¿Tienes al menos {years} años de experiencia como journeyman, foreman, supervising employee o contractor en {name} — dentro de los últimos quince años — que se puedan verificar?",
+    expWindowNote: "NRS 624.260(6): dentro de los 15 años inmediatamente anteriores a la solicitud, al menos 4 años de experiencia como journeyman, foreman, supervising employee o contractor en la clasificación específica; la formación en un colegio o universidad acreditados (o un programa equivalente aceptado por la Junta) puede cubrir hasta 3 de esos años. El FAQ antiguo de la NSCB aún dice diez años — rige la ley.",
+    lvlNote: "NRS 624.260(8) define journeyman como una persona plenamente calificada para realizar el trabajo de la clasificación sin supervisión, o que completó un aprendizaje aprobado. El tiempo de aprendiz o ayudante es trabajo real, pero regístralo como tal — la Junta decide qué cuenta.",
+    expFormLink: "NSCB — Certification of Work Experience (PDF)",
+    expFormHow: "La NSCB verifica la experiencia con cuatro formularios Certification of Work Experience por qualifier (o una certificación de maestro vigente de una agencia gubernamental, o experiencia militar transferible), más el Resume of Experience; los períodos por cuenta propia requieren una lista de clientes con direcciones y teléfonos (License Requirements, 2026-09-11).",
+    expPotentialL: "Experiencia potencialmente calificante (journeyman, foreman, supervising employee o contractor)",
+    expSt_ok: "podría cumplir los cuatro años legales — la Junta verifica el nivel y el trabajo",
+    expSt_short: "faltan aproximadamente {dur} para cuatro años por ahora",
+    expDisclaimer: "Licena ofrece una estimación educativa preliminar basada en tus respuestas. La decisión final sobre si la experiencia califica y se acredita es de la Nevada State Contractors Board.",
+    xqAct_yes_b: "Consigue a las cuatro personas que firmarán tus formularios Certification of Work Experience y los registros de cada período — la Junta verifica la experiencia antes de emitir la elegibilidad de examen. Si la experiencia califica es decisión de la Junta.",
+    xqAct_unsure_b: "Enumera cada período, quién vio el trabajo de primera mano y qué registros existen. La experiencia que nadie puede certificar es la causa más común de demoras.",
+    xqAct_no_b: "Ingresa cada período — incluido el trabajo a tiempo parcial y por cuenta propia — y tu formación: la formación en un colegio o universidad acreditados puede sustituir hasta tres de los cuatro años (NRS 624.260(6)). La Junta decide; el plan nunca resta crédito por su cuenta.",
+    lvlS_helper: "Aprendiendo el oficio bajo la dirección de otro — registrado como constancia; la Junta decide qué cuenta",
+    expLevelNote: "Ingresa el nivel con honestidad; la Junta verifica la experiencia con las certificaciones y el Resume of Experience (NRS 624.260).",
+    expSelfNameNote: "¿Trabajas por tu cuenta? Escribe una etiqueta breve para tu actividad — el Resume of Experience de la NSCB pide a los autónomos una lista de clientes con direcciones y teléfonos.",
+    expPartTimeNote: "El trabajo a tiempo parcial se registra como tal; cómo lo acredita la Junta es su decisión — nada aquí convierte horas en años.",
+    expPartTimeApart: "Más {dur} a tiempo parcial — se mantiene aparte; la Junta decide cómo cuenta.",
+    expCertDirectNote: "Cada formulario Certification of Work Experience lo firma una persona que puede verificar el trabajo de primera mano; el propio formulario indica quién puede firmar — nombra a alguien que vio el trabajo.",
+    expDocsNote: "Solo tipos de documentos ilustrativos — los formularios de la NSCB dicen qué presentar; ningún documento por sí solo decide nada.",
+    expNoCertWarn: "{n} período(s) no tienen a nadie designado para verificarlos. La NSCB exige cuatro formularios Certification of Work Experience firmados — consigue personas que puedan firmar.",
+    expRandomNote: "",
+    expNeedsReview: "Estado de la experiencia: requiere revisión — Nevada espera cuatro años como journeyman, foreman, supervising employee o contractor dentro de los últimos quince; revisa cómo suma tu tiempo antes de solicitar.",
+    expCertNeeded: "Estado de la experiencia: falta la certificación — organiza a las cuatro personas que firmarán tus formularios Certification of Work Experience.",
+    expShortNote: "Está bien — el plan mostrará con honestidad la brecha y las formas legales de cerrarla: más experiencia y, hasta tres años, formación en un colegio o universidad acreditados (NRS 624.260(6)); la Junta decide cualquier crédito.",
+    qEduHasL: "¿Completaste formación en este oficio en un colegio o universidad acreditados, un programa equivalente aceptado por la Junta o un aprendizaje aprobado?",
+    edu2_appr: "Aprendizaje aprobado por el State Apprenticeship Council",
+    eduNote: "NRS 624.260(6): la formación recibida en un programa de un colegio o universidad acreditados, o un programa equivalente aceptado por la Junta, puede cubrir no más de tres de los cuatro años. La Junta decide el crédito — LICENA nunca lo resta.",
+    eduForeignNote: "Formación completada en otro país: pregunta a la NSCB cómo se evalúa — nada aquí supone crédito.",
+    rmEduForeignB: "Estudiaste fuera de EE. UU. Pregunta a la NSCB cómo se evalúa la formación extranjera antes de contar con algún crédito.",
+    milNote: "La NSCB acepta experiencia o formación militar transferible como verificación de experiencia (License Requirements). Repórtala con tus registros de servicio — la Junta decide el crédito; existe un Veterans Assistance Program.",
+    qWaiverH: "Revisión de exención de examen",
+    qWaiverSub: "La NSCB generalmente no vuelve a examinar a quien sirvió activamente como qualified individual en otra licencia de Nevada de la misma clasificación en los últimos cuatro años. Responde con honestidad — la Junta revisa sus propios registros.",
+    wv_priorQPL: "¿Has sido el qualified individual de un licenciatario de Nevada en esta misma clasificación?",
+    wv_priorQP5yL: "¿Dentro de los últimos cuatro años?",
+    waiverMaybeNote: "Tus respuestas coinciden con {sec}: un qualified individual que sirvió activamente en otra licencia de Nevada de la misma clasificación en los últimos cuatro años generalmente no vuelve a examinarse. La Junta lo confirma con sus registros — nada se exime hasta entonces.",
+    waiverFormNote: "Indica en tu solicitud el rol anterior de qualified individual; la Junta revisa sus registros.",
+    waiverNoneNote: "Nada en tus respuestas coincide con una exención publicada, así que cuenta con el examen CMS y, donde se exija, el examen de oficio.",
+    expPriorQPNote: "Dijiste que antes fuiste el qualified individual en esta clasificación: la NSCB exime la certificación de experiencia cuando serviste como qualified employee en la misma clasificación en otra licencia de Nevada en los últimos cinco años — la Junta lo confirma.",
+    recipNote: "Nevada otorga licencias por endorsement: una licencia activa con el mismo qualified individual durante los últimos cuatro años en Alabama, Arizona, California, Connecticut, Florida, Hawái, Luisiana, Nuevo México, Carolina del Norte, Carolina del Sur, Tennessee o Virginia Occidental puede eximir el examen de oficio; el examen Business & Law (CMS) nunca se exime. El estado que endosa completa el formulario Request for Verification of License.",
+    recipMetNote: "Esta licencia cumple las condiciones de endorsement publicadas por la NSCB (un estado listado, activa con el mismo qualified individual los últimos cuatro años, sin sanciones). El examen de oficio PODRÍA eximirse — la Junta lo confirma; el examen CMS sigue siendo obligatorio.",
+    recipNotMetNote: "Según tus respuestas, esta licencia no cumple las condiciones de endorsement publicadas por la NSCB: {reasons}. Tu camino sigue siendo una primera licencia regular y tu experiencia se certifica como siempre — una licencia de otro estado por sí sola no exime ningún examen ni la revisión de experiencia.",
+    rr_state: "el estado no es uno de los estados de endorsement de la NSCB",
+    rr_years: "la licencia no ha estado activa con el mismo qualified individual durante los últimos cuatro años",
+    rr_good: "la licencia no está en buen estado",
+    ry_lt5: "Menos de 4 años",
+    ry_5plus: "4 años o más",
+    recipRowMet: "condiciones cumplidas — la NSCB confirma",
+    lawShort: "Business & Law (CMS)",
+    dashLaw: "CMS",
+    qLawStatusL: "Examen Business & Law (CMS) — estado",
+    qLawDateL: "Fecha del examen CMS",
+    dateKindLaw: "Examen CMS",
+    startLaw: "Empezar la práctica de Business & Law (CMS)",
+    examLawRequired: "Business & Law (CMS): obligatorio — nunca se exime",
+    examLawMayWaive: "Business & Law (CMS): obligatorio en todos los casos",
+    examTradeRequired: "{name}: obligatorio salvo que la NSCB confirme una exención",
+    examTradeMayWaive: "{name}: podría eximirse — la NSCB confirma",
+    x_waived: "Eximido — confirmado por la NSCB",
+    examFactsNote: "Nevada: los exámenes los administra PSI después de que la NSCB emite la elegibilidad. El examen CMS tiene 60 preguntas puntuadas en 120 minutos, se aprueba con 45 correctas (75 %), a libro abierto (Construction Business and Law Manual for Nevada); los exámenes de oficio son a libro cerrado. Tarifa de PSI $95 por una porción, $140 por dos; tres intentos con dos semanas entre ellos — tras el tercer reprobado la solicitud queda anulada y se vuelve a solicitar a los 30 días.",
+    nx_prep_b: "La NSCB verificó tu experiencia y emitió tu elegibilidad de examen — los exámenes CMS y de oficio son lo que te separa de la licencia. Empieza a prepararte ahora.",
+    nx_retake_b: "Un examen reprobado solo significa otro intento: PSI permite repetir a las dos semanas, tres intentos en total — tras el tercer reprobado la solicitud queda anulada y se vuelve a solicitar a los 30 días. Enfócate en tus áreas débiles.",
+    nx_wait_t: "Espera a que la NSCB verifique tu experiencia",
+    nx_wait_b: "Tu solicitud está presentada. El personal de la Junta verifica primero las certificaciones de experiencia; luego llega la carta de Examination Eligibility con tu ID de candidato y agendas con PSI. Los tiempos varían — tu License Analyst puede decirte en qué punto está.",
+    nx_corr_t: "Responde a la solicitud de la NSCB",
+    nx_corr_b: "Nos dijiste que la NSCB pidió más información o una corrección. Responder exactamente como se pide es la prioridad inmediata — guarda copias de todo lo que envíes.",
+    nx_rej_b: "Nos dijiste que tu solicitud fue denegada o devuelta. Revisa la carta de la Junta y corrige lo que señala; una nueva solicitud requiere una nueva tarifa de $300.",
+    nx_final_b: "Los exámenes quedaron atrás. Lo que falta antes de la emisión: la fianza por el monto fijado por la Junta al aprobar ($1,000–$500,000), la tarifa de licencia de $600 por dos años, la cuota del Residential Recovery Fund cuando aplique y la prueba de seguro industrial o la declaración jurada de exención (NRS 624.256).",
+    nx_waitiss_b: "Reportaste que los requisitos finales están en marcha. Cuando la NSCB los confirme, el número de licencia aparece en el sitio de la Junta y se envían por correo la tarjeta de pared y las de bolsillo.",
+    nx_issued_b: "Reportaste que tu licencia fue emitida. Anota tu número de licencia: va en tus vehículos comerciales (NRS 624.288), y la licencia vence dos años después de la emisión (NRS 624.283).",
+    nx_cert_b: "Tu solicitud necesita cuatro formularios Certification of Work Experience firmados. Organizar ahora a las personas que pueden firmarlos evita la demora más común.",
+    wyw_b: "No tienes que perder este tiempo — la preparación para los exámenes puede empezar ahora, mientras la NSCB verifica tu experiencia.",
+    qAppSubL: "¿Has presentado tu solicitud ante la NSCB para esta licencia?",
+    appNumNote: "Usa el número del recibo o la correspondencia de la NSCB, si lo tienes.",
+    qAccDateL: "¿Cuándo emitió la NSCB tu elegibilidad de examen? (según la carta)",
+    stg_acc: "Experiencia verificada — elegibilidad de examen recibida",
+    mc_application_review: "Sí, la NSCB verificó mi experiencia (elegibilidad de examen recibida)",
+    mc_fingerprinting: "Sí, completé el paso de huellas",
+    qFingerH: "¿Completaste el paso de huellas (formularios Background Disclosure and Fingerprint Waiver y luego las huellas)?",
+    fp_not: "Formularios aún no presentados",
+    fp_req: "Formularios presentados — huellas pendientes",
+    fp_sched: "Con cita",
+    fp_done: "Completado",
+    dateKindFp: "Cita de huellas",
+    t_prepare_application: "Prepara tu solicitud ante la NSCB",
+    d_prepare_application: "La New License Application (rev. 03/2026) se presenta con la tarifa de $300, el Resume of Experience, cuatro formularios Certification of Work Experience por qualifier, un Background Disclosure Statement and Fingerprint Waiver por cada persona listada, copias de identificaciones, un estado financiero acorde al límite monetario solicitado (autoelaborado hasta $25,000; compilado, revisado o auditado por CPA por encima), un Bank Verification Form y, para propietarios únicos, el Child Support Information Statement. Primero se obtiene el Nevada Business ID del Secretario de Estado. La NSCB ofrece una revisión previa gratuita con un analista de licencias.",
+    todo_prepare_application: "Obtén tu Nevada Business ID (SilverFlume), decide el límite monetario y encarga el estado financiero correspondiente, reúne las cuatro certificaciones de experiencia y los formularios de antecedentes de todas las personas listadas, y agenda una revisión previa gratuita con un analista.",
+    docs_prepare_application: "New License Application, Resume of Experience, cuatro formularios Certification of Work Experience, formularios Background Disclosure and Fingerprint Waiver, identificaciones, estado financiero, Bank Verification Form, Nevada Business ID.",
+    t_submit_application: "Presenta la solicitud y la tarifa de $300",
+    d_submit_application: "La solicitud se presenta con la tarifa no reembolsable de $300 (FAQ de la NSCB; tope legal $550, NRS 624.280) — en línea por el portal de la NSCB o en papel. La Junta solo procesa solicitudes completas con todos los documentos de respaldo.",
+    todo_submit_application: "Presenta la solicitud completa con la tarifa de $300 y guarda una copia completa; las solicitudes incompletas no se procesan.",
+    docs_submit_application: "Solicitud firmada, tarifa de $300, todos los formularios de respaldo, copia para tus archivos.",
+    t_fingerprinting: "Completa las huellas de todas las personas listadas",
+    d_fingerprinting: "Una vez presentados los formularios Background Disclosure Statement and Fingerprint Waiver, cada persona listada en la solicitud y el qualified individual se toman las huellas para la verificación del Nevada Department of Public Safety y el FBI (NRS 624.265); la tarifa de procesamiento equivale a los cargos del Repositorio y del FBI, pagada con cheque de caja a la Nevada Highway Patrol (NAC 624.681).",
+    todo_fingerprinting: "Tras presentar los formularios de antecedentes, haz que todas las personas listadas se tomen las huellas según indique la NSCB y guarda los recibos.",
+    docs_fingerprinting: "Formularios Background Disclosure and Fingerprint Waiver, instrucciones de huellas de la NSCB, identificación oficial con foto, cheque de caja para la tarifa.",
+    t_application_review: "Verificación de experiencia y elegibilidad de examen",
+    d_application_review: "El personal de la Junta verifica las certificaciones de experiencia; una vez hecho, llega la carta de Examination Eligibility con tu ID de candidato y puedes agendar con PSI (NSCB License Examinations). Los tiempos varían — tu License Analyst asignado puede decirte en qué punto está.",
+    todo_application_review: "Vigila la correspondencia de la NSCB; responde cualquier solicitud exactamente como se pide y guarda copias. Contacta a tu License Analyst si necesitas el estado.",
+    docs_application_review: "Correspondencia de la NSCB, copia de tu solicitud, la carta de Examination Eligibility cuando llegue.",
+    t_prep_law_business: "Prepárate para el examen Business & Law (CMS)",
+    d_prep_law_business: "El examen CMS es obligatorio para toda licencia: 60 preguntas puntuadas en 120 minutos, 45 correctas (75 %) para aprobar, a libro abierto con el Construction Business and Law Manual for Nevada; temas — licencias, estimación y licitación, ley de gravámenes, gestión financiera, impuestos, leyes laborales, gestión de proyectos, contratos, riesgos, medio ambiente y seguridad (boletín de PSI). El curso CMS de Nevada de LICENA cubre este material.",
+    todo_prep_law_business: "Recorre los temas del CMS con las preguntas de práctica de LICENA y luego entrena en formato de examen hasta que sea rutina.",
+    docs_prep_law_business: "Construction Business and Law Manual for Nevada; NRS/NAC Capítulo 624.",
+    d_prep_trade: "Donde la clasificación lo exige, PSI también aplica un examen de oficio específico de tu clasificación — a libro cerrado, salvo ciertas referencias de códigos (NSCB License Examinations).",
+    todo_prep_trade: "Practica en formato de examen para tu clasificación.",
+    docs_prep_trade: "Temario y referencias de PSI para tu clasificación.",
+    d_schedule_pass_exams: "Los exámenes se agendan con PSI cuando llega la carta de Examination Eligibility (Las Vegas, Reno, Elko o centros de PSI en otros lugares); tarifa de PSI $95 por una porción, $140 por dos. Tres intentos por examen con dos semanas entre ellos; tras el tercer reprobado la solicitud queda anulada y se puede presentar una nueva a los 30 días (NSCB License Examinations; boletín de PSI).",
+    todo_schedule_pass_exams: "Regístrate en PSI con tu ID de candidato, lleva la identificación requerida y tus referencias para el CMS a libro abierto, y aprueba cada examen requerido.",
+    docs_schedule_pass_exams: "Carta de Examination Eligibility, identificación oficial con foto, referencias a libro abierto para el CMS.",
+    t_final_requirements: "Fianza, tarifa de licencia y seguro — luego la emisión",
+    d_final_requirements: "Al aprobar, la Junta fija tu fianza entre $1,000 y $500,000 (surety con calificación A o mejor, o depósito con cheque de caja más una tarifa bienal de $200); vence la tarifa de licencia de $600 por dos años; los contratistas residenciales pagan la cuota del Residential Recovery Fund según el límite monetario ($200 hasta $1,000,000; $500 por encima; $1,000 ilimitado — NRS 624.470); y antes de la emisión la Junta exige prueba de seguro industrial o la declaración jurada de que no tienes empleados y no subcontratarás ni licitarás para un contratista principal (NRS 624.256).",
+    todo_final_requirements: "Compra la fianza por el monto fijado por la NSCB, paga la tarifa de licencia de $600 y cualquier cuota del fondo de recuperación, y entrega la prueba de seguro industrial o la declaración jurada.",
+    docs_final_requirements: "Fianza en el formulario de la Junta o cheque de caja, tarifa de licencia, cuota del fondo de recuperación (residencial), certificado de seguro industrial o declaración jurada de exención.",
+    qBondL: "¿Tienes la fianza por el monto fijado por la NSCB al aprobar ($1,000–$500,000)?",
+    qFeeL: "Tarifa de licencia ($600 por dos años) — ¿pagada?",
+    feeNote: "NSCB: la tarifa de solicitud es $300; si se aprueba, la tarifa de licencia es $600 por una licencia de dos años. Los contratistas residenciales pagan además la cuota del Residential Recovery Fund según el límite monetario (NRS 624.470).",
+    w_notreq: "No requerido — declaración jurada (sin empleados, sin subcontratar, sin ofertas a un contratista principal)",
+    d_license_issued: "Cuando se cumplen todos los requisitos y se asigna un número de licencia, aparece en el sitio de la NSCB; la tarjeta de pared y las de bolsillo se envían por correo. La licencia vence dos años después de la emisión y se renueva cada dos años (NRS 624.283).",
+    todo_license_issued: "Anota tu número de licencia y la fecha de renovación; pon tu nombre y número de licencia en tus vehículos comerciales (NRS 624.288).",
+    rtwIntro: "Tu licencia de contratista está emitida. Un requisito legal aplica en cuanto trabajes — tu nombre y número de licencia en tus vehículos comerciales — y tu ciudad o condado pueden añadir los suyos.",
+    rtw_vehicle_t: "Rotula tus vehículos comerciales",
+    rtw_vehicle_b: "NRS 624.288: muestra tu nombre y número de licencia, en letras y números de aproximadamente 1½ pulgadas, en cada vehículo comercial registrado a nombre del licenciatario.",
+    d_experience: "El qualified individual necesita cuatro años de experiencia como journeyman, foreman, supervising employee o contractor en la clasificación, dentro de los últimos quince años (NRS 624.260(6)); la formación acreditada puede cubrir hasta tres de esos años.",
+    todo_experience: "Enumera tu historial laboral por período, quién puede certificarlo y qué registros lo respaldan; la NSCB necesita cuatro formularios Certification of Work Experience firmados y un Resume of Experience — los períodos por cuenta propia requieren una lista de clientes.",
+    docs_experience: "Historial laboral con fechas, cuatro personas que firmarán las certificaciones, Resume of Experience, registros de respaldo.",
+  },
   _az: {
+    nsFlag: "Marcaste que no estás seguro de tu tipo de licencia. Revisar este paso con calma es tu mejor primer movimiento — y confirma la clasificación con las reglas de clasificación A.A.C. R4-9 y con ROC.",
+    expDocTypesL: "¿Cuáles de estos tienes? (ejemplos típicos — el Registrar decide qué respalda tu experiencia)",
+    expNonLicNote: "Trabajar por tu cuenta sin licencia es experiencia real, pero no es lo mismo que ser contratista con licencia, y no cambia tu respuesta sobre licencias. El Registrar verifica la experiencia del qualifying party (A.R.S. 32-1122(B)).",
+    expJlNote: "La regla de Arizona habla de experiencia práctica o de gestión en el oficio (A.R.S. 32-1122(E)(1); A.A.C. R4-9-119) y no de un nivel journeyman — el Registrar decide qué cuenta. Anota el trabajo tal como fue.",
+    expCertRelNote: "ROC verifica la experiencia en los formularios que prescribe el Registrar (A.R.S. 32-1122(B)); quién puede firmar por ti lo fija el propio formulario e instrucciones de ROC, que no se reproducen aquí.",
+    nx_susp_b: "La suspensión de tu licencia debe levantarse ante ROC antes de volver a estar en regla y contratar; no es una solicitud nueva.",
     stateName: "Arizona",
     x_waived: "Eximido — confirmado por ROC",
     qLawStatusL: "Examen Statutes & Rules — estado",
@@ -3946,7 +4621,7 @@ es: {
     entCmp_llc: "LLC: una entidad legal separada; la licencia se emite a la LLC y la solicitud debe acreditar que está en regla ante la Arizona Corporation Commission (A.R.S. 32-1122(B)(1)(g)).",
     entitySetupNote: "Planeas solicitar con una entidad que aún no existe. La solicitud de ROC exige que una corporación o LLC acredite estar en regla ante la Arizona Corporation Commission (A.R.S. 32-1122(B)(1)(g)); planifica este paso antes de presentar.",
     expFormLink: "A.R.S. 32-1122 — Qualifications for license",
-    expFormHow: "ROC verifica la experiencia del qualifying party en los formularios que prescribe el Registrar (A.R.S. 32-1122(B)). La ley pide cuatro años de experiencia práctica o de gestión en el oficio, al menos dos dentro de los últimos diez años, en el tipo de construcción solicitado (32-1122(E)(1)).",
+    expFormHow: "ROC verifica la experiencia del qualifying party en los formularios que prescribe el Registrar (A.R.S. 32-1122(B)); A.A.C. R4-9-119 obliga al Registrar a aceptar servicio o formación militar, diplomas o transcripciones de programas acreditados y certificados de aprendizaje, hayas estado o no licenciado tú o tu empleador en ese momento. La ley pide cuatro años de experiencia práctica o de gestión en el oficio, al menos dos dentro de los últimos diez (32-1122(E)(1)).",
     qExpIntro: "Licena te ayuda a ordenar lo que hiciste, período por período. Arizona pide al qualifying party cuatro años de experiencia práctica o de gestión en el oficio, al menos dos dentro de los últimos diez años — pero si la experiencia se acredita lo decide el Registrar of Contractors, no aquí.",
     qExpQuickL: "¿Tienes al menos {years} años de experiencia práctica o de gestión en {name} — al menos dos dentro de los últimos diez años — que se puedan verificar?",
     s_waiting: "Esperando al ROC",
@@ -4029,45 +4704,52 @@ es: {
     t_classification: "Confirma tu clasificación de licencia",
     d_classification: "Cada licencia de ROC se emite en una clasificación: la solicitud designa la clasificación solicitada (A.R.S. 32-1122(B)(1)(a)). De ella dependen tus exámenes y la experiencia que ROC verifica.",
     todo_classification: "Confirma que la clasificación corresponde al trabajo que contratarás; las reglas de clasificación del Registrar definen el alcance.",
-    docs_classification: "La clasificación que solicitarás (p. ej. B, R-11, R-39R).",
+    docs_classification: "La clasificación que solicitarás (A.A.C. R4-9-103 residencial: B, R-11, R-37, R-39…; R4-9-102 comercial; R4-9-104 dual).",
     d_experience: "El qualifying party necesita cuatro años de experiencia práctica o de gestión en el oficio, al menos dos dentro de los últimos diez, en el tipo de construcción solicitado (A.R.S. 32-1122(E)(1)).",
     todo_experience: "Anota tu historial de trabajo por períodos, quién puede verificarlo y qué registros lo respaldan. La formación técnica acreditada puede sustituir hasta dos años: el Registrar decide.",
     docs_experience: "Historial laboral con fechas, personas que puedan verificarlo, registros de respaldo.",
-    t_prepare_application: "Prepara tu solicitud ante ROC",
-    d_prepare_application: "Una solicitud verificada en los formularios del Registrar indica la clasificación, la empresa y sus personas, el qualifying party, el domicilio del negocio y la declaración sobre compensación laboral (A.R.S. 32-1122(B)(1)).",
-    todo_prepare_application: "Reúne lo que enumera 32-1122(B): las personas y direcciones de la empresa, el qualifying party, el buen estado ante la Corporation Commission para una LLC o corporación, y la declaración sobre compensación laboral.",
-    docs_prepare_application: "Solicitud en los formularios de ROC, verificación de experiencia, declaración de buen estado de la entidad, número de póliza de compensación laboral o prueba de autoaseguro cuando se exija.",
-    t_submit_application: "Presenta la solicitud, la tarifa y la fianza",
-    d_submit_application: "La solicitud se presenta con la tarifa y con la fianza o depósito en efectivo que exige A.R.S. 32-1152 (32-1122(B)(2)–(3)). Los importes de la tarifa los fija ROC.",
-    todo_submit_application: "Presenta la solicitud con la tarifa de ROC y la prueba de la fianza o depósito, y guarda una copia completa.",
-    docs_submit_application: "Solicitud firmada, tarifa, prueba de la fianza o depósito, una copia para tus archivos.",
+    t_prepare_application: "Prepara tu solicitud ante ROC (después de los exámenes)",
+    d_prepare_application: "Una solicitud verificada en los formularios del Registrar indica la clasificación, el negocio y sus personas, el qualifying party, el lugar del negocio y la atestación de compensación laboral (A.R.S. 32-1122(B)(1)); se presenta con el informe de puntuación original, las tarifas y la fianza o depósito.",
+    todo_prepare_application: "Reúne lo que enumera 32-1122(B): las personas y direcciones del negocio, el qualifying party, el good standing ante la Corporation Commission para una LLC o corporación, la atestación de compensación laboral, tus informes de puntuación y la fianza.",
+    docs_prepare_application: "Solicitud en formularios de ROC, informe(s) de puntuación original(es), pruebas de experiencia, atestación de good standing de la entidad, fianza o depósito, número de póliza de compensación laboral o prueba de autoseguro cuando aplique.",
+    t_submit_application: "Presenta la solicitud, las tarifas y la fianza",
+    d_submit_application: "La solicitud se presenta con las tarifas y con la fianza o depósito que exige A.R.S. 32-1152 (32-1122(B)(2)–(3)). A.A.C. R4-9-130: tarifa de solicitud + de licencia — comercial general $200 + $580, comercial especializada $100 + $480, residencial general $180 + $320, residencial especializada $80 + $270, dual general $200 + $480, dual especializada $100 + $380; las licencias residenciales y duales pagan además la cuota del fondo de recuperación ($370 inicial).",
+    todo_submit_application: "Presenta la solicitud con las tarifas, el informe de puntuación original y la prueba de la fianza o depósito, y guarda una copia completa.",
+    docs_submit_application: "Solicitud firmada, tarifas, informe(s) de puntuación original(es), prueba de la fianza o depósito, copia para tus archivos.",
     t_fingerprinting: "Entrega huellas si ROC las exige",
     d_fingerprinting: "El Registrar puede exigir un juego completo de huellas y las tarifas de A.R.S. 41-1750 para una verificación de antecedentes estatal y federal (32-1122(H)).",
     todo_fingerprinting: "Si ROC lo pide, entrega las huellas y la tarifa según las instrucciones y guarda el recibo.",
     docs_fingerprinting: "Instrucciones de ROC para las huellas, identificación oficial con foto.",
     t_application_review: "Revisión de la solicitud por ROC",
-    d_application_review: "Tras presentarse una solicitud completa, el Registrar notifica al solicitante la decisión dentro de 60 días (A.R.S. 32-1124(A)).",
-    todo_application_review: "Atento a la correspondencia de ROC; responde exactamente a cualquier solicitud de corrección y guarda copias.",
+    d_application_review: "A.A.C. R4-9-113: el plazo total del Registrar es de 60 días calendario — 40 días para revisar si está completa (licencia o aviso de deficiencias) y 20 días de revisión sustantiva; tienes 30 días para responder un aviso de deficiencias, o la solicitud se devuelve y se pierde la tarifa de solicitud (A.R.S. 32-1124(A), (D)).",
+    todo_application_review: "Vigila la correspondencia de ROC; responde cualquier aviso de deficiencias dentro de 30 días, exactamente como se pide, y guarda copias.",
     docs_application_review: "Correspondencia de ROC, copia de tu solicitud.",
     t_prep_law_business: "Prepárate para el examen Statutes & Rules",
-    d_prep_law_business: "El examen escrito abarca las leyes de construcción, seguridad, salud y gravámenes de Arizona, los principios administrativos de la contratación y las reglas del Registrar (A.R.S. 32-1122(E)(2)); el curso Statutes & Rules de LICENA cubre este material.",
-    todo_prep_law_business: "Estudia las leyes y reglas y practica preguntas hasta que el formato del examen te resulte rutinario.",
-    docs_prep_law_business: "A.R.S. Título 32, Capítulo 10 y las reglas del Registrar.",
-    d_prep_trade: "Cuando ROC lo exige para la clasificación, el examen también evalúa el tipo de trabajo, planos y especificaciones, y los estándares y prácticas del oficio (A.R.S. 32-1122(E)(2)).",
-    todo_prep_trade: "Practica en formato de examen para tu clasificación.",
-    docs_prep_trade: "Referencias técnicas de tu clasificación.",
-    d_schedule_pass_exams: "El examen, si se exige, debe presentarse no más de dos años antes de la solicitud (A.R.S. 32-1122(E)(2)); el Registrar lo exime para un qualifying party que tuvo ese rol para un licenciatario de Arizona en la misma clasificación dentro de los cinco años anteriores (32-1122(F)).",
-    todo_schedule_pass_exams: "Programa mediante el sistema de exámenes de ROC, lleva la identificación requerida y aprueba cada examen exigido.",
-    t_final_requirements: "Completa la fianza, el seguro y los requisitos finales",
-    d_final_requirements: "Antes de otorgar una licencia original, el Registrar exige una fianza o depósito en efectivo en los montos de A.R.S. 32-1152, según clasificación y volumen anual estimado; los contratistas residenciales y duales también pagan la cuota del fondo de recuperación o una fianza adicional de $200,000 (32-1152(C)). La solicitud lleva la declaración sobre compensación laboral (32-1122(B)(1)(i)).",
-    todo_final_requirements: "Mantén vigente la fianza o depósito y entrega la información de compensación laboral que pida ROC.",
-    docs_final_requirements: "Prueba de la fianza o depósito, número de póliza de compensación laboral o prueba de autoaseguro.",
+    d_prep_law_business: "El Statutes & Rules Exam (SRE) es el curso en línea del propio ROC con una prueba al final ($61; boletín de PSI); cubre las leyes de construcción, seguridad, salud y gravámenes de Arizona, los principios administrativos de la contratación y las reglas del Registrar (A.R.S. 32-1122(E)(2); A.A.C. R4-9-106). Se exige a un nuevo qualifying party que no lo haya sido en otra licencia de Arizona en los últimos cinco años.",
+    todo_prep_law_business: "Estudia el Título 32, Capítulo 10 y las reglas del Registrar con la práctica de Statutes & Rules de LICENA y luego rinde el SRE en línea de ROC.",
+    docs_prep_law_business: "A.R.S. Título 32, Capítulo 10; A.A.C. Título 4, Capítulo 9; curso SRE de ROC.",
+    d_prep_trade: "Si tu clasificación también requiere un examen de oficio de PSI (y una porción solar) lo define el formulario RC-L-206B (License Classification Requirements) de ROC; PSI publica el temario de cada examen con el tiempo, el número de preguntas y las referencias (boletín de PSI, 2026-09-11).",
+    todo_prep_trade: "Revisa el RC-L-206B para tu clasificación, descarga el temario de PSI y practica en formato de examen.",
+    docs_prep_trade: "Temario y referencias de PSI para tu clasificación.",
+    d_schedule_pass_exams: "En Arizona los exámenes van primero. PSI agenda el examen de oficio tras el correo de elegibilidad de ROC; se aprueba con 70 % (A.A.C. R4-9-106); un examen reprobado se repite a los 30 días, tres intentos, luego 90 días de espera; la tarifa vale un año. La solicitud debe llegar a ROC dentro de los dos años posteriores a la aprobación (boletín de PSI). ROC exime de los exámenes a un qualifying party que tuvo ese rol en la misma clasificación en los cinco años anteriores (A.R.S. 32-1122(F)).",
+    todo_schedule_pass_exams: "Rinde el SRE en línea de ROC, agenda el examen de oficio con PSI (centro o remoto), lleva la identificación requerida y guarda el informe de puntuación original para la solicitud.",
+    t_final_requirements: "Fianza registrada y seguro — luego la emisión",
+    d_final_requirements: "La fianza o depósito de la licencia no tiene efecto hasta que se registra en una oficina de ROC (A.A.C. R4-9-112). Montos por clasificación y volumen anual estimado: comercial general $5,000–$100,000, comercial especializada $2,500–$50,000, residencial general $9,000 o $15,000, residencial especializada $4,250 o $7,500; los contratistas residenciales y duales llevan además la cuota del fondo de recuperación o una fianza adicional de $200,000 (A.R.S. 32-1152(C)). La solicitud incluye la atestación de compensación laboral (32-1122(B)(1)(i)).",
+    todo_final_requirements: "Mantén la fianza o depósito registrado y vigente, paga la cuota del fondo de recuperación si aplica y entrega la información de compensación laboral que pida ROC.",
+    docs_final_requirements: "Prueba de fianza o depósito, recibo de la cuota del fondo de recuperación (residencial/dual), número de póliza de compensación laboral o prueba de autoseguro.",
     d_license_issued: "El Registrar emite la licencia cuando determina que el solicitante está calificado (A.R.S. 32-1124(A)); la licencia es intransferible (32-1124(B)).",
     todo_license_issued: "Anota tu número de licencia ROC: debe aparecer en las obras, en ofertas, presupuestos y publicidad (A.R.S. 32-1124(B)).",
     qBondL: "¿Tienes la fianza o el depósito en efectivo que exige A.R.S. 32-1152?",
     rtwIntro: "Tu licencia de contratista está emitida. Un requisito legal aplica desde que trabajas — mostrar el número ROC — y tu ciudad o condado pueden añadir los suyos.",
     rtw_posting_t: "Muestra tu número de licencia ROC",
     rtw_posting_b: "A.R.S. 32-1124(B): el número de licencia, precedido por 'ROC', debe mostrarse en un lugar visible donde se realiza el trabajo, en todas las ofertas y presupuestos escritos, y en publicidad, membretes y documentos para clientes.",
+    nx_prep_t: "Primero aprueba tus exámenes",
+    nx_prep_b: "En Arizona los exámenes van antes de la solicitud: ROC acepta una solicitud de licencia solo con el informe de puntuación original, presentada dentro de los dos años posteriores a la aprobación (boletín de PSI). Prepárate para el Statutes & Rules Exam y, si tu clasificación lo exige, para el examen de oficio de PSI.",
+    stg_acc: "ROC aprobó mi solicitud — emisión pendiente (fianza, tarifas)",
+    qExamsH: "Tus exámenes — Statutes & Rules y el examen de oficio",
+    qExamsSub: "En Arizona los exámenes se rinden antes de presentar la solicitud. Indica en qué punto está cada uno — un examen aprobado vale dos años.",
+    examFactsNote: "Arizona: el Statutes & Rules Exam (SRE) es el curso-examen en línea del propio ROC ($61); los exámenes de oficio los administra PSI ($66 uno, $116 dos, porción solar $40); se aprueba con 70 %; un examen reprobado se repite a los 30 días, tres intentos, luego 90 días entre intentos; la solicitud debe presentarse dentro de los dos años posteriores a la aprobación.",
+    docs_schedule_pass_exams: "Correo de elegibilidad de PSI, identificación oficial con foto, informe(s) de puntuación original(es).",
   },
   qHolder3: "¿Para quién es la licencia?",
   hkS_me: "Se emite a tu nombre como persona física: el inicio más simple; respondes personalmente por el negocio.",
@@ -4582,6 +5264,18 @@ ru: {
   prepDepsWarn: "Ещё не уточнено на уровне предварительной оценки LICENA: {items}. Черновик можно продолжать — к подаче он не готов, пока это не решено; окончательное решение принимает CSLB.",
   rmAppOfficial: "Открыть заявление на сайте CSLB",
   rmEditAnswers: "Изменить мои ответы",
+  rowExams: "Экзамены",
+  qExamsH: "Ваши экзамены",
+  qExamsSub: "В этом штате экзамены сдаются до подачи заявления — укажите, где стоит каждый.",
+  recipState_al: "Алабама",
+  recipState_ca: "Калифорния",
+  recipState_ct: "Коннектикут",
+  recipState_fl: "Флорида",
+  recipState_hi: "Гавайи",
+  recipState_nm: "Нью-Мексико",
+  recipState_sc: "Южная Каролина",
+  recipState_tn: "Теннесси",
+  recipState_wv: "Западная Вирджиния",
   cvBackPlan: "← Вернуться к плану без сохранения",
   fixQ_submit_application: "Исправить отметку о том, что заявление подано?",
   fixQ_application_review: "Исправить отметку о том, что CSLB приняла заявление?",
@@ -4805,7 +5499,186 @@ ru: {
   expImportedNote: "Скопировано из анкеты для штата {state} — откройте период, чтобы указать уровень по правилам этого штата и подтверждающее лицо.",
   /* Arizona wording — layered over the block above on roadmap-az.html.
      Facts: A.R.S. 32-1122, 32-1124, 32-1127.01, 32-1152 (azleg.gov, 2026-09-05). */
+  _nv: {
+    nsFlag: "Вы отметили, что не уверены в типе лицензии. Спокойно разобрать этот шаг — лучший первый ход; сверьте классификацию с официальным списком классификаций NSCB.",
+    expDocTypesL: "Какие из них у вас есть? (типичные примеры — что подтверждает ваши сертификации, решает NSCB)",
+    expNonLicNote: "Работа на себя без лицензии — настоящий опыт, но это не то же самое, что лицензированный подрядчик, и ваш ответ о лицензиях остаётся прежним. Resume of Experience NSCB просит самозанятых заявителей приложить список клиентов с адресами и телефонами.",
+    expJlNote: "NRS 624.260(8) определяет journeyman как человека, полностью квалифицированного выполнять без надзора работы по заявляемой классификации (или завершившего программу ученичества), в отличие от стажёра, помощника или разнорабочего.",
+    expCertRelNote: "Certification of Work Experience NSCB (часть 2) заполняет работодатель или компания, с которой работал qualifier, и подписывает под страхом ответственности за лжесвидетельство; сертификаты с одинаковыми формулировками не принимаются, а у подтверждающего могут запросить подробности о работе, которую он видел.",
+    expOutsideNote: "Месяцев вне 15-летнего окна: {n} — они не учтены.",
+    nx_susp_b: "Приостановку лицензии нужно снять в NSCB, прежде чем вернуться в хороший статус и снова заключать договоры; это не новое заявление.",
+    att_reciprocity: "Ваша лицензия другого штата соответствует опубликованным условиям endorsement NSCB. Вы всё равно подаёте Contractor's License Application (раздел Licensure by Endorsement) вместе с формой Request for Verification of License; Board может снять профильный экзамен, а экзамен Business & Law (CMS) остаётся обязательным.",
+    stateName: "Невада",
+    introKicker: "Невада · NSCB · пошаговый чек-лист",
+    rmTitle: "Ваш план лицензии подрядчика Невады",
+    disclaimer: "Licena даёт образовательные рекомендации и не связана с Nevada State Contractors Board (NSCB). Требования к лицензии определяет Board по NRS и NAC, глава 624.",
+    recNote: "Рекомендация LICENA на основе ваших ответов — не решение NSCB.",
+    s_waiting: "Ожидает ответа NSCB",
+    manualNote: "Статус отмечен вами. LICENA ничего не проверяет в NSCB — официальное подтверждение приходит только от Board.",
+    prepDepsWarn: "Ещё не уточнено на уровне предварительной оценки LICENA: {items}. Заявление можно продолжать готовить — к подаче оно не готово, пока это не решено; окончательное решение принимает Board.",
+    nx_expclar_b: "У части периодов ещё не уточнены уровень или содержание работ, либо введённого времени не хватает до требования. Откройте шаг «опыт» и разберите периоды — заявление можно готовить параллельно. Окончательное решение принимает Board.",
+    dashNoDateSub: "Появится, когда вы укажете дату экзамена или срок по закону — ничего не предполагается.",
+    dashExpMay: "предварительный статус: может соответствовать {years} годам — решает Board",
+    fixQ_application_review: "Исправить отметку о том, что NSCB подтвердил опыт и выдал допуск к экзаменам?",
+    fixQ_fingerprinting: "Исправить отметку о том, что этап отпечатков пройден?",
+    qClassSub: "Всё дальнейшее — экзамены CMS и trade, опыт, который проверяет Board, формы, которые вы подаёте, — зависит от этого выбора, поэтому он обязателен.",
+    d_classification: "Каждая лицензия NSCB выдаётся в классификации — Class A General Engineering, Class B General Building (B-2 Residential and Small Commercial…) или одна из 42 специальностей Class C (C-2 Electrical, C-21 Refrigeration and Air Conditioning…). От неё зависят trade-экзамен и опыт, который проверяет Board (NAC 624).",
+    todo_classification: "Убедитесь, что классификация соответствует работам, на которые вы будете заключать договоры; список классификаций Board определяет объём и нужен ли trade-экзамен.",
+    docs_classification: "Классификация, на которую вы подаёте (например, B-2, C-2, C-21) — NSCB License Classifications.",
+    rowHist: "Лицензия Невады",
+    qHist2: "У вас когда-нибудь была лицензия подрядчика Невады?",
+    att_original: "Вы получаете первую лицензию подрядчика Невады.",
+    at_replace_qualifier: "Заменить qualified individual",
+    att_replace_qualifier: "Вы заменяете qualified individual на лицензии компании.",
+    att_reapply: "Вы подаёте заново после истёкшей или приостановленной лицензии.",
+    r_qual: "Я — qualified individual",
+    r_owner_rme: "Я владелец, руководитель или участник — qualified individual другой человек",
+    r_prev_qual: "Раньше я был(а) qualified individual на этой лицензии",
+    roleOwnerNote: "Владеть компанией и быть её qualified individual — разные вещи. Владение само по себе не является ни зачётным опытом, ни статусом qualifier — NRS 624.260 устанавливает требования к опыту и экзаменам, которым должен соответствовать qualified individual.",
+    qGoalL: "Если qualified individual сейчас другой человек:",
+    g_replace_rme: "Заменить qualified individual и квалифицировать компанию самому",
+    g_add_class: "Оставить qualified individual и добавить классификацию",
+    g_prepare: "Подготовиться на случай ухода qualified individual",
+    qRmeLeftL: "Если qualified individual уже ушёл, когда? (необязательно)",
+    rmeDeadlineNote: "По NRS 624.285 лицензиат обязан письменно уведомить Board в течение 10 дней после ухода qualified individual и заменить его другим квалифицированным лицом, одобренным Board, в течение 30 дней (Board может продлить по уважительной причине) — иначе лицензия приостанавливается.",
+    dateKindRme: "Заменить qualified individual (30 дней, NRS 624.285)",
+    ent_corporation: "Корпорация Невады",
+    entCmp_llc: "LLC: отдельное юридическое лицо; лицензия выдаётся LLC. Каждому заявителю до подачи заявления нужен Nevada Business ID от Secretary of State (SilverFlume) (New License Application, ред. 03/2026).",
+    entitySetupNote: "Вы планируете подавать от сущности, которая ещё не создана. Заявление NSCB требует Nevada Business ID от Secretary of State (SilverFlume) до подачи — запланируйте этот шаг первым.",
+    qExpIntro: "Licena помогает разложить сделанное по периодам. Невада требует от qualified individual четыре года опыта как journeyman, foreman, supervising employee или contractor за последние пятнадцать лет — но засчитывается ли опыт, решает State Contractors Board, а не мы.",
+    qExpQuickL: "Есть ли у вас не менее {years} лет опыта как journeyman, foreman, supervising employee или contractor по специальности {name} — за последние пятнадцать лет — который можно подтвердить?",
+    expWindowNote: "NRS 624.260(6): в течение 15 лет, непосредственно предшествующих заявлению, не менее 4 лет опыта как journeyman, foreman, supervising employee или contractor в конкретной классификации; обучение в аккредитованном колледже или университете (или в эквивалентной программе, принятой Board) может покрыть до 3 из этих лет. Старый FAQ NSCB ещё говорит о десяти годах — действует статут.",
+    lvlNote: "NRS 624.260(8) определяет journeyman как человека, полностью квалифицированного выполнять работы классификации без надзора, либо завершившего одобренную apprenticeship-программу. Время ученика и помощника — настоящая работа, но вносите его как есть — что засчитывать, решает Board.",
+    expFormLink: "NSCB — Certification of Work Experience (PDF)",
+    expFormHow: "NSCB подтверждает опыт четырьмя формами Certification of Work Experience на каждого qualifier (либо действующим master-сертификатом госоргана, либо переносимым военным опытом) плюс Resume of Experience; для работы на себя нужен список клиентов с адресами и телефонами (License Requirements, 2026-09-11).",
+    expPotentialL: "Потенциально соответствующий опыт (journeyman, foreman, supervising employee или contractor)",
+    expSt_ok: "может соответствовать четырём годам по статуту — уровень и содержание работ проверяет Board",
+    expSt_short: "до четырёх лет пока не хватает примерно {dur}",
+    expDisclaimer: "Licena предоставляет предварительную образовательную оценку на основании ваших ответов. Окончательное решение о соответствии и зачёте опыта принимает Nevada State Contractors Board.",
+    xqAct_yes_b: "Найдите четырёх человек, которые подпишут ваши формы Certification of Work Experience, и документы по каждому периоду — Board проверяет опыт до выдачи допуска к экзаменам. Соответствует ли опыт, решает Board.",
+    xqAct_unsure_b: "Перечислите каждый период, кто видел работу лично и какие документы есть. Опыт, который некому подтвердить, — самая частая причина задержек.",
+    xqAct_no_b: "Внесите каждый период — включая неполную занятость и работу на себя — и обучение: аккредитованное обучение в колледже или университете может заменить до трёх из четырёх лет (NRS 624.260(6)). Решает Board; план никогда сам не вычитает зачёт.",
+    lvlS_helper: "Освоение ремесла под чужим руководством — вносится для полноты; что засчитать, решает Board",
+    expLevelNote: "Указывайте уровень честно; Board проверяет опыт по сертификациям и Resume of Experience (NRS 624.260).",
+    expSelfNameNote: "Работаете на себя? Укажите короткое название своей деятельности — Resume of Experience NSCB просит у самозанятых список клиентов с адресами и телефонами.",
+    expPartTimeNote: "Неполная занятость вносится как есть; как её засчитывает Board — его решение; здесь часы в годы не переводятся.",
+    expPartTimeApart: "Плюс {dur} на неполной занятости — учтено отдельно; как это считать, решает Board.",
+    expCertDirectNote: "Каждую форму Certification of Work Experience подписывает человек, который может подтвердить работу лично; кто вправе подписывать, указано в самой форме — назовите того, кто видел работу.",
+    expDocsNote: "Только примеры типов документов — что подавать, говорят формы NSCB; ни один документ сам по себе ничего не решает.",
+    expNoCertWarn: "У {n} периода(ов) нет подтверждающего лица. NSCB требует четыре подписанные формы Certification of Work Experience — найдите людей, которые могут подписать.",
+    expRandomNote: "",
+    expNeedsReview: "Статус опыта: нужна проверка — Невада ожидает четыре года как journeyman, foreman, supervising employee или contractor за последние пятнадцать лет; проверьте, как складывается ваше время, до подачи.",
+    expCertNeeded: "Статус опыта: нужна сертификация — договоритесь с четырьмя людьми, которые подпишут формы Certification of Work Experience.",
+    expShortNote: "Ничего страшного — план честно покажет разрыв и законные способы его закрыть: дополнительный опыт и, до трёх лет, аккредитованное обучение в колледже или университете (NRS 624.260(6)); любой зачёт решает Board.",
+    qEduHasL: "Проходили ли вы обучение по этому ремеслу в аккредитованном колледже или университете, эквивалентной программе, принятой Board, или одобренную apprenticeship-программу?",
+    edu2_appr: "Apprenticeship, одобренная State Apprenticeship Council",
+    eduNote: "NRS 624.260(6): обучение в программе аккредитованного колледжа или университета либо в эквивалентной программе, принятой Board, может покрыть не более трёх из четырёх лет. Зачёт решает Board — LICENA его никогда не вычитает.",
+    eduForeignNote: "Обучение в другой стране: спросите NSCB, как оно оценивается — здесь зачёт не предполагается.",
+    rmEduForeignB: "Вы учились не в США. Спросите NSCB, как оценивается зарубежное обучение, прежде чем рассчитывать на зачёт.",
+    milNote: "NSCB принимает переносимый военный опыт или обучение как подтверждение опыта (License Requirements). Сообщите о нём с документами о службе — зачёт решает Board; есть Veterans Assistance Program.",
+    qWaiverH: "Проверка освобождения от экзамена",
+    qWaiverSub: "NSCB, как правило, не экзаменует повторно того, кто активно был qualified individual на другой лицензии Невады в той же классификации в последние четыре года. Отвечайте честно — Board сверяется со своими записями.",
+    wv_priorQPL: "Были ли вы qualified individual у лицензиата Невады в этой же классификации?",
+    wv_priorQP5yL: "В последние четыре года?",
+    waiverMaybeNote: "Ваши ответы соответствуют {sec}: qualified individual, активно работавший на другой лицензии Невады в той же классификации в последние четыре года, как правило, не экзаменуется повторно. Board подтверждает по своим записям — до этого ничего не освобождено.",
+    waiverFormNote: "Укажите прежнюю роль qualified individual в заявлении; Board проверит свои записи.",
+    waiverNoneNote: "Ничто в ваших ответах не соответствует опубликованному освобождению, поэтому рассчитывайте на экзамен CMS и, где требуется, trade-экзамен.",
+    expPriorQPNote: "Вы указали, что раньше были qualified individual в этой классификации: NSCB не требует сертификацию опыта, если вы были qualified employee в той же классификации на другой лицензии Невады в последние пять лет — Board подтверждает.",
+    recipNote: "Невада выдаёт лицензию по endorsement: активная лицензия с тем же qualified individual последние четыре года в Алабаме, Аризоне, Калифорнии, Коннектикуте, Флориде, на Гавайях, в Луизиане, Нью-Мексико, Северной Каролине, Южной Каролине, Теннесси или Западной Вирджинии может освободить от trade-экзамена; экзамен Business & Law (CMS) не отменяется никогда. Штат, выдавший лицензию, заполняет форму Request for Verification of License.",
+    recipMetNote: "Эта лицензия соответствует опубликованным условиям endorsement NSCB (штат из списка, активна с тем же qualified individual последние четыре года, без взысканий). Trade-экзамен МОЖЕТ быть отменён — подтверждает Board; экзамен CMS всё равно обязателен.",
+    recipNotMetNote: "По вашим ответам эта лицензия не соответствует опубликованным условиям endorsement NSCB: {reasons}. Ваш путь остаётся обычной первой лицензией, опыт сертифицируется как обычно — лицензия другого штата сама по себе не отменяет ни экзамен, ни проверку опыта.",
+    rr_state: "штат не входит в список endorsement NSCB",
+    rr_years: "лицензия не была активна с тем же qualified individual последние четыре года",
+    rr_good: "лицензия не в good standing",
+    ry_lt5: "Меньше 4 лет",
+    ry_5plus: "4 года и более",
+    recipRowMet: "условия выполнены — подтверждает NSCB",
+    lawShort: "Business & Law (CMS)",
+    dashLaw: "CMS",
+    qLawStatusL: "Экзамен Business & Law (CMS) — статус",
+    qLawDateL: "Дата экзамена CMS",
+    dateKindLaw: "Экзамен CMS",
+    startLaw: "Начать практику Business & Law (CMS)",
+    examLawRequired: "Business & Law (CMS): обязателен — не отменяется никогда",
+    examLawMayWaive: "Business & Law (CMS): обязателен во всех случаях",
+    examTradeRequired: "{name}: обязателен, если NSCB не подтвердит освобождение",
+    examTradeMayWaive: "{name}: может быть отменён — подтверждает NSCB",
+    x_waived: "Освобождён — подтверждено NSCB",
+    examFactsNote: "Невада: экзамены проводит PSI после выдачи допуска NSCB. Экзамен CMS — 60 зачётных вопросов за 120 минут, проходной 45 правильных (75 %), open book (Construction Business and Law Manual for Nevada); trade-экзамены — closed book. Сбор PSI $95 за одну часть, $140 за две; три попытки с интервалом две недели — после третьей неудачи заявление аннулируется, новое заявление через 30 дней.",
+    nx_prep_b: "NSCB подтвердил ваш опыт и выдал допуск к экзаменам — между вами и лицензией остались экзамены CMS и trade. Начинайте готовиться сейчас.",
+    nx_retake_b: "Несданный экзамен — просто ещё одна попытка: PSI разрешает пересдачу через две недели, всего три попытки — после третьей неудачи заявление аннулируется, и вы подаёте заново через 30 дней. Работайте над слабыми темами.",
+    nx_wait_t: "Дождитесь проверки опыта в NSCB",
+    nx_wait_b: "Заявление подано. Сотрудники Board сначала проверяют сертификации опыта; затем приходит письмо Examination Eligibility с вашим candidate ID, и вы записываетесь в PSI. Сроки различаются — ваш License Analyst скажет, на каком этапе дело.",
+    nx_corr_t: "Ответьте на запрос NSCB",
+    nx_corr_b: "Вы указали, что NSCB запросил дополнительные сведения или исправление. Ответить ровно так, как просят, — первоочередная задача; храните копии всего отправленного.",
+    nx_rej_b: "Вы указали, что заявление отклонено или возвращено. Изучите письмо Board и исправьте названное; новое заявление требует нового сбора $300.",
+    nx_final_b: "Экзамены позади. До выдачи остаётся: бонд на сумму, назначенную Board при одобрении ($1 000–$500 000), сбор за лицензию $600 на два года, взнос в Residential Recovery Fund, где он применим, и подтверждение industrial insurance или аффидевит об освобождении (NRS 624.256).",
+    nx_waitiss_b: "Вы сообщили, что финальные требования выполняются. Когда NSCB их подтвердит, номер лицензии появится на сайте Board, а wall card и pocket cards придут по почте.",
+    nx_issued_b: "Вы сообщили, что лицензия выдана. Запишите номер лицензии: он наносится на коммерческие автомобили (NRS 624.288), а лицензия истекает через два года после выдачи (NRS 624.283).",
+    nx_cert_b: "Заявлению нужны четыре подписанные формы Certification of Work Experience. Договориться с подписантами сейчас — значит избежать самой частой задержки.",
+    wyw_b: "Это время не обязательно терять — подготовку к экзаменам можно начать сейчас, пока NSCB проверяет ваш опыт.",
+    qAppSubL: "Вы подали заявление в NSCB на эту лицензию?",
+    appNumNote: "Используйте номер из квитанции или писем NSCB, если он есть.",
+    qAccDateL: "Когда NSCB выдал допуск к экзаменам? (по письму)",
+    stg_acc: "Опыт подтверждён — получен допуск к экзаменам",
+    mc_application_review: "Да, NSCB подтвердил мой опыт (получен допуск к экзаменам)",
+    mc_fingerprinting: "Да, этап отпечатков пройден",
+    qFingerH: "Пройден ли этап отпечатков (формы Background Disclosure and Fingerprint Waiver, затем отпечатки)?",
+    fp_not: "Формы ещё не поданы",
+    fp_req: "Формы поданы — отпечатки ещё не сданы",
+    fp_sched: "Назначена встреча",
+    fp_done: "Пройдено",
+    dateKindFp: "Встреча для снятия отпечатков",
+    t_prepare_application: "Подготовьте заявление в NSCB",
+    d_prepare_application: "New License Application (ред. 03/2026) подаётся со сбором $300, Resume of Experience, четырьмя формами Certification of Work Experience на каждого qualifier, формой Background Disclosure Statement and Fingerprint Waiver на каждое указанное лицо, копиями удостоверений, финансовым отчётом под запрашиваемый monetary limit (самостоятельный — до $25 000; составленный, проверенный или аудированный CPA — выше), Bank Verification Form и, для индивидуальных предпринимателей, Child Support Information Statement. Сначала — Nevada Business ID от Secretary of State. NSCB предлагает бесплатную предварительную проверку у license analyst.",
+    todo_prepare_application: "Получите Nevada Business ID (SilverFlume), определите monetary limit и закажите соответствующий финансовый отчёт, соберите четыре сертификации опыта и формы о биографии на всех указанных лиц, запишитесь на бесплатную предварительную проверку у analyst.",
+    docs_prepare_application: "New License Application, Resume of Experience, четыре формы Certification of Work Experience, формы Background Disclosure and Fingerprint Waiver, удостоверения, финансовый отчёт, Bank Verification Form, Nevada Business ID.",
+    t_submit_application: "Подайте заявление и сбор $300",
+    d_submit_application: "Заявление подаётся с невозвратным сбором $300 (FAQ NSCB; статутный предел $550, NRS 624.280) — онлайн через портал NSCB или на бумаге. Board рассматривает только полные заявления со всеми подтверждающими документами.",
+    todo_submit_application: "Подайте полное заявление со сбором $300 и сохраните полную копию; неполные заявления не рассматриваются.",
+    docs_submit_application: "Подписанное заявление, сбор $300, все подтверждающие формы, копия для себя.",
+    t_fingerprinting: "Сдайте отпечатки за всех указанных лиц",
+    d_fingerprinting: "После подачи форм Background Disclosure Statement and Fingerprint Waiver каждое лицо в заявлении и qualified individual сдают отпечатки для проверки Nevada Department of Public Safety и FBI (NRS 624.265); сбор равен тарифам Repository и FBI и оплачивается cashier's check на Nevada Highway Patrol (NAC 624.681).",
+    todo_fingerprinting: "После подачи форм о биографии сдайте отпечатки за всех указанных лиц так, как укажет NSCB, и сохраните квитанции.",
+    docs_fingerprinting: "Формы Background Disclosure and Fingerprint Waiver, инструкции NSCB по отпечаткам, удостоверение личности с фото, cashier's check на сбор.",
+    t_application_review: "Проверка опыта и допуск к экзаменам",
+    d_application_review: "Сотрудники Board проверяют сертификации опыта; после этого приходит письмо Examination Eligibility с вашим candidate ID, и можно записаться в PSI (NSCB License Examinations). Сроки различаются — назначенный License Analyst скажет, на каком этапе дело.",
+    todo_application_review: "Следите за письмами NSCB; на любой запрос отвечайте ровно так, как просят, и храните копии. Свяжитесь с License Analyst, если нужен статус.",
+    docs_application_review: "Письма NSCB, копия заявления, письмо Examination Eligibility, когда придёт.",
+    t_prep_law_business: "Подготовьтесь к экзамену Business & Law (CMS)",
+    d_prep_law_business: "Экзамен CMS обязателен для каждой лицензии: 60 зачётных вопросов за 120 минут, проходной 45 правильных (75 %), open book с Construction Business and Law Manual for Nevada; темы — лицензирование, сметы и торги, закон о залогах, финансовый менеджмент, налоги, трудовое право, управление проектами, договоры, риски, экология и безопасность (бюллетень PSI). Курс LICENA Nevada CMS покрывает этот материал.",
+    todo_prep_law_business: "Пройдите темы CMS с практическими вопросами LICENA, затем тренируйтесь в формате экзамена, пока он не станет привычным.",
+    docs_prep_law_business: "Construction Business and Law Manual for Nevada; NRS/NAC, глава 624.",
+    d_prep_trade: "Где классификация этого требует, PSI также проводит trade-экзамен по вашей классификации — closed book, за исключением отдельных кодовых справочников (NSCB License Examinations).",
+    todo_prep_trade: "Тренируйтесь в формате экзамена по своей классификации.",
+    docs_prep_trade: "Content outline и источники PSI для вашей классификации.",
+    d_schedule_pass_exams: "Экзамены назначаются в PSI после письма Examination Eligibility (Las Vegas, Reno, Elko или центры PSI в других местах); сбор PSI $95 за одну часть, $140 за две. Три попытки на экзамен с интервалом две недели; после третьей неудачи заявление аннулируется, новое заявление возможно через 30 дней (NSCB License Examinations; бюллетень PSI).",
+    todo_schedule_pass_exams: "Зарегистрируйтесь в PSI с вашим candidate ID, возьмите требуемые документы и справочники для open-book CMS и сдайте каждый требуемый экзамен.",
+    docs_schedule_pass_exams: "Письмо Examination Eligibility, удостоверение личности с фото, open-book справочники для CMS.",
+    t_final_requirements: "Бонд, сбор за лицензию, страховка — затем выдача",
+    d_final_requirements: "При одобрении Board назначает бонд от $1 000 до $500 000 (surety с рейтингом A или лучше либо депозит cashier's check плюс сбор $200 за два года); подлежит оплате сбор за лицензию $600 на два года; residential-подрядчики платят взнос в Residential Recovery Fund по monetary limit ($200 до $1 000 000; $500 выше; $1 000 без лимита — NRS 624.470); до выдачи Board требует подтверждение industrial insurance либо аффидевит о том, что у вас нет работников и вы не будете субподрядчиком и не будете участвовать в торгах для генподрядчика (NRS 624.256).",
+    todo_final_requirements: "Купите бонд на сумму, назначенную NSCB, оплатите сбор за лицензию $600 и взнос в recovery fund, если он применим, и предоставьте подтверждение industrial insurance или аффидевит.",
+    docs_final_requirements: "Surety bond на форме Board или cashier's check, сбор за лицензию, взнос в recovery fund (residential), сертификат industrial insurance или аффидевит об освобождении.",
+    qBondL: "Есть ли у вас бонд на сумму, назначенную NSCB при одобрении ($1 000–$500 000)?",
+    qFeeL: "Сбор за лицензию ($600 на два года) — оплачен?",
+    feeNote: "NSCB: сбор за заявление $300; при одобрении сбор за лицензию $600 за двухлетнюю лицензию. Residential-подрядчики дополнительно платят взнос в Residential Recovery Fund по monetary limit (NRS 624.470).",
+    w_notreq: "Не требуется — аффидевит (нет работников, без субподряда, без торгов для генподрядчика)",
+    d_license_issued: "Когда все требования выполнены и присвоен номер лицензии, он появляется на сайте NSCB; wall card и pocket cards приходят по почте. Лицензия истекает через два года после выдачи и продлевается раз в два года (NRS 624.283).",
+    todo_license_issued: "Запишите номер лицензии и дату продления; нанесите имя и номер лицензии на коммерческие автомобили (NRS 624.288).",
+    rtwIntro: "Лицензия подрядчика выдана. Одно требование статута действует сразу, как вы начнёте работать, — имя и номер лицензии на коммерческих автомобилях, — а город или округ могут добавить свои.",
+    rtw_vehicle_t: "Обозначьте коммерческие автомобили",
+    rtw_vehicle_b: "NRS 624.288: нанесите имя и номер лицензии буквами и цифрами высотой около 1½ дюйма на каждый коммерческий автомобиль, зарегистрированный на лицензиата.",
+    d_experience: "Qualified individual нужны четыре года опыта как journeyman, foreman, supervising employee или contractor в классификации за последние пятнадцать лет (NRS 624.260(6)); аккредитованное обучение может покрыть до трёх из этих лет.",
+    todo_experience: "Перечислите историю работы по периодам, кто может её сертифицировать и какие документы её подтверждают; NSCB нужны четыре подписанные формы Certification of Work Experience и Resume of Experience — для работы на себя нужен список клиентов.",
+    docs_experience: "История работы с датами, четыре подписанта сертификаций, Resume of Experience, подтверждающие документы.",
+  },
   _az: {
+    nsFlag: "Вы отметили, что не уверены в типе лицензии. Спокойно разобрать этот шаг — лучший первый ход; сверьте классификацию с правилами классификаций A.A.C. R4-9 и с ROC.",
+    expDocTypesL: "Какие из них у вас есть? (типичные примеры — что подтверждает ваш опыт, решает Registrar)",
+    expNonLicNote: "Работа на себя без лицензии — настоящий опыт, но это не то же самое, что лицензированный подрядчик, и ваш ответ о лицензиях остаётся прежним. Опыт qualifying party проверяет Registrar (A.R.S. 32-1122(B)).",
+    expJlNote: "Правило Аризоны говорит о практическом или управленческом опыте в ремесле (A.R.S. 32-1122(E)(1); A.A.C. R4-9-119), а не об уровне journeyman — что засчитать, решает Registrar. Указывайте работу как она была.",
+    expCertRelNote: "ROC проверяет опыт на формах, которые предписывает Registrar (A.R.S. 32-1122(B)); кто может подписать за вас, определяют собственная форма и инструкции ROC, которые здесь не воспроизводятся.",
+    nx_susp_b: "Приостановку лицензии нужно снять в ROC, прежде чем вернуться в хороший статус и снова заключать договоры; это не новое заявление.",
     stateName: "Аризона",
     x_waived: "Освобождение подтверждено ROC",
     qLawStatusL: "Экзамен Statutes & Rules — статус",
@@ -4834,7 +5707,7 @@ ru: {
     entCmp_llc: "LLC: отдельное юридическое лицо; лицензия оформляется на LLC, а в заявлении подтверждается хороший статус в Arizona Corporation Commission (A.R.S. 32-1122(B)(1)(g)).",
     entitySetupNote: "Вы планируете подаваться от компании, которая ещё не создана. В заявлении ROC корпорация или LLC подтверждает хороший статус в Arizona Corporation Commission (A.R.S. 32-1122(B)(1)(g)) — заложите этот шаг до подачи.",
     expFormLink: "A.R.S. 32-1122 — Qualifications for license",
-    expFormHow: "ROC проверяет опыт qualifying party по формам, которые устанавливает Registrar (A.R.S. 32-1122(B)). Закон требует четыре года практического или управленческого опыта в ремесле, из них не менее двух — за последние десять лет, именно по тому виду строительства, на который подаётся заявление (32-1122(E)(1)).",
+    expFormHow: "ROC проверяет опыт qualifying party на формах, которые предписывает Registrar (A.R.S. 32-1122(B)); A.A.C. R4-9-119 обязывает Registrar принимать военную службу или обучение, дипломы и транскрипты аккредитованных программ и сертификаты о завершении apprenticeship — независимо от того, были ли вы или ваш работодатель лицензированы. Статут требует четыре года практического или управленческого опыта в ремесле, из них не менее двух за последние десять лет (32-1122(E)(1)).",
     qExpIntro: "Licena помогает структурировать сведения о работе — период за периодом. Аризона требует от qualifying party четыре года практического или управленческого опыта в ремесле, из них не менее двух за последние десять лет, — но засчитывается ли опыт, решает Registrar of Contractors, а не мы.",
     qExpQuickL: "Есть ли у вас не менее {years} лет практического или управленческого опыта по специальности {name} — из них не менее двух за последние десять лет, — который можно подтвердить?",
     s_waiting: "Ожидает ответа ROC",
@@ -4917,45 +5790,52 @@ ru: {
     t_classification: "Подтвердите классификацию лицензии",
     d_classification: "Каждая лицензия ROC выдаётся в классификации — в заявлении указывается запрашиваемая классификация (A.R.S. 32-1122(B)(1)(a)). От неё зависят экзамены и опыт, который проверяет ROC.",
     todo_classification: "Убедитесь, что классификация соответствует работам, на которые вы будете заключать договоры; объём определяют правила классификации Registrar.",
-    docs_classification: "Классификация, на которую подаётесь (например B, R-11, R-39R).",
+    docs_classification: "Классификация, на которую вы подаёте (A.A.C. R4-9-103 residential: B, R-11, R-37, R-39…; R4-9-102 commercial; R4-9-104 dual).",
     d_experience: "Qualifying party нужны четыре года практического или управленческого опыта в ремесле, из них не менее двух за последние десять лет, по запрашиваемому виду строительства (A.R.S. 32-1122(E)(1)).",
     todo_experience: "Перечислите опыт по периодам, кто может его подтвердить и какие документы его подкрепляют. Аккредитованное техническое обучение может заменить до двух лет — решает Registrar.",
     docs_experience: "История работы с датами, подтверждающие лица, подтверждающие документы.",
-    t_prepare_application: "Подготовьте заявление в ROC",
-    d_prepare_application: "Заверенное заявление на формах Registrar указывает классификацию, компанию и её людей, qualifying party, адрес бизнеса и подтверждение о страховании работников (A.R.S. 32-1122(B)(1)).",
-    todo_prepare_application: "Соберите то, что перечисляет 32-1122(B): людей и адреса компании, qualifying party, хороший статус в Corporation Commission для LLC или корпорации и подтверждение о страховании работников.",
-    docs_prepare_application: "Заявление на формах ROC, подтверждение опыта, подтверждение хорошего статуса компании, номер полиса страхования работников или подтверждение самострахования, где требуется.",
-    t_submit_application: "Подайте заявление, сбор и гарантию",
-    d_submit_application: "Заявление подаётся со сбором и с поручительской гарантией или денежным депозитом по A.R.S. 32-1152 (32-1122(B)(2)–(3)). Размер сбора устанавливает ROC.",
-    todo_submit_application: "Подайте заявление со сбором ROC и подтверждением гарантии или депозита и сохраните полную копию.",
-    docs_submit_application: "Подписанное заявление, сбор, подтверждение гарантии или депозита, копия для себя.",
+    t_prepare_application: "Подготовьте заявление в ROC (после экзаменов)",
+    d_prepare_application: "Заверенное заявление на формах Registrar указывает классификацию, бизнес и его людей, qualifying party, место ведения бизнеса и attestation по workers' compensation (A.R.S. 32-1122(B)(1)); подаётся с оригиналом отчёта о сдаче, сборами и бондом или депозитом.",
+    todo_prepare_application: "Соберите то, что перечисляет 32-1122(B): люди и адреса за бизнесом, qualifying party, good standing в Corporation Commission для LLC или корпорации, attestation по workers' compensation, отчёты о сдаче и бонд.",
+    docs_prepare_application: "Заявление на формах ROC, оригинал(ы) отчёта о сдаче, подтверждение опыта, attestation о good standing сущности, бонд или депозит, номер полиса workers' compensation или подтверждение самострахования, где требуется.",
+    t_submit_application: "Подайте заявление, сборы и бонд",
+    d_submit_application: "Заявление подаётся со сборами и с бондом или депозитом по A.R.S. 32-1152 (32-1122(B)(2)–(3)). A.A.C. R4-9-130: сбор за заявление + за лицензию — general commercial $200 + $580, specialty commercial $100 + $480, general residential $180 + $320, specialty residential $80 + $270, general dual $200 + $480, specialty dual $100 + $380; residential и dual лицензии платят ещё взнос в recovery fund ($370 первоначально).",
+    todo_submit_application: "Подайте заявление со сборами, оригиналом отчёта о сдаче и подтверждением бонда или депозита и сохраните полную копию.",
+    docs_submit_application: "Подписанное заявление, сборы, оригинал(ы) отчёта о сдаче, подтверждение бонда или депозита, копия для себя.",
     t_fingerprinting: "Сдайте отпечатки, если их требует ROC",
     d_fingerprinting: "Registrar может потребовать полный набор отпечатков и сборы по A.R.S. 41-1750 для проверки судимостей на уровне штата и федерации (32-1122(H)).",
     todo_fingerprinting: "Если ROC попросит, сдайте отпечатки и сбор по инструкции и сохраните квитанцию.",
     docs_fingerprinting: "Инструкции ROC по отпечаткам, удостоверение личности с фото.",
     t_application_review: "Рассмотрение заявления ROC",
-    d_application_review: "После подачи полного заявления Registrar уведомляет заявителя о решении в течение 60 дней (A.R.S. 32-1124(A)).",
-    todo_application_review: "Следите за письмами ROC; на запрос об исправлениях отвечайте ровно так, как просят, и сохраняйте копии.",
+    d_application_review: "A.A.C. R4-9-113: общий срок Registrar — 60 календарных дней: 40 дней на проверку полноты (лицензия или уведомление о недостатках) и 20 дней рассмотрения по существу; на ответ по недостаткам даётся 30 дней, иначе заявление возвращается, а сбор за заявление не возвращается (A.R.S. 32-1124(A), (D)).",
+    todo_application_review: "Следите за письмами ROC; на уведомление о недостатках отвечайте в течение 30 дней ровно так, как просят, и храните копии.",
     docs_application_review: "Переписка с ROC, копия заявления.",
     t_prep_law_business: "Подготовьтесь к экзамену Statutes & Rules",
-    d_prep_law_business: "Письменный экзамен охватывает законы Аризоны о строительстве, безопасности, здоровье и залогах (lien), административные основы подрядного дела и правила Registrar (A.R.S. 32-1122(E)(2)); курс Statutes & Rules от LICENA покрывает этот материал.",
-    todo_prep_law_business: "Изучите законы и правила, затем решайте тренировочные вопросы, пока формат экзамена не станет привычным.",
-    docs_prep_law_business: "A.R.S. Title 32, Chapter 10 и правила Registrar.",
-    d_prep_trade: "Если ROC требует этого для классификации, экзамен также проверяет вид работ, строительные чертежи и спецификации, стандарты и практики ремесла (A.R.S. 32-1122(E)(2)).",
-    todo_prep_trade: "Тренируйтесь в формате экзамена по вашей классификации.",
-    docs_prep_trade: "Технические справочники по вашей классификации.",
-    d_schedule_pass_exams: "Экзамен, если он требуется, должен быть сдан не ранее чем за два года до подачи заявления (A.R.S. 32-1122(E)(2)); Registrar освобождает от него qualifying party, занимавшего эту роль у лицензиата Аризоны в той же классификации в предыдущие пять лет (32-1122(F)).",
-    todo_schedule_pass_exams: "Запишитесь через экзаменационную систему ROC, возьмите требуемое удостоверение и сдайте каждый требуемый экзамен.",
-    t_final_requirements: "Выполните требования по гарантии, страхованию и финальные требования",
-    d_final_requirements: "До выдачи первой лицензии Registrar требует поручительскую гарантию или денежный депозит в размерах по A.R.S. 32-1152 — по классификации и ожидаемому годовому объёму; жилые и dual-подрядчики также платят взнос в фонд возмещения или вносят дополнительную гарантию $200,000 (32-1152(C)). В заявлении даётся подтверждение о страховании работников (32-1122(B)(1)(i)).",
-    todo_final_requirements: "Поддерживайте гарантию или депозит в силе и предоставьте сведения о страховании работников, которые запросит ROC.",
-    docs_final_requirements: "Подтверждение гарантии или депозита, номер полиса страхования работников или подтверждение самострахования.",
+    d_prep_law_business: "Statutes & Rules Exam (SRE) — собственный онлайн-курс ROC с тестом в конце ($61; бюллетень PSI); охватывает строительные, санитарные законы, законы о безопасности и залогах Аризоны, административные принципы подряда и правила Registrar (A.R.S. 32-1122(E)(2); A.A.C. R4-9-106). Обязателен для нового qualifying party, который не был qualifying party на другой лицензии Аризоны в последние пять лет.",
+    todo_prep_law_business: "Изучите Title 32, Chapter 10 и правила Registrar с практикой Statutes & Rules от LICENA, затем пройдите онлайн-SRE от ROC.",
+    docs_prep_law_business: "A.R.S. Title 32, Chapter 10; A.A.C. Title 4, Chapter 9; курс SRE от ROC.",
+    d_prep_trade: "Нужен ли для вашей классификации ещё и trade-экзамен PSI (и solar-часть), определяет форма ROC RC-L-206B (License Classification Requirements); PSI публикует для каждого экзамена content outline с лимитом времени, числом вопросов и списком источников (бюллетень PSI, 2026-09-11).",
+    todo_prep_trade: "Проверьте RC-L-206B для своей классификации, скачайте content outline PSI и тренируйтесь в формате экзамена.",
+    docs_prep_trade: "Content outline и источники PSI для вашей классификации.",
+    d_schedule_pass_exams: "В Аризоне экзамены идут первыми. PSI назначает trade-экзамен после письма о допуске от ROC; проходной 70 % (A.A.C. R4-9-106); несданный экзамен пересдаётся через 30 дней, три попытки, затем 90 дней ожидания; сбор действует один год. Заявление должно поступить в ROC в течение двух лет после сдачи (бюллетень PSI). ROC освобождает от экзаменов qualifying party, занимавшего эту роль в той же классификации в предыдущие пять лет (A.R.S. 32-1122(F)).",
+    todo_schedule_pass_exams: "Пройдите онлайн-SRE от ROC, затем запишитесь на trade-экзамен в PSI (тест-центр или дистанционно), возьмите требуемые документы и сохраните оригинал отчёта о сдаче для заявления.",
+    t_final_requirements: "Бонд зарегистрирован, страховка — затем выдача",
+    d_final_requirements: "Бонд или депозит лицензии не действует, пока не зарегистрирован в офисе ROC (A.A.C. R4-9-112). Суммы по классификации и расчётному годовому объёму: general commercial $5 000–$100 000, specialty commercial $2 500–$50 000, general residential $9 000 или $15 000, specialty residential $4 250 или $7 500; residential и dual подрядчики также платят взнос в recovery fund или дополнительный бонд $200 000 (A.R.S. 32-1152(C)). Заявление содержит attestation по workers' compensation (32-1122(B)(1)(i)).",
+    todo_final_requirements: "Держите бонд или депозит зарегистрированным и действующим, оплатите взнос в recovery fund, если он применим, и предоставьте сведения о workers' compensation, которые запросит ROC.",
+    docs_final_requirements: "Подтверждение бонда или депозита, квитанция взноса в recovery fund (residential/dual), номер полиса workers' compensation или подтверждение самострахования.",
     d_license_issued: "Registrar выдаёт лицензию, когда признаёт заявителя соответствующим требованиям (A.R.S. 32-1124(A)); лицензия непередаваема (32-1124(B)).",
     todo_license_issued: "Запишите номер лицензии ROC: он должен указываться на объектах работ, в предложениях, сметах и рекламе (A.R.S. 32-1124(B)).",
     qBondL: "У вас есть поручительская гарантия или денежный депозит по A.R.S. 32-1152?",
     rtwIntro: "Лицензия подрядчика выдана. Одно законное требование действует сразу — указывать номер ROC, — а город или округ могут добавить свои.",
     rtw_posting_t: "Указывайте номер лицензии ROC",
     rtw_posting_b: "A.R.S. 32-1124(B): номер лицензии с префиксом «ROC» должен быть на видном месте там, где ведутся работы, во всех письменных предложениях и сметах, а также в рекламе, на бланках и в документах для клиентов.",
+    nx_prep_t: "Сначала сдайте экзамены",
+    nx_prep_b: "В Аризоне экзамены идут до заявления: ROC принимает заявление на лицензию только с оригиналом отчёта о сдаче, поданное в течение двух лет после сдачи (бюллетень PSI). Готовьтесь к Statutes & Rules Exam и, если классификация требует, к trade-экзамену PSI.",
+    stg_acc: "ROC одобрил заявление — выдача ожидается (бонд, сборы)",
+    qExamsH: "Ваши экзамены — Statutes & Rules и trade-экзамен",
+    qExamsSub: "В Аризоне экзамены сдаются до подачи заявления. Укажите, где стоит каждый — сданный экзамен действует два года.",
+    examFactsNote: "Аризона: Statutes & Rules Exam (SRE) — собственный онлайн-курс с тестом от ROC ($61); trade-экзамены проводит PSI ($66 за один, $116 за два, solar-часть $40); проходной 70 %; несданный экзамен пересдаётся через 30 дней, три попытки, затем 90 дней между попытками; заявление подаётся в течение двух лет после сдачи.",
+    docs_schedule_pass_exams: "Письмо о допуске от PSI, удостоверение личности с фото, оригинал(ы) отчёта о сдаче.",
   },
   qHolder3: "Для кого лицензия?",
   hkS_me: "Оформляется на вас как на физическое лицо — самый простой старт; за бизнес отвечаете лично.",
@@ -5228,7 +6108,9 @@ ru: {
         : x === "x_sched" ? "in_progress" : x === "x_wreq" ? "waiting" : "not_started";
     }
     var live = function (x) { return x === "x_sched" || x === "x_fail" || x === "x_wreq" || RML.examDone(x); };
-    var examsLive = f.accepted || live(a.lawStatus) || live(a.tradeStatus);
+    // exams-first states (Arizona): the exams are open from the start — the
+    // application follows them (PSI bulletin / A.A.C. R4-9-106, 2026-09-11)
+    var examsLive = f.accepted || !!R.examsFirst || live(a.lawStatus) || live(a.tradeStatus);
     var tr = tradeReq(a.trade);
     if (examsLive) {
       st.prep_law_business = examSt(a.lawStatus);
@@ -5448,8 +6330,9 @@ ru: {
       return { key: "application_review", t: d.nx_corr_t, b: d.nx_corr_b, ctas: [] };
     if (a.appStatus === "st_rejected" && s.prepare_application.status === "action_needed")
       return { key: "prepare_application", t: d.nx_rej_t, b: d.nx_rej_b, ctas: [] };
-    // Final phase — both exams passed
-    if (f.lawP && f.tradeP) {
+    // Final phase — both exams passed (in an exams-first state the
+    // application still has to be filed first)
+    if (f.lawP && f.tradeP && !(R.examsFirst && !f.submitted)) {
       if (s.final_requirements.status === "in_progress")
         return { key: "final_requirements", t: d.nx_waitiss_t, b: d.nx_waitiss_b, wait: true,
                  src: stepByKey("license_issued").source, ctas: [] };
@@ -5478,6 +6361,15 @@ ru: {
     if (m.notSure && !done("classification"))
       return { key: "classification", t: d.nx_class_t, b: d.nsFlag,
                ctas: f.submitted ? prepCtas(true, false) : [] };
+    // exams-first states (Arizona): until both exams are passed, preparing for
+    // them is the move — the application is filed afterwards with the score
+    // report (PSI bulletin, 2026-09-11)
+    if (R.examsFirst && !f.submitted && !(f.lawP && f.tradeP)) {
+      var schedX = a.lawStatus === "x_sched" || a.tradeStatus === "x_sched";
+      return { key: done("prep_law_business") ? "prep_trade" : "prep_law_business",
+               t: schedX ? d.nx_sched_t : d.nx_prep_t, b: schedX ? d.nx_sched_b : d.nx_prep_b,
+               ctas: prepCtas(!done("prep_law_business"), !done("prep_trade")) };
+    }
     if (s.fingerprinting.status === "action_needed")
       return { key: "fingerprinting", t: d.t_fingerprinting, b: d.todo_fingerprinting, par: true,
                ctas: prepCtas(!done("prep_law_business"), !done("prep_trade")) };
@@ -6181,8 +7073,12 @@ ru: {
             function (v) { W.a.recipYears = v; commit(u, { local: true }); }));
           box.appendChild(qLabel(d.qRecipGoodL));
           box.appendChild(yn("recipGood", u));
-          box.appendChild(qLabel(d.qLawRecentL));
-          box.appendChild(yn("lawPassedWithinYears", u));
+          // only where the state's rule lets a recent Law & Business pass count
+          // (California); Nevada's CMS is never waived
+          if (R.reciprocity.lawExamStillRequiredUnlessPassedWithinYears) {
+            box.appendChild(qLabel(d.qLawRecentL));
+            box.appendChild(yn("lawPassedWithinYears", u));
+          }
           // the branch applies only when CSLB's published conditions hold —
           // holding a licence elsewhere is not, by itself, a waiver of anything
           if (W.a.otherStateId && W.a.recipYears && W.a.recipGood) {
@@ -6390,6 +7286,29 @@ ru: {
         if (n) box.appendChild(noteEl(fill(d.expKeptNote, { n: n })));
       } },
 
+    /* 12b. Exams-first states (Arizona): the exam results are their own block,
+       asked regardless of the application — the application follows the exams
+       there (PSI bulletin, 2026-09-11). The fields belong to "appstat", so
+       pruning never touches them when this block is inactive. */
+    { id: "exams", fields: [],
+      when: function (a) { return !!R.examsFirst && !iss(a); },
+      label: function () { return d.rowExams; },
+      main: function (a) { return !!a.lawStatus && (!tradeReq(a.trade) || !!a.tradeStatus); },
+      needsSave: function () { return true; },
+      row: function (a) {
+        var parts = [d.lawShort + ": " + (d[a.lawStatus] || "")];
+        if (tradeReq(a.trade)) parts.push((tradeName(a.trade) || "Trade") + ": " + (d[a.tradeStatus] || ""));
+        return parts.join(" · ");
+      },
+      build: function (box, u) {
+        headEl(box, d.qExamsH, d.qExamsSub);
+        var xp = planFor(W.a);
+        examBlock(box, u, "law", d.dashLaw, xp.law === "may_waive");
+        if (tradeReq(W.a.trade)) examBlock(box, u, "trade", tradeName(W.a.trade) || "Trade", xp.trade === "may_waive");
+        else box.appendChild(noteEl(fill(d.noTradeExamNote, { name: tradeName(W.a.trade) })));
+        box.appendChild(saveBtn(u));
+      } },
+
     /* 13. Where the applicant actually stands (spec §12) — the plan starts
        from this stage, not from step one. */
     { id: "appstat",
@@ -6401,7 +7320,7 @@ ru: {
         if (a.appSubmitted === "a_no") return true;
         if (a.appSubmitted !== "a_yes" || !a.appStage) return false;
         // once accepted, each required exam has its own status — nothing is assumed
-        if (a.appStage === "stg_acc") return !!a.lawStatus && (!tradeReq(a.trade) || !!a.tradeStatus);
+        if (a.appStage === "stg_acc" && !R.examsFirst) return !!a.lawStatus && (!tradeReq(a.trade) || !!a.tradeStatus);
         return true;
       },
       needsSave: function (a) { return a.appSubmitted === "a_yes"; },
@@ -7053,10 +7972,10 @@ ru: {
       function (v) {
         if (v === "a_no") {
           W.a.appSubmitted = "a_no";
-          ["appStage", "appStatus", "appSubmittedAt", "appNumber", "corrAt", "appAcceptedAt",
-           "lawStatus", "tradeStatus", "lawDate", "tradeDate",
-           "lawWhere", "tradeWhere", "corrWhat", "appNotes"]
-            .forEach(function (k) { stash(W.a, k); delete W.a[k]; });
+          var gone = ["appStage", "appStatus", "appSubmittedAt", "appNumber", "corrAt", "appAcceptedAt", "corrWhat", "appNotes"];
+          // exams-first states: the exam results exist without an application — keep them
+          if (!R.examsFirst) gone = gone.concat(["lawStatus", "tradeStatus", "lawDate", "tradeDate", "lawWhere", "tradeWhere"]);
+          gone.forEach(function (k) { stash(W.a, k); delete W.a[k]; });
           W.a.issued = "n";
           commit(u);
         } else { W.a.appSubmitted = "a_yes"; commit(u, { local: true }); }
@@ -7070,7 +7989,7 @@ ru: {
       function (v) { applyStage(v); commit(u, { local: true }); }));
     if (!W.a.appStage) return;
 
-    if (W.a.appStage === "stg_acc") {
+    if (W.a.appStage === "stg_acc" && !R.examsFirst) {
       var xp = planFor(W.a);
       examBlock(box, u, "law", d.dashLaw, xp.law === "may_waive");
       if (tradeReq(W.a.trade)) examBlock(box, u, "trade", tradeName(W.a.trade) || "Trade", xp.trade === "may_waive");
@@ -8025,11 +8944,12 @@ ru: {
   var sel = document.getElementById("pvScen");
   if (!sel) return;
   var q0 = new URLSearchParams(location.search);
-  sel.value = q0.get("state") === "az" ? "az" : (q0.get("demo") || "");
+  var st0 = q0.get("state");
+  sel.value = (st0 === "az" || st0 === "nv") ? st0 : (q0.get("demo") || "");
   sel.addEventListener("change", function () {
     var q = new URLSearchParams(location.search);
     q.delete("demo"); q.delete("state");
-    if (sel.value === "az") { q.set("state", "az"); try { localStorage.removeItem("lp:roadmap:az:draft"); } catch (_e) {} }
+    if (sel.value === "az" || sel.value === "nv") { q.set("state", sel.value); try { localStorage.removeItem("lp:roadmap:" + sel.value + ":draft"); } catch (_e) {} }
     else if (sel.value) q.set("demo", sel.value);
     // the questionnaire options start a fresh draft for their state
     else { try { localStorage.removeItem("lp:roadmap:ca:draft"); } catch (_e) {} }
@@ -8037,5 +8957,3 @@ ru: {
   });
 })();
 </script>
-</body>
-</html>

@@ -404,6 +404,20 @@ Assistant (`license_applications`, тоже с localStorage-fallback). **При�
 (таблицы нет), `license-applications.sql` не применён, Application Assistant работает на localStorage.
 Отчёты: `tasks/reports/2026-09-1{0,1}-*.md`, статус `tasks/STATE_SPECIFIC_ROADMAP_INTAKE_V3.md`.
 
+Дополнение 2026-09-11 (позже): **Arizona и Nevada License Roadmap подготовлены к обзору**
+(ветка `claude/state-specific-intake-v3` @ `eea5c20`, в `main` НЕ смержено; оба штата
+`available:false`). Аризона — процесс **exams-first** (PSI bulletin 2477, A.A.C. R4-9-106):
+флаг `R.examsFirst` в `js/roadmap/roadmap-config.js`, поддержка в `app-roadmap.js` (derive,
+recommendNext, блок анкеты `exams`, `buildStage`), факты `ROADMAP_AZ_EXAM_FACTS/_FEES/_BONDS/
+_PROCESSING`; ROC-страницы из песочницы недоступны (403) — ROC-only факты `UNKNOWN`. Невада —
+`ROADMAP_RULES.nv` (NRS/NAC 624, NSCB, PSI 270), новая `roadmap-nv.html` (`data-state="nv"`),
+оверлей `_nv` в `i18n-roadmap.js`; `js/app-cabinet.js` ведёт кнопку roadmap на страницу штата.
+Версии: `roadmap-config.js?v=15`, `app-roadmap.js?v=23`, `roadmap-logic.js?v=9`,
+`i18n-roadmap.js?v=21`. Публикация штата = `available:true` в `ROADMAP_STATES` и
+`ROADMAP_RULES` + bump конфига на `roadmap.html`, `roadmap-az.html`, `roadmap-nv.html`,
+`application.html`. Отчёты: `tasks/reports/2026-09-11-az-nv-roadmap-analysis.md`,
+`tasks/reports/2026-09-11-az-nv-roadmap.md`.
+
 ## Source References
 
 Все пути — в репозитории `lalianamen/llicena`:
