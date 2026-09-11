@@ -981,6 +981,11 @@ html[lang="ru"] .foot-tg-li{display:list-item}
 .rm-appx{display:flex;flex-wrap:wrap;gap:8px}
 .rm-official{padding:12px 16px}
 .rm-edit{margin-right:16px}
+.rm-fix{margin-top:12px;padding:12px 14px;border:1px solid #F0C98A;background:#FFF4E5;border-radius:10px}
+.rm-fix-q{margin:0 0 6px;font-weight:600}
+.rm-fix .rm-note{margin:0 0 10px}
+.cv-back{margin:0 0 10px}
+.rm-cf{margin:6px 0 10px}
 
 /* preview-only: scenario picker */
 .pv-scen{background:#0e1a29;color:#cbd6e1;padding:10px 22px;display:flex;gap:10px;
@@ -1573,6 +1578,38 @@ const LICENSE_PATHS = [
      CONFIRMED. "May qualify" and "waiver requested" are not results. */
   function examDone(status) { return status === "x_pass" || status === "x_waived"; }
 
+  /* ── Event steps (owner spec 2026-09-11) ───────────────────────────────────
+     Five cards report a FACT, not preparation progress: the application was
+     submitted, the agency accepted it, fingerprinting is done, the required
+     exams are passed, the license is issued. Their "completed" IS the fact,
+     so a card and the answers must never disagree about it. */
+  var EVENT_STEPS = ["submit_application", "application_review", "fingerprinting",
+                     "schedule_pass_exams", "license_issued"];
+  function isEventStep(key) { return EVENT_STEPS.indexOf(key) >= 0; }
+  /* Do the answers record that this event happened? tradeRequired — is a
+     trade exam part of the path (a classification without one has nothing
+     to pass on that side). */
+  function eventDone(key, a, tradeRequired) {
+    a = a || {};
+    var submitted = a.appSubmitted === "a_yes";
+    if (key === "submit_application") return submitted;
+    if (key === "application_review") return submitted && a.appStatus === "st_accepted";
+    if (key === "fingerprinting") return a.fingerStatus === "fp_done";
+    if (key === "schedule_pass_exams") return examDone(a.lawStatus) && (!tradeRequired || examDone(a.tradeStatus));
+    if (key === "license_issued") return a.issued === "y";
+    return false;
+  }
+  /* Hand-set marks that contradict the answers — the card says one thing
+     about the event, the answers the other. Nothing is guessed: the caller
+     asks the user which is right (spec §7). */
+  function eventConflicts(steps, a, tradeRequired) {
+    return EVENT_STEPS.filter(function (k) {
+      var s = steps && steps[k];
+      if (!s || !s.manual) return false;
+      return (s.status === "completed") !== eventDone(k, a, tradeRequired);
+    });
+  }
+
   /* ── Qualifier disassociation clock (BPC 7068.2) ──────────────────────────
      A first-class date, not a note: when the RME leaves, the license is
      suspended (or the classification removed) 90 days later. */
@@ -1609,6 +1646,7 @@ const LICENSE_PATHS = [
     periodRange: periodRange, mergeRanges: mergeRanges, rangeMonths: rangeMonths,
     hasOverlap: hasOverlap, experienceReadiness: experienceReadiness,
     deriveAppType: deriveAppType, reciprocityApplies: reciprocityApplies, examDone: examDone,
+    EVENT_STEPS: EVENT_STEPS, isEventStep: isEventStep, eventDone: eventDone, eventConflicts: eventConflicts,
     waiverCandidates: waiverCandidates,
     examPlan: examPlan, disassociationDeadline: disassociationDeadline,
     storageKey: storageKey, sameRoadmap: sameRoadmap
@@ -2773,6 +2811,20 @@ en: {
   prepDepsWarn: "Still open at LICENA's preliminary level: {items}. You can keep working on the draft — it is not ready to submit until these are resolved, and CSLB makes the final decision.",
   rmAppOfficial: "Open the application on the CSLB site",
   rmEditAnswers: "Change my answers",
+  cvBackPlan: "← Back to my plan without saving",
+  fixQ_submit_application: "Correct the mark that you submitted the application?",
+  fixQ_application_review: "Correct the mark that CSLB accepted your application?",
+  fixQ_fingerprinting: "Correct the mark that Live Scan is completed?",
+  fixQ_schedule_pass_exams: "Correct the mark that all required exams are passed?",
+  fixQ_license_issued: "Correct the mark that your license has been issued?",
+  fixNote: "Nothing has changed yet. Next you state the actual status in the questionnaire — each exam, date and detail is asked separately, and the rest of your answers stay as they are. You can return to the plan without saving.",
+  fixGo: "Yes, correct the details",
+  fixCancel: "Cancel — keep it as is",
+  cf_t: "Resolve a contradiction: {step}",
+  cf_cardYes: "This card is marked «Completed», but your answers do not record that this happened. LICENA assumes nothing — confirm which is right.",
+  cf_cardNo: "This card is marked «{status}», but your answers record that this happened. LICENA assumes nothing — confirm which is right.",
+  cf_no: "No — this has not happened yet",
+  cf_note: "Until you choose, the plan does not treat this as confirmed.",
   /* Experience logic (owner spec 2026-09-10): setting ≠ licence ≠ level ≠ agency decision */
   xq_no: "No",
   xqAct_no_t: "Check your experience and possible education credit",
@@ -3020,6 +3072,8 @@ en: {
     prepDepsWarn: "Still open at LICENA's preliminary level: {items}. You can keep working on the draft — it is not ready to submit until these are resolved, and the Registrar makes the final decision.",
     nx_expclar_b: "Some of your work periods still need the level or the content of the work clarified, or the time entered is short of the requirement. Open the experience step and work through the periods — the application draft can continue in parallel. The Registrar makes the final decision.",
     dashNoDateSub: "Appears once you enter an exam date or a statutory deadline — nothing is assumed.",
+    fixQ_application_review: "Correct the mark that ROC accepted your application?",
+    fixQ_fingerprinting: "Correct the mark that your fingerprints are submitted?",
     expPotentialL: "Potentially qualifying experience (practical or management)",
     expSt_ok: "may meet the statutory four years — the Registrar verifies the level and the work",
     expSt_short: "about {dur} short of four years so far",
@@ -3640,6 +3694,20 @@ es: {
   prepDepsWarn: "Aún pendiente en la estimación preliminar de LICENA: {items}. Puedes seguir con el borrador — no está listo para presentar hasta resolverlo, y la decisión final es de la CSLB.",
   rmAppOfficial: "Abrir la solicitud en el sitio de la CSLB",
   rmEditAnswers: "Cambiar mis respuestas",
+  cvBackPlan: "← Volver a mi plan sin guardar",
+  fixQ_submit_application: "¿Corregir la marca de que presentaste la solicitud?",
+  fixQ_application_review: "¿Corregir la marca de que la CSLB aceptó tu solicitud?",
+  fixQ_fingerprinting: "¿Corregir la marca de que el Live Scan está completado?",
+  fixQ_schedule_pass_exams: "¿Corregir la marca de que aprobaste todos los exámenes requeridos?",
+  fixQ_license_issued: "¿Corregir la marca de que tu licencia fue emitida?",
+  fixNote: "Todavía no cambia nada. A continuación indicas el estado real en el cuestionario — cada examen, fecha y detalle se pregunta por separado y el resto de tus respuestas se mantiene. Puedes volver al plan sin guardar.",
+  fixGo: "Sí, corregir los datos",
+  fixCancel: "Cancelar — dejar como está",
+  cf_t: "Resuelve una contradicción: {step}",
+  cf_cardYes: "Esta tarjeta está marcada como «Completado», pero tus respuestas no registran que esto haya ocurrido. LICENA no supone nada — confirma qué es correcto.",
+  cf_cardNo: "Esta tarjeta está marcada como «{status}», pero tus respuestas registran que esto ya ocurrió. LICENA no supone nada — confirma qué es correcto.",
+  cf_no: "No — esto aún no ha ocurrido",
+  cf_note: "Hasta que elijas, el plan no lo trata como confirmado.",
   /* Lógica de experiencia (spec del propietario 2026-09-10): forma ≠ licencia ≠ nivel ≠ decisión de la agencia */
   xq_no: "No",
   xqAct_no_t: "Revisar tu experiencia y el posible crédito por educación",
@@ -3887,6 +3955,8 @@ es: {
     prepDepsWarn: "Aún pendiente en la estimación preliminar de LICENA: {items}. Puedes seguir con el borrador — no está listo para presentar hasta resolverlo, y la decisión final es del Registrar.",
     nx_expclar_b: "Algunos de tus períodos aún requieren aclarar el nivel o el contenido del trabajo, o el tiempo ingresado no llega al requisito. Abre el paso de experiencia y revisa los períodos — el borrador puede continuar en paralelo. La decisión final es del Registrar.",
     dashNoDateSub: "Aparece cuando ingreses una fecha de examen o un plazo legal — no se supone nada.",
+    fixQ_application_review: "¿Corregir la marca de que ROC aceptó tu solicitud?",
+    fixQ_fingerprinting: "¿Corregir la marca de que entregaste tus huellas?",
     expPotentialL: "Experiencia que podría calificar (práctica o de gestión)",
     expSt_ok: "podría cumplir los cuatro años del estatuto — el Registrar verifica el nivel y el trabajo",
     expSt_short: "por ahora faltan aproximadamente {dur} para los cuatro años",
@@ -4512,6 +4582,20 @@ ru: {
   prepDepsWarn: "Ещё не уточнено на уровне предварительной оценки LICENA: {items}. Черновик можно продолжать — к подаче он не готов, пока это не решено; окончательное решение принимает CSLB.",
   rmAppOfficial: "Открыть заявление на сайте CSLB",
   rmEditAnswers: "Изменить мои ответы",
+  cvBackPlan: "← Вернуться к плану без сохранения",
+  fixQ_submit_application: "Исправить отметку о том, что заявление подано?",
+  fixQ_application_review: "Исправить отметку о том, что CSLB приняла заявление?",
+  fixQ_fingerprinting: "Исправить отметку о том, что Live Scan пройден?",
+  fixQ_schedule_pass_exams: "Исправить отметку о том, что все требуемые экзамены сданы?",
+  fixQ_license_issued: "Исправить отметку о выдаче лицензии?",
+  fixNote: "Пока ничего не изменилось. Далее вы укажете фактическое состояние в анкете — каждый экзамен, дата и деталь спрашиваются отдельно, остальные ответы сохраняются. Можно вернуться к плану без сохранения.",
+  fixGo: "Да, исправить сведения",
+  fixCancel: "Отмена — оставить как есть",
+  cf_t: "Разрешите противоречие: {step}",
+  cf_cardYes: "Карточка отмечена как «Выполнено», но в ваших ответах это событие не отражено. LICENA ничего не предполагает — подтвердите, что верно.",
+  cf_cardNo: "Карточка отмечена как «{status}», но в ваших ответах это событие уже отражено. LICENA ничего не предполагает — подтвердите, что верно.",
+  cf_no: "Нет — этого ещё не произошло",
+  cf_note: "Пока вы не выберете, план не считает это подтверждённым.",
   /* Логика опыта (спецификация владельца 2026-09-10): форма ≠ лицензия ≠ уровень ≠ решение ведомства */
   xq_no: "Нет",
   xqAct_no_t: "Проверить опыт и возможный зачёт образования",
@@ -4759,6 +4843,8 @@ ru: {
     prepDepsWarn: "Ещё не уточнено на уровне предварительной оценки LICENA: {items}. Черновик можно продолжать — к подаче он не готов, пока это не решено; окончательное решение принимает Registrar.",
     nx_expclar_b: "У части периодов ещё не уточнены уровень или содержание работ, либо введённого времени не хватает до требования. Откройте шаг «опыт» и разберите периоды — черновик можно готовить параллельно. Окончательное решение принимает Registrar.",
     dashNoDateSub: "Появится, когда вы укажете дату экзамена или срок по закону — ничего не предполагается.",
+    fixQ_application_review: "Исправить отметку о том, что ROC принял заявление?",
+    fixQ_fingerprinting: "Исправить отметку о том, что отпечатки сданы?",
     expPotentialL: "Потенциально соответствующий опыт (практический или управленческий)",
     expSt_ok: "может соответствовать четырём годам по закону — уровень и содержание работ проверяет Registrar",
     expSt_short: "до четырёх лет пока не хватает примерно {dur}",
@@ -5183,6 +5269,19 @@ ru: {
      theirs (§2). Plans saved before this rule: a hand-set "completed" that
      the answers do not support is treated as the user's mark; every other
      stale status (the old automatic "in progress" / "waiting") is re-read. */
+  /* While a hand-set mark and the answers disagree about an event, the
+     contested fact confirms nothing else: statuses, readiness and the summary
+     are computed as if it were not stated — the answers themselves are left
+     untouched until the user resolves it (spec 2026-09-11 §7). */
+  var CONTESTED = { submit_application: ["appSubmitted"], application_review: ["appStatus"],
+                    fingerprinting: ["fingerStatus"], schedule_pass_exams: ["lawStatus", "tradeStatus"],
+                    license_issued: ["issued"] };
+  function maskContested(a, cf) {
+    if (!cf.length) return a;
+    var c = JSON.parse(JSON.stringify(a));
+    cf.forEach(function (k) { (CONTESTED[k] || []).forEach(function (f) { delete c[f]; }); });
+    return c;
+  }
   function rederive(m) {
     var a = m.answers || {}, derived = derive(a);
     if (!(a.intakeV >= 5)) {
@@ -5192,6 +5291,8 @@ ru: {
       });
       a.intakeV = 5;
     }
+    var cf = RML.eventConflicts(m.steps, a, tradeReq(m.trade));
+    if (cf.length) derived = derive(maskContested(a, cf));
     STEPS.forEach(function (s) {
       var step = m.steps[s.key] || (m.steps[s.key] = { status: "not_started", completed_at: null });
       if (step.manual) return;
@@ -5221,6 +5322,29 @@ ru: {
 
   /* What still needs clarifying at LICENA's preliminary level — shown next
      to the application draft as a warning, never as a block (§1–2). */
+  /* The questionnaire block that holds an event card's facts: the
+     application stage (submission, status, exams, issuance) or the
+     fingerprinting block — the latter only exists once an application is
+     submitted. */
+  function eventUnitId(key) {
+    var a = RM.answers || {};
+    return key === "fingerprinting" && a.appSubmitted === "a_yes" ? "finger" : "appstat";
+  }
+  /* A saved record where a hand-set event mark and the answers disagree
+     (spec 2026-09-11 §7): the plan asks, and until the user answers nothing
+     downstream is treated as confirmed. */
+  function conflictRec(key) {
+    var st = RM.steps[key].status;
+    return { key: key, conflict: true, t: fill(d.cf_t, { step: d["t_" + key] || key }),
+             b: fill(st === "completed" ? d.cf_cardYes : d.cf_cardNo, { status: d["s_" + st] || st }), ctas: [] };
+  }
+  /* An answer that stops applying is set aside, not thrown away (spec
+     2026-09-11 §6): nothing reads `aside`, so it never drives the plan. */
+  function stash(a, k) {
+    var v = a[k];
+    if (v === undefined || v === null || v === "") return;
+    (a.aside || (a.aside = {}))[k] = v;
+  }
   function openItems(a) {
     var out = [];
     if (RM && RM.notSure) out.push(d.nx_class_t);
@@ -5618,7 +5742,7 @@ ru: {
       UNITS.forEach(function (u) {
         if (live[u.id] || u.keep) return;
         u.fields.forEach(function (f) {
-          if (W.a[f] !== undefined) { delete W.a[f]; cleared = true; }
+          if (W.a[f] !== undefined) { stash(W.a, f); delete W.a[f]; cleared = true; }
         });
         if (W.a.saved && W.a.saved[u.id] !== undefined) { delete W.a.saved[u.id]; cleared = true; }
       });
@@ -6298,7 +6422,12 @@ ru: {
         headEl(box, d.qFingerH);
         box.appendChild(cards([{ v: "fp_not", l: d.fp_not }, { v: "fp_req", l: d.fp_req },
           { v: "fp_sched", l: d.fp_sched }, { v: "fp_done", l: d.fp_done }], W.a.fingerStatus,
-          function (v) { W.a.fingerStatus = v; commit(u); }));
+          function (v) {
+            // a changed status needs its own date again — an earlier "saved"
+            // must not fold the block before it is asked (spec 2026-09-11 §4)
+            if (v !== W.a.fingerStatus && W.a.saved) delete W.a.saved.finger;
+            W.a.fingerStatus = v; commit(u);
+          }));
         if (W.a.fingerStatus === "fp_sched") {
           field(box, d.qFpSchedAtL, dateInput("fingerSchedAt"));
           field(box, d.qWhereL, textInput("fingerWhere"));
@@ -6927,7 +7056,7 @@ ru: {
           ["appStage", "appStatus", "appSubmittedAt", "appNumber", "corrAt", "appAcceptedAt",
            "lawStatus", "tradeStatus", "lawDate", "tradeDate",
            "lawWhere", "tradeWhere", "corrWhat", "appNotes"]
-            .forEach(function (k) { delete W.a[k]; });
+            .forEach(function (k) { stash(W.a, k); delete W.a[k]; });
           W.a.issued = "n";
           commit(u);
         } else { W.a.appSubmitted = "a_yes"; commit(u, { local: true }); }
@@ -7025,6 +7154,13 @@ ru: {
     var ctx = document.createElement("div"); ctx.className = "cv-ctx";
     ctx.textContent = d.stateName + (W.a.trade ? " · " + tradeName(W.a.trade) : "");
     el.appendChild(ctx);
+    // opened from a plan: a way back that saves nothing (spec 2026-09-11 §2)
+    if (RM) {
+      var back = document.createElement("button"); back.type = "button"; back.className = "linkbtn cv-back";
+      back.textContent = d.cvBackPlan;
+      back.addEventListener("click", function () { FIX = null; clearDraft(); renderRoadmap(); });
+      el.appendChild(back);
+    }
     var prog = document.createElement("div"); prog.className = "cv-prog";
     prog.innerHTML = "<span>" + esc(d.cvProgressA) + "</span>" +
       '<div class="rw-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' +
@@ -7110,7 +7246,9 @@ ru: {
       RM.id = prev.id;
       STEPS.forEach(function (s) {
         var ps = prev.steps && prev.steps[s.key];
-        if (ps && ps.manual) RM.steps[s.key] = { status: ps.status, completed_at: ps.completed_at, manual: true };
+        // an event card's fact was just (re)stated in the questionnaire — the
+        // answers win, a stale hand-set mark must not contradict them (§5)
+        if (ps && ps.manual && !RML.isEventStep(s.key)) RM.steps[s.key] = { status: ps.status, completed_at: ps.completed_at, manual: true };
       });
     }
     OPEN = null;
@@ -7135,6 +7273,7 @@ ru: {
   /* Which step cards are open — the user's choice for this session; on the
      first view only the recommended step is open (§4). */
   var OPEN = null;
+  var FIX = null;   // a pending correction of an event card, { key } — nothing is saved until the user confirms
   function openKey() { return "lp:roadmap:" + STATE + ":open"; }
   function loadOpen() {
     try { var v = JSON.parse(sessionStorage.getItem(openKey()) || "null"); return Array.isArray(v) ? v : null; } catch (_) { return null; }
@@ -7421,6 +7560,13 @@ ru: {
       "</select></div>";
     // a hand-set status is the user's own mark — LICENA checks nothing with the agency (§2)
     if (RM.steps[s.key].manual) body += "<p class='rm-manual'>" + esc(d.manualNote) + "</p>";
+    // correcting an event mark: confirm first; the actual state is then
+    // stated in the questionnaire, nothing is saved before that (§2–3)
+    if (FIX && FIX.key === s.key)
+      body += "<div class='rm-fix' role='group' aria-label='" + esc(d["fixQ_" + s.key] || "") + "'>" +
+        "<p class='rm-fix-q'>" + esc(d["fixQ_" + s.key] || "") + "</p><p class='rm-note'>" + esc(d.fixNote) + "</p>" +
+        "<div class='rm-appx'><button type='button' class='btn btn-primary rm-fix-go'>" + esc(d.fixGo) + "</button>" +
+        "<button type='button' class='btn btn-ghost rm-fix-cancel'>" + esc(d.fixCancel) + "</button></div></div>";
     body += "</div>";
     card.innerHTML = headHtml + body;
     var bt = card.querySelector(".rm-expb-t");
@@ -7451,6 +7597,10 @@ ru: {
       });
     });
     card.querySelector(".rm-status").addEventListener("change", function (e) { setStatus(s.key, e.target.value); });
+    var fixGo = card.querySelector(".rm-fix-go");
+    if (fixGo) fixGo.addEventListener("click", function () { FIX = null; editAnswers(eventUnitId(s.key)); });
+    var fixNo = card.querySelector(".rm-fix-cancel");
+    if (fixNo) fixNo.addEventListener("click", function () { FIX = null; renderRoadmap(s.key, true); });
     var cta = card.querySelector(".rm-cta");
     if (cta) cta.addEventListener("click", function () { track("license_exam_prep_clicked"); tag("roadmap_step", s.key); });
     return card;
@@ -7458,6 +7608,18 @@ ru: {
 
   function setStatus(key, status) {
     if (STATUS_SET.indexOf(status) < 0) return;
+    var cur = RM.steps[key].status;
+    // A card that reports an EVENT (submitted / accepted / Live Scan done /
+    // exams passed / license issued) going back from "completed" is not a
+    // progress mark but a correction of a fact: confirm first, then the
+    // actual state is stated in the questionnaire — nothing is saved until
+    // then (owner spec 2026-09-11 §2–3)
+    if (RML.isEventStep(key) && cur === "completed" && status !== "completed") {
+      FIX = { key: key };
+      renderRoadmap(key, true);
+      return;
+    }
+    FIX = null;
     RM.steps[key].status = status;
     RM.steps[key].completed_at = status === "completed" ? new Date().toISOString() : null;
     RM.steps[key].manual = true;   // the user's own mark, kept apart from what the answers derive
@@ -7466,11 +7628,13 @@ ru: {
       // manual milestone confirmations feed the same v2 answers the intake
       // collects, so the dashboard and recommendations stay consistent
       var a = RM.answers || (RM.answers = {});
-      if (key === "license_issued") a.issued = "y";
+      // the stage the questionnaire shows follows the same fact, so a later
+      // correction starts from what the card said (spec 2026-09-11 §5)
+      if (key === "license_issued") { a.issued = "y"; if (a.appSubmitted === "a_yes") a.appStage = "stg_issued"; }
       if (key === "submit_application" && a.appSubmitted !== "a_yes") {
-        a.appSubmitted = "a_yes"; if (!a.appStatus) a.appStatus = "st_waiting";
+        a.appSubmitted = "a_yes"; if (!a.appStatus) a.appStatus = "st_waiting"; if (!a.appStage) a.appStage = "stg_waiting";
       }
-      if (key === "application_review") { a.appSubmitted = "a_yes"; a.appStatus = "st_accepted"; }
+      if (key === "application_review") { a.appSubmitted = "a_yes"; a.appStatus = "st_accepted"; a.appStage = "stg_acc"; }
       if (key === "fingerprinting") a.fingerStatus = "fp_done";
       // an explicit "Yes, I passed all required exams": only exams still open
       // become passed; a confirmed waiver or a classification without a trade
@@ -7507,8 +7671,13 @@ ru: {
     rederive(RM);              // statuses always follow the answers (hand-set marks kept)
     if (!wasV5) saveLocal(RM); // keep the local mirror current after a one-time migration
     var pct = progressOf(RM);
+    // a hand-set event mark that contradicts the answers is resolved first —
+    // nothing downstream (readiness, next step, the summary) is assumed from
+    // it: the view reads the answers with the contested fact masked (§7)
+    var cf = RML.eventConflicts(RM.steps, a, tradeReq(RM.trade));
+    a = maskContested(a, cf);
     var f = subFlags(a);
-    var rec = recommendNext(RM);
+    var rec = cf.length ? conflictRec(cf[0]) : recommendNext(RM);
     // ONE logic: the recommended step is also where the marker sits and what
     // the button opens (owner spec 2026-09-10 §1)
     var here = rec ? rec.key : currentStepOf(RM);
@@ -7604,10 +7773,24 @@ ru: {
       if (inline) nx += '<div class="rm-next-ctas">' + rec.ctas.join(" ") + "</div>";
       if (rec.src) nx += '<a class="rm-src" target="_blank" rel="noopener" href="' + rec.src.url + '">' +
         esc(d.officialSrc) + ": " + esc(rec.src.title) + " ↗</a>";
+      if (rec.conflict)
+        nx += "<div class='rm-appx rm-cf'><button type='button' class='btn btn-primary' id='rmCfYes'>" + esc(d["mc_" + rec.key] || d.markComplete) + "</button>" +
+          "<button type='button' class='btn btn-ghost' id='rmCfNo'>" + esc(d.cf_no) + "</button></div><p class='rm-note'>" + esc(d.cf_note) + "</p>";
       nx += '<button class="btn btn-ghost" id="rmView">' + esc(d.viewStep) + "</button>" +
         "<p class='rm-next-note'>" + esc(d.recNote) + "</p>";
       next.innerHTML = nx;
       el.appendChild(next);
+      if (rec.conflict) {
+        // "yes, it happened": the card's fact is recorded the same way a fresh
+        // mark records it; "no": a stale mark is dropped, a stale fact is
+        // restated in the questionnaire — never guessed
+        next.querySelector("#rmCfYes").addEventListener("click", function () { FIX = null; setStatus(rec.key, "completed"); });
+        next.querySelector("#rmCfNo").addEventListener("click", function () {
+          FIX = null;
+          if (RM.steps[rec.key].status === "completed") { delete RM.steps[rec.key].manual; persist(RM); renderRoadmap(rec.key, true); }
+          else editAnswers(eventUnitId(rec.key));
+        });
+      }
       // secondary track: exam prep while the application waits / in parallel
       if ((rec.wait || rec.par) && rec.ctas.length) {
         var wyw = document.createElement("div"); wyw.className = "rm-wyw";
@@ -7631,7 +7814,7 @@ ru: {
     // READY TO WORK (spec §16–19): shown only once the license is issued;
     // items are conditional on entity/DBA/hiring; when all are checked the
     // roadmap ends with a neutral next-stage transition — and STOPS there.
-    if (f.issued) {
+    if (f.issued && !cf.length) {
       var items = rtwItems(a);
       var rtwState = a.rtw || (a.rtw = {});
       var rtwB = document.createElement("div"); rtwB.className = "rm-rtw"; rtwB.id = "rmRtw";
@@ -7813,6 +7996,9 @@ ru: {
       if (m) { RM = m; saveLocal(m); render(intro(true)); return; }
       var draft = loadDraft();
       if (draft) {
+        // the plan this conversation was opened from, if any: it gives the
+        // way back without saving and keeps the edit on the same saved plan
+        RM = loadLocal();
         // the questionnaire was left half-answered: resume the conversation
         // exactly where it stood, dynamic questions included. A draft is a
         // v3+ conversation, never a v1 plan: the v1→v2 mapping must not run
