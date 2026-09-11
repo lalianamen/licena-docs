@@ -1,6 +1,6 @@
 # 14 — Аналитика и сбор событий
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи») · 2026-08-26 (точечная: GA4) · 2026-08-30 (точечная: маркетинговые агрегаты)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи») · 2026-08-26 (точечная: GA4) · 2026-08-30 (точечная: маркетинговые агрегаты) · 2026-09-11 (точечная: воронка трекера; план полной аналитики, этап 1 в ветке)
 
 Дополнение 2026-08-12 (`72fc7a5` осн. репо): подключён Microsoft Clarity
 (проект «LICENA», Project ID `y1ic13wlta`, аккаунт владельца) — тепловые
@@ -202,6 +202,24 @@ active_trials, trial_to_paid_count). Схема и RLS — `04_DATABASE.md`,
 после выкладки все прежние механизмы (page_views, daily-stats, marketing_* агрегаты,
 Clarity-события) работают без изменений. Не автоматизируется: просмотры соцсетей, Bing
 AI Performance (API отсутствует, Microsoft 02/2026).
+
+Дополнение 2026-09-11 (полная аналитика, этап 1 — ветка `claude/question-bank-generation-analysis-y47sk7`
+@ `8bd3699`, не в `main`): общий план слоёв и этапов — `tasks/ANALYTICS_FULL_PLAN.md`. В ветке:
+события roadmap и Application Assistant (`roadmap_started`, `roadmap_questionnaire_completed`,
+`roadmap_viewed`, `roadmap_step_completed` {step}, `roadmap_practice_clicked`, `application_started`,
+`application_ready`, `application_submitted`; meta `state`, `classification`, `lang`) и
+`exam_completed` {course, pct, pass, correct, total, timed_out} — через `lpTrack` в `app_events`
+и GA4; страницы `roadmap*.html` / `application.html` грузят `js/stats.js` вместо `js/pageview.js`
+(строки `page_views` с `user_id` вошедшего). `marketing_weekly_funnel` расширена 18 колонками
+(roadmap, application, `roadmaps_saved`, `exam_completed` / `exam_passed`, `subscriptions_ended`,
+`email_returns`, когорты `cohort_prev_*` / `cohort_4w_*`), добавлены `marketing_weekly_sources(date)`
+(атрибуция device / account / purchase по первому просмотру) и `marketing_weekly_roadmaps(date)`
+(планы по штату × классификации). Письмо `daily-stats` по понедельникам: блоки «Roadmap и
+Application Assistant», «Сохранённые планы по штатам», «Экзамен-симуляция», «Подписки»
+(`marketing_state_snapshots`), «Удержание», «Источники за неделю» (канал · метка · устройства ·
+аккаунты · покупки · выручка), Google Search Console (`gsc_snapshots`, датасеты `date` и
+`query,page`), Bing, визиты из ИИ-ассистентов. До мержа и шагов владельца (SQL, деплой
+`daily-stats`) в production этого нет.
 
 ## Source References
 
