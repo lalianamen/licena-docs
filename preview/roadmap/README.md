@@ -49,12 +49,13 @@
 
 | Файл | Что это |
 |---|---|
-| `licena-roadmap-v3.html` | Самодостаточное превью License Roadmap V3, собранное с `lalianamen/llicena` ветка `claude/state-specific-intake-v3` @ `eea5c20` (California — в production с `66d1727`; Arizona и Nevada — READY_FOR_REVIEW, в `main` НЕ смержены; ранее `4c5d1d5`): CSS/JS фичи (`css/roadmap.css`, `js/roadmap/roadmap-logic.js`, `roadmap-config.js`, `i18n-roadmap.js`, `app-roadmap.js`, `js/paths.js`) встроены в один HTML; переключатель CA/AZ/NV (`?state=az`, `?state=nv`) и языков EN/ES/RU; демо-сценарии. Только в превью AZ/NV включены (`available:true` скриптом после конфига) — в репозитории оба штата `available:false`. Без аналитики и Supabase — ответы живут в localStorage браузера. `<meta name="robots" content="noindex,nofollow">`. Тот же файл опубликован как Claude-артефакт (приватный). Добавлен по запросу владельца «нужна внешняя ссылка на это превью для анализа и тестов» (2026-09-11). |
+| `licena-roadmap-v3.html` | Самодостаточное превью License Roadmap V3, собранное с `lalianamen/llicena` ветка `claude/state-specific-intake-v3` @ `a3656b5` (палитра сайта; California — в production с `66d1727`; Arizona и Nevada — READY_FOR_REVIEW, в `main` НЕ смержены; ранее `4c5d1d5`): CSS/JS фичи (`css/roadmap.css`, `js/roadmap/roadmap-logic.js`, `roadmap-config.js`, `i18n-roadmap.js`, `app-roadmap.js`, `js/paths.js`) встроены в один HTML; переключатель CA/AZ/NV (`?state=az`, `?state=nv`) и языков EN/ES/RU; демо-сценарии. Только в превью AZ/NV включены (`available:true` скриптом после конфига) — в репозитории оба штата `available:false`. Без аналитики и Supabase — ответы живут в localStorage браузера. `<meta name="robots" content="noindex,nofollow">`. Тот же файл опубликован как Claude-артефакт (приватный). Добавлен по запросу владельца «нужна внешняя ссылка на это превью для анализа и тестов» (2026-09-11). |
 
 Внешняя ссылка (файл отдаётся как HTML через raw.githack.com; GitHub raw и jsDelivr
 отдают его как `text/plain`):
 
-- по коммиту (постоянная, сборка с `eea5c20` — AZ exams-first + NV, 2026-09-11): `https://rawcdn.githack.com/lalianamen/licena-docs/7720af91d81025c316264b6388998badd8b4f3c8/preview/roadmap/licena-roadmap-v3.html`
+- по коммиту (постоянная, сборка с `a3656b5` — палитра сайта, AZ exams-first + NV, 2026-09-11): `__DOCSHA_LINK__`
+- сборка с `eea5c20` (AZ exams-first + NV, 2026-09-11): `https://rawcdn.githack.com/lalianamen/licena-docs/7720af91d81025c316264b6388998badd8b4f3c8/preview/roadmap/licena-roadmap-v3.html`
 - сборка с `4c5d1d5` (2026-09-11): `https://rawcdn.githack.com/lalianamen/licena-docs/b57e872cdb190df056d980bc55eb9f86f039006e/preview/roadmap/licena-roadmap-v3.html`
 - предыдущая сборка (`3cb2136`): `https://rawcdn.githack.com/lalianamen/licena-docs/77a753da7b7d23e04787bd1f2ef0c9f09766237b/preview/roadmap/licena-roadmap-v3.html`
 - по ветке `main` (обновляется, кэш до 60 с): `https://raw.githack.com/lalianamen/licena-docs/main/preview/roadmap/licena-roadmap-v3.html`

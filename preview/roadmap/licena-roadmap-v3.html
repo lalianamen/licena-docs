@@ -980,6 +980,109 @@ html[lang="ru"] .foot-tg-li{display:list-item}
 .cv-back{margin:0 0 10px}
 .rm-cf{margin:6px 0 10px}
 
+/* LICENA — the site palette (landing / cabinet / course: indigo night +
+   gold, see landing.css) applied to the License Roadmap pages: roadmap.html,
+   roadmap-az.html, roadmap-nv.html, application.html. Loads AFTER
+   roadmap.css (+ application.css). Same strategy as landing.css /
+   cabinet-dark.css / exam-dark.css: flip the tokens styles.css and
+   roadmap.css read, then re-fix every component that used a light literal
+   or the dark INK token as a fill. index.html and app.html do NOT load this
+   file — their own theme files already flip the tokens (the roadmap band and
+   the cabinet card are re-fixed there). */
+
+:root{
+  --paper:#090C27;                    /* page background */
+  --navy:#0E1233;                     /* inset surfaces (forms, saved periods) */
+  --card:#14193B;                     /* panels */
+  --card2:#202750;                    /* inner surfaces (answer cards, inputs) */
+  --line:rgba(255,255,255,.16);
+  --steel:#B2B9D5;                    /* secondary text */
+  --ink:#F4F7FA;                      /* primary TEXT flips to light */
+  --ink2:#D9DFEA;                     /* body text on cards flips to light */
+  --gold:#FFC100;
+  --gold-deep:#FFB300;
+  --gold-soft:rgba(255,193,0,.12);    /* selected answers, notes, deadlines */
+  --gold-line:rgba(255,193,0,.45);
+  --heat:linear-gradient(115deg,#FCDF00,#FFB300 45%,#FF4E51);
+  --verify:#4AEA7D; --verify-soft:rgba(74,234,125,.14);
+  --danger:#FF4E51; --danger-soft:rgba(255,78,81,.14);
+  --shadow:0 1px 2px rgba(0,0,0,.35), 0 14px 34px rgba(0,0,0,.4);
+  color-scheme:dark;                  /* native selects, date pickers and checkboxes render dark */
+}
+body{background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0)}
+
+/* top bar — landing tint; gold chips keep dark text (--ink is light now) */
+.top{background:rgba(9,12,39,.92);border-bottom:1px solid var(--line)}
+.brand .mk{background:var(--heat);color:#090C27}
+.tag{color:#090C27}
+.langs a{color:var(--steel);text-decoration:none;font-family:'Archivo',sans-serif;font-weight:700;
+  font-size:13px;padding:7px 10px;border-radius:8px;min-width:38px;text-align:center}
+.langs a:hover{color:#fff}
+.langs a[aria-current="page"]{background:var(--gold);color:#090C27}
+
+/* buttons: primary → the landing heat gradient; gold CTAs keep dark text;
+   ghost → an elevated dark surface */
+.btn-primary{background:var(--heat);color:#090C27;box-shadow:0 8px 20px rgba(255,78,81,.28)}
+.btn-gold,.rm-next-ctas .rm-cta,.rm-next-ctas .rm-app,.aa-go{background:var(--gold);color:#090C27;
+  box-shadow:0 6px 16px rgba(255,193,0,.3)}
+.rm-next-ctas .rm-cta:hover,.rm-next-ctas .rm-app:hover,.aa-go:hover{background:var(--gold-deep)}
+.btn-ghost{background:var(--card2);color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.35)}
+.rm-next .btn-ghost{background:transparent}
+
+/* "your next step": the hero card of the plan (was the dark ink fill) */
+.rm-next{background:radial-gradient(circle at 18% 12%,var(--card2),var(--navy));
+  border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.rm-next p,.rm-next .rm-src,.rm-pos{color:var(--steel)}
+.rm-next p.rm-next-note{color:var(--steel);border-top-color:var(--line)}
+
+/* progress bars: the site's heat gradient on an inset track */
+.rw-bar,.rm-bar{background:var(--card2)}
+.rw-bar i,.rm-bar i{background:var(--heat)}
+
+/* step list: dots and badges on an elevated surface; gold accents on dark
+   read from --gold (the light theme used cream tints and the deep gold) */
+.rm-dot,.rm-badge{background:var(--card2)}
+.rm-step.st-a .rm-dot{border-color:var(--gold);color:var(--gold)}
+.rm-step.st-a .rm-badge,.rm-step.st-r .rm-badge{background:var(--gold-soft);color:var(--gold)}
+.rm-step.st-p .rm-badge{background:rgba(255,255,255,.1);color:var(--ink)}
+.rm-note,.rm-deps,.rm-fix,.rm-waiver{background:var(--gold-soft);border-color:var(--gold-line)}
+.rm-dc-date{background:var(--gold-soft);border-color:var(--gold)}
+.rm-exp-st{background:var(--card2);border-color:var(--line)}
+.rm-ready-h{color:var(--gold)}
+.rm-status,.rw-select,.aa-in,.aa-copy{background:var(--card2)}
+.aa-in:focus{box-shadow:0 0 0 3px rgba(255,193,0,.2)}
+.aa-sens{border-color:var(--gold-line)}
+.aa-total.low{background:var(--gold-soft)}
+
+/* answer cards and chips: elevated surface, gold when selected (the light
+   theme used white and a cream tint) */
+.rw-chip,.cv-card,.rm-dba-b{background:var(--card2)}
+.rw-chip:hover,.cv-card:hover,.rm-dba-b:hover{background:var(--card2);border-color:rgba(255,255,255,.35)}
+.rw-chip.on,.cv-card.on,.rm-dba-b.on{background:var(--gold-soft);border-color:var(--gold);
+  box-shadow:0 2px 10px rgba(255,193,0,.18)}
+.cv-card:focus-visible{border-color:var(--gold)}
+.cv-ck{background:var(--gold);color:#090C27}
+.cv-grp-h span{background:var(--gold);color:#090C27}
+
+/* link-style buttons (cabinet.css, which defines .linkbtn, is not loaded here;
+   the UA button face showed as a grey pill on the dark ground) */
+.rm-wrap .linkbtn{background:none;color:var(--ink2);text-decoration:underline;padding:4px 6px;border-radius:6px}
+.rm-wrap .linkbtn:hover{color:var(--gold)}
+
+/* inset containers that were plain white inside the card */
+.cv-form,.cv-per,.rm-exp-card,.rm-ready,.rm-ent-more{background:var(--navy)}
+
+/* footer band (styles.css paints it with --ink, which is light now) */
+footer{background:var(--navy)}
+
+/* print (Application Review Packet): paper stays white, so the text tokens
+   go back to the light theme for the printed page */
+@media print{
+  :root{--paper:#fff;--card:#fff;--card2:#fff;--navy:#fff;--line:#D4DADE;--steel:#5E6E7E;
+    --ink:#15273D;--ink2:#1E3A5C;--gold:#E0A116;--gold-deep:#B87E0A;color-scheme:light}
+}
+
 /* preview-only: scenario picker */
 .pv-scen{background:#0e1a29;color:#cbd6e1;padding:10px 22px;display:flex;gap:10px;
   align-items:center;justify-content:center;flex-wrap:wrap;font-size:13px}
@@ -995,7 +1098,7 @@ html[lang="ru"] .foot-tg-li{display:list-item}
    the artifact frame stamps color-scheme:dark inline in dark mode, which
    turns UA-colored widget text light — force light so every control stays
    legible on the light cards. */
-html{color-scheme:light !important}
+
 </style>
 <div class="pv-scen"><label for="pvScen">Preview</label><select id="pvScen">
 <option value="">0 · Анкета — новая беседа (California)</option>
@@ -5882,6 +5985,10 @@ ru: {
     var n = (navigator.language || "").toLowerCase();
     return n.indexOf("es") === 0 ? "es" : n.indexOf("ru") === 0 ? "ru" : "en";
   })();
+  // header language switch: mark the current language (gold chip in the site palette)
+  Array.prototype.forEach.call(document.querySelectorAll(".langs a"), function (a) {
+    if ((a.getAttribute("href") || "").indexOf("lang=" + lang) > -1) a.setAttribute("aria-current", "page");
+  });
   var root = document.getElementById("rmRoot");
   /* The STATE is page context, never a question (owner decision 1): a
      California page builds a California roadmap. #rmRoot carries data-state. */

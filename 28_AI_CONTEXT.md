@@ -418,6 +418,12 @@ _PROCESSING`; ROC-страницы из песочницы недоступны 
 `application.html`. Отчёты: `tasks/reports/2026-09-11-az-nv-roadmap-analysis.md`,
 `tasks/reports/2026-09-11-az-nv-roadmap.md`.
 
+Дополнение 2026-09-11 (палитра): страницы roadmap на палитре сайта — `css/roadmap-dark.css`
+(после `roadmap.css`; образец `cabinet-dark.css`), ветка `claude/state-specific-intake-v3`
+@ `a3656b5`, в `main` не смержено. `roadmap.css` остаётся светлой базой; на лендинге и в
+кабинете блоки roadmap перефиксированы в `landing.css` / `cabinet-dark.css` с префиксом
+`body` (там `roadmap.css` грузится после тем).
+
 ## Source References
 
 Все пути — в репозитории `lalianamen/llicena`:
