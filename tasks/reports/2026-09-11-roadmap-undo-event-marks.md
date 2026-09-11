@@ -71,7 +71,7 @@ Auth, платежи, курсы, Supabase-схема, аналитика, produ
 
 - Ветка `claude/state-specific-intake-v3`, коммит `4c5d1d5` (поверх `3cb2136`), запушен.
 - Claude-артефакт (приватный): https://claude.ai/code/artifact/5c1a7ef2-4ed3-420a-af44-342ff6a3602a
-- Внешняя ссылка (файл в `licena-docs`, по коммиту): `https://rawcdn.githack.com/lalianamen/licena-docs/__DOCSHA__/preview/roadmap/licena-roadmap-v3.html`; по ветке main: `https://raw.githack.com/lalianamen/licena-docs/main/preview/roadmap/licena-roadmap-v3.html`
+- Внешняя ссылка (файл в `licena-docs`, по коммиту): `https://rawcdn.githack.com/lalianamen/licena-docs/b57e872cdb190df056d980bc55eb9f86f039006e/preview/roadmap/licena-roadmap-v3.html`; по ветке main: `https://raw.githack.com/lalianamen/licena-docs/main/preview/roadmap/licena-roadmap-v3.html`
 
 ## 7. Демонстрация «Лицензия выдана → исправить → ещё не выдана → перезагрузка» (RU, 390 px, `tasks/reports/img/`)
 

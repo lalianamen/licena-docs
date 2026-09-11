@@ -49,10 +49,11 @@
 
 | Файл | Что это |
 |---|---|
-| `licena-roadmap-v3.html` | Самодостаточное превью California License Roadmap V3, собранное с `lalianamen/llicena` ветка `claude/state-specific-intake-v3` @ `3cb2136` (в `main` НЕ смержено): CSS/JS фичи (`css/roadmap.css`, `js/roadmap/roadmap-logic.js`, `roadmap-config.js`, `i18n-roadmap.js`, `app-roadmap.js`) встроены в один HTML; переключатель штата CA/AZ и языков EN/ES/RU; демо-сценарии. Без аналитики и Supabase — ответы живут в localStorage браузера. `<meta name="robots" content="noindex,nofollow">`. Тот же файл опубликован как Claude-артефакт (приватный). Добавлен по запросу владельца «нужна внешняя ссылка на это превью для анализа и тестов» (2026-09-11). |
+| `licena-roadmap-v3.html` | Самодостаточное превью California License Roadmap V3, собранное с `lalianamen/llicena` ветка `claude/state-specific-intake-v3` @ `4c5d1d5` (в `main` НЕ смержено; ранее `3cb2136`): CSS/JS фичи (`css/roadmap.css`, `js/roadmap/roadmap-logic.js`, `roadmap-config.js`, `i18n-roadmap.js`, `app-roadmap.js`) встроены в один HTML; переключатель штата CA/AZ и языков EN/ES/RU; демо-сценарии. Без аналитики и Supabase — ответы живут в localStorage браузера. `<meta name="robots" content="noindex,nofollow">`. Тот же файл опубликован как Claude-артефакт (приватный). Добавлен по запросу владельца «нужна внешняя ссылка на это превью для анализа и тестов» (2026-09-11). |
 
 Внешняя ссылка (файл отдаётся как HTML через raw.githack.com; GitHub raw и jsDelivr
 отдают его как `text/plain`):
 
-- по коммиту (постоянная): `https://rawcdn.githack.com/lalianamen/licena-docs/77a753da7b7d23e04787bd1f2ef0c9f09766237b/preview/roadmap/licena-roadmap-v3.html`
+- по коммиту (постоянная, сборка с `4c5d1d5`, 2026-09-11): `https://rawcdn.githack.com/lalianamen/licena-docs/b57e872cdb190df056d980bc55eb9f86f039006e/preview/roadmap/licena-roadmap-v3.html`
+- предыдущая сборка (`3cb2136`): `https://rawcdn.githack.com/lalianamen/licena-docs/77a753da7b7d23e04787bd1f2ef0c9f09766237b/preview/roadmap/licena-roadmap-v3.html`
 - по ветке `main` (обновляется, кэш до 60 с): `https://raw.githack.com/lalianamen/licena-docs/main/preview/roadmap/licena-roadmap-v3.html`
