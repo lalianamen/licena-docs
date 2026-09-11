@@ -388,8 +388,16 @@ Builder, Application Assistant (`/application.html`). Входы: блок `.rm-
 существует, но `ROADMAP_STATES.az.available = false` → экран «штат пока недоступен»
 (правила AZ в `ROADMAP_RULES.az`, источники ROC не проверены — HTTP 403). Nevada —
 `available:false`. Ветка разработки `claude/state-specific-intake-v3` = `main`.
-SQL `supabase/sql/license-roadmaps-v3.sql` (5 колонок `license_roadmaps`) не применён —
-клиент откатывается на прежнюю форму строки при ошибке (`dbSave`); применяет владелец.
+Supabase: по скриншоту владельца от 2026-09-10 20:21 (SQL Editor, проект `vewhmndummfhnbxnrqya`,
+`main / production`) запуск `license-roadmaps-v3.sql` дал `42P01: relation "public.license_roadmaps"
+does not exist` — таблиц roadmap в production НЕТ: `license-roadmaps.sql` (v1, таблицы + RLS +
+триггер), `license-roadmaps-v2.sql`, `license-roadmaps-v3.sql` не применялись; владелец
+подтвердил, что v2 не проводил. Клиент это переживает (`dbLoad` → null, `dbSave` → catch): планы
+живут только в localStorage браузера, надпись «сохранено в аккаунте» при входе не соответствует
+факту, пока таблицы не созданы. Порядок применения: v1 → v2 → v3 (все идемпотентны: `if not
+exists` / `or replace` / `drop … if exists`); отдельно `license-applications.sql` для Application
+Assistant (`license_applications`, тоже с localStorage-fallback). Статус применения — UNKNOWN до
+подтверждения владельца.
 Отчёты: `tasks/reports/2026-09-1{0,1}-*.md`, статус `tasks/STATE_SPECIFIC_ROADMAP_INTAKE_V3.md`.
 
 ## Source References
