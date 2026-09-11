@@ -109,6 +109,16 @@ dataset, start_date, end_date, row_count, payload` и содержит стро�
 Проверка пути записи `app_events` 2026-09-11: вставка через публичный ключ — HTTP 201
 (тестовая строка `sample_started` с `meta.test = true`, удаляется владельцем).
 
+## Подтверждено в production 2026-09-11
+
+- `bing-sync` (`main` @ `c50682c`, принимает legacy `service_role` и `sb_secret_…` через
+  пробу admin-эндпоинта): ручной запуск владельца 18:05 UTC — `ok:true`, датасеты
+  `rank_traffic` 26 строк, `query_stats` 44, `page_stats` 26, `crawl_stats` 24, `crawl_issues` 0.
+- Развёрнуты: `daily-stats` (новая версия отвечает полем `weekly`), `marketing-aggregates`,
+  `stripe-webhook`; SQL `marketing_weekly_funnel` и таблица `bing_snapshots` на месте
+  (anon получает permission denied). Не подтверждены на момент записи: повторный деплой
+  `daily-stats` с `a98bb16` (чтение `rank_traffic`), cron `bing-sync`, тестовое письмо.
+
 ## Runbook — шаги владельца (утро)
 
 1. **Выкладка кода.** Команда «заливаем» — Claude мержит ветку в `main` (или сделайте это
