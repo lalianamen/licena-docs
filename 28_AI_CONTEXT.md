@@ -1,6 +1,10 @@
 # 28 — AI Context: сводный контекст для AI-сессий
 
+<<<<<<< HEAD
 Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: редизайн лендинга) · 2026-08-24 (точечная: Невада) · 2026-08-25 (точечная: мерж NV; nv-cms, nv-b и nv-b2 готовы полностью) · 2026-08-30 (точечная: маркетинговые агрегаты) · 2026-09-03 (точечная: старт nv-c2, статус блокера up.codes; позже — блокер снят, Блоки 2–5 написаны; итог дня — nv-c2 готов полностью, wiring, CSV 36,500/24; вечер — старт nv-c21 Run 1; ночь — nv-c21 готов полностью, wiring, CSV 38,000/25) · 2026-09-11 (точечная: retake wrong only в плеере)
+=======
+Последняя сверка: 2026-09-11 (полная) · 2026-08-11 (точечная: редизайн лендинга) · 2026-08-24 (точечная: Невада) · 2026-08-25 (точечная: мерж NV; nv-cms, nv-b и nv-b2 готовы полностью) · 2026-08-30 (точечная: маркетинговые агрегаты) · 2026-09-03 (точечная: старт nv-c2, статус блокера up.codes; позже — блокер снят, Блоки 2–5 написаны; итог дня — nv-c2 готов полностью, wiring, CSV 36,500/24; вечер — старт nv-c21 Run 1; ночь — nv-c21 готов полностью, wiring, CSV 38,000/25)
+>>>>>>> origin/main
 Назначение файла: быстрый ввод в курс дела для любой новой AI-сессии.
 Всё ниже — факты из `lalianamen/llicena` на дату сверки; оценок нет.
 
@@ -441,6 +445,48 @@ licena.us (`roadmap.css?v=19`); блок `.rm-cab` в кабинете снов�
 журналы; `30_CTO_REPORT.md` ведёт ChatGPT — не редактировать; каждый документ
 несёт разделы «Source References» и «Verification Status» (стандарт аудита,
 `CLAUDE.md` §9).
+
+Дополнение 2026-09-11: **California License Roadmap (Intake V3) выложен в production**
+(`main` @ `66d1727`, владелец: «заливаем родмап пока на калифорнию»). Что живёт на
+`/roadmap.html`: разговорная анкета V3 (`js/roadmap/app-roadmap.js` v22,
+`i18n-roadmap.js` v20, `roadmap-config.js` v14, `roadmap-logic.js` v8, `css/roadmap.css`
+v19) — единая логика следующего шага, статусы из ответов (`rederive`), ручные отметки с
+флагом `manual` (сохраняется в `license_roadmap_steps.metadata`), карточки-события
+(`RML.EVENT_STEPS`) с подтверждением при откате и разрешением противоречий, Experience
+Builder, Application Assistant (`/application.html`). Входы: блок `.rm-entry` на
+лендинге и `.rm-cab` в кабинете (возвращены 2026-09-11). Arizona: `roadmap-az.html`
+существует, но `ROADMAP_STATES.az.available = false` → экран «штат пока недоступен»
+(правила AZ в `ROADMAP_RULES.az`, источники ROC не проверены — HTTP 403). Nevada —
+`available:false`. Ветка разработки `claude/state-specific-intake-v3` = `main`.
+Supabase: по скриншоту владельца от 2026-09-10 20:21 (SQL Editor, проект `vewhmndummfhnbxnrqya`,
+`main / production`) запуск `license-roadmaps-v3.sql` дал `42P01: relation "public.license_roadmaps"
+does not exist` — таблиц roadmap в production НЕТ: `license-roadmaps.sql` (v1, таблицы + RLS +
+триггер), `license-roadmaps-v2.sql`, `license-roadmaps-v3.sql` не применялись; владелец
+подтвердил, что v2 не проводил. Клиент это переживает (`dbLoad` → null, `dbSave` → catch): планы
+живут только в localStorage браузера, надпись «сохранено в аккаунте» при входе не соответствует
+факту, пока таблицы не созданы. Порядок применения: v1 → v2 → v3 (все идемпотентны: `if not
+exists` / `or replace` / `drop … if exists`); отдельно `license-applications.sql` для Application
+Assistant (`license_applications`, тоже с localStorage-fallback). **Применено 2026-09-11** (владелец:
+«готово, все задеплоил»); проверено запросом к PostgREST с публичным ключом сайта: `license_roadmaps`
+отвечает 200 с колонками v2/v3 (`application_submitted_at`, `entity_type`, `reminder_opt_in`,
+`application_accepted_at`, `application_number`, `fingerprint_where`, `law_exam_where`,
+`trade_exam_where`), `license_roadmap_steps` — 200 с `metadata`; `license_applications` — PGRST205
+(таблицы нет), `license-applications.sql` не применён, Application Assistant работает на localStorage.
+Отчёты: `tasks/reports/2026-09-1{0,1}-*.md`, статус `tasks/STATE_SPECIFIC_ROADMAP_INTAKE_V3.md`.
+
+Дополнение 2026-09-11 (позже): **Arizona и Nevada License Roadmap подготовлены к обзору**
+(ветка `claude/state-specific-intake-v3` @ `eea5c20`, в `main` НЕ смержено; оба штата
+`available:false`). Аризона — процесс **exams-first** (PSI bulletin 2477, A.A.C. R4-9-106):
+флаг `R.examsFirst` в `js/roadmap/roadmap-config.js`, поддержка в `app-roadmap.js` (derive,
+recommendNext, блок анкеты `exams`, `buildStage`), факты `ROADMAP_AZ_EXAM_FACTS/_FEES/_BONDS/
+_PROCESSING`; ROC-страницы из песочницы недоступны (403) — ROC-only факты `UNKNOWN`. Невада —
+`ROADMAP_RULES.nv` (NRS/NAC 624, NSCB, PSI 270), новая `roadmap-nv.html` (`data-state="nv"`),
+оверлей `_nv` в `i18n-roadmap.js`; `js/app-cabinet.js` ведёт кнопку roadmap на страницу штата.
+Версии: `roadmap-config.js?v=15`, `app-roadmap.js?v=23`, `roadmap-logic.js?v=9`,
+`i18n-roadmap.js?v=21`. Публикация штата = `available:true` в `ROADMAP_STATES` и
+`ROADMAP_RULES` + bump конфига на `roadmap.html`, `roadmap-az.html`, `roadmap-nv.html`,
+`application.html`. Отчёты: `tasks/reports/2026-09-11-az-nv-roadmap-analysis.md`,
+`tasks/reports/2026-09-11-az-nv-roadmap.md`.
 
 ## Source References
 
