@@ -4,7 +4,16 @@
 
 ## Status
 
-**IN_PROGRESS**
+**DONE** (запись 2026-09-11)
+
+2026-09-11: задача закрыта. Часть «даты G1–G4» (ветка `claude/ticket-adaptive-licensing-dates`
+@ `a8553ba`) вошла в `main` в составе выкладки Intake V3 (`66d1727`) и работает на licena.us;
+дальнейшее развитие роадмапа ведётся задачей `STATE_SPECIFIC_ROADMAP_INTAKE_V3.md`, которая
+эту заменила. Ревью ChatGPT, которого ждала карточка, из цикла убрано (ADR-002).
+
+Историческая шапка задачи ниже сохранена без изменений.
+
+**IN_PROGRESS** (историческое)
 
 Private dispatch: `lalianamen/LLICENA#188`
 
