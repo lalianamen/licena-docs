@@ -94,6 +94,21 @@ answered / explanation_viewed один раз, pricing_viewed, registration_star
 started) — 14/14, без ошибок консоли; логика вех курса (1/20/100, персистентность, без
 повтора после рестарта) — 6/6 в браузерном контексте (страница курса требует входа).
 
+## Правка 2026-09-11: живая схема `bing_snapshots` (`main` @ `a98bb16`)
+
+При проверке выяснилось, что `public.bing_snapshots` существовала в Supabase до этой задачи
+(в карточке агрегатов от 2026-08-29 она уже перечислена) со схемой `id, fetched_at, site_url,
+dataset, start_date, end_date, row_count, payload` и содержит строки `rank_traffic`,
+`page_stats`, `crawl_stats`, `crawl_issues` (fetched_at 2026-09-11 08:20 UTC — от более ранней
+синхронизации, код которой в репозитории отсутствует; UNKNOWN, что именно её пишет).
+Первая версия `bing-sync` писала колонку `site` и датасеты `Get*` — вставки падали бы.
+Исправлено: функция пишет `site_url`, `start_date`/`end_date`, датасеты `rank_traffic`,
+`query_stats`, `page_stats`, `crawl_stats`, `crawl_issues`; секция письма читает `rank_traffic`
+в обоих форматах строк; `bing-snapshots.sql` приведён к живой схеме (на живой базе — no-op).
+**Требуется повторный деплой `bing-sync` и `daily-stats`** из `main` @ `a98bb16`.
+Проверка пути записи `app_events` 2026-09-11: вставка через публичный ключ — HTTP 201
+(тестовая строка `sample_started` с `meta.test = true`, удаляется владельцем).
+
 ## Runbook — шаги владельца (утро)
 
 1. **Выкладка кода.** Команда «заливаем» — Claude мержит ветку в `main` (или сделайте это
