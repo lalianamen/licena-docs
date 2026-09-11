@@ -1,6 +1,6 @@
 # 28 — AI Context: сводный контекст для AI-сессий
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: редизайн лендинга) · 2026-08-24 (точечная: Невада) · 2026-08-25 (точечная: мерж NV; nv-cms, nv-b и nv-b2 готовы полностью) · 2026-08-30 (точечная: маркетинговые агрегаты) · 2026-09-03 (точечная: старт nv-c2, статус блокера up.codes; позже — блокер снят, Блоки 2–5 написаны; итог дня — nv-c2 готов полностью, wiring, CSV 36,500/24; вечер — старт nv-c21 Run 1; ночь — nv-c21 готов полностью, wiring, CSV 38,000/25)
+Последняя сверка: 2026-09-11 (полная) · 2026-08-11 (точечная: редизайн лендинга) · 2026-08-24 (точечная: Невада) · 2026-08-25 (точечная: мерж NV; nv-cms, nv-b и nv-b2 готовы полностью) · 2026-08-30 (точечная: маркетинговые агрегаты) · 2026-09-03 (точечная: старт nv-c2, статус блокера up.codes; позже — блокер снят, Блоки 2–5 написаны; итог дня — nv-c2 готов полностью, wiring, CSV 36,500/24; вечер — старт nv-c21 Run 1; ночь — nv-c21 готов полностью, wiring, CSV 38,000/25)
 Назначение файла: быстрый ввод в курс дела для любой новой AI-сессии.
 Всё ниже — факты из `lalianamen/llicena` на дату сверки; оценок нет.
 
@@ -375,6 +375,22 @@ nv-c2, COURSE_REF, bank-updates — NV станет 6/6, лимит) → CSV.
 журналы; `30_CTO_REPORT.md` ведёт ChatGPT — не редактировать; каждый документ
 несёт разделы «Source References» и «Verification Status» (стандарт аудита,
 `CLAUDE.md` §9).
+
+Дополнение 2026-09-11: **California License Roadmap (Intake V3) выложен в production**
+(`main` @ `66d1727`, владелец: «заливаем родмап пока на калифорнию»). Что живёт на
+`/roadmap.html`: разговорная анкета V3 (`js/roadmap/app-roadmap.js` v22,
+`i18n-roadmap.js` v20, `roadmap-config.js` v14, `roadmap-logic.js` v8, `css/roadmap.css`
+v19) — единая логика следующего шага, статусы из ответов (`rederive`), ручные отметки с
+флагом `manual` (сохраняется в `license_roadmap_steps.metadata`), карточки-события
+(`RML.EVENT_STEPS`) с подтверждением при откате и разрешением противоречий, Experience
+Builder, Application Assistant (`/application.html`). Входы: блок `.rm-entry` на
+лендинге и `.rm-cab` в кабинете (возвращены 2026-09-11). Arizona: `roadmap-az.html`
+существует, но `ROADMAP_STATES.az.available = false` → экран «штат пока недоступен»
+(правила AZ в `ROADMAP_RULES.az`, источники ROC не проверены — HTTP 403). Nevada —
+`available:false`. Ветка разработки `claude/state-specific-intake-v3` = `main`.
+SQL `supabase/sql/license-roadmaps-v3.sql` (5 колонок `license_roadmaps`) не применён —
+клиент откатывается на прежнюю форму строки при ошибке (`dbSave`); применяет владелец.
+Отчёты: `tasks/reports/2026-09-1{0,1}-*.md`, статус `tasks/STATE_SPECIFIC_ROADMAP_INTAKE_V3.md`.
 
 ## Source References
 

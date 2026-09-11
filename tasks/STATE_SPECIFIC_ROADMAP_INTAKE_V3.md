@@ -2,7 +2,19 @@
 
 ## Status
 
-**READY_FOR_REVIEW** (после исправления отмены ручных отметок событий, `4c5d1d5`)
+**RELEASED — California** (`main` @ `66d1727`, 2026-09-11); Arizona — `available:false` до проверки источников ROC
+
+2026-09-11, релиз (запись Claude): по команде владельца «ок заливаем родмап пока на
+калифорнию» ветка `claude/state-specific-intake-v3` (`4c5d1d5`) смержена с `origin/main`
+(конфликты `?v=` в `app.html` / `application.html` / `roadmap.html` решены), `main`
+переведён fast-forward на `66d1727`, GitHub Pages отдал сборку через ~15 с (curl:
+`app-roadmap.js?v=22`, `roadmap-config.js?v=14`). Возвращены входы на лендинге и в
+кабинете, скрытые 2026-09-04. Arizona: `ROADMAP_STATES.az` / `ROADMAP_RULES.az`
+`available:false` — `roadmap-az.html` показывает «штат пока недоступен». Проверки на
+смерженном дереве: `verify.js`, `test-roadmap-v3.mjs` 183, undo 56, final 42/43 (`8-az`
+ожидаемо), db-roundtrip 8, рендер лендинга/кабинета/roadmap/AZ/application. SQL v3 не
+применялся — на стороне владельца.
+
 
 2026-09-11, позже (запись Claude): по спецификации владельца «исправить отмену ручных
 отметок выполнения в Roadmap V3» в ветке `claude/state-specific-intake-v3` сделан коммит
