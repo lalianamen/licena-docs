@@ -54,5 +54,5 @@
 Внешняя ссылка (файл отдаётся как HTML через raw.githack.com; GitHub raw и jsDelivr
 отдают его как `text/plain`):
 
-- по коммиту (постоянная): `https://rawcdn.githack.com/lalianamen/licena-docs/__MAINSHA__/preview/roadmap/licena-roadmap-v3.html`
+- по коммиту (постоянная): `https://rawcdn.githack.com/lalianamen/licena-docs/77a753da7b7d23e04787bd1f2ef0c9f09766237b/preview/roadmap/licena-roadmap-v3.html`
 - по ветке `main` (обновляется, кэш до 60 с): `https://raw.githack.com/lalianamen/licena-docs/main/preview/roadmap/licena-roadmap-v3.html`
