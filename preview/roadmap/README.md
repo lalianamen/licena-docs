@@ -1,6 +1,6 @@
 # Превью фичи License Roadmap (Phase 1)
 
-Последняя сверка: 2026-08-29
+Последняя сверка: 2026-09-11
 Файлы этой папки — превью-материалы фичи License Roadmap, снятые с кода
 `lalianamen/llicena@main` (`f305f63` — логика персонализации + точечные официальные ссылки под ответы;
 первоначально собраны с `96f1465`). Владелец запросил хранение
@@ -44,3 +44,15 @@
 **Verified** — файлы собраны скриптом из названных исходников и отрендерены
 перед публикацией (0 ошибок консоли); ссылки проверены живыми 2026-08-29
 (Vercel-превью — HTTP 200, отдаёт `app-roadmap.js?v=6`).
+
+## Превью Intake V3 (ветка `claude/state-specific-intake-v3`, 2026-09-11)
+
+| Файл | Что это |
+|---|---|
+| `licena-roadmap-v3.html` | Самодостаточное превью California License Roadmap V3, собранное с `lalianamen/llicena` ветка `claude/state-specific-intake-v3` @ `3cb2136` (в `main` НЕ смержено): CSS/JS фичи (`css/roadmap.css`, `js/roadmap/roadmap-logic.js`, `roadmap-config.js`, `i18n-roadmap.js`, `app-roadmap.js`) встроены в один HTML; переключатель штата CA/AZ и языков EN/ES/RU; демо-сценарии. Без аналитики и Supabase — ответы живут в localStorage браузера. `<meta name="robots" content="noindex,nofollow">`. Тот же файл опубликован как Claude-артефакт (приватный). Добавлен по запросу владельца «нужна внешняя ссылка на это превью для анализа и тестов» (2026-09-11). |
+
+Внешняя ссылка (файл отдаётся как HTML через raw.githack.com; GitHub raw и jsDelivr
+отдают его как `text/plain`):
+
+- по коммиту (постоянная): `https://rawcdn.githack.com/lalianamen/licena-docs/__MAINSHA__/preview/roadmap/licena-roadmap-v3.html`
+- по ветке `main` (обновляется, кэш до 60 с): `https://raw.githack.com/lalianamen/licena-docs/main/preview/roadmap/licena-roadmap-v3.html`
