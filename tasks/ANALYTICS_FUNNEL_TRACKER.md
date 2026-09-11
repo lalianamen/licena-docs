@@ -116,8 +116,11 @@ dataset, start_date, end_date, row_count, payload` и содержит стро�
   `rank_traffic` 26 строк, `query_stats` 44, `page_stats` 26, `crawl_stats` 24, `crawl_issues` 0.
 - Развёрнуты: `daily-stats` (новая версия отвечает полем `weekly`), `marketing-aggregates`,
   `stripe-webhook`; SQL `marketing_weekly_funnel` и таблица `bing_snapshots` на месте
-  (anon получает permission denied). Не подтверждены на момент записи: повторный деплой
-  `daily-stats` с `a98bb16` (чтение `rank_traffic`), cron `bing-sync`, тестовое письмо.
+  (anon получает permission denied).
+- `daily-stats` с телом `{"week":"2026-09-07"}` (владелец, ~18:10 UTC): ответ
+  `{"ok":true,"day":"2026-09-10","views":71,"monthly":false,"weekly":true}` — недельная секция
+  собирается в production (`marketing_weekly_funnel` отвечает service role). Содержимое письма
+  (в т.ч. строка Bing) владелец проверяет в почте. Не подтверждён: cron `bing-sync`.
 
 ## Runbook — шаги владельца (утро)
 
