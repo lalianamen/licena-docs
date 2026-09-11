@@ -95,7 +95,7 @@ full-bleed банды, `body{overflow-x:clip}`; auth-модал и саппор�
 
 | Путь | Назначение |
 |---|---|
-| `functions/assistant/` | AI-саппорт (Claude `claude-haiku-4-5` в `main` с `e266e4b` (PR #190, решение владельца 2026-09-11; до `a3d05d6` — `claude-sonnet-4-6`); задеплоенная функция — UNKNOWN до `supabase functions deploy assistant`, web search) |
+| `functions/assistant/` | AI-саппорт (Claude `claude-haiku-4-5` в `main` с `e266e4b` (PR #190, решение владельца 2026-09-11; до `a3d05d6` — `claude-sonnet-4-6`); функция передеплоена владельцем 2026-09-11 (сообщение владельца в сессии: «асистент обновлен»), web search) |
 | `functions/stripe-checkout/` | Checkout-сессия $20/мес за курс (14 платных курсов) |
 | `functions/stripe-webhook/` | Единственный источник выдачи доступа (`user_courses`) |
 | `functions/stripe-portal/` | Портал управления подпиской |

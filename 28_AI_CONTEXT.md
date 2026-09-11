@@ -273,9 +273,8 @@ licena.us (`roadmap.css?v=19`); блок `.rm-cab` в кабинете снов�
 `main` — `e266e4b` (PR #190, разрешение владельца). На сайте: пересдача
 ошибок в плеере (`app-course.js` v73), лимит Haiku 4.5 в коде чат-бота,
 карточка роадмапа кабинета читаема в тёмной теме (`roadmap.css` v20).
-Выкладка GitHub Pages: проверено curl 2026-09-11 через ~50 с после мержа — licena.us отдаёт `roadmap.css?v=20` (с `background:#15273D` у `.rm-cab`), `app-course.js?v=73` (с `retakeWrong`, `SKIPPED`, `lp:retake:`), `course.html` с `#retakeWrongSideBtn`. Функция `assistant` на проде до
-`supabase functions deploy assistant` остаётся на Sonnet 4.6 — UNKNOWN,
-выполнил ли владелец деплой.
+Выкладка GitHub Pages: проверено curl 2026-09-11 через ~50 с после мержа — licena.us отдаёт `roadmap.css?v=20` (с `background:#15273D` у `.rm-cab`), `app-course.js?v=73` (с `retakeWrong`, `SKIPPED`, `lp:retake:`), `course.html` с `#retakeWrongSideBtn`. Функция `assistant` передеплоена владельцем
+2026-09-11 (сообщение в сессии) — чат-бот на проде работает на Haiku 4.5.
 
 ## Ключевые инварианты (нарушение = сломанный прод)
 
@@ -329,7 +328,7 @@ licena.us (`roadmap.css?v=19`); блок `.rm-cab` в кабинете снов�
 - SEO-голова: только `js/seo.js` (лейн marketing) + `sitemap.xml` + `robots.txt`;
   при правках HTML-страниц бампать `?v=` по спеке marketing.
 - AI-саппорт: `supabase/functions/assistant/index.ts`, модель
-  `claude-haiku-4-5` в `main` с `e266e4b` (PR #190, решение владельца 2026-09-11; до `a3d05d6` — `claude-sonnet-4-6`); задеплоенная функция — UNKNOWN до `supabase functions deploy assistant`; список фактов о продукте зашит в промпт функции —
+  `claude-haiku-4-5` в `main` с `e266e4b` (PR #190, решение владельца 2026-09-11; до `a3d05d6` — `claude-sonnet-4-6`); функция передеплоена владельцем 2026-09-11 (сообщение владельца в сессии: «асистент обновлен»); список фактов о продукте зашит в промпт функции —
   при изменении продукта его тоже надо обновлять.
 - Автопостинг соцсетей: положить `.txt` в `docs/smm/queue/` (Telegram) или
   `docs/smm/queue-fb/` (Facebook) и запушить в `main` — workflow постит сам.

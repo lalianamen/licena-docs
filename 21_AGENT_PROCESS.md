@@ -74,7 +74,7 @@ Opus; верификация — топ-модель в основном цик�
 |---|---|---|
 | Разработка + фактическая документация | Claude (сессии + 5 лейнов + CI-агент) | оба `CLAUDE.md` |
 | Бизнес-аудит, оценки, `30_CTO_REPORT.md` | ChatGPT | `CLAUDE.md` licena-docs §6 |
-| AI-саппорт пользователей | Edge Function `assistant` (`claude-haiku-4-5` в `main` с `e266e4b` (PR #190, решение владельца 2026-09-11; до `a3d05d6` — `claude-sonnet-4-6`); задеплоенная функция — UNKNOWN до `supabase functions deploy assistant`) | `06_FUNCTIONS.md` |
+| AI-саппорт пользователей | Edge Function `assistant` (`claude-haiku-4-5` в `main` с `e266e4b` (PR #190, решение владельца 2026-09-11; до `a3d05d6` — `claude-sonnet-4-6`); функция передеплоена владельцем 2026-09-11 (сообщение владельца в сессии: «асистент обновлен»)) | `06_FUNCTIONS.md` |
 | Утверждение и публикация всего | владелец | все 5 файлов агентов («NEVER deploys»), greenlight-label, ручной постинг SMM |
 
 ## UNKNOWN

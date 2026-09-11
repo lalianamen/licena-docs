@@ -57,7 +57,7 @@ Deno.
 | GitHub Pages | n/a | хостинг статики с `main` | `CNAME`, `.nojekyll`, README |
 | Supabase | проект `vewhmndummfhnbxnrqya.supabase.co`; план/регион UNKNOWN | БД, Auth, Functions, Storage, pg_cron/pg_net | `js/supabase-client.js` |
 | Stripe API | версия не пиннится (SDK-дефолт stripe@17) | подписки $20/мес | три stripe-функции |
-| Anthropic API | модель **`claude-haiku-4-5` в `main` с `e266e4b` (PR #190, решение владельца 2026-09-11; до `a3d05d6` — `claude-sonnet-4-6`); задеплоенная функция — UNKNOWN до `supabase functions deploy assistant`** | AI-саппорт | `assistant/index.ts:18` |
+| Anthropic API | модель **`claude-haiku-4-5` в `main` с `e266e4b` (PR #190, решение владельца 2026-09-11; до `a3d05d6` — `claude-sonnet-4-6`); функция передеплоена владельцем 2026-09-11 (сообщение владельца в сессии: «асистент обновлен»)** | AI-саппорт | `assistant/index.ts:18` |
 | Anthropic API (CI) | модель `claude-haiku-4-5` (`--model` в `claude_args`, в `main` с `e266e4b`, PR #190; решение владельца 2026-09-11) | работа тикетов | `claude-support.yml` |
 | Resend | HTTP API, версия не пиннится | письма от `noreply@licena.us` | ticket-email, ticket-issue, daily-stats |
 | Telegram Bot API | версия не пиннится | автопост в `@licena_us` | `telegram-post.yml` |
