@@ -1,6 +1,6 @@
 # INDEX — реестр документов базы знаний LICENA
 
-Последняя сверка: 2026-08-30 (точечная: маркетинговые агрегаты; полная — 2026-08-05)
+Последняя сверка: 2026-09-11 (точечная: retake wrong only в плеере; ранее 2026-08-30 маркетинговые агрегаты; полная — 2026-08-05)
 Обновляется при каждом создании или изменении документа (`CLAUDE.md` §9).
 
 ## Уровни достоверности
@@ -30,7 +30,7 @@
 | `10_CONTENT_MODEL.md` | заполнен | 2026-08-05 | Partially Verified |
 | `11_I18N.md` | заполнен | 2026-08-05 | Partially Verified |
 | `12_SEO.md` | заполнен | 2026-08-27 | Partially Verified |
-| `13_UX.md` | заполнен (охватывает UX и Features) | 2026-08-29 | Partially Verified |
+| `13_UX.md` | заполнен (охватывает UX и Features) | 2026-09-11 | Partially Verified |
 | `14_ANALYTICS.md` | заполнен | 2026-08-30 | Verified (по коду; часть живых данных подтверждена выгрузками владельца, первый запуск cron — UNKNOWN) |
 | `15_METRICS.md` | заполнен | 2026-09-03 | Partially Verified |
 | `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
@@ -43,16 +43,16 @@
 | `23_SMM_STATE.md` | не создан | — | — |
 | `24_RISKS.md` | не создан | — | — |
 | `25_DECISIONS.md` | не создан | — | — |
-| `26_CHANGELOG.md` | заполнен | 2026-09-03 | Partially Verified |
+| `26_CHANGELOG.md` | заполнен | 2026-09-11 | Partially Verified |
 | `27_ROADMAP.md` | не создан | — | — |
-| `28_AI_CONTEXT.md` | заполнен | 2026-09-03 | Partially Verified |
+| `28_AI_CONTEXT.md` | заполнен | 2026-09-11 | Partially Verified |
 | `29_BUSINESS_FRAMEWORK.md` | не создан | — | — |
 | `30_CTO_REPORT.md` | не создан (будет создан пустым; заполняет ChatGPT) | — | — |
 | `RELEASE_SUMMARY.md` | не создан | — | — |
 | `rfc/` | не создана | — | — |
 | `decisions/ADR-001-UNIFIED-COURSE-REGISTRY.md` | создан (статус решения: Proposed, не реализовано; путь задан владельцем 2026-08-05) | 2026-08-05 | Partially Verified (факты §1–3 — Verified; §4–13 — предложение) |
 | `preview/roadmap/` | создана (превью-файлы фичи License Roadmap по команде владельца) | 2026-08-28 | Verified (см. README папки) |
-| `tasks/` | создана (протокол владелец → ChatGPT → Claude: `WORKFLOW.md`, карточки задач, `reviews/`, `reports/`) | 2026-08-30 | Verified (журнал рабочего процесса; факты по живой БД — из выгрузок Supabase Dashboard, предоставленных владельцем) |
+| `tasks/` | создана (протокол владелец → ChatGPT → Claude: `WORKFLOW.md`, карточки задач, `reviews/`, `reports/`) | 2026-09-11 | Verified (журнал рабочего процесса; факты по живой БД — из выгрузок Supabase Dashboard, предоставленных владельцем) |
 | `audit/INDEX.md` | заполнен | 2026-08-05 | Verified (производный от самих документов) |
 | `audit/COVERAGE.md` | заполнен | 2026-08-05 | Verified (производный от документов + листинга основного репо) |
 
