@@ -498,6 +498,13 @@ Arizona (exams-first) и Nevada (`roadmap-nv.html`) тоже в `main`, но `RO
 `application.html`. Карточка roadmap в кабинете исправлена в `roadmap.css` (`a4a733d`,
 PR #190), не в `cabinet-dark.css`.
 
+Дополнение 2026-09-11 (аналитика воронки, ветка): `claude/question-bank-generation-analysis-y47sk7`
+@ `f80b96c` — события трекера в `app_events` + GA4, `marketing_weekly_funnel` + секция письма
+по понедельникам, метки `<канал>-<пост>`, `bing-sync`. Не в `main`, не задеплоено; шаги
+владельца — `tasks/ANALYTICS_FUNNEL_TRACKER.md`. Договорённости: имя события одинаково в
+`app_events` и GA4; `purchase` пишет только webhook (оплаченный счёт), клиент пишет
+`checkout_completed`; Clarity-события (`track()`/`trackEv()`) не переименовывались.
+
 ## Source References
 
 Все пути — в репозитории `lalianamen/llicena`:

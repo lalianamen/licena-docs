@@ -190,6 +190,19 @@ active_trials, trial_to_paid_count). Схема и RLS — `04_DATABASE.md`,
 Первый автоматический запуск по расписанию на дату сверки ещё не состоялся
 (UNKNOWN).
 
+Дополнение 2026-09-11 (подготовлено в ветке, в `main` НЕ выложено): слой событий воронки под
+трекер владельца (`Licena_All_Metrics_Tracker.xlsx`). Именованные события уходят и в
+`public.app_events` (клиент — `lpTrack` в `js/stats.js`, на practice-страницах raw REST в
+`js/sample-quiz.js`; сервер — `stripe-webhook`), и в GA4 тем же именем (`js/ga.js` v2:
+хелпер `lpGa`, `?src=<метка>` передаётся как `campaign_source`/`campaign_medium=src`).
+Список событий и точки срабатывания, недельная функция `marketing_weekly_funnel(date)`,
+понедельничная секция письма `daily-stats`, метки `<канал>-<пост>` в классификаторе и
+`bing-sync` → `bing_snapshots` — см. `tasks/ANALYTICS_FUNNEL_TRACKER.md`. До выкладки и
+шагов владельца (SQL, деплой функций, секрет `BING_API_KEY`) в production этого слоя нет;
+после выкладки все прежние механизмы (page_views, daily-stats, marketing_* агрегаты,
+Clarity-события) работают без изменений. Не автоматизируется: просмотры соцсетей, Bing
+AI Performance (API отсутствует, Microsoft 02/2026).
+
 ## Source References
 
 - `js/stats.js`, `js/pageview.js` — полностью
