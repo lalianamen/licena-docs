@@ -396,8 +396,12 @@ does not exist` — таблиц roadmap в production НЕТ: `license-roadmaps
 живут только в localStorage браузера, надпись «сохранено в аккаунте» при входе не соответствует
 факту, пока таблицы не созданы. Порядок применения: v1 → v2 → v3 (все идемпотентны: `if not
 exists` / `or replace` / `drop … if exists`); отдельно `license-applications.sql` для Application
-Assistant (`license_applications`, тоже с localStorage-fallback). Статус применения — UNKNOWN до
-подтверждения владельца.
+Assistant (`license_applications`, тоже с localStorage-fallback). **Применено 2026-09-11** (владелец:
+«готово, все задеплоил»); проверено запросом к PostgREST с публичным ключом сайта: `license_roadmaps`
+отвечает 200 с колонками v2/v3 (`application_submitted_at`, `entity_type`, `reminder_opt_in`,
+`application_accepted_at`, `application_number`, `fingerprint_where`, `law_exam_where`,
+`trade_exam_where`), `license_roadmap_steps` — 200 с `metadata`; `license_applications` — PGRST205
+(таблицы нет), `license-applications.sql` не применён, Application Assistant работает на localStorage.
 Отчёты: `tasks/reports/2026-09-1{0,1}-*.md`, статус `tasks/STATE_SPECIFIC_ROADMAP_INTAKE_V3.md`.
 
 ## Source References
