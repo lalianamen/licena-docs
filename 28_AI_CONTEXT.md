@@ -505,6 +505,12 @@ PR #190), не в `cabinet-dark.css`.
 `app_events` и GA4; `purchase` пишет только webhook (оплаченный счёт), клиент пишет
 `checkout_completed`; Clarity-события (`track()`/`trackEv()`) не переименовывались.
 
+Дополнение 2026-09-11 (аналитика воронки — выложено): `main` осн. репо @ `0f9f663`. Клиентские
+события уже в production; серверные шаги (SQL `marketing-weekly-funnel.sql`,
+`bing-snapshots.sql`, деплой `daily-stats` / `marketing-aggregates` / `stripe-webhook` /
+`bing-sync`, секрет `BING_API_KEY`, `cron-bing-sync.sql`) — за владельцем, статус в
+`tasks/ANALYTICS_FUNNEL_TRACKER.md`.
+
 ## Source References
 
 Все пути — в репозитории `lalianamen/llicena`:
