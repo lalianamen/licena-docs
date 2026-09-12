@@ -160,7 +160,43 @@ cookies `_ga`, `_ga_*`; дата «Last updated» → 12 сентября 2026. 
 Проверка после шага 1: через сутки в Reports → Engagement → Events выбрать
 `roadmap_started` — в карточках параметров появятся `state` и `lang`.
 
-### Этап 3 — соцсети через API платформ — CODE RELEASED (`main` осн. репо @ `47f2a2f`, fast-forward 2026-09-12, команда владельца «заливаем»); ждёт шагов владельца: Meta-приложение и Page-токен, секрет, SQL, деплой `meta-sync` и `daily-stats`, cron
+### Этап 3 — соцсети через API платформ — LIVE (первый запуск 2026-09-12 07:08 UTC); правка по его итогам в ветке @ `1c2a038`, ждёт мержа и повторного деплоя
+
+Выполнено владельцем 2026-09-11 23:00 – 2026-09-12 00:10 PT (скриншоты и ответы):
+- Meta-приложение `Licena Analytics` (ID `1398512172435649`, тип «Компания», режим разработки;
+  старое `LICENA Publisher` создано под один сценарий и полного списка разрешений в Explorer
+  не показывало). Токен пользователя с `pages_show_list`, `pages_read_engagement`, `read_insights`,
+  `instagram_basic`, `instagram_manage_insights` (+ `business_management`), продлён в Access Token
+  Debugger; `me/accounts` вернул пустой список (у аккаунта нет классической роли на странице —
+  доступ через бизнес-портфолио), поэтому Page-токен получен выбором страницы в Graph API
+  Explorer. Отладчик: тип Page, страница Licena `1266303576558220`, Instagram `licena_us`
+  `17841444125961351`, **истекает 2026-11-11 06:24 UTC** (около 60 дней; доступ к данным —
+  2026-12-11). Бессрочный вариант — токен системного пользователя Business Manager (в коде
+  с `1c2a038` есть `META_PAGE_ID` для него) — отдельным шагом до 11 ноября.
+- Supabase: секрет `META_PAGE_TOKEN`, `social-snapshots.sql` выполнен, `meta-sync` и
+  `daily-stats` задеплоены, cron `meta-sync` создан (jobid 19, `20 14 * * *`).
+- Первый запуск (curl с сервисным ключом; тестовая панель Supabase даёт 403 — она шлёт публичный
+  ключ): `ok:true`, `fetched_at 2026-09-12T07:08:08Z`, окна 2026-09-05…09-11 и 08-15…09-11,
+  снимки `facebook/account 1`, `instagram/account 1`, `facebook/page_insights_7d 28`,
+  `facebook/page_insights_28d 112`, `facebook/posts 11`, `instagram/account_insights_7d 1`,
+  `instagram/account_insights_28d 1`, `instagram/media 10`; `followers`: instagram 8, facebook 0.
+  Instagram — без предупреждений (все метрики аккаунта и медиа приняты). Facebook отверг
+  `page_impressions`, `page_impressions_unique`, `post_impressions` («(#100) The value must be a
+  valid insights metric» — Meta отключила метрики показов 2026-06-15), принял
+  `page_post_engagements`, `page_daily_follows_unique`, `page_daily_unfollows_unique`,
+  `page_video_views` (28 строк = 4 метрики × 7 дней).
+- Правка `1c2a038` (ветка): `FB_PAGE_METRICS` без метрик показов; метрики постов
+  (`post_impressions_unique`, `post_clicks`, `post_reactions_by_type_total`, `post_video_views`,
+  `post_activity_by_action_type`) проверяются один раз за запуск на первом посте, принятые
+  используются для остальных; `totals()` суммирует объекты-разбивки; `META_PAGE_ID`;
+  строка Facebook в письме — вовлечения · новых подписчиков · отписок · просмотров видео.
+  Проверки: TS-синтаксис, `test-meta-core` 16/16, verify 139. После мержа — повторный деплой
+  `meta-sync` и `daily-stats`.
+- Замечание к проверке письма: снимок `account_insights_7d` от 12.09 покрывает 05.09–11.09, а
+  не отчётную неделю с понедельника 07.09, поэтому блок «Instagram за неделю» появится с первого
+  понедельничного запуска cron (14.09 14:20 UTC); подписчики и таблица постов доступны сразу.
+
+Ранее: CODE RELEASED (`main` @ `47f2a2f`, 2026-09-12); CODE READY_FOR_REVIEW (ветка @ `47f2a2f`).
 
 Ранее: CODE READY_FOR_REVIEW (2026-09-12, ветка @ `47f2a2f`).
 
