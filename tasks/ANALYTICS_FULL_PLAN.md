@@ -4,8 +4,19 @@
 
 ## Status
 
-**Этап 1: CODE RELEASED — `main` осн. репо @ `8bd3699` (fast-forward, 2026-09-12, команда
-владельца «приступаем»); ждёт шагов владельца в Supabase** (Runbook ниже). GitHub Pages отдаёт
+**Этап 1: DONE — код в production, серверные шаги выполнены владельцем 2026-09-11 21:32–21:35 PT**
+(скриншоты владельца): SQL применён — `select roadmap_started, roadmaps_saved, cohort_prev_signups
+from public.marketing_weekly_funnel('2026-09-07')` вернул `0 · 1 · 11` (новые колонки есть; 1 план
+сохранён на неделе с 07.09, 11 аккаунтов на неделе 31.08–06.09); `daily-stats` передеплоен
+(страница функции: «a few seconds ago», код 719 строк — как в репозитории); вызов с телом
+`{"week":"2026-09-07"}` ответил `weekly:true` от новой версии. Содержимое нового письма
+(блоки Roadmap / экзамен / подписки / удержание / источники / Google) владельцем на момент
+записи не подтверждено — UNKNOWN. Попутно: тест с телом по умолчанию (`{"name":"Functions"}`)
+отправил обычное дневное письмо (`weekly:false`) — функция по-прежнему не проверяет роль
+вызывающего.
+
+Ранее: CODE RELEASED — `main` осн. репо @ `8bd3699` (fast-forward, 2026-09-12, команда
+владельца «приступаем»); ждёт шагов владельца в Supabase (Runbook ниже). GitHub Pages отдаёт
 `stats.js?v=5` + `app-roadmap.js?v=26` на `roadmap.html`; байты `app-roadmap.js`,
 `app-application.js`, `app-course.js` в production совпадают с репозиторием — клиентские
 события roadmap / application / exam уже пишутся в `app_events` и GA4. Серверная часть
@@ -82,7 +93,7 @@ production (`tasks/ANALYTICS_FUNNEL_TRACKER.md`, DONE). Этот докумен�
   без ошибок консоли — 15/15. 360px (roadmap RU, roadmap-nv EN, application RU): без
   горизонтального переполнения, без ошибок, события уходят — 3/3.
 
-## Runbook — шаги владельца после мержа в `main`
+## Runbook — шаги владельца после мержа в `main` (выполнены 2026-09-11, см. Status)
 
 1. **SQL** — Supabase → SQL Editor → вставить целиком `supabase/sql/marketing-weekly-funnel.sql`
    из `main` → Run. Файл начинается с `drop function if exists public.marketing_weekly_funnel(date)`

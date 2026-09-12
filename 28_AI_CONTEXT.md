@@ -520,7 +520,9 @@ PR #190), не в `cabinet-dark.css`.
 не тронуты, `?demo=` не считается, `roadmap_viewed` — раз на загрузку; SQL-файл начинается с
 `drop function` (набор колонок `marketing_weekly_funnel` изменился) — после мержа владелец
 выполняет SQL и деплоит `daily-stats`. 2026-09-12: выложено, `main` @ `8bd3699` (fast-forward);
-клиентские события уже в production, шаги владельца в Supabase — статус в
+клиентские события уже в production; SQL применён и `daily-stats` передеплоен владельцем
+(21:32–21:35 PT 11.09, `weekly:true` от новой версии) — этап 1 DONE. Следующие этапы (GA4 —
+владелец; соцсети через API — по решению владельца; Looker Studio) — в
 `tasks/ANALYTICS_FULL_PLAN.md`.
 
 ## Source References
