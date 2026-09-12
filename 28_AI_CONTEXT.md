@@ -522,7 +522,8 @@ PR #190), не в `cabinet-dark.css`.
 выполняет SQL и деплоит `daily-stats`. 2026-09-12: выложено, `main` @ `8bd3699` (fast-forward);
 клиентские события уже в production; SQL применён и `daily-stats` передеплоен владельцем
 (21:32–21:35 PT 11.09, `weekly:true` от новой версии) — этап 1 DONE. Этап 2 (2026-09-12): `privacy.html` с раскрытием GA4 — ветка @ `55ebec5`,
-ждёт мержа; настройки GA4 — владелец по runbook в `tasks/ANALYTICS_FULL_PLAN.md`. Далее:
+ждёт мержа; настройки GA4 выполнены владельцем (5 custom dimensions, 4 ключевых события через
+Admin API, `purchase` в GA4 не приходит — аналог `checkout_completed`). Далее:
 соцсети через API — по решению владельца; Looker Studio.
 
 ## Source References

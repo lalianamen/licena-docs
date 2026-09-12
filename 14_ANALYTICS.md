@@ -225,9 +225,12 @@ Application Assistant», «Сохранённые планы по штатам»
 раскрывает Google Analytics 4 — §1 (агрегированный подсчёт просмотров, источников и событий,
 Google как поставщик услуг), §3 (пункт в списке поставщиков), §4 (first-party cookies `_ga`,
 `_ga_*`); дата обновления 12 сентября 2026. Пробел, отмеченный в дополнении 2026-08-26,
-закрывается этой правкой после мержа. Настройки GA4 (custom dimensions `state` /
-`classification` / `course` / `page` / `lang`, ключевые события) — только в интерфейсе GA4
-владельцем; выполнены ли — UNKNOWN.
+закрывается этой правкой после мержа. Настройки GA4 выполнены владельцем
+2026-09-11 (скриншоты): пять специальных параметров области «Событие» — `classification`,
+`course`, `lang`, `page`, `state`; ключевые события `account_created`, `checkout_started`,
+`checkout_completed`, `roadmap_questionnaire_completed` (созданы через Admin API
+`properties.keyEvents.create`, ресурс `properties/551663895`) плюс стандартное `purchase`,
+которое данных не получает (покупку пишет только `stripe-webhook` в `app_events`).
 
 ## Source References
 
