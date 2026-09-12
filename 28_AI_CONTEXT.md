@@ -521,9 +521,9 @@ PR #190), не в `cabinet-dark.css`.
 `drop function` (набор колонок `marketing_weekly_funnel` изменился) — после мержа владелец
 выполняет SQL и деплоит `daily-stats`. 2026-09-12: выложено, `main` @ `8bd3699` (fast-forward);
 клиентские события уже в production; SQL применён и `daily-stats` передеплоен владельцем
-(21:32–21:35 PT 11.09, `weekly:true` от новой версии) — этап 1 DONE. Следующие этапы (GA4 —
-владелец; соцсети через API — по решению владельца; Looker Studio) — в
-`tasks/ANALYTICS_FULL_PLAN.md`.
+(21:32–21:35 PT 11.09, `weekly:true` от новой версии) — этап 1 DONE. Этап 2 (2026-09-12): `privacy.html` с раскрытием GA4 — ветка @ `55ebec5`,
+ждёт мержа; настройки GA4 — владелец по runbook в `tasks/ANALYTICS_FULL_PLAN.md`. Далее:
+соцсети через API — по решению владельца; Looker Studio.
 
 ## Source References
 

@@ -107,13 +107,34 @@ production (`tasks/ANALYTICS_FUNNEL_TRACKER.md`, DONE). Этот докумен�
    Замечание: вызов с публичным ключом отправляет письмо (функция не проверяет роль — как и раньше).
 4. Тестовая строка в `app_events` (`meta.test = true`) — удалить, если ещё не удалена.
 
-### Этап 2 — настройки GA4 и раскрытие (владелец, ~15 мин; Claude — privacy) — TODO
+### Этап 2 — настройки GA4 и раскрытие — IN_PROGRESS (2026-09-12, команда владельца «приступаем»)
 
-- В GA4 отметить как ключевые события: `account_created`, `purchase`, `roadmap_questionnaire_completed`, `checkout_started`.
-- Custom dimensions (event scope): `state`, `classification`, `course`, `page`, `lang` — без них
-  параметры событий не видны в стандартных отчётах GA4.
-- `privacy.html` ×3 языка: раскрытие cookies GA4 (`_ga`, `_ga_*`) — UNKNOWN, раскрыто ли уже
-  (проверяется при выполнении этапа).
+**Часть Claude — готово в ветке `claude/question-bank-generation-analysis-y47sk7` @ `55ebec5`, не в `main`:**
+`privacy.html` (одна страница, три языковых блока EN/ES/RU) до правки НЕ упоминала GA4 (grep
+`Google Analytics|_ga` — 0 совпадений; факт из `14_ANALYTICS.md`, дополнение 2026-08-26).
+Добавлено в каждом блоке: §1 «Information we collect» — Google Analytics 4 (Google LLC) считает
+просмотры страниц, источники трафика и события продукта в агрегированном виде, Google —
+поставщик услуг; §3 «Service providers» — пункт Google Analytics 4; §4 «Cookies» — first-party
+cookies `_ga`, `_ga_*`; дата «Last updated» → 12 сентября 2026. Ничего не утверждается о
+настройках проперти (Google signals, анонимизация IP) — они в репозитории не видны.
+Проверка: Playwright — переключение EN/RU/ES, в видимом блоке ровно три упоминания GA4 и
+строка `_ga, _ga_*`, дата обновлена; desktop и 360px без горизонтального переполнения и без
+ошибок консоли (кроме внешнего ресурса, блокируемого прокси песочницы) — 6/6 + 2/2.
+
+**Часть владельца — в интерфейсе GA4 (проперти «Licena Web», `G-1YE5GDRVFZ`), ~15 мин:**
+
+1. Admin (шестерёнка) → Data display → **Custom definitions** → Create custom dimension.
+   Пять раз, Scope = Event: Dimension name `state`, Event parameter `state`; затем
+   `classification`, `course`, `page`, `lang` (имя = параметр). Данные копятся с момента
+   создания, задним числом не пересчитываются.
+2. Admin → Data display → **Key events** → New key event → ввести имя события → Save:
+   `account_created`, `roadmap_questionnaire_completed`, `checkout_started`. Событие `purchase`
+   GA4 считает ключевым по умолчанию — проверить, что оно в списке.
+3. Необязательно: Admin → Data collection and modification → **Data retention** → Event data
+   retention = 14 months (по умолчанию 2 месяца; влияет только на Explorations).
+
+Проверка после шага 1: через сутки в Reports → Engagement → Events выбрать
+`roadmap_started` — в карточках параметров появятся `state` и `lang`.
 
 ### Этап 3 — соцсети через API платформ (по решению владельца) — TODO, не начат
 
