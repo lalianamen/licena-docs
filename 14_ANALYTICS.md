@@ -232,6 +232,17 @@ Google как поставщик услуг), §3 (пункт в списке п
 `properties.keyEvents.create`, ресурс `properties/551663895`) плюс стандартное `purchase`,
 которое данных не получает (покупку пишет только `stripe-webhook` в `app_events`).
 
+Дополнение 2026-09-12 (этап 3, ветка @ `47f2a2f`, не в `main`): Edge Function `meta-sync`
+(Instagram + страница Facebook через Graph API `v25.0`, один долгоживущий Page-токен
+`META_PAGE_TOKEN`) → `public.social_snapshots` (снимки account / page_insights_7d / 28d / posts
+и account / account_insights_7d / 28d / media) и подписчики за день в `social_stats`
+(network `instagram`, `facebook`); cron ежедневно 14:20 UTC. `daily-stats`: подписчики
+Instagram / Facebook в дневном письме, блок «Соцсети» в понедельничной секции (итоги недели по
+платформам, таблица постов и роликов с просмотрами платформ и визитами на сайт по метке
+`?src=`). Живой вызов Graph API не проверялся (токена нет). TikTok — вручную (API только через
+приложение TikTok for Developers после ревью). Подробности и runbook —
+`tasks/ANALYTICS_FULL_PLAN.md`, этап 3.
+
 ## Source References
 
 - `js/stats.js`, `js/pageview.js` — полностью

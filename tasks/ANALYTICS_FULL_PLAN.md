@@ -160,7 +160,73 @@ cookies `_ga`, `_ga_*`; дата «Last updated» → 12 сентября 2026. 
 Проверка после шага 1: через сутки в Reports → Engagement → Events выбрать
 `roadmap_started` — в карточках параметров появятся `state` и `lang`.
 
-### Этап 3 — соцсети через API платформ (по решению владельца) — TODO, не начат
+### Этап 3 — соцсети через API платформ — CODE READY_FOR_REVIEW (2026-09-12, ветка @ `47f2a2f`, не в `main`)
+
+Ответ владельца 2026-09-11 (скриншоты): Instagram `@licena_us` (8 подписчиков) и страница
+Facebook «Licena» (0 подписчиков) связаны в Meta Business Suite; TikTok `@licena_us` —
+бизнес-аккаунт (2 подписчика, 28 лайков, 340 просмотров за 7 дней, ролики 08.09 ×2 и 11.09).
+Telegram — уже в `social_stats` (подписчики, `daily-stats`).
+
+**Сделано (ветка `claude/question-bank-generation-analysis-y47sk7` @ `47f2a2f`):**
+- `supabase/functions/meta-sync/index.ts` + `core.ts` (чистое ядро): по одному долгоживущему
+  Page-токену (`META_PAGE_TOKEN`) снимает и пишет в `public.social_snapshots` (platform,
+  dataset, start_date, end_date, row_count, payload): `facebook/account`, `page_insights_7d`,
+  `page_insights_28d` (дневные ряды `page_impressions`, `page_impressions_unique`,
+  `page_post_engagements`, `page_daily_follows_unique`, `page_daily_unfollows_unique`,
+  `page_video_views`), `posts` (28 дней: лайки, комментарии, репосты, `post_impressions`,
+  `post_impressions_unique`, `post_clicks`); `instagram/account`, `account_insights_7d`,
+  `account_insights_28d` (`reach`, `views`, `accounts_engaged`, `total_interactions`, `likes`,
+  `comments`, `shares`, `saves`, `profile_links_taps` как `total_value`), `media` (посты и Reels за
+  28 дней: `like_count`, `comments_count`, `view_count`; insights `views`, `reach`, `saved`,
+  `shares`, `total_interactions`, для Reels ещё `ig_reels_avg_watch_time`,
+  `ig_reels_video_view_total_time`). Метка `?src=…` из подписи сохраняется (`src`). Недоступная
+  метрика не роняет синхронизацию — попадает в `warnings` ответа (страницы Facebook до 100
+  лайков Page Insights не получают — по документации Meta). Подписчики Instagram / Facebook
+  за день — upsert в `social_stats` (network `instagram` / `facebook`). Сториз не снимаются
+  (живут 24 часа). Названия метрик — по справочникам Meta, прочитанным 2026-09-12 (`impressions`
+  удалён с v22, заменён `views`/`reach`).
+- `supabase/sql/social-snapshots.sql` (таблица, RLS без политик, revoke anon/authenticated),
+  `supabase/sql/cron-meta-sync.sql` (ежедневно `20 14 * * *` UTC — за 40 минут до письма; по
+  понедельникам 7-дневное окно = ровно отчётная неделя Пн–Вс).
+- `daily-stats`: дневное письмо — строки Instagram / Facebook рядом с Telegram (дельта к
+  предыдущему сохранённому дню); недельная секция — блок «Соцсети»: подписчики с дельтой за
+  неделю, итоги Instagram за неделю (охват, просмотры, вовлечённые аккаунты, взаимодействия,
+  переходы по ссылкам профиля), итоги Facebook за неделю, таблица постов и роликов недели
+  (площадка · дата · тип · просмотры · охват · лайки · комментарии · сохранения · репосты ·
+  метка · визитов на сайт по метке · ссылка на пост), итог за 28 дней.
+- `scripts/test-meta-core.mjs` — 15 тестов ядра (окна дат: понедельник → Пн–Вс прошлой недели;
+  наборы метрик по поверхности; разбор `total_value` / рядов / lifetime; метка в подписи; окно по
+  timestamp) — 15/15. TS-синтаксис обеих функций, verify 139, паритет каналов, core 48/48.
+- НЕ проверено: живой вызов Graph API (нет токена; Deno в песочнице нет) — первый запуск
+  покажет `warnings` по метрикам, которые аккаунт не отдаёт.
+
+**Шаги владельца (после мержа):**
+1. developers.facebook.com → My Apps → Create app → тип Business, название любое (например
+   «Licena Analytics»), привязать бизнес-портфолио из Business Suite. Режим Development
+   оставить: для собственных активов ревью не нужно.
+2. Tools → Graph API Explorer: выбрать это приложение → «User or Page: Get User Access Token»
+   → разрешения `pages_show_list`, `pages_read_engagement`, `read_insights`, `instagram_basic`,
+   `instagram_manage_insights` → Generate → в окне Meta выбрать страницу Licena и Instagram.
+3. Tools → Access Token Debugger: вставить токен → Debug → кнопка «Extend Access Token» →
+   скопировать долгоживущий токен пользователя (60 дней).
+4. В Graph API Explorer запрос `GET /me/accounts?fields=name,access_token` с долгоживущим токеном
+   → в ответе у страницы Licena поле `access_token` — это Page-токен без срока действия
+   (пока пользователь не сменит пароль / не отзовёт приложение).
+5. Supabase: `supabase secrets set META_PAGE_TOKEN=<page-token>` (или Edge Functions → Secrets);
+   SQL Editor → `supabase/sql/social-snapshots.sql`; `supabase functions deploy meta-sync`;
+   `supabase functions deploy daily-stats`; SQL Editor → `supabase/sql/cron-meta-sync.sql`
+   с подставленными `<PROJECT_REF>` и `<SERVICE_ROLE_KEY>`.
+6. Проверка: вызвать `meta-sync` (POST, пустое тело, сервисный ключ, как `bing-sync`) — в
+   ответе `ok:true`, `snapshots` (8 строк), `followers`, `warnings`; затем `daily-stats` с телом
+   `{"week":"<понедельник>"}` — в письме блок «Соцсети».
+
+**TikTok** — API отдаёт только данные авторизованного аккаунта через приложение TikTok for
+Developers (Display API: `video.list` с просмотрами, лайками, комментариями, репостами) после
+ревью приложения; до ревью — sandbox, отдаёт ли он реальные данные своего аккаунта — UNKNOWN.
+Решение: пока вручную (лист «Соцсети»); функция `tiktok-sync` — отдельной задачей, если
+владелец заведёт приложение.
+
+Ранее: TODO, не начат.
 
 | Платформа | Что даёт API | Что нужно от владельца | Решение |
 |---|---|---|---|

@@ -523,7 +523,11 @@ PR #190), не в `cabinet-dark.css`.
 клиентские события уже в production; SQL применён и `daily-stats` передеплоен владельцем
 (21:32–21:35 PT 11.09, `weekly:true` от новой версии) — этап 1 DONE. Этап 2 DONE (2026-09-12): `privacy.html` с раскрытием GA4 выложен, `main` @ `55ebec5`;
 настройки GA4 выполнены владельцем (5 custom dimensions, 4 ключевых события через
-Admin API, `purchase` в GA4 не приходит — аналог `checkout_completed`). Далее:
+Admin API, `purchase` в GA4 не приходит — аналог `checkout_completed`). Этап 3 (2026-09-12):
+`meta-sync` + `social_snapshots` + блок «Соцсети» в письме — ветка @ `47f2a2f`, ждёт мержа и
+Page-токена владельца (`META_PAGE_TOKEN`); TikTok — вручную; договорённости: одна таблица
+снимков `social_snapshots` (platform × dataset), подписчики в старой `social_stats`,
+недоступные метрики Meta — warnings, не ошибка. Далее:
 соцсети через API — по решению владельца; Looker Studio.
 
 ## Source References
