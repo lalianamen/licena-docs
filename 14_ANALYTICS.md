@@ -232,7 +232,7 @@ Google как поставщик услуг), §3 (пункт в списке п
 `properties.keyEvents.create`, ресурс `properties/551663895`) плюс стандартное `purchase`,
 которое данных не получает (покупку пишет только `stripe-webhook` в `app_events`).
 
-Дополнение 2026-09-12 (этап 3, ветка @ `47f2a2f`, не в `main`): Edge Function `meta-sync`
+Дополнение 2026-09-12 (этап 3, `main` @ `47f2a2f`; в Supabase не развёрнуто до шагов владельца): Edge Function `meta-sync`
 (Instagram + страница Facebook через Graph API `v25.0`, один долгоживущий Page-токен
 `META_PAGE_TOKEN`) → `public.social_snapshots` (снимки account / page_insights_7d / 28d / posts
 и account / account_insights_7d / 28d / media) и подписчики за день в `social_stats`

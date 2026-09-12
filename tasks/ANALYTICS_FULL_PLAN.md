@@ -160,7 +160,9 @@ cookies `_ga`, `_ga_*`; дата «Last updated» → 12 сентября 2026. 
 Проверка после шага 1: через сутки в Reports → Engagement → Events выбрать
 `roadmap_started` — в карточках параметров появятся `state` и `lang`.
 
-### Этап 3 — соцсети через API платформ — CODE READY_FOR_REVIEW (2026-09-12, ветка @ `47f2a2f`, не в `main`)
+### Этап 3 — соцсети через API платформ — CODE RELEASED (`main` осн. репо @ `47f2a2f`, fast-forward 2026-09-12, команда владельца «заливаем»); ждёт шагов владельца: Meta-приложение и Page-токен, секрет, SQL, деплой `meta-sync` и `daily-stats`, cron
+
+Ранее: CODE READY_FOR_REVIEW (2026-09-12, ветка @ `47f2a2f`).
 
 Ответ владельца 2026-09-11 (скриншоты): Instagram `@licena_us` (8 подписчиков) и страница
 Facebook «Licena» (0 подписчиков) связаны в Meta Business Suite; TikTok `@licena_us` —
