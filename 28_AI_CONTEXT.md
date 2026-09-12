@@ -519,7 +519,9 @@ PR #190), не в `cabinet-dark.css`.
 (`js/stats.js` теперь и на 4 страницах roadmap/application вместо `pageview.js`), Clarity-имена
 не тронуты, `?demo=` не считается, `roadmap_viewed` — раз на загрузку; SQL-файл начинается с
 `drop function` (набор колонок `marketing_weekly_funnel` изменился) — после мержа владелец
-выполняет SQL и деплоит `daily-stats`.
+выполняет SQL и деплоит `daily-stats`. 2026-09-12: выложено, `main` @ `8bd3699` (fast-forward);
+клиентские события уже в production, шаги владельца в Supabase — статус в
+`tasks/ANALYTICS_FULL_PLAN.md`.
 
 ## Source References
 

@@ -4,9 +4,14 @@
 
 ## Status
 
-**Этап 1: CODE READY_FOR_REVIEW — ветка `claude/question-bank-generation-analysis-y47sk7`
-@ `8bd3699`, не в `main`, не задеплоено** (2026-09-11). Мерж — по команде владельца; после мержа
-два шага владельца в Supabase (Runbook ниже).
+**Этап 1: CODE RELEASED — `main` осн. репо @ `8bd3699` (fast-forward, 2026-09-12, команда
+владельца «приступаем»); ждёт шагов владельца в Supabase** (Runbook ниже). GitHub Pages отдаёт
+`stats.js?v=5` + `app-roadmap.js?v=26` на `roadmap.html`; байты `app-roadmap.js`,
+`app-application.js`, `app-course.js` в production совпадают с репозиторием — клиентские
+события roadmap / application / exam уже пишутся в `app_events` и GA4. Серверная часть
+(новые колонки SQL, секции письма) появится после шагов 1–2 Runbook.
+
+Ранее: CODE READY_FOR_REVIEW — ветка @ `8bd3699` (2026-09-11).
 
 Ранее: IN_PROGRESS (2026-09-11, команда владельца «собери это в общий план, и начинай»).
 
