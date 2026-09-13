@@ -273,8 +273,49 @@ Telegram — уже в `social_stats` (подписчики, `daily-stats`).
 **TikTok** — API отдаёт только данные авторизованного аккаунта через приложение TikTok for
 Developers (Display API: `video.list` с просмотрами, лайками, комментариями, репостами) после
 ревью приложения; до ревью — sandbox, отдаёт ли он реальные данные своего аккаунта — UNKNOWN.
-Решение: пока вручную (лист «Соцсети»); функция `tiktok-sync` — отдельной задачей, если
-владелец заведёт приложение.
+
+Продолжение 2026-09-12 PT (владелец решил делать): организация `Licena` в TikTok for
+Developers создана (Org ID `7684776392810185749`, роль Owner), приложение ещё нет. Код готов в
+ветке `claude/question-bank-generation-analysis-y47sk7` @ `50a8b75` (не в `main`):
+- `supabase/functions/tiktok-auth/index.ts` — Login Kit для web: GET без параметров → 302 на
+  `https://www.tiktok.com/v2/auth/authorize/` (scopes `user.info.basic`, `user.info.profile`,
+  `user.info.stats`, `video.list`; `state` = HMAC-SHA256 client secret над timestamp, 15 минут);
+  возврат с `code` → `POST https://open.tiktokapis.com/v2/oauth/token/` → upsert в
+  `public.social_tokens` (`supabase/sql/social-tokens.sql`, service-only) → страница
+  «TikTok connected as @username». Деплой **`--no-verify-jwt`** (редирект браузера без JWT).
+- `supabase/functions/tiktok-sync/index.ts` + `core.ts` — сервисная проверка; обновление
+  access-токена (24 ч) по refresh-токену (365 дней) с сохранением ротации;
+  `GET /v2/user/info/` (подписчики, лайки, число видео) и `POST /v2/video/list/` (до 60 видео, окно
+  28 дней) → `social_snapshots` `tiktok/account` и `tiktok/videos` в форме Instagram-медиа
+  (`timestamp`, `media_product_type` VIDEO, `caption`, `permalink`, `view_count`, `like_count`,
+  `comments_count`, `shares`, `src`); подписчики → `social_stats` network `tiktok`.
+  Cron `supabase/sql/cron-tiktok-sync.sql` (ежедневно 14:25 UTC).
+- `daily-stats`: TikTok в строке подписчиков дневного письма, в подписчиках недели и в таблице
+  постов недели («Видео»); `reporting.social_posts` читает и `videos`.
+- Проверки: TS-синтаксис, `test-tiktok-core` 7/7, `test-meta-core` 16/16, verify 139. Живой
+  вызов TikTok API не проверялся (приложения нет). Названия endpoints, полей и scopes — по
+  документации TikTok for Developers, прочитанной 2026-09-13.
+
+Runbook владельца (TikTok):
+1. Developer Portal → организация Licena → **Create app**: name `Licena Analytics`, category
+   Analytics/Business, description «Reads statistics of our own TikTok account (video views,
+   likes, comments, shares) into our internal weekly report. Single account, no third-party
+   users.», Terms `https://licena.us/terms.html`, Privacy `https://licena.us/privacy.html`,
+   platform Web `https://licena.us`.
+2. Add products **Login Kit** (Redirect URI ровно
+   `https://vewhmndummfhnbxnrqya.supabase.co/functions/v1/tiktok-auth`) и **Display API**
+   (scopes `user.info.basic`, `user.info.profile`, `user.info.stats`, `video.list`).
+3. Sandbox → добавить `@licena_us` как test user (до ревью API работает только для них).
+4. Client key / Client secret → Supabase secrets `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET`.
+5. После мержа: SQL `social-tokens.sql`, затем
+   `supabase functions deploy tiktok-auth --no-verify-jwt`, `supabase functions deploy tiktok-sync`,
+   `supabase functions deploy daily-stats`; SQL `reporting-looker.sql` повторно (представление
+   `social_posts` с `videos`); `cron-tiktok-sync.sql`.
+6. Открыть в браузере `https://vewhmndummfhnbxnrqya.supabase.co/functions/v1/tiktok-auth` →
+   вход TikTok → «TikTok connected as @licena_us».
+7. Вызвать `tiktok-sync` (curl с сервисным ключом) — в ответе `followers`, `videos`, `warnings`.
+8. Submit for review в TikTok (демо-видео входа и использования данных); до одобрения
+   работает sandbox.
 
 Ранее: TODO, не начат.
 
