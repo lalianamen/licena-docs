@@ -288,7 +288,7 @@ Developers (Display API: `video.list` с просмотрами, лайками,
 Механика при реализации: Edge Function `meta-sync` → таблица снимков (как `bing_snapshots`)
 → строки в понедельничном письме; cron.
 
-### Этап 4 — дашборд вместо переноса цифр — CODE READY_FOR_REVIEW (2026-09-13, ветка `claude/question-bank-generation-analysis-y47sk7`, не в `main`)
+### Этап 4 — дашборд вместо переноса цифр — CODE READY_FOR_REVIEW (2026-09-13, ветка `claude/question-bank-generation-analysis-y47sk7` @ `5f869e7`, не в `main`)
 
 **Сделано (Claude):** `supabase/sql/reporting-looker.sql` — схема `reporting` и роль
 `licena_reporter` (login, пароль подставляет владелец, `statement_timeout` 60 s), которая
