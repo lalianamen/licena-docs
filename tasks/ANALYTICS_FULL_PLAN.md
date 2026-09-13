@@ -288,12 +288,59 @@ Developers (Display API: `video.list` с просмотрами, лайками,
 Механика при реализации: Edge Function `meta-sync` → таблица снимков (как `bing_snapshots`)
 → строки в понедельничном письме; cron.
 
-### Этап 4 — дашборд вместо переноса цифр — TODO
+### Этап 4 — дашборд вместо переноса цифр — CODE READY_FOR_REVIEW (2026-09-13, ветка `claude/question-bank-generation-analysis-y47sk7`, не в `main`)
 
-Looker Studio поверх read-only роли Postgres (все агрегаты уже в таблицах `marketing_*`,
-`gsc_snapshots`, `bing_snapshots`, `app_events`, `social_stats`). Нужен аккаунт Google
-владельца и роль с `select` только на эти таблицы (создаётся отдельным SQL, без прав на
-`auth.*`, `profiles`, `user_progress`).
+**Сделано (Claude):** `supabase/sql/reporting-looker.sql` — схема `reporting` и роль
+`licena_reporter` (login, пароль подставляет владелец, `statement_timeout` 60 s), которая
+читает ТОЛЬКО представления этой схемы; в `public` и `auth` прав нет (проверено на локальном
+PostgreSQL: `permission denied`). Ни одно представление не отдаёт user_id, e-mail, device-токен
+или сырой просмотр. Представления:
+
+| Представление | Источник |
+|---|---|
+| `daily_metrics`, `channel_daily`, `page_daily`, `state_snapshots` | таблицы `marketing_*` (без служебных колонок) |
+| `social_followers` | `social_stats` (день · сеть · подписчики) |
+| `events_daily` | `app_events` — день (PT) · имя события · событий · людей |
+| `weeks` | последние 26 полных PT-недель (Пн) |
+| `weekly_funnel`, `weekly_roadmaps`, `weekly_sources` | три недельные функции через `lateral` по `weeks`; `weekly_sources` отдаёт kind · метка `?src=` · referrer · центы |
+| `bing_daily` | новейший снимок `rank_traffic` |
+| `gsc_daily`, `gsc_queries` | новейшие снимки `date` и `query,page` в `gsc_snapshots`; колонки jsonb/timestamp находятся по типу (таблица создана вне репо), при их отсутствии представления пропускаются с notice |
+| `social_posts` | новейшие `media` / `posts` из `social_snapshots`: площадка · дата · тип · метка · текст · ссылка · просмотры · охват · лайки · комментарии · сохранения · репосты |
+| `instagram_windows` | итоги аккаунта Instagram за 7 и 28 дней по датам окна |
+
+Прогон на локальном PostgreSQL 16 с макетом всех таблиц и функций: 12 представлений
+читаются ролью (`gsc_*` созданы динамически), выборки совпали с ожидаемыми (атрибуция покупки к
+метке `ig-…`, Reel с меткой из подписи, GSC/Bing по дням), сырые `public.page_views`,
+`public.marketing_daily_metrics`, `auth.users` — `permission denied`. На живой базе не
+выполнялось.
+
+**Шаги владельца:**
+1. SQL Editor: в `supabase/sql/reporting-looker.sql` заменить `<REPORTER_PASSWORD>` на длинный
+   случайный пароль → Run. Заполненный файл не сохранять. Повторный запуск безопасен.
+2. Supabase → Connect → вкладка «Session pooler»: скопировать host вида
+   `aws-0-<region>.pooler.supabase.com` (регион — UNKNOWN, виден там).
+3. lookerstudio.google.com → Create → Data source → **PostgreSQL** → host из п. 2, port `5432`,
+   database `postgres`, username `licena_reporter.vewhmndummfhnbxnrqya`, пароль из п. 1,
+   «Enable SSL» → Authenticate → выбрать представление (или Custom query) → Connect.
+   Одному источнику соответствует одно представление; основные: `weekly_funnel`,
+   `daily_metrics`, `channel_daily`, `events_daily`, `social_posts`, `gsc_daily`, `bing_daily`.
+4. Страницы отчёта (предложение; строится в интерфейсе Looker Studio владельцем или Claude при
+   доступе): «Обзор» (KPI за 7 дней из `daily_metrics`, ряд просмотров/устройств/регистраций),
+   «Воронка по неделям» (`weekly_funnel` таблицей, конверсии как вычисляемые поля),
+   «Источники» (`channel_daily`, `weekly_sources` по меткам), «Продукт» (`events_daily`,
+   `weekly_roadmaps`), «SEO» (`gsc_daily`, `gsc_queries`, `bing_daily`), «Соцсети»
+   (`social_followers`, `social_posts`, `instagram_windows`), «Деньги» (`state_snapshots`).
+
+Ранее: TODO.
+
+### Дополнительно (2026-09-13, та же ветка): `daily-stats` только для сервисной роли
+
+`daily-stats` принимала любой валидный JWT, включая публичный ключ, и каждый вызов отправлял
+письмо (владелец дважды получал лишние письма из тестовой панели). Добавлена та же проверка,
+что в `bing-sync` / `meta-sync`: сервисный ключ (legacy или `sb_secret_…` через admin-пробу),
+иначе 403. Cron `daily-stats` уже шлёт сервисный ключ — не затронут. После мержа — деплой
+`daily-stats`; тестовая панель Supabase перестанет срабатывать, проверка — curl с сервисным
+ключом.
 
 ## Что остаётся вручную при любом этапе
 
