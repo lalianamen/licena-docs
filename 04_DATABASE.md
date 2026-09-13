@@ -1,6 +1,6 @@
 # 04 — База данных (Supabase Postgres)
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-28 (точечная: License Roadmap) · 2026-08-29 (точечная: Application Assistant + Adaptive Intake v2) · 2026-08-30 (точечная: marketing daily aggregates)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-28 (точечная: License Roadmap) · 2026-08-29 (точечная: Application Assistant + Adaptive Intake v2) · 2026-08-30 (точечная: marketing daily aggregates) · 2026-09-13 (точечная: создание `profiles`, триггер и бэкфилл в ветке)
 
 Дополнение 2026-08-28 (`0d7fcfb` осн. репо, `supabase/sql/license-roadmaps.sql`):
 новые таблицы фичи License Roadmap (Phase 1) — SQL идемпотентен, применяется
@@ -112,7 +112,14 @@ Supabase SQL Editor; фактическое текущее состояние ж
 ## Таблицы
 
 ### `public.profiles` (`docs/schema.sql`)
-Расширение `auth.users`; создаётся при регистрации.
+Расширение `auth.users`. **Создание строки (сверка 2026-09-13):** до ветки `b5c7605`
+единственным писателем был кабинет при первом входе (`js/app-cabinet.js`), и его условие
+«создать, если строки нет» никогда не выполнялось (`.single()` отвечает на отсутствующую
+строку ошибкой PGRST116) — аккаунты, зарегистрированные с `e8211d3` (2026-08-13), профиля не
+получали. В ветке: `.maybeSingle()` в кабинете + `supabase/sql/profiles-trigger-backfill.sql`
+(триггер `on_auth_user_created` на `auth.users` → `handle_new_user()`: профиль из
+`raw_user_meta_data.name/lang` + курсы `epa-608`/`contractor-business`; бэкфилл существующих
+аккаунтов). Применение в живой БД — UNKNOWN (см. `tasks/DATA_QUALITY_FIXES.md`).
 
 | Колонка | Тип | Примечание |
 |---|---|---|

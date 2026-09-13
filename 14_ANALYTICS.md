@@ -1,6 +1,6 @@
 # 14 — Аналитика и сбор событий
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи») · 2026-08-26 (точечная: GA4) · 2026-08-30 (точечная: маркетинговые агрегаты) · 2026-09-11 (точечная: воронка трекера; план полной аналитики, этап 1 в ветке)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи») · 2026-08-26 (точечная: GA4) · 2026-08-30 (точечная: маркетинговые агрегаты) · 2026-09-11 (точечная: воронка трекера; план полной аналитики, этап 1 в ветке) · 2026-09-13 (точечная: таксономия каналов по коду, first-touch, воронка: `email_confirmed`, связка устройство → пользователь, `livemode`; см. `tasks/DATA_QUALITY_FIXES.md`)
 
 Дополнение 2026-08-12 (`72fc7a5` осн. репо): подключён Microsoft Clarity
 (проект «LICENA», Project ID `y1ic13wlta`, аккаунт владельца) — тепловые
@@ -74,16 +74,31 @@ API нет — только дашборд/service role (`supabase/sql/page-view
 ## Кампании и каналы
 
 Источник визита размечается меткой `?src=` в ссылках (выживает в in-app
-браузерах Instagram/TikTok/Telegram, которые срезают referrer) с fallback на
-хост реферера. Классификатор в `daily-stats`
-(`supabase/functions/daily-stats/index.ts:31–53`):
+браузерах Instagram/TikTok/Telegram, которые срезают referrer; `utm_source`
+принимается как синоним на клиенте) с fallback на хост реферера.
+Классификатор существует в двух побайтно одинаковых копиях
+(`supabase/functions/daily-stats/index.ts:49–78` и
+`supabase/functions/marketing-aggregates/core.ts:72–101`; паритет проверяет
+`scripts/check-channel-parity.js`; сверка 2026-09-13 по `main` @ `6320fe2`):
 
 - метки: `fb|facebook→facebook`, `ig|insta|instagram→instagram`,
-  `tg|telegram→telegram`, `tt|tiktok→tiktok`, `flyer|qr→flyer`,
-  неизвестная → `other`;
-- referrer-регэкспы: facebook/fb.com/fb.me, instagram, t.me|telegram,
-  tiktok; прочее (включая Google) → `other`; `direct` — без реферера;
-  `null` — внутренняя навигация (не источник).
+  `tg|telegram→telegram`, `tt|tiktok→tiktok`, `yt|youtube→youtube`,
+  `flyer|qr→flyer`; метка вида `<канал>-<дата>-<тема>` — по префиксу до
+  первого дефиса; неизвестная → `other`;
+- referrer-регэкспы: facebook/fb.com/fb.me, instagram, t.me|telegram, tiktok,
+  youtube|youtu.be, chatgpt|openai|perplexity|claude.ai|gemini|copilot → `ai`,
+  `mail.|docs.|drive.` → `other`, google|bing|duckduckgo|yandex|yahoo|ya.ru →
+  `search`; прочее → `other`; `direct` — без реферера; `null` — внутренняя
+  навигация (не источник).
+- Канал `youtube` и единый формат UTM-ссылок (`docs/marketing/utm-links.md`)
+  добавлены `0a4ccc1` (2026-09-13); перед деплоем `marketing-aggregates`
+  нужен `supabase/sql/marketing-channels-youtube.sql` (CHECK-ограничение).
+- First-touch (ветка `b5c7605`, 2026-09-13): `js/stats.js` и `js/pageview.js`
+  сохраняют первый источник устройства в `localStorage` `lp:first`
+  (`{src, ref, at}`); он уходит как `meta.src`/`meta.ref` в каждое событие
+  `app_events` (`lpTrack`, practice-страницы) и как `src`/`ref` в метаданные
+  регистрации (`auth.users.raw_user_meta_data`); `marketing_weekly_sources`
+  берёт их, когда у аккаунта/покупки нет просмотра страницы.
 
 ## Ежедневный отчёт (`daily-stats`, 265 строк, прочитан полностью)
 
