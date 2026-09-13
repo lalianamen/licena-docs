@@ -275,8 +275,12 @@ Developers (Display API: `video.list` с просмотрами, лайками,
 ревью приложения; до ревью — sandbox, отдаёт ли он реальные данные своего аккаунта — UNKNOWN.
 
 Продолжение 2026-09-12 PT (владелец решил делать): организация `Licena` в TikTok for
-Developers создана (Org ID `7684776392810185749`, роль Owner), приложение ещё нет. Код готов в
-ветке `claude/question-bank-generation-analysis-y47sk7` @ `50a8b75` (не в `main`):
+Developers создана (Org ID `7684776392810185749`, роль Owner); приложение `Licena Analytics`
+(app id `7684714027344054292`, Draft, категория Business, платформа Web) создано 2026-09-12
+20:58 PT; подтверждение домена — URL prefix `https://licena.us/` файлом подписи
+`tiktokNySxLnVnJgDDVTUSdK6nVw50zwRwm63p.txt` в корне сайта (`main` осн. репо @ `fbe2452`,
+команда владельца «да заливай»; GitHub Pages отдаёт файл, проверено curl). Код готов и в
+`main` @ `fbe2452` (в Supabase не развёрнут):
 - `supabase/functions/tiktok-auth/index.ts` — Login Kit для web: GET без параметров → 302 на
   `https://www.tiktok.com/v2/auth/authorize/` (scopes `user.info.basic`, `user.info.profile`,
   `user.info.stats`, `video.list`; `state` = HMAC-SHA256 client secret над timestamp, 15 минут);
