@@ -382,6 +382,13 @@ PostgreSQL: `permission denied`). Ни одно представление не 
 **Шаги владельца:**
 1. SQL Editor: в `supabase/sql/reporting-looker.sql` заменить `<REPORTER_PASSWORD>` на длинный
    случайный пароль → Run. Заполненный файл не сохранять. Повторный запуск безопасен.
+   **Инцидент 2026-09-13:** заполненный файл был закоммичен в `main` (`f07f620` «Update
+   reporting-looker.sql», 2026-09-12) и отдавался GitHub Pages по
+   `https://licena.us/supabase/sql/reporting-looker.sql`. Обнаружено 2026-09-13 при проверке
+   `main` перед деплоем TikTok; владелец заменил значение (`480c527`), плейсхолдер возвращён
+   (`66b9027`, `main` @ `6320fe2`). Репозиторий приватный (GitHub анонимно отдаёт 404), утечка —
+   только через Pages. Ротация пароля владельцем: см. `26_CHANGELOG.md`. Любой `supabase/sql/*`
+   в `main` публичен — в файлы вписывать только плейсхолдеры.
 2. Supabase → Connect → вкладка «Session pooler»: скопировать host вида
    `aws-0-<region>.pooler.supabase.com` (регион — UNKNOWN, виден там).
 3. lookerstudio.google.com → Create → Data source → **PostgreSQL** → host из п. 2, port `5432`,
