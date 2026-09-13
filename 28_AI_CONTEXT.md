@@ -530,7 +530,8 @@ Admin API, `purchase` в GA4 не приходит — аналог `checkout_co
 правка `1c2a038` (Meta отключила метрики показов 2026-06-15) в `main` и передеплоена, второй
 запуск 07:18 UTC чистый — этап 3 DONE; этап 4 (2026-09-13, ветка): `reporting-looker.sql`
 (схема `reporting`, роль `licena_reporter`, представления без id) + `daily-stats` только для
-сервисной роли — ждёт мержа, SQL с паролем и подключения Looker Studio владельцем; TikTok — вручную; договорённости: одна таблица
+сервисной роли — в `main` @ `5f869e7`, ждёт деплоя `daily-stats`, SQL с паролем и подключения
+Looker Studio владельцем; TikTok — вручную; договорённости: одна таблица
 снимков `social_snapshots` (platform × dataset), подписчики в старой `social_stats`,
 недоступные метрики Meta — warnings, не ошибка. Далее:
 соцсети через API — по решению владельца; Looker Studio.
