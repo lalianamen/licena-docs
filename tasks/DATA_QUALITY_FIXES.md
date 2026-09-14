@@ -22,6 +22,23 @@
 Владелец начал runbook: `marketing-weekly-funnel.sql` выполнялся (ошибка 2BP01 → исправлено),
 `diagnose-marketing.sql` выполнен; остальные шаги — UNKNOWN.
 
+Дополнение 2 (2026-09-14, `main` @ `81ec4e2`, команда «заливаем»). **Причина остановки сводки
+(п. 2) найдена:** ручной вызов `marketing-aggregates` с `{"days": 40}` ответил
+`{"code":"WORKER_RESOURCE_LIMIT","message":"Function failed due to not having enough compute
+resources"}`. В `core.ts` функция `aggregateDay` вызывала `ptDay` (Intl-форматирование, ~80 мкс
+за вызов, замер 2026-09-14) для каждой строки `page_views` на каждый целевой день; с ростом
+трафика дневной запуск (3 дня × окно 31 день) перестал укладываться в лимит процессора Edge
+Function — это и остановило запись `marketing_daily_metrics` с 2026-09-10 (точная дата первого
+отказа по `cron.job_run_details` не подтверждена — UNKNOWN). Исправлено: дата и канал считаются
+один раз на строку (кэш тихоокеанской даты по UTC-часу, `ptDayOfMs`), тело `{"end":
+"YYYY-MM-DD"}` для пересчёта кусками (`targetDaysEnding`); то же в `daily-stats` (`dayOf`).
+Замер: 40 дней × 100 000 строк — 1,4 с вместо ~150 с. Тесты `test-marketing-core`: +4
+(равенство кэша и Intl на 3138 моментах включая переходы DST, срезы, идемпотентность).
+Также `tiktok-auth` без импорта из `../tiktok-sync/core.ts` (`cd585fb`) — деплой из Dashboard;
+владелец задеплоил 7 функций через Dashboard (CLI на его машине нет). Шаги владельца:
+передеплой `marketing-aggregates` (`core.ts` + `index.ts`) и `daily-stats`, пересчёт
+`{"days": 40}` или кусками по 10 с `end`.
+
 Ранее: CODE READY_FOR_OWNER_STEPS — ветка @ `b5c7605` (от `main` @ `6320fe2`).
 
 Запрос владельца (2026-09-13): список из 10 пунктов «что нужно изменить в Licena, по

@@ -621,4 +621,8 @@ TikTok (2026-09-13): владелец завёл организацию в TikTo
   `app.html`/`course.html` без сессии ставят `next` сами.
 - **Отчёты**: `reporting.freshness` — где данные кончаются; `reporting.subscriptions` —
   paid/trial/free/granted; в письме — «Сформировано … UTC» и даты снимков.
+- **Edge Functions и Intl:** `toLocaleDateString(…, {timeZone})` стоит ~80 мкс; в циклах по
+  строкам `page_views` это исчерпывает лимит процессора функции (так остановились агрегаты
+  2026-09-10). Правило: дату строки считать один раз, через кэш по UTC-часу (`ptDayOfMs` в
+  `marketing-aggregates/core.ts`, `dayOf` в `daily-stats`).
 - Карточка с проверкой 10 пунктов владельца и runbook: `tasks/DATA_QUALITY_FIXES.md`.
