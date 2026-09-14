@@ -306,8 +306,9 @@ Developers создана (Org ID `7684776392810185749`, роль Owner); при
   текст — косметика). Первый `tiktok-sync`: `ok:true`, `username licena_us`, `followers 2`,
   `likes 28`, `video_count 23`, окно 2026-08-17…2026-09-13, `videos 20`, `in_window 11`,
   `warnings []`, access-токен до 2026-09-15, refresh до 2027-09-14. Замечание: `videos 20` при
-  `video_count 23` — пагинация дальше первой страницы не сработала или API отдал `has_more=false`;
-  причина UNKNOWN.
+  `video_count 23` — по замыслу: цикл `video/list` (страницы по 20, до 3) останавливается, когда
+  самое старое видео страницы старше начала 28-дневного окна (`tiktok-sync/index.ts:103-111`);
+  в окно попало 11 роликов, остальные 3 старше и не запрашивались.
 - Проверки до запуска: TS-синтаксис, `test-tiktok-core` 7/7, `test-meta-core` 16/16, verify 139. Названия endpoints, полей и scopes — по
   документации TikTok for Developers, прочитанной 2026-09-13.
 
