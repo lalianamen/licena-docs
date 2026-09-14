@@ -10,6 +10,18 @@
 (`app.js?v=29`, `app-cabinet.js?v=73`, `stats.js?v=6`, …). Серверные шаги 2–10 Runbook
 (SQL, деплой функций, настройки) на момент записи не выполнены — UNKNOWN.
 
+Дополнение 2026-09-14 (`main` @ `48b151d`, команда «заливаем»): (1) `marketing-weekly-funnel.sql` —
+`drop function … cascade` (владелец получил 2BP01: представления `reporting.weekly_*` зависят от
+функций; после файла нужен повторный `reporting-looker.sql`, порядок runbook это делает);
+(2) классификатор каналов (обе копии): метки с `chatgpt|openai|perplexity|claude|gemini|copilot`
+→ `ai`, внутренние CTA-метки сайта (`<course>smp` с practice-страниц, `roadmap`) не источник —
+классифицирует referrer. Основание: запрос 5 `diagnose-marketing.sql` в живой БД (скриншот
+владельца, 30 дней): `chatgptcom` 193 просмотра (ChatGPT добавляет `utm_source=chatgpt.com`),
+далее `c46smp` 22, `epasmp` 13, `c27smp` 12, `nfasmp` 10, `lawsmp` 10 … `fb` 4, `ig` 2.
+Запросы 1–3 (cron.job, job_run_details, свежесть агрегатов) — ждут скриншотов владельца.
+Владелец начал runbook: `marketing-weekly-funnel.sql` выполнялся (ошибка 2BP01 → исправлено),
+`diagnose-marketing.sql` выполнен; остальные шаги — UNKNOWN.
+
 Ранее: CODE READY_FOR_OWNER_STEPS — ветка @ `b5c7605` (от `main` @ `6320fe2`).
 
 Запрос владельца (2026-09-13): список из 10 пунктов «что нужно изменить в Licena, по

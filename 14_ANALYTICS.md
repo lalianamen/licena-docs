@@ -93,6 +93,10 @@ API нет — только дашборд/service role (`supabase/sql/page-view
 - Канал `youtube` и единый формат UTM-ссылок (`docs/marketing/utm-links.md`)
   добавлены `0a4ccc1` (2026-09-13); перед деплоем `marketing-aggregates`
   нужен `supabase/sql/marketing-channels-youtube.sql` (CHECK-ограничение).
+- 2026-09-14 (`48b151d`): метки `chatgpt|openai|perplexity|claude|gemini|copilot`
+  (ChatGPT добавляет `utm_source=chatgpt.com` → метка `chatgptcom`, 193 просмотра
+  за 30 дней по живой БД) → `ai`; внутренние CTA-метки сайта (`<course>smp`,
+  `roadmap`) не источник — классифицирует referrer.
 - First-touch (ветка `b5c7605`, 2026-09-13): `js/stats.js` и `js/pageview.js`
   сохраняют первый источник устройства в `localStorage` `lp:first`
   (`{src, ref, at}`); он уходит как `meta.src`/`meta.ref` в каждое событие
