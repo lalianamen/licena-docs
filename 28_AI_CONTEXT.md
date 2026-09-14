@@ -622,7 +622,7 @@ TikTok (2026-09-13): владелец завёл организацию в TikTo
 - **Отчёты**: `reporting.freshness` — где данные кончаются; `reporting.subscriptions` —
   paid/trial/free/granted; в письме — «Сформировано … UTC» и даты снимков.
 - **Edge Functions и Intl:** `toLocaleDateString(…, {timeZone})` стоит ~80 мкс; в циклах по
-  строкам `page_views` это исчерпывает лимит процессора функции (так остановились агрегаты
-  2026-09-10). Правило: дату строки считать один раз, через кэш по UTC-часу (`ptDayOfMs` в
+  строкам `page_views` это исчерпывает лимит процессора функции (так упал 40-дневный пересчёт
+  2026-09-14; причина остановки ежедневной задачи с 2026-09-10 — UNKNOWN). Правило: дату строки считать один раз, через кэш по UTC-часу (`ptDayOfMs` в
   `marketing-aggregates/core.ts`, `dayOf` в `daily-stats`).
 - Карточка с проверкой 10 пунктов владельца и runbook: `tasks/DATA_QUALITY_FIXES.md`.
