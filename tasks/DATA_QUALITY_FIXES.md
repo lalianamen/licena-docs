@@ -48,6 +48,14 @@ Function — это и остановило запись `marketing_daily_metric
 она остаётся UNKNOWN до вывода запросов 1–2 `diagnose-marketing.sql` (`cron.job`,
 `cron.job_run_details`) и проверки свежести после ближайшего запуска cron 15:30 UTC.
 
+Дополнение 4 (2026-09-14): `gsc-sync` вручную — `ok:true`, окно 2026-08-14…2026-09-10, 5 снимков,
+387 строк (п. 4 закрыт по данным; расписание — `cron-gsc-sync.sql`, применение UNKNOWN).
+TikTok: `tiktok-auth` → «connected as @licena_us», `tiktok-sync` → `ok:true`, followers 2,
+likes 28, video_count 23, videos 20, in_window 11, warnings [] (см. `tasks/ANALYTICS_FULL_PLAN.md`).
+Остаются шаги владельца: запросы 1–2 `diagnose-marketing.sql` (cron), проверка свежести после
+cron 15:30 UTC 2026-09-14, Redirect URLs, пароль Looker, режим Stripe-вебхука, `tester-account.sql`
+шаг 2, UTM в био.
+
 Ранее: CODE READY_FOR_OWNER_STEPS — ветка @ `b5c7605` (от `main` @ `6320fe2`).
 
 Запрос владельца (2026-09-13): список из 10 пунктов «что нужно изменить в Licena, по

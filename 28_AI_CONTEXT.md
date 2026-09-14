@@ -625,4 +625,8 @@ TikTok (2026-09-13): владелец завёл организацию в TikTo
   строкам `page_views` это исчерпывает лимит процессора функции (так упал 40-дневный пересчёт
   2026-09-14; причина остановки ежедневной задачи с 2026-09-10 — UNKNOWN). Правило: дату строки считать один раз, через кэш по UTC-часу (`ptDayOfMs` в
   `marketing-aggregates/core.ts`, `dayOf` в `daily-stats`).
+- **TikTok подключён (2026-09-14):** `social_tokens` platform `tiktok`, `tiktok-sync` пишет
+  `social_snapshots` `tiktok/account` + `tiktok/videos` и `social_stats` `tiktok`; первый запуск —
+  2 подписчика, 23 видео. Приложение в Sandbox; Production-ревью TikTok не подавалось.
+- **GSC снова свежий** (`gsc-sync` вручную 2026-09-14, окно до 2026-09-10); cron `40 14 * * *`.
 - Карточка с проверкой 10 пунктов владельца и runbook: `tasks/DATA_QUALITY_FIXES.md`.

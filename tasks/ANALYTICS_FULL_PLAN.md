@@ -296,8 +296,19 @@ Developers создана (Org ID `7684776392810185749`, роль Owner); при
   Cron `supabase/sql/cron-tiktok-sync.sql` (ежедневно 14:25 UTC).
 - `daily-stats`: TikTok в строке подписчиков дневного письма, в подписчиках недели и в таблице
   постов недели («Видео»); `reporting.social_posts` читает и `videos`.
-- Проверки: TS-синтаксис, `test-tiktok-core` 7/7, `test-meta-core` 16/16, verify 139. Живой
-  вызов TikTok API не проверялся (приложения нет). Названия endpoints, полей и scopes — по
+- **DONE 2026-09-14 (живой запуск подтверждён):** владелец настроил Sandbox приложения
+  «Licena Analytics» (scopes `user.info.basic/profile/stats`, `video.list`, target user
+  `licena_us`, Login Kit redirect без слэша), внёс `TIKTOK_CLIENT_KEY`/`TIKTOK_CLIENT_SECRET`,
+  задеплоил `tiktok-auth` (один файл, `cd585fb`; JWT verification выключена) и `tiktok-sync`
+  через Dashboard, выполнил `social-tokens.sql` и `cron-tiktok-sync.sql` (UNKNOWN — не
+  подтверждено скриншотом). `tiktok-auth` в браузере → «TikTok connected as @licena_us», scopes
+  `video.list,user.info.basic,user.info.profile,user.info.stats` (страница отрисовалась как
+  текст — косметика). Первый `tiktok-sync`: `ok:true`, `username licena_us`, `followers 2`,
+  `likes 28`, `video_count 23`, окно 2026-08-17…2026-09-13, `videos 20`, `in_window 11`,
+  `warnings []`, access-токен до 2026-09-15, refresh до 2027-09-14. Замечание: `videos 20` при
+  `video_count 23` — пагинация дальше первой страницы не сработала или API отдал `has_more=false`;
+  причина UNKNOWN.
+- Проверки до запуска: TS-синтаксис, `test-tiktok-core` 7/7, `test-meta-core` 16/16, verify 139. Названия endpoints, полей и scopes — по
   документации TikTok for Developers, прочитанной 2026-09-13.
 
 Runbook владельца (TikTok):
