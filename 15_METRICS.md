@@ -1,6 +1,6 @@
 # 15 — Метрики: только реальные числа
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-25 (точечная: аддендум NV-банков ниже) · 2026-08-30 (точечная: аддендум маркетинговых агрегатов ниже) · 2026-09-03 (точечная: аддендумы nv-b2/nv-c2 и nv-c21 ниже)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-25 (точечная: аддендум NV-банков ниже) · 2026-08-30 (точечная: аддендум маркетинговых агрегатов ниже) · 2026-09-03 (точечная: аддендумы nv-b2/nv-c2 и nv-c21 ниже) · 2026-09-16 (точечная: аддендумы ориентиров CSLB и GSC ниже)
 Правило документа: каждое число либо ИЗМЕРЕНО в этой сверке по файлам
 репозитория (помечено «репо»), либо взято из единственного внешнего
 измеренного источника проекта — экспорта Google Search Console,
@@ -289,3 +289,35 @@ Verified — строки проверены чтением названных �
 - Собственные данные LICENA (см. аддендум 2026-09-13 выше): все 6 оплат — Калифорния; AZ и NV —
   0 оплат при 4 + 5 платных банках; practice-страницы за 30 дней: `nicet-fire-alarm` 34,
   `b-general-building` 30, `az-sre` 23, `c-33` 22.
+
+## Аддендум 2026-09-16 — GSC: топ-40 запросов по показам (снимок `query,page`, окно 2026-08-14…2026-09-10)
+
+Источник: SQL-запрос владельца к `public.gsc_snapshots` (последний снимок с
+`payload->'dimensions' = ["query","page"]`, скриншот 2026-09-15). Числа — показы
+(impressions) / клики за 28 дней; кластеры и суммы вычислены из 40 строк результата.
+
+- **NICET / fire alarm** — ≈183 показа (`nicet certified fire alarm design` 88,
+  `nicet fire protection engineering` 62, `nicet certified` 6, `nicet` 5, `nicet certification` 5,
+  `fire alarm technician certification` 4, `fire alarm certification` 3, `fire alarm system
+  certification` 3, `nicet exam` 2, `nicet verification` 2, `nicet level i` 2, `how to get nicet
+  level 1` 1), 0 кликов.
+- **HVAC / C-20** — ≈77 показов (`how to get heating and air conditioning license` 42,
+  `hvac license california` 7, `c20 contractor` 6, `c20 license` 4, ещё 9 вариантов по 1–3),
+  0 кликов.
+- **C-33 painting** — 22 показа (`c33 license` 10, `c-33 license` 7, `california painting
+  contractor license test` 3, `c33 practice test free` 2), 0 кликов.
+- **Arizona** — 14 показов (`arizona business management exam` 6, четыре запроса о reciprocity
+  CA↔AZ по 2), 0 кликов.
+- **Бренд** — `licena` 19 показов, 2 клика. Прочее: `license b california` 3,
+  `how to get a c-8 classification` 2, `landscape licence california` 1,
+  `how many tries do you get` 1 показ / 1 клик.
+- **Всего кликов в топ-40 — 3** (2 брендовых + 1). Показы есть только у тем, для которых на сайте
+  уже есть страницы (`practice/nicet-fire-alarm`, `practice/c-20-hvac`, `practice/c-33-painting`,
+  `roadmap-az.html`, `guides/arizona-contractor-license`). Запросов про A General Engineering и
+  C-15 Flooring в топ-40 нет — страниц по этим классификациям на сайте нет, поэтому Google их
+  не показывает; спрос по ним из GSC оценить нельзя (UNKNOWN).
+
+### Verification Status (аддендум 2026-09-16, GSC)
+
+**Partially Verified** — строки взяты дословно со скриншота результата SQL; суммы по кластерам
+вычислены; позиции (position) в запрос не входили — UNKNOWN.
