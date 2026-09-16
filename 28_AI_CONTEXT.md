@@ -219,9 +219,10 @@ nv-c2, COURSE_REF, bank-updates — NV станет 6/6, лимит) → CSV.
 `claude/question-bank-generation-analysis-y47sk7` (`bb4d74c`): карточка в `cslb-general`,
 путь `a` в LICENSE_PATHS, COURSE_REF, ШЕСТЬ платных списков включены (26 курсов;
 отличие от прецедента nv-b/nv-b2), bank-updates CA 6/6, без EXAM_FORMATS (13E-A не
-публикует число вопросов и время) — ЖДЁТ мержа владельцем («заливаем»). CSV: 1,500 строк
-(файл банка A) и 39,500 строк / 26 банков (полный), gitignored — ждут импорта в Supabase
-`bank_questions`. По ориентирам `15_METRICS.md` из первой десятки CSLB без банка остаётся
+публикует число вопросов и время) — ВЛИТО в `main` 2026-09-16 по команде владельца
+(fast-forward до `9275489`, задеплоено через Pages). CSV банка A (1,500 строк) импортирован
+владельцем в Supabase `bank_questions` 2026-09-16; полный CSV 39,500 строк / 26 банков
+сгенерирован (gitignored). По ориентирам `15_METRICS.md` из первой десятки CSLB без банка остаётся
 C-15 Flooring.
 
 Дополнение 2026-09-11: плеер курса — «Retake wrong only» (issue
