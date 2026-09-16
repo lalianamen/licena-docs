@@ -1,6 +1,6 @@
 # TASK — Качество данных: профили, сводка, платежи, источники, воронка, вход (список из 10 пунктов)
 
-Последняя сверка: 2026-09-14
+Последняя сверка: 2026-09-16
 
 ## Status
 
@@ -55,6 +55,19 @@ likes 28, video_count 23, videos 20, in_window 11, warnings [] (см. `tasks/ANA
 Остаются шаги владельца: запросы 1–2 `diagnose-marketing.sql` (cron), проверка свежести после
 cron 15:30 UTC 2026-09-14, Redirect URLs, пароль Looker, режим Stripe-вебхука, `tester-account.sql`
 шаг 2, UTM в био.
+
+Дополнение 5 (2026-09-16, скриншот владельца 2026-09-15 18:12 PT): `select max(day), max(computed_at)
+from marketing_daily_metrics` → `newest_day 2026-09-14`, `last_write 2026-09-15 15:30:01 UTC` —
+cron `marketing-aggregates` (`30 15 * * *`) снова пишет сам, без ручных вызовов. `cron.job`
+(скриншот 2026-09-13): 12 задач, все `active`; `cron.job_run_details`: `marketing-aggregates`
+2026-09-13 15:30 `succeeded`, `daily-stats` 15:00 `succeeded`, `meta-sync` 14:20 `succeeded`,
+`notify-engine` ежечасно — т.е. cron вызывал функцию и до починки, ошибку возвращала функция
+(ответ HTTP в `job_run_details` не хранится; логи Invocations не запрошены). **П. 2 закрыт по
+результату**; причина отказов 2026-09-10…13 по логам не подтверждена — UNKNOWN (гипотеза: лимит
+процессора, устранённый в `81ec4e2`). В `cron.job` есть четыре задачи вне репозитория:
+`bing-sync-daily` (`20 8 * * *`), `clarity-sync-daily` (`10 8`), `ga4-sync-daily` (`25 8`),
+`gsc-sync-daily` (`15 8`) — происхождение и целевые URL UNKNOWN (функций `clarity-sync` и
+`ga4-sync` в репозитории нет); решение о снятии — после запроса по URL/ключу.
 
 Ранее: CODE READY_FOR_OWNER_STEPS — ветка @ `b5c7605` (от `main` @ `6320fe2`).
 
