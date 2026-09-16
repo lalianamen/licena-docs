@@ -69,6 +69,15 @@ cron `marketing-aggregates` (`30 15 * * *`) снова пишет сам, без
 `gsc-sync-daily` (`15 8`) — происхождение и целевые URL UNKNOWN (функций `clarity-sync` и
 `ga4-sync` в репозитории нет); решение о снятии — после запроса по URL/ключу.
 
+Дополнение 6 (2026-09-16, скриншоты владельца 2026-09-15): у задач `gsc-sync` и `tiktok-sync` в URL
+оставался `<PROJECT_REF>` (файлы cron выполнены без замены) — исправлено `cron.alter_job` с
+`replace(command, '<PROJECT_REF>', 'vewhmndummfhnbxnrqya')`, проверка `still_broken = false`.
+Функции `clarity-sync` и `ga4-sync` в Supabase существуют (созданы ~2026-08-25, вне репозитория;
+см. `06_FUNCTIONS.md`), их cron-задачи «succeeded» ежедневно; `gsc-sync-daily` и `bing-sync-daily`
+— дубли задач репозитория. Рекомендация владельцу: снять `gsc-sync-daily` и `bing-sync-daily`;
+`clarity-sync-daily`/`ga4-sync-daily` оставить до проверки свежести `clarity_snapshots` /
+`ga4_snapshots`.
+
 Ранее: CODE READY_FOR_OWNER_STEPS — ветка @ `b5c7605` (от `main` @ `6320fe2`).
 
 Запрос владельца (2026-09-13): список из 10 пунктов «что нужно изменить в Licena, по

@@ -1,6 +1,6 @@
 # 06 — Supabase Edge Functions
 
-Последняя сверка: 2026-08-05 · 2026-08-30 (точечная: marketing-aggregates)
+Последняя сверка: 2026-08-05 · 2026-08-30 (точечная: marketing-aggregates) · 2026-09-16 (точечная: функции и cron вне репозитория по скриншотам владельца)
 Источник: `lalianamen/llicena@main`, каталог `supabase/functions/` — 8 функций
 (Deno). Все файлы прочитаны полностью в этой сверке. Контракты «вход/выход»
 кратко продублированы в `05_API.md`; здесь — устройство каждой функции.
@@ -244,6 +244,26 @@
   (query+page 77, query+country 87, query+device 79, page+device 53,
   date 28), без пагинации и усечения; фактические колонки:
   property → `site_url`, остальные — одноимённые.
+
+## Функции в живом Supabase, которых нет в репозитории (сверка 2026-09-16)
+
+Скриншот владельца «Edge Functions» (19 функций, 2026-09-15): помимо 16 каталогов
+`supabase/functions/` в `main` (включая `bing-sync`, `meta-sync`, `notify-engine`, `tiktok-auth`,
+`tiktok-sync`, `unsub`, не описанные выше) в проекте развёрнуты:
+
+| Функция | Создана | Деплоев | Что известно |
+|---|---|---|---|
+| `clarity-sync` | ~2026-08-25 («21 days ago») | 7 | Код — UNKNOWN (в репозитории нет). Cron `clarity-sync-daily` `10 8 * * *`, ключ `sb_secret_`, запуски «succeeded» ежедневно. Таблица `public.clarity_snapshots` упомянута владельцем в `tasks/MARKETING_ANALYTICS_DAILY_AGGREGATES.md` (2026-08-29). Свежесть данных — UNKNOWN. |
+| `ga4-sync` | ~2026-08-25 | 5 | Код — UNKNOWN. Cron `ga4-sync-daily` `25 8 * * *`, ключ `sb_secret_`. Таблица `public.ga4_snapshots` упомянута там же. Свежесть — UNKNOWN. |
+| `smart-processor` | ~2026-07 («2 months ago») | 10 | Код, назначение, вызывающие — UNKNOWN. |
+
+Cron-задачи вне репозитория (тот же скриншот `cron.job`): `bing-sync-daily` `20 8 * * *`
+(дубль `bing-sync` `30 14 * * 1`), `gsc-sync-daily` `15 8 * * *` (без распознаваемого ключа;
+GSC оставался на 2026-08-22 при ежедневных «succeeded» — задача не работает), `clarity-sync-daily`,
+`ga4-sync-daily`. Задачи `gsc-sync` и `tiktok-sync` были созданы с незаменённым `<PROJECT_REF>`
+в URL; исправлено 2026-09-15 через `cron.alter_job(… replace(command, '<PROJECT_REF>', …))`.
+Ключи: `bing-sync`, `meta-sync`, `gsc-sync`, `tiktok-sync` — legacy JWT (`eyJ…`);
+`daily-stats`, `marketing-aggregates`, `notify-engine` и `*-daily` — `sb_secret_…`.
 
 ## Секреты (имена; значения только в Supabase → Edge Functions → Secrets)
 
