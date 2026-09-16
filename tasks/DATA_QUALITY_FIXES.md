@@ -76,7 +76,11 @@ cron `marketing-aggregates` (`30 15 * * *`) снова пишет сам, без
 см. `06_FUNCTIONS.md`), их cron-задачи «succeeded» ежедневно; `gsc-sync-daily` и `bing-sync-daily`
 — дубли задач репозитория. Рекомендация владельцу: снять `gsc-sync-daily` и `bing-sync-daily`;
 `clarity-sync-daily`/`ga4-sync-daily` оставить до проверки свежести `clarity_snapshots` /
-`ga4_snapshots`.
+`ga4_snapshots`. Итог 2026-09-15: владелец снял `gsc-sync-daily` и `bing-sync-daily`;
+`clarity_snapshots` и `ga4_snapshots` свежие (записи 2026-09-15 08:10 / 08:25 UTC, см.
+`06_FUNCTIONS.md`) — обе задачи оставлены. Возможное продолжение (не заказано): читать
+`clarity_snapshots` (п. 10 списка владельца — метрики Clarity по URL/источнику/устройству уже
+в БД) и `ga4_snapshots` в `reporting` и в письме.
 
 Ранее: CODE READY_FOR_OWNER_STEPS — ветка @ `b5c7605` (от `main` @ `6320fe2`).
 

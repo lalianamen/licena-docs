@@ -253,14 +253,16 @@
 
 | Функция | Создана | Деплоев | Что известно |
 |---|---|---|---|
-| `clarity-sync` | ~2026-08-25 («21 days ago») | 7 | Код — UNKNOWN (в репозитории нет). Cron `clarity-sync-daily` `10 8 * * *`, ключ `sb_secret_`, запуски «succeeded» ежедневно. Таблица `public.clarity_snapshots` упомянута владельцем в `tasks/MARKETING_ANALYTICS_DAILY_AGGREGATES.md` (2026-08-29). Свежесть данных — UNKNOWN. |
-| `ga4-sync` | ~2026-08-25 | 5 | Код — UNKNOWN. Cron `ga4-sync-daily` `25 8 * * *`, ключ `sb_secret_`. Таблица `public.ga4_snapshots` упомянута там же. Свежесть — UNKNOWN. |
+| `clarity-sync` | ~2026-08-25 («21 days ago») | 7 | Код — UNKNOWN (в репозитории нет). Cron `clarity-sync-daily` `10 8 * * *`, ключ `sb_secret_`, запуски «succeeded» ежедневно. **Работает** (скриншот 2026-09-15): `public.clarity_snapshots` — колонки `id`, `fetched_at`, `window_days` (3), `dimensions` (`["URL","Source","Device"]`), `payload` (jsonb, элементы вида `{"metricName":"DeadClickCount","information":[{"Url":…}]}` — формат Clarity Data Export API), `row_count`; последние строки `id 22` 2026-09-15 08:10 UTC (589 строк), `id 21` 2026-09-14 (429). Никто в репозитории эту таблицу не читает. |
+| `ga4-sync` | ~2026-08-25 | 5 | Код — UNKNOWN. Cron `ga4-sync-daily` `25 8 * * *`, ключ `sb_secret_`. **Работает**: `public.ga4_snapshots` — `id`, `fetched_at`, `property_id` (551663895), `dataset` (`events`, `pages`), `start_date`, `end_date`, `row_count`, `payload` (jsonb `analyticsData#runReport`); последние `id 105/104` 2026-09-15 08:25 UTC, окно 2026-08-18…2026-09-14 (24 и 96 строк). Никто в репозитории не читает. |
 | `smart-processor` | ~2026-07 («2 months ago») | 10 | Код, назначение, вызывающие — UNKNOWN. |
 
 Cron-задачи вне репозитория (тот же скриншот `cron.job`): `bing-sync-daily` `20 8 * * *`
 (дубль `bing-sync` `30 14 * * 1`), `gsc-sync-daily` `15 8 * * *` (без распознаваемого ключа;
 GSC оставался на 2026-08-22 при ежедневных «succeeded» — задача не работает), `clarity-sync-daily`,
-`ga4-sync-daily`. Задачи `gsc-sync` и `tiktok-sync` были созданы с незаменённым `<PROJECT_REF>`
+`ga4-sync-daily`. 2026-09-15 владелец снял `gsc-sync-daily` и `bing-sync-daily`
+(`cron.unschedule`, результат `true` показан для второй; первая — UNKNOWN до проверки списка);
+`clarity-sync-daily` и `ga4-sync-daily` оставлены. Задачи `gsc-sync` и `tiktok-sync` были созданы с незаменённым `<PROJECT_REF>`
 в URL; исправлено 2026-09-15 через `cron.alter_job(… replace(command, '<PROJECT_REF>', …))`.
 Ключи: `bing-sync`, `meta-sync`, `gsc-sync`, `tiktok-sync` — legacy JWT (`eyJ…`);
 `daily-stats`, `marketing-aggregates`, `notify-engine` и `*-daily` — `sb_secret_…`.
