@@ -209,7 +209,7 @@ EN/ES/RU, ноль ошибок консоли).
   `a-general-engineering`, у каждого `lastmod 2026-09-17`, `changefreq monthly`,
   `priority 0.8` и четыре `xhtml:link` (en/es/ru/x-default). XML парсится
   (`xml.dom.minidom`).
-- **Practice-страниц — 33 экзаменов × 3 языка** (было 30). Страницы Луизианы
+- **Practice-страниц — 33 экзаменов × 3 языка** (было 31: 30 на 2026-09-12 плюс `la-business-and-law`, `lastmod 2026-09-13`). Страницы Луизианы
   собраны из шаблона `la-business-and-law`, страницы A — из `c-8-concrete`
   (дисклеймер CSLB/PSI сохранён); `scripts/check-offer.js` подтверждает канон
   оффера на 81 платной странице (было 75).
