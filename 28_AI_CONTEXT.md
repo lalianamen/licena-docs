@@ -650,8 +650,9 @@ TikTok (2026-09-13): владелец завёл организацию в TikTo
 
 - **Состояние.** Банк готов полностью: `content-banks-src` `js/questions/la-building.js` +
   `.ru.js` + `.es.js` (500 × EN/RU/ES, финальный коммит `477ba36`; 5 блоков × 100; ключи
-  25/25/25/25 в каждом блоке). Wiring на ветке осн. репо `claude/question-bank-generation-analysis-y47sk7`
-  (`357b526`, `fe4d7f0`) — ЖДЁТ мержа: владелец импортирует CSV (1,500 строк) в `bank_questions`,
+  25/25/25/25 в каждом блоке). Wiring ВЛИТ в `main` осн. репо `18089ba` 2026-09-17 по команде
+  владельца «готово» (ветка `claude/question-bank-generation-analysis-y47sk7`, `357b526`, `fe4d7f0`);
+  до мержа было условием: владелец импортирует CSV (1,500 строк) в `bank_questions`,
   прогоняет `trial-3day.sql` и `stripe-payments.sql`, передеплоит `stripe-checkout`, говорит «готово».
   Каталог `js/catalog/la.js`: `la-lslbc` теперь 2 курса (Business & Law, Building Construction);
   трейд-экзамены Луизианы кроме Building Construction по-прежнему не написаны.
