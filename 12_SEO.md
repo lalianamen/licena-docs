@@ -1,6 +1,6 @@
 # 12 — SEO-механика
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор) · 2026-08-13 (точечная: Bing WMT + IndexNow) · 2026-08-27 (точечная: NV practice-страницы)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-10 (точечная: HVAC-калькулятор) · 2026-08-13 (точечная: Bing WMT + IndexNow) · 2026-08-27 (точечная: NV practice-страницы) · 2026-09-17 (точечная: +6 practice-страниц, allowlist `EXAMS` в `js/seo.js`)
 
 Дополнение 2026-08-27 (`a25d54e` осн. репо): добавлены 9 practice-страниц
 трёх невадских платных банков — слаги `nv-cms-exam`, `nv-b-general-building`,
@@ -198,3 +198,43 @@ deterrent only»); app/course НЕ disallow'ятся сознательно — 
 **Verified** — числа получены прямым подсчётом в `sitemap.xml` и выводом
 `check-offer.js`; рендер новых страниц проверен Playwright (1280/390/360,
 EN/ES/RU, ноль ошибок консоли).
+
+## Аддендум 2026-09-17 — +6 practice-страниц (la-building, A) и allowlist `EXAMS`
+
+Источник: ветка осн. репо `claude/question-bank-generation-analysis-y47sk7`
+(`732ab12`, `fe62cf7`), ЖДЁТ мержа владельцем; `js/seo.js`, `sitemap.xml` и
+страницы прочитаны при внесении правок.
+
+- **URL в `sitemap.xml` — 167** (было 161): +3 `la-building-construction`, +3
+  `a-general-engineering`, у каждого `lastmod 2026-09-17`, `changefreq monthly`,
+  `priority 0.8` и четыре `xhtml:link` (en/es/ru/x-default). XML парсится
+  (`xml.dom.minidom`).
+- **Practice-страниц — 33 экзаменов × 3 языка** (было 30). Страницы Луизианы
+  собраны из шаблона `la-business-and-law`, страницы A — из `c-8-concrete`
+  (дисклеймер CSLB/PSI сохранён); `scripts/check-offer.js` подтверждает канон
+  оффера на 81 платной странице (было 75).
+- **Allowlist `EXAMS` в `js/seo.js` — исправлена ошибка прода.** Механика:
+  `detectExam()` признаёт practice-страницу только по slug'у из `EXAMS`; иначе
+  `apply()` идёт по ветке главной страницы и перезаписывает `document.title`,
+  `<link rel="canonical">` и hreflang на `https://licena.us/` (статический
+  `<head>` при этом остаётся в HTML, но краулер, исполняющий JS, видит
+  подменённые значения). До 2026-09-17 в списке не было четырёх опубликованных
+  slug'ов — `la-business-and-law`, `nv-c2-electrical`, `nv-c21-refrigeration`,
+  `c-54-tile` (12 страниц) — плюс два новых. Добавлены все шесть; `seo.js?v=19`
+  на 18 страницах. Влияние на индексацию этих 12 страниц за прошедший период —
+  UNKNOWN (по GSC не проверялось). Автоматической проверки «каталог
+  `/practice/*` ⊆ `EXAMS`» в репозитории НЕТ.
+- **JSON-LD** новых страниц — стандартный набор practice-страницы
+  (Organization, BreadcrumbList, Course, Quiz из 8 видимых вопросов, FAQPage из
+  7 вопросов), заголовок и описание в трёх языках с брендом в конце `<title>`,
+  canonical + три hreflang + x-default, og/twitter синхронизированы со статикой.
+
+### Verification Status (аддендум 2026-09-17)
+
+**Verified** — числа получены прямым подсчётом в `sitemap.xml`, `ls practice/`
+и выводом `check-offer.js`/`verify.js`; поведение allowlist воспроизведено в
+Playwright до и после правки (title страницы `la-building-construction` до
+правки = заголовок главной); рендер 18 комбинаций (2 slug'а × EN/ES/RU ×
+1280/390/360) — ноль ошибок консоли, клик-проход ответ → Далее → Назад.
+**UNKNOWN** — влияние подмены canonical на индексацию 12 ранее опубликованных
+страниц.

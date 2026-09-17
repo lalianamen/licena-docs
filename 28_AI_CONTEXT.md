@@ -679,3 +679,31 @@ TikTok (2026-09-13): владелец завёл организацию в TikTo
 - **Документы.** Блюпринт `docs/content/la-building-blueprint.md`, леджер
   `docs/content/la-building-ledger.md` (500 строк фактов + журнал пропусков) в осн. репо;
   здесь — `26_CHANGELOG.md` (две записи 2026-09-17) и аддендум в `15_METRICS.md`.
+
+## Дополнение 2026-09-17 — practice-страницы la-building и A; allowlist `EXAMS`
+
+- **Состояние.** На ветке осн. репо (`732ab12`, `fe62cf7`, ЖДЁТ мержа владельцем):
+  `/practice/la-building-construction/` и `/practice/a-general-engineering/` (+ `es/`, `ru/`),
+  сэмплы `js/samples/la-building.js` и `js/samples/a-general-engineering.js` (8 оригинальных
+  вопросов × EN/ES/RU, `correct` только в EN, шапка файла перечисляет прочитанные
+  источники и дату), `sitemap.xml` 167 URL, `check-offer.js` 81 страница.
+- **ПРАВИЛО (усвоено через ошибку прода): каждый новый slug `/practice/<slug>/` ОБЯЗАН
+  быть добавлен в `EXAMS` в `js/seo.js`.** Без записи `detectExam()` возвращает null и
+  `apply()` перезаписывает title/canonical/hreflang страницы значениями главной. Четыре
+  slug'а (`la-business-and-law`, `nv-c2-electrical`, `nv-c21-refrigeration`, `c-54-tile`)
+  жили так с публикации до 2026-09-17. Проверки в `verify.js` на это нет — быстрый ручной
+  тест: `for d in practice/*/; do s=$(basename $d); grep -q "\"$s\"" js/seo.js || echo $s; done`.
+- **Как собирались страницы.** Одноразовым скриптом вне репозитория: глобальная замена
+  slug и `src=`-параметра в шаблоне (`la-business-and-law` для Луизианы, `c-8-concrete`
+  для CSLB), затем структурная замена title/meta/og, крошки, hero, `data-sample-id` /
+  `data-intent-course` / `data-cta-label`, covers, гида, FAQ-заголовка, access-блока,
+  источников, also-row и футера; финальная проверка на остатки исходного шаблона.
+  Урок: в `es/` и `ru/` шаблонах могут жить остатки ПРЕДЫДУЩЕГО шаблона (в
+  `la-business-and-law` были «CMS de Luisiana» / «CMS Луизианы» из невадской страницы)
+  — после генерации нужен grep по названию исходного экзамена в трёх языках.
+- **Факты на страницах.** LA: 80 / 180 мин / 56 из 80 / open book (PSI). A: closed book,
+  4 варианта, 3½ часа (FAQ CSLB по экзаменам, прочитано 2026-09-17), 8 разделов; число
+  вопросов и проходной балл CSLB не публикует — так и написано.
+- **Следующий шаг.** Мерж ветки в `main` осн. репо — только после явного «готово»
+  владельца; после мержа — обновить `26_CHANGELOG.md` записью о выкладке.
+
