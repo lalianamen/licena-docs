@@ -733,3 +733,12 @@ TikTok (2026-09-13): владелец завёл организацию в TikTo
   - Ссылка подтверждения e-mail может нести `?next=app.html?subscribe=<course>` (`nextUrl()`
     пропускает только same-site `.html`); нужен allowlist Redirect URLs в Supabase.
 - **После мержа**: редеплой `ticket-email` и `stripe-webhook`; запись о выкладке в `26_CHANGELOG.md`.
+
+## Дополнение 2026-09-20 (вечер) — конверсионный проход выложен
+
+- `main` осн. репо = `4e2b97d` (fast-forward от `fe62cf7`) по команде владельца 2026-09-20; ветка и
+  `main` совпадают. Открытые пункты владельца: редеплой `ticket-email` и `stripe-webhook`
+  (до редеплоя анонимные отчёты об ошибке получат письмо на `no-reply@licena.us` — оно отскочит,
+  тикет и GitHub-issue при этом создаются; серверный `purchase` пока без `meta.renewal`),
+  Redirect URLs в Supabase Auth, расхождения Р-1…Р-7 отчёта.
+
