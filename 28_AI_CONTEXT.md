@@ -715,3 +715,21 @@ TikTok (2026-09-13): владелец завёл организацию в TikTo
   2026-09-17). Ветка и `main` совпадают (`fe62cf7`); открытых задач по практическим
   страницам нет.
 
+## Дополнение 2026-09-20 — маркетинговая подача и конверсия (ветка, НЕ в main)
+
+- **Состояние.** Коммит `4e2b97d` на `claude/question-bank-generation-analysis-y47sk7`; ждёт решения
+  владельца. Отчёт: `tasks/reports/2026-09-20-marketing-conversion.md` (изменения, что уже было
+  исправлено, расхождения Р-1…Р-7, проверки, превью `preview/marketing-2026-09/`).
+- **Правила, усвоенные в этой задаче.**
+  - Статические EN-тексты `index.html` (`data-t`) обязаны совпадать с `js/i18n.js`: краулер без JS
+    видит HTML. При правке i18n — пересинхронизировать дефолты.
+  - Сравнения на лендинге — только проверяемые характеристики (цена, срок, языки, состав); школа и
+    банк вопросов — разные продукты; никаких «English-only»/«nobody finishes»/«hundreds of $».
+  - «Real exam question» не писать: вопросы — тренировочные, по официальным планам, не копии.
+  - Practice-страницы не грузят supabase-js: любая запись в БД оттуда — raw REST с publishable-ключом
+    (`js/pageview.js`, `js/report-question.js`).
+  - `support_tickets.email` NOT NULL: анонимные отчёты идут с `no-reply@licena.us`, `ticket-email`
+    для него письмо не шлёт (после редеплоя).
+  - Ссылка подтверждения e-mail может нести `?next=app.html?subscribe=<course>` (`nextUrl()`
+    пропускает только same-site `.html`); нужен allowlist Redirect URLs в Supabase.
+- **После мержа**: редеплой `ticket-email` и `stripe-webhook`; запись о выкладке в `26_CHANGELOG.md`.

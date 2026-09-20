@@ -1,6 +1,6 @@
 # 14 — Аналитика и сбор событий
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи») · 2026-08-26 (точечная: GA4) · 2026-08-30 (точечная: маркетинговые агрегаты) · 2026-09-11 (точечная: воронка трекера; план полной аналитики, этап 1 в ветке) · 2026-09-13 (точечная: таксономия каналов по коду, first-touch, воронка: `email_confirmed`, связка устройство → пользователь, `livemode`; см. `tasks/DATA_QUALITY_FIXES.md`)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-11 (точечная: секция «Пользователи») · 2026-08-26 (точечная: GA4) · 2026-08-30 (точечная: маркетинговые агрегаты) · 2026-09-11 (точечная: воронка трекера; план полной аналитики, этап 1 в ветке) · 2026-09-13 (точечная: таксономия каналов по коду, first-touch, воронка: `email_confirmed`, связка устройство → пользователь, `livemode`; см. `tasks/DATA_QUALITY_FIXES.md`) · 2026-09-20 (точечная: sample_completed, trial_started, purchase_confirmed, renewal)
 
 Дополнение 2026-08-12 (`72fc7a5` осн. репо): подключён Microsoft Clarity
 (проект «LICENA», Project ID `y1ic13wlta`, аккаунт владельца) — тепловые
@@ -287,3 +287,35 @@ Developers после ревью). Подробности и runbook —
 **Verified** (по коду) с оговоркой: всё о живых данных и работе cron —
 UNKNOWN (раздел выше); сами механизмы подтверждены полным чтением обоих
 биконов, функции отчёта и SQL.
+
+## Аддендум 2026-09-20 — события конверсионного прохода (ветка, ждёт мержа)
+
+Источник: ветка осн. репо `claude/question-bank-generation-analysis-y47sk7` (`4e2b97d`).
+
+| Стадия брифа | Событие | Где | Хранилище |
+|---|---|---|---|
+| начало пробы | `sample_started` (было) | `js/sample-quiz.js`, `js/landing-extras.js` | app_events + GA4 |
+| первый ответ | `sample_answered` q=0 (было) | там же | app_events + GA4 |
+| завершение пробы | **`sample_completed`** (новое; раньше только Clarity `practice_completed`) | `js/sample-quiz.js` | app_events + GA4 |
+| переход к регистрации | `practice_cta_clicked` (Clarity), `registration_started` (было, при открытии формы) | sample-quiz / `js/app.js` | Clarity / app_events + GA4 |
+| успешная регистрация | `account_created` (было), стадия `email_confirmed` (было) | `js/app.js` / SQL | app_events + GA4 |
+| начало обучения | `first_answer` (было) | `js/app-course.js` | app_events + GA4 |
+| пробный доступ к платному банку | **`trial_started`** (новое; раньше только Clarity `trial_start`) | `js/app-cabinet.js` | app_events + GA4 |
+| начало оплаты | `checkout_started` (было) | `js/app-cabinet.js` | app_events + GA4 |
+| возврат со Stripe (страница успеха) | `checkout_completed` (было; page-based) | `js/app-cabinet.js` | app_events + GA4 |
+| подтверждённая покупка | `purchase` (было; сервер, `invoice.paid`, `amount_paid > 0`) + **`purchase_confirmed`** (новое; GA4 только, когда кабинет увидел строку `user_courses` со `stripe_subscription_id`) | `stripe-webhook` / `js/app-cabinet.js` | app_events / GA4 |
+| повторный платёж | `purchase` с **`meta.renewal = true`** (новое; `billing_reason = subscription_cycle`; редеплой) | `stripe-webhook` | app_events |
+| сообщение об ошибке | **`question_reported`** (новое) | `js/report-question.js` | app_events + GA4 |
+
+- **Дублей покупки нет**: в `app_events` покупка — только серверный `purchase` (`marketing_weekly_funnel`
+  считает его); `checkout_completed` — отдельная стадия. В GA4 `checkout_completed` и
+  `purchase_confirmed` — разные имена; e-commerce-события `purchase` в GA4 нет (доход в GA4 не
+  считается — решение владельца, Р-4 отчёта).
+- Источник, язык, специальность: `meta.src/ref` (first-touch, было), `lang` (регистрация, было),
+  `course` во всех новых событиях. PII не передаётся.
+- Бесплатное vs платное: `trial_started` только для платных банков; активация бесплатных курсов
+  отдельного события не имеет (как и раньше).
+
+### Verification Status (аддендум 2026-09-20)
+**Verified** (по коду и Playwright с перехватом POST `/rest/v1/app_events`: `sample_completed` — ровно
+один запрос на прохождение). **UNKNOWN** — живые данные.
