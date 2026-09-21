@@ -742,3 +742,10 @@ TikTok (2026-09-13): владелец завёл организацию в TikTo
   тикет и GitHub-issue при этом создаются; серверный `purchase` пока без `meta.renewal`),
   Redirect URLs в Supabase Auth, расхождения Р-1…Р-7 отчёта.
 
+## Дополнение 2026-09-21 — редеплой функций и Redirect URLs
+
+- Владелец передеплоил `ticket-email` и `stripe-webhook` (2026-09-21) и показал URL Configuration:
+  Site URL `https://licena.us`, Redirect URLs `https://licena.us/**` + legacy github.io. Из списка
+  после выкладки 2026-09-20 открытыми остаются только решения Р-1…Р-7 отчёта и живая проверка
+  цикла «письмо подтверждения → курс» (UNKNOWN до отчёта владельца).
+
