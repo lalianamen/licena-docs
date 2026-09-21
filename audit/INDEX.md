@@ -29,9 +29,9 @@
 | `09_PAYMENTS.md` | заполнен | 2026-08-05 | Partially Verified |
 | `10_CONTENT_MODEL.md` | заполнен | 2026-08-05 | Partially Verified |
 | `11_I18N.md` | заполнен | 2026-08-05 | Partially Verified |
-| `12_SEO.md` | заполнен | 2026-09-20 | Partially Verified |
-| `13_UX.md` | заполнен (охватывает UX и Features) | 2026-09-20 | Partially Verified |
-| `14_ANALYTICS.md` | заполнен | 2026-09-20 | Verified (по коду; часть живых данных подтверждена выгрузками владельца, первый запуск cron — UNKNOWN) |
+| `12_SEO.md` | заполнен | 2026-09-21 | Partially Verified |
+| `13_UX.md` | заполнен (охватывает UX и Features) | 2026-09-21 | Partially Verified |
+| `14_ANALYTICS.md` | заполнен | 2026-09-21 | Verified (по коду; часть живых данных подтверждена выгрузками владельца, первый запуск cron — UNKNOWN) |
 | `15_METRICS.md` | заполнен | 2026-09-17 | Partially Verified |
 | `16_PERFORMANCE.md` | заполнен | 2026-08-05 | Partially Verified |
 | `17_TECH_DEBT.md` | заполнен | 2026-08-05 | Partially Verified |
