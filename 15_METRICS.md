@@ -1,6 +1,6 @@
 # 15 — Метрики: только реальные числа
 
-Последняя сверка: 2026-08-05 (полная) · 2026-08-25 (точечная: аддендум NV-банков ниже) · 2026-08-30 (точечная: аддендум маркетинговых агрегатов ниже) · 2026-09-03 (точечная: аддендумы nv-b2/nv-c2 и nv-c21 ниже) · 2026-09-16 (точечная: аддендумы ориентиров CSLB, GSC и банка A ниже) · 2026-09-17 (точечная: аддендум банка la-building ниже)
+Последняя сверка: 2026-08-05 (полная) · 2026-08-25 (точечная: аддендум NV-банков ниже) · 2026-08-30 (точечная: аддендум маркетинговых агрегатов ниже) · 2026-09-03 (точечная: аддендумы nv-b2/nv-c2 и nv-c21 ниже) · 2026-09-16 (точечная: аддендумы ориентиров CSLB, GSC и банка A ниже) · 2026-09-17 (точечная: аддендум банка la-building ниже) · 2026-09-23 (точечная: аддендум банка la-mechanical ниже)
 Правило документа: каждое число либо ИЗМЕРЕНО в этой сверке по файлам
 репозитория (помечено «репо»), либо взято из единственного внешнего
 измеренного источника проекта — экспорта Google Search Console,
@@ -353,3 +353,26 @@ Verified — строки проверены чтением названных �
 
 Verified — строки проверены чтением названных файлов, выводом `scripts/check-banks.js`,
 скриптом цифрового паритета и выводом генератора CSV 2026-09-17.
+
+## Аддендум 2026-09-23 — банк `la-mechanical` (Louisiana Mechanical Work, точечная сверка)
+
+| Метрика | Значение | Источник |
+|---|---|---|
+| `la-mechanical` | 500 вопросов × EN/RU/ES (1500 позиций), 5 блоков × 100; ключи по банку A 117 · B 141 · C 130 · D 112 (23,4 / 28,2 / 26,0 / 22,4 %) | ветка `content-banks-src`, `js/questions/la-mechanical.js`, `.ru.js`, `.es.js` (`99d0ae6`); вывод `scripts/verify.js` 2026-09-23 — 0 ошибок и ни одного предупреждения по банку и обоим оверлеям |
+| Секции по блокам | B1 Water Service & Distribution Sizing 25, Fixtures/Faucets/Fittings 25, Water Heaters 10, Backflow Prevention 10, General Plumbing Regulations 15, Joints & Connections 15; B2 Drain/Waste/Vent Sizing 25, Traps/Interceptors/Separators 20, Cleanouts 15, Developed Length 15, Drainage Isometrics 25; B3 Gas Piping Materials & Installation 20, Gas Pipe Sizing & Pressure 15, Gas Appliance Connection & Shutoff 10, Combustion Air & Venting 5, Piping/Valves & Controls 25, Hangers & Supports 20, Testing/Adjusting & Balancing 5; B4 Boilers & Pressure Vessels 30, Refrigerants & Refrigeration 20, Hydronic Piping 20, HVAC Equipment Installation 20, Hydronic & Refrigerant Isometrics 10; B5 Duct Construction & Installation 30, Ventilation Rates & Load Calculation 25, Fire Sprinkler Basics 20, Construction Safety 20, Duct & Sprinkler Isometrics 5 | `docs/content/la-mechanical-ledger.md` (ветка `content-banks-src`) |
+| Финальная сверка числовых ключей | 100 %, не выборка: 257 из 500 вопросов имеют число в ключе, в них 388 числовых токенов; каждый найден в тексте первоисточника, скачанного 2026-09-23. Не найдено 3, все разобраны вручную: id 141 — расчёт 40 gpm × 30 мин = 1200 галлонов (30 минут дословно в IPC §1003.3.7), id 234 и 244 — разбиение токена «ANSI Z21.93» и «Z21.69», обе строки есть в тексте IFGC дословно | нормализующий скрипт сверки в scratchpad сессии (в репозитории отсутствует); тексты — up.codes (Texas IPC/IFGC/IRC 2018, Wyoming IMC/IBC 2018 — адопции без поправок) и osha.gov |
+| Свип на смысловые дубли | два независимых прохода, 0 находок: по первому цитируемому разделу (399 различных ссылок, 62 несут больше одного вопроса — каждая группа просмотрена) и лексический (мера Жаккара по стволу + ключу, все 124 750 пар; порог 0,50 превышают 10 пар, каждая — один шаблон о разном материале с разным ключом) | скрипты в scratchpad сессии; выводы записаны в `docs/content/la-mechanical-ledger.md`, раздел «Проверки перед выпуском» |
+| Цифровой паритет RU/ES к EN | ids 1–500: ни одного числа, которое есть в EN и потеряно в переводе. Остаточные 11 флагов — лишние цифры на стороне перевода: английский термин в скобках («группа A-1 (Group A-1)», «№ 26 (No. 26 gage)») и три места, где EN пишет число словом, а перевод цифрой (ids 151, 398) | скрипт паритета в scratchpad сессии; нормализует разделители тысяч и десятичную запятую |
+| Пробел по источникам | NFPA 13 и руководства ACCA (Manual N, Manual D) — в списке PSI, но закрыты платным доступом: ни одного вопроса по ним не написано, пробел зафиксирован в блюпринте и назван на practice-странице | `docs/content/la-mechanical-blueprint.md`; `practice/la-mechanical-work/index.html` |
+| CSV банка | 1 500 строк, ~1,9 MB (gitignored) — ждёт импорта владельцем в Supabase `bank_questions` | `node scripts/generate-bank-csv.js la-mechanical` (ветка `content-banks-src`, `99d0ae6`), вывод генератора 2026-09-23; round-trip CSV-парсером: ids 1–500 в трёх языках, 4 варианта в каждой строке, `correct`/`block`/`sec` только в EN-строках |
+| Платных банков всего | 28 на ветке осн. репо (в проде по-прежнему 27 — банк не влит) | `scripts/check-paid-sync.js` на ветке `claude/question-bank-generation-analysis-y47sk7` (`af66712`): 6 списков, 28 курсов |
+| Записей bank-updates для LA | 3 из лимита 6 на штат (ничего не вытеснено) | `js/bank-updates.js` (ветка осн. репо, `af66712`) |
+| Рендер-проверка practice-страниц | 6 рендеров (3 языка × 1280/360 px): HTTP 200, 4 варианта, 14 узлов плиток фактов, 7 FAQ, без горизонтальной прокрутки, 0 ошибок консоли самой страницы; на 1280 пройден сценарий «выбрать ответ → объяснение → Далее → Назад» на всех трёх языках. Скриншоты EN 1280 и RU 360 просмотрены | Playwright-сьют и скриншоты в scratchpad сессии, в репозитории отсутствуют |
+
+## Verification Status (аддендум 2026-09-23)
+
+Verified — строки проверены чтением названных файлов, выводом `scripts/verify.js`,
+`scripts/check-paid-sync.js` и `scripts/check-offer.js` 2026-09-23, выводом генератора
+CSV и запуском Playwright в этой же сессии. Скрипты сверки числовых ключей, паритета и
+дублей разовые и в репозиторий не кладутся — их описание в леджере банка достаточно для
+воспроизведения.
